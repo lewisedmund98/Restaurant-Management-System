@@ -25,13 +25,17 @@ jobs:
             sudo pip install pipenv
             pipenv install
 
+      - run:
+          name: install pytest
+          command: |
+            pipenv install pytest
       # run tests!
       # https://pytest.org
       
       - run:
           name: run tests
           command: |
-            pytest
+            pipenv run "pytest"
 
       - store_artifacts:
           path: test-reports
