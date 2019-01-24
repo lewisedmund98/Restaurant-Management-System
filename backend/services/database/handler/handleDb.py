@@ -1,9 +1,10 @@
 import pymysql
+from frameworks.database.db import db
 
 class handleDb:
-
     def __init__(self):
-        self.__db = pymysql.connect("138.68.169.22","teamproject","test123","teamproject" )
+        instance = db()
+        self.__db = instance.getInstance()
 
     def getOutput(self):
         return {"database": self.__getVersion()}
