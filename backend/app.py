@@ -10,3 +10,6 @@ app = Flask(__name__)
 def handlePing():
     pObj = ping(request)
     return jsonify(pObj.getResponse())
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
