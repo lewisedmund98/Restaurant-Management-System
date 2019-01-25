@@ -26,20 +26,20 @@ class MenuItemCard extends React.Component{
     render(){
         return(
             <React.Fragment>
-                <Card> {/*The main wrapper component for the whole card - from Library*/}
-                    <Image src={this.props.dishImage}/>
+                <Card className="menuCard"> {/*The main wrapper component for the whole card - from Library*/}
+                    <Image className="dishImage"src={this.props.dishImage}/>
                     <Card.Content textAlign={"center"}> {/*Wraps main body of card while "extra" tag wraps the bottom*/}
-                        <Card.Header> {this.props.dishName} </Card.Header>
-                        <Card.Description> {this.props.dishInfo} </Card.Description>
-                        <Card.Meta> {this.props.dishPrice} </Card.Meta>
+                        <Card.Header className="dishName"> {this.props.dishName} </Card.Header>
+                        <Card.Description className="dishInfo"> {this.props.dishInfo} </Card.Description>
+                        <Card.Meta className="dishPrice"> {this.props.dishPrice} </Card.Meta>
                     </Card.Content>
 
                     <Card.Content extra={true}>
-                        <Button icon={true}> {/* Button for adding the item to basket */}
+                        <Button className="addToBasket" id={this.props.dishID} icon={true}> {/* Button for adding the item to basket */}
                             <Icon name="plus"/>
                         </Button>
 
-                        <Button icon={true}>
+                        <Button className="infoIconButton" icon={true}>
                             <Icon name="info"></Icon>
                         </Button>
 
