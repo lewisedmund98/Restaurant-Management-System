@@ -16,3 +16,6 @@ def handlePing():
 def handleDatabase():
     dObj = database(request)
     return jsonify(dObj.getResponse())
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
