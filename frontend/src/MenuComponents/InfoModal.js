@@ -16,8 +16,8 @@ export default class InfoModal extends React.Component {
     }
 
     mapAllergyInformation(allergyList) { // Map each allergy to a JSX list item
-        var mappedAllergyList = allergyList.map((allergy) =>
-            <li className="allergy">{allergy}</li>
+        var mappedAllergyList = allergyList.map((allergy, key) =>
+            <li key={key} className="allergy">{allergy}</li>
         )
         return mappedAllergyList;
     }
