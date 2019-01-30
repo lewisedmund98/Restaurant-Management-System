@@ -7,7 +7,7 @@ class handleMenu:
         self.__db = instance.getInstance()
 
     def getOutput(self):
-        return {"database": self.printMenu()}
+        return {"result": self.printMenu()}
 
 
     def printMenu(self):
