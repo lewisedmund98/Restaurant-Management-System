@@ -11,5 +11,5 @@ import './index.css';
 
 ReactDOM.render(
     <CardContoller/>, // Render a simple controller and let it deal with the data. 
-    document.getElementById("ListCardsTest")
+    document.getElementById("ListCards")
 ); 

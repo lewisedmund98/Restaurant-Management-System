@@ -1,0 +1,35 @@
+.topnav {
+	background-color: #ff0000;
+	overflow: hidden;
+	border: 1px solid black;
+}
+
+.topnav a {
+	float: left;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+	display: inline;
+	font-family: Acme;
+	border: 1px solid black;
+	border-bottom: 0;
+}
+
+.topnav a:hover {
+	background-color: #111;
+}
+
+.topnav a.active {
+	Background-color: black;
+}
+	
+div ListCards {
+	background-color: red;
+	display: inline;
+}
+
+
+
+	
