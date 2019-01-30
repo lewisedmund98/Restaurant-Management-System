@@ -1,5 +1,5 @@
 import React from 'react';
-import CardWrapper from './CardWrapper.js';
+import TabWrapper from './TabWrapper.js';
 
 /**
  * The Card Controller class is a class which is made to deal with the data that is going to be used in the
@@ -8,8 +8,8 @@ import CardWrapper from './CardWrapper.js';
  * 
  * This decouples the CardController from the Card wrapper.
  * 
- * The CardController calls the CardWrapper and passes in a JSON object array as properties. The logic
- * for how that is handled and rendered is in the CardWrapper class.
+ * The CardController calls the TabWrapper and passes in a JSON object array as properties. The logic
+ * for how that is handled and rendered is in the TabWrapper class which takes the list and splits it into menu items
  * 
  * The controller can be made better by using a thread which updates the API call if the menu changes all
  * of a sudden.
@@ -33,7 +33,7 @@ class CardController extends React.Component {
                     var menuResult = []; // Variable to store the JSON list as JSON objects in an array
 
                     for (var currentDish = 0; currentDish < result.length; currentDish++) { // Loop through each JSON object
-                        menuResult[currentDish] = result[currentDish]; // Assign to array element
+                        menuResult[currentDish] = result[currentDish]; // Assign the menuitem to result's array element
                     }
 
                     this.setState({
@@ -44,7 +44,8 @@ class CardController extends React.Component {
 
     render() {
         return (
-            <CardWrapper className="cardWrapper" dishList={this.state.dishList} /> // We must pass the dishes array to the wrapper for it to handle
+            // We make a tab wrapper which creates the tabs on the screen and pass the list of dishes
+            <TabWrapper className="tabWrapper" dishList={this.state.dishList}></TabWrapper>
         )
     }
 }

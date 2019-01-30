@@ -21,15 +21,14 @@ import InfoModal from './InfoModal';
 class MenuItemCard extends React.Component {
     constructor(props) {
         super(props);
-        const dishID = this.props.dishID; // dishID is a unique identifier for each dish.
+        this.dishID = this.props.dishID; // dishID is a unique identifier for each dish.
     }
 
     render() {
         
         return (
-            <React.Fragment>
                 <Card className="menuCard"> {/*The main wrapper component for the whole card - from Library*/}
-                    <Image className="dishImage" src={this.props.dishImage} />
+                    <Image className="dishImage" src={this.props.dishImage} size="medium" />
                     <Card.Content textAlign={"center"}> {/*Wraps main body of card while "extra" tag wraps the bottom*/}
                         <Card.Header className="dishName"> {this.props.dishName} </Card.Header>
                         <Card.Description className="dishInfo"> {this.props.dishInfo} </Card.Description>
@@ -62,7 +61,6 @@ class MenuItemCard extends React.Component {
                     </Card.Content>
 
                 </Card>
-            </React.Fragment>
         )
     }
 }
