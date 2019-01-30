@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 # Import services here
 from services.ping.ping import ping
 from services.database.database import database
+from services.menu.menu import menu
 
 # Flask Set Up
 app = Flask(__name__)
@@ -16,6 +17,11 @@ def handlePing():
 def handleDatabase():
     dObj = database(request)
     return jsonify(dObj.getResponse())
+
+@app.route("/menu")
+def handleMenu():
+    menuObj = menu(request)
+    return jsonify(menuObj.getResponse())
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
