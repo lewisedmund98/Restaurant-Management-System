@@ -12,6 +12,6 @@ class handleMenu:
 
     def printMenu(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT * FROM teamproject.menuItems Left Join teamproject.Allergies on \
+        cursor.execute("SELECT * FROM teamproject.menuItems INNER JOIN teamproject.Allergies ON \
         teamproject.menuItems.itemAllergyID = teamproject.Allergies.AllergyID;")
         return cursor.fetchall()
