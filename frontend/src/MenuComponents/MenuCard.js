@@ -1,5 +1,6 @@
 import React from 'react';
-import {Image, Card, Icon, Button} from 'semantic-ui-react';
+import { Image, Card, Icon, Button } from 'semantic-ui-react';
+import InfoModal from './InfoModal';
 
 /**
  * This class is meant to be a container for a single menu item ie A Single <b> Dish </b>.
@@ -17,17 +18,17 @@ import {Image, Card, Icon, Button} from 'semantic-ui-react';
  * 
  * 
  */
-class MenuItemCard extends React.Component{
-    constructor(props){
+class MenuItemCard extends React.Component {
+    constructor(props) {
         super(props);
-        const dishID = this.props.dishID; // dishID is a unique identifier for each dish.
+        this.dishID = this.props.dishID; // dishID is a unique identifier for each dish.
     }
 
-    render(){
-        return(
-            <React.Fragment>
+    render() {
+        
+        return (
                 <Card className="menuCard"> {/*The main wrapper component for the whole card - from Library*/}
-                    <Image className="dishImage"src={this.props.dishImage}/>
+                    <Image className="dishImage" src={this.props.dishImage} size="medium" />
                     <Card.Content textAlign={"center"}> {/*Wraps main body of card while "extra" tag wraps the bottom*/}
                         <Card.Header className="dishName"> {this.props.dishName} </Card.Header>
                         <Card.Description className="dishInfo"> {this.props.dishInfo} </Card.Description>
@@ -35,19 +36,31 @@ class MenuItemCard extends React.Component{
                     </Card.Content>
 
                     <Card.Content extra={true}>
+
                         <Button className="addToBasket" id={this.props.dishID} icon={true}
-                        onClick={()=>console.log("Clicking this button will add to basket")}> {/* Button for adding the item to basket */}
-                            <Icon name="plus"/>
+                            onClick={() => console.log("Clicking this button will add to basket")}> {/* Button for adding the item to basket */}
+                            <Icon name="plus" />
                         </Button>
 
-                        <Button className="infoIconButton" icon={true}>
-                            <Icon name="info"></Icon>
-                        </Button>
+                        {/*Render the infromation modal setting the trigger for the
+                        modal to open with the button encased in curly braces.
+                        
+                        We pass the information modal the list of allergies, dishname
+                        and the dishCalories text where it deals with mapping*/}
+
+                        <InfoModal className="dishInformationModal" modalTrigger= {
+                            <Button className="infoIconButton" icon={true}>
+                                <Icon name="info"></Icon>
+                            </Button>
+                        } 
+                        allergyList={this.props.dishAllergies} 
+                        dishName={this.props.dishName} 
+                        dishCalories = {this.props.dishCalories}>
+                        </InfoModal>
 
                     </Card.Content>
 
                 </Card>
-            </React.Fragment>
         )
     }
 }
