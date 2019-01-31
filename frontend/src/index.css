@@ -1,18 +1,25 @@
 .topnav {
-	background-color: #ff0000;
+	background-color: darkolivegreen;
 	overflow: hidden;
-	border: 1px solid black;
+    border-radius: 0px 0px 15px 15px;
+    height: 10.5em
+}
+
+.ourmenu .ourmenuheading{
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    left: 50%;
+    top: 55%;
 }
 
 .topnav a {
 	float: left;
 	color: white;
 	text-align: center;
-	padding: 14px 16px;
+	padding: 6px 6px;
 	text-decoration: none;
 	font-size: 17px;
 	display: inline;
-	font-family: Acme;
+	font-family: 'Corben', Georgia, Times, serif;
 	border: 1px solid black;
 	border-bottom: 0;
 }
@@ -24,12 +31,61 @@
 .topnav a.active {
 	Background-color: black;
 }
-	
-div ListCards {
-	background-color: red;
-	display: inline;
+
+.ui.bottom.attached.segment.active.tab {
+    background-color: transparent !important;
+    border: none !important;
 }
 
+.ui.card.menuCard {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
 
+.ui.fluid.vertical.tabular.menu {
+    font-family: 'Corben', Georgia, Times, serif !important;
+    border: none !important;
+}
 
-	
+.ui.fluid.vertical.tabular.menu a.active {
+    background-color: darkolivegreen !important;
+    border-radius: 15px !important;
+    color: white !important;
+}
+
+.header.dishName {
+    font-family: 'Corben', Georgia, Times, serif !important;
+}
+
+.description.dishInfo {
+    font-family: 'Nobile', Helvetica, Arial, sans-serif !important;
+}
+
+div ListCards {
+	display: inline;
+	font-family: 'Corben', Georgia, Times, serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Corben', Georgia, Times, serif;
+}
+p, div {
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+#menuHeading {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    text-shadow: 1px 1px 1px dimgrey;
+}
+
+img.logo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+body {
+    background: url(leaves.png) repeat 0 0;
+}

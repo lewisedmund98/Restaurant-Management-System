@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<link rel="stylesheet" href="styles.css">
-	
+      <link rel="stylesheet" href="styles.css">
+      <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+      <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
+      <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
+
     <meta charset="utf-8" />
-    
+
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -14,14 +18,28 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"/> <!--The CSS for the UI library we are using-->
 
-   
     <title>Oaxaca</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
 	
 	<!-- render begins from root -->
-    <div id="root"></div>
+    <div id="root">
+        <div class="topnav">
+            <div class="logodiv">
+                <img class="logo" src="oaxaca_logo.png" alt="Oaxaca Logo" height="150" width="150">
+            </div>
+        </div>
+        <div class="ourmenu" id="menuHeading">
+            <div class="ourmenuheading">
+                <h1><b><i aria-hidden="true" class="food icon"></i>Our Menu</b></h1>
+            </div>
+        </div>
+        <!-- where we hold the menu items as cards -->
+        <div class="mainContainer">
+            <div id="ListCards"></div>
+        </div>
+    </div>
 	
 	<!-- Filter feature (not sure)  
 	<div id="filterContainer">
@@ -33,16 +51,6 @@
 	-->
 	
 	<!-- NavBar that breaks menu into courses and drinks -->
-	<div class="topnav">
-		<img src ="oaxaca_logo.png" alt="Oaxaca Logo" width="150" height="150">
-	</div>
-	<div id="menuHeading"> 
-		<h1><b>Our Menu</b></h1>
-	</div>
-	
-	<!-- where we hold the menu items as cards -->
-	<div id ="ListCards" align="center"></div>
-	
     
   </body>
 </html>
