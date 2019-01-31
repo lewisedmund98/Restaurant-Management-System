@@ -12,7 +12,7 @@
 	text-decoration: none;
 	font-size: 17px;
 	display: inline;
-	font-family: Acme;
+	font-family: 'Corben', Georgia, Times, serif;
 	border: 1px solid black;
 	border-bottom: 0;
 }
@@ -28,8 +28,18 @@
 div ListCards {
 	background-color: red;
 	display: inline;
+	font-family: 'Corben', Georgia, Times, serif;
 }
 
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Corben', Georgia, Times, serif;
+}
+p, div {
+	font-family: 'Corben', Helvetica, Arial, sans-serif;
+}
 
-
-	
+img.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
