@@ -23,7 +23,22 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
 	
 	<!-- render begins from root -->
-    <div id="root"></div>
+    <div id="root">
+        <div class="topnav">
+            <div class="logodiv">
+                <img class="logo" src="oaxaca_logo.png" alt="Oaxaca Logo">
+            </div>
+        </div>
+        <div class="ourmenu" id="menuHeading">
+            <div class="ourmenuheading">
+                <h1><b><i aria-hidden="true" class="food icon"></i>Our Menu</b></h1>
+            </div>
+        </div>
+        <!-- where we hold the menu items as cards -->
+        <div class="mainContainer">
+            <div id="ListCards"></div>
+        </div>
+    </div>
 	
 	<!-- Filter feature (not sure)  
 	<div id="filterContainer">
@@ -35,16 +50,6 @@
 	-->
 	
 	<!-- NavBar that breaks menu into courses and drinks -->
-	<div class="topnav">
-		<img src ="oaxaca_logo.png" alt="Oaxaca Logo" width="150" height="150" class="logo">
-	</div>
-	<div id="menuHeading">
-		<h1><b><i aria-hidden="true" class="food icon"></i> Our Menu</b></h1>
-	</div>
-	
-	<!-- where we hold the menu items as cards -->
-	<div id ="ListCards" align="center"></div>
-	
     
   </body>
 </html>
