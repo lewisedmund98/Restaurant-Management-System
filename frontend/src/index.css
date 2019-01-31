@@ -53,6 +53,14 @@
     color: white !important;
 }
 
+.header.dishName {
+    font-family: 'Corben', Georgia, Times, serif !important;
+}
+
+.description.dishInfo {
+    font-family: 'Nobile', Helvetica, Arial, sans-serif !important;
+}
+
 div ListCards {
 	display: inline;
 	font-family: 'Corben', Georgia, Times, serif;
