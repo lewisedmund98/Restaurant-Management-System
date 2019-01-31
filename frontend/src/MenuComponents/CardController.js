@@ -14,6 +14,9 @@ import TabWrapper from './TabWrapper.js';
  * The controller can be made better by using a thread which updates the API call if the menu changes all
  * of a sudden.
  * 
+ * CURRENT HIERACHY: CardController -> TabWrapper (Splits into 4 TYPES) -> CardWrapper (Makes 4 of these) -> 
+ * MenuCard (Takes the items and displays) -> InfoModal (Event from MenuCard)
+ * 
  * Note: Fetch is an asynchronous call so state must be used and may take a while to update a user PC if it's slow.
  */
 
