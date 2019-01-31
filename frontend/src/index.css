@@ -1,7 +1,8 @@
 .topnav {
-	background-color: #ff0000;
+	background-color: #FF0000;
 	overflow: hidden;
-	border: 1px solid black;
+	border: 4px solid black;
+    border-radius: 25px;
 }
 
 .topnav a {
@@ -32,14 +33,25 @@ div ListCards {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Corben', Georgia, Times, serif;
+    font-family: 'Corben', Georgia, Times, serif;
 }
 p, div {
-	font-family: 'Corben', Helvetica, Arial, sans-serif;
+	font-family: Helvetica, Arial, sans-serif;
 }
 
-img.center {
+#menuHeading {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    text-shadow: 1px 1px 1px dimgrey;
+}
+
+img.logo {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+body {
+    background: url(leaves.png) repeat 0 0;
 }
