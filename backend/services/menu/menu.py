@@ -1,11 +1,14 @@
 from flask import Request, abort
 from .handler.handleMenu import handleMenu
+from .handler.handleItem import handleItem
 
 class menu:
 
     def __init__(self, request):
-        if(request.path == "/menu"):
+        if(request.path == "/menu/items"):
             self.responseObj = handleMenu()
+        elif(request.path == "/menu/item"):
+            self.responseObj = handleItem(request.form)
         else:
             self.responseObj = self
 
