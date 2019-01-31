@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 # Import services here
 from services.ping.ping import ping
 from services.database.database import database
@@ -6,6 +7,7 @@ from services.menu.menu import menu
 
 # Flask Set Up
 app = Flask(__name__)
+CORS(app)
 
 # Service calling block
 @app.route("/ping")
