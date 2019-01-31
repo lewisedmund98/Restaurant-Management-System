@@ -1,7 +1,8 @@
 .topnav {
 	background-color: darkolivegreen;
 	overflow: hidden;
-    border-radius: 0px 0px 25px 25px;
+    border-radius: 0px 0px 15px 15px;
+    height: 10.5em
 }
 
 .ourmenu .ourmenuheading{
@@ -44,6 +45,12 @@
 .ui.fluid.vertical.tabular.menu {
     font-family: 'Corben', Georgia, Times, serif !important;
     border: none !important;
+}
+
+.ui.fluid.vertical.tabular.menu a.active {
+    background-color: darkolivegreen !important;
+    border-radius: 15px !important;
+    color: white !important;
 }
 
 div ListCards {
