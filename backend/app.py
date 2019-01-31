@@ -20,8 +20,8 @@ def handleDatabase():
     dObj = database(request)
     return jsonify(dObj.getResponse())
 
-@app.route("/menu")
-def handleMenu():
+@app.route("/menu/<path:path>", methods=['GET', 'POST'])
+def handleMenu(path):
     menuObj = menu(request)
     return jsonify(menuObj.getResponse())
 
