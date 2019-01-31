@@ -31,14 +31,19 @@
 	Background-color: black;
 }
 
-.mainContainer {
+.ui.bottom.attached.segment.active.tab {
     background-color: transparent !important;
+    border: none !important;
 }
 
-div ui cards cardWrapper{
-	background-color: transparent !important;
-	border: none !important;
-	/*THIS IS COMMENTED OUT BECAUSE ITS AN EXAMPLE OF WHAT YUO CAN DO WITH THE REACT ELEMENTS THEMSELVES WHICH NEED TO BE STYLED */
+.ui.card.menuCard {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.ui.fluid.vertical.tabular.menu {
+    font-family: 'Corben', Georgia, Times, serif !important;
+    border: none !important;
 }
 
 div ListCards {
