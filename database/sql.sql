@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `teamproject` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE  IF NOT EXISTS `teamproject` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
 USE `teamproject`;
 -- MySQL dump 10.13  Distrib 5.7.22, for Linux (x86_64)
 --
 -- Host: localhost    Database: teamproject
 -- ------------------------------------------------------
--- Server version	5.7.25-0ubuntu0.18.04.2
+-- Server version	8.0.14
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -25,10 +25,10 @@ DROP TABLE IF EXISTS `Allergies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Allergies` (
-  `idAllergies` int(11) NOT NULL,
+  `AllergyID` int(11) NOT NULL,
   `AllergyName` mediumtext,
   `AllergyInformation` mediumtext,
-  PRIMARY KEY (`idAllergies`)
+  PRIMARY KEY (`AllergyID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -40,9 +40,10 @@ DROP TABLE IF EXISTS `itemAllergies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `itemAllergies` (
-  `FoodID` int(11) NOT NULL,
-  `AllergyID` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`FoodID`)
+  `ItemID` int(11) NOT NULL,
+  `AllergyID` varchar(45) NOT NULL,
+  `ItemAllergyEntry` varchar(45) NOT NULL,
+  PRIMARY KEY (`ItemAllergyEntry`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -55,13 +56,12 @@ DROP TABLE IF EXISTS `menuItems`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `menuItems` (
   `ItemID` int(11) NOT NULL,
-  `Item Name` mediumtext,
-  `Item Calories` float DEFAULT NULL,
-  `Item Price` float DEFAULT NULL,
-  `Item Type` mediumtext,
-  `Item Information` longtext,
-  `Item AllergyID` int(11) DEFAULT NULL,
-  `Item Image` longtext,
+  `ItemName` mediumtext,
+  `ItemCalories` float DEFAULT NULL,
+  `ItemPrice` float DEFAULT NULL,
+  `ItemType` mediumtext,
+  `ItemInformation` longtext,
+  `ItemImage` longtext,
   PRIMARY KEY (`ItemID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -75,5 +75,4 @@ CREATE TABLE `menuItems` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-29 13:58:53
- 
+-- Dump completed on 2019-01-31 23:56:22
