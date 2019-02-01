@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `Allergies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Allergies` (
-  `AllergyID` int(11) NOT NULL,
+  `AllergyID` varchar(250) NOT NULL,
   `AllergyName` mediumtext,
   `AllergyInformation` mediumtext,
   PRIMARY KEY (`AllergyID`)
@@ -40,10 +40,14 @@ DROP TABLE IF EXISTS `itemAllergies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `itemAllergies` (
-  `ItemID` int(11) NOT NULL,
-  `AllergyID` varchar(45) NOT NULL,
-  `ItemAllergyEntry` varchar(45) NOT NULL,
-  PRIMARY KEY (`ItemAllergyEntry`)
+  `AllergyID` varchar(250) NOT NULL,
+  `ItemAllergyEntry` varchar(250) NOT NULL,
+  `ItemID` varchar(250) NOT NULL,
+  PRIMARY KEY (`ItemAllergyEntry`),
+  KEY `fk_itemAllergies_1_idx` (`ItemID`),
+  KEY `fk_itemAllergies_2_idx` (`AllergyID`),
+  CONSTRAINT `fk_itemAllergies_1` FOREIGN KEY (`AllergyID`) REFERENCES `Allergies` (`AllergyID`),
+  CONSTRAINT `fk_itemAllergies_2` FOREIGN KEY (`ItemID`) REFERENCES `menuItems` (`ItemID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -55,7 +59,7 @@ DROP TABLE IF EXISTS `menuItems`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `menuItems` (
-  `ItemID` int(11) NOT NULL,
+  `ItemID` varchar(250) NOT NULL,
   `ItemName` mediumtext,
   `ItemCalories` float DEFAULT NULL,
   `ItemPrice` float DEFAULT NULL,
@@ -75,4 +79,4 @@ CREATE TABLE `menuItems` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-31 23:56:22
+-- Dump completed on 2019-02-01  1:07:09
