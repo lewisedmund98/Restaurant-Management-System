@@ -1,4 +1,4 @@
-import pymysql
+import pymysql, json
 from frameworks.database.db import db
 
 class handleMenu:
@@ -12,6 +12,14 @@ class handleMenu:
 
     def printMenu(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT * FROM teamproject.menuItems INNER JOIN teamproject.Allergies ON \
-        teamproject.menuItems.itemAllergyID = teamproject.Allergies.AllergyID;")
-        return cursor.fetchall()
+        cursor.execute("SELECT teamproject.menuItems.*, JSON_OBJECTAGG(teamproject.Allergies.AllergyName, teamproject.Allergies.AllergyInformation) "
+        "AS allergies FROM teamproject.menuItems LEFT JOIN teamproject.itemAllergies ON teamproject.menuItems.ItemID = teamproject.itemAllergies.ItemID "
+        "LEFT JOIN teamproject.Allergies ON teamproject.itemAllergies.AllergyID = teamproject.Allergies.AllergyID GROUP BY teamproject.menuItems.ItemID;")
+
+        data = cursor.fetchall()
+
+        # MySQL returns a JSON object we have to iterate through and parse into a dictionary
+        for row in data:
+            row['allergies'] = json.loads(row['allergies'])
+        
+        return data
