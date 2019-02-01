@@ -37,16 +37,17 @@ export default class TabWrapper extends React.Component {
      */
     splitDishesIntoTypes(dishList) {
         dishList.forEach(currentDish => { // Loop over each dish in the full menu
-            switch (currentDish.dishType) { // Check each dishes type
-                case "Main": this.mainDishes.push(currentDish);
+            switch (currentDish.ItemType.toLowerCase()) { // Check each dishes type
+                case "main": this.mainDishes.push(currentDish);
                     break;
-                case "Starter": this.starterDishes.push(currentDish);
+                case "starter": this.starterDishes.push(currentDish);
                     break;
-                case "Dessert": this.dessertDishes.push(currentDish);
+                case "dessert": this.dessertDishes.push(currentDish);
                     break;
-                case "Drink": this.drinks.push(currentDish);
+                case "drink": this.drinks.push(currentDish);
                     break;
                 default: console.log("The dish " + currentDish.dishName + "has no type...");
+
                     break;
             }
         });
@@ -63,14 +64,22 @@ export default class TabWrapper extends React.Component {
     createTabs() {
         try {
             const tabs = [ // This was taken from the semantic UI react documentation for how to make tabs
-                { menuItem: 'Starters', 
-                  render: () => <Tab.Pane> <CardWrapper dishList={this.starterDishes} /> </Tab.Pane> },
-                { menuItem: 'Main',
-                  render: () => <Tab.Pane> <CardWrapper dishList={this.mainDishes} /> </Tab.Pane> },
-                { menuItem: 'Desserts',
-                  render: () => <Tab.Pane><CardWrapper dishList={this.dessertDishes} /></Tab.Pane> },
-                { menuItem: 'Drinks',
-                  render: () => <Tab.Pane><CardWrapper dishList={this.drinks} /></Tab.Pane> },
+                {
+                    menuItem: 'Starters',
+                    render: () => <Tab.Pane> <CardWrapper dishList={this.starterDishes} /> </Tab.Pane>
+                },
+                {
+                    menuItem: 'Main',
+                    render: () => <Tab.Pane> <CardWrapper dishList={this.mainDishes} /> </Tab.Pane>
+                },
+                {
+                    menuItem: 'Desserts',
+                    render: () => <Tab.Pane><CardWrapper dishList={this.dessertDishes} /></Tab.Pane>
+                },
+                {
+                    menuItem: 'Drinks',
+                    render: () => <Tab.Pane><CardWrapper dishList={this.drinks} /></Tab.Pane>
+                },
             ]
             return tabs;
         }
