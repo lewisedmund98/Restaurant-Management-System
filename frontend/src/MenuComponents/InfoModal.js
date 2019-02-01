@@ -16,17 +16,20 @@ export default class InfoModal extends React.Component {
     }
 
     mapAllergyInformation(allergyList) { // Map each allergy to a JSX list item
-        try{
-            var mappedAllergyList = allergyList.map((allergy, key) =>
-            <li key={key} className="allergy">{allergy}</li>
-        )
-        return mappedAllergyList;
-        }
-        catch(error){
-            return <li>There are no allergies to display</li>
+        //console.log(allergyList);
+        var finalAllergyList = [];
+        try {
+            Object.values(allergyList).forEach(allergy => { // Pulling values as there is no known key
+                finalAllergyList.push(<li key={allergy} className="allergy">{allergy}</li>); // Push a react component to the list to render
+            });
+
+            return finalAllergyList; // Returning a list of react elements
+        } catch (error) {
             console.log(error);
         }
     }
+
+
     render() {
         var allergyList = this.mapAllergyInformation(this.props.allergyList);
         return (

@@ -29,14 +29,14 @@ class CardController extends React.Component {
     }
 
     componentDidMount() { // React component method, this method runs when the react component is initially rendered
-        fetch("http://q7jwz.mocklab.io/json/1") // NOTICE: TEMPORARY API CALL - FORMAT KNOWN JUST BACKEND IS NOT MADE YET
+        fetch("http://flask.team-project.crablab.co/menu/items") 
             .then(res => res.json())
             .then(
                 (result) => {
+                    var finalResponse = result.result; // The header passed starts with "result"
                     var menuResult = []; // Variable to store the JSON list as JSON objects in an array
-
-                    for (var currentDish = 0; currentDish < result.length; currentDish++) { // Loop through each JSON object
-                        menuResult[currentDish] = result[currentDish]; // Assign the menuitem to result's array element
+                    for (var currentDish = 0; currentDish < finalResponse.length; currentDish++) { // Loop through each JSON object
+                        menuResult[currentDish] = finalResponse[currentDish]; // Assign the menuitem to result's array element
                     }
 
                     this.setState({
