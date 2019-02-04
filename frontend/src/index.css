@@ -1,5 +1,5 @@
 .topnav {
-	background-color: darkolivegreen;
+	background-color: #D04236;
 	overflow: hidden;
     height: 10.5em
 }
@@ -47,9 +47,14 @@
 }
 
 .ui.fluid.vertical.tabular.menu a.active {
-    background-color: darkolivegreen !important;
-    
+    background-color: #D04236 !important;
+
     color: white !important;
+}
+
+.meta.dishPrice {
+    font-family: 'Corben', Georgia, Times, serif !important;
+    color: black !important;
 }
 
 .header.dishName {
