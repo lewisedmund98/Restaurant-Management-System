@@ -44,6 +44,7 @@
 .ui.fluid.vertical.tabular.menu {
     font-family: 'Corben', Georgia, Times, serif !important;
     border: none !important;
+    background-color: antiquewhite !important;
 }
 
 .ui.fluid.vertical.tabular.menu a.active {
@@ -59,6 +60,7 @@
 
 .header.dishName {
     font-family: 'Corben', Georgia, Times, serif !important;
+    color: black !important;
 }
 
 .description.dishInfo {
