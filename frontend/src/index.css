@@ -1,7 +1,6 @@
 .topnav {
 	background-color: darkolivegreen;
 	overflow: hidden;
-    border-radius: 0px 0px 15px 15px;
     height: 10.5em
 }
 
@@ -49,7 +48,7 @@
 
 .ui.fluid.vertical.tabular.menu a.active {
     background-color: darkolivegreen !important;
-    border-radius: 15px !important;
+    
     color: white !important;
 }
 
