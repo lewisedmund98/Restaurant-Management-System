@@ -29,6 +29,11 @@ jobs:
           name: install pytest
           command: |
             pipenv install pytest
+      
+      - run:
+          name: change directory
+          command: |
+            cd backend
       # run tests!
       # https://pytest.org
       
