@@ -28,14 +28,14 @@ jobs:
       - run:
           name: install pytest
           command: |
-            pipenv install pytest
+            cd backend && pipenv install pytest
       # run tests!
       # https://pytest.org
       
       - run:
           name: run tests
           command: |
-            pipenv run -- python -m pytest
+            cd backend && pipenv run -- python -m pytest
 
       - store_artifacts:
           path: test-reports
