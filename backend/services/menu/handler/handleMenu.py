@@ -12,9 +12,9 @@ class handleMenu:
 
     def printMenu(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT teamproject.menuItems.*, JSON_OBJECTAGG(teamproject.Allergies.AllergyName, teamproject.Allergies.AllergyInformation) "
+        cursor.execute("SELECT teamproject.menuItems.*, JSON_OBJECTAGG(teamproject.allergies.AllergyName, teamproject.allergies.AllergyInformation) "
         "AS allergies FROM teamproject.menuItems LEFT JOIN teamproject.itemAllergies ON teamproject.menuItems.ItemID = teamproject.itemAllergies.ItemID "
-        "LEFT JOIN teamproject.Allergies ON teamproject.itemAllergies.AllergyID = teamproject.Allergies.AllergyID GROUP BY teamproject.menuItems.ItemID;")
+        "LEFT JOIN teamproject.allergies ON teamproject.itemAllergies.AllergyID = teamproject.allergies.AllergyID GROUP BY teamproject.menuItems.ItemID;")
 
         data = cursor.fetchall()
 
