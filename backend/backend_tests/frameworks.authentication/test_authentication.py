@@ -26,4 +26,4 @@ def testAuthRequestUserWrongLevel(authClass):
 def testAuthFullFlow(authClass):
     assert authClass.authenticateUser("test", "s3kr3tp4ssw0rd") == True
     token = authClass.generateAccessToken("abc123", "def456", "asdasd123123")
-    assert isinstance(authClass.authenticateRequest("abc123", "def456", token, "asdasd123123", 0), dict)
+    assert isinstance(authClass.authenticateRequest("abc123", "def456", token['access_token'], "asdasd123123", 0), dict)

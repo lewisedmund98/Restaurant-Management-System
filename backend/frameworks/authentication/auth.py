@@ -82,7 +82,6 @@ class authentication():
 
     # Validates existence and correctness of given token including time (2 days)
     def __validateAccessToken(self, access_tok, token, uid):
-        print(token + " " + uid)
         cursor = self.__db.cursor()
         cursor.execute("SELECT * FROM `userAccess` WHERE `token` = %s AND `uid` = %s ORDER BY `time` DESC;", (token, uid))
         if(cursor.rowcount == 0):
@@ -91,12 +90,10 @@ class authentication():
             tokDetails = cursor.fetchone()
             # Check most recent token
             if(tokDetails['id'] != access_tok):
-                print("token expired: " + tokDetails['id'])
                 raise Exception("Access token expired")
         # Calculate minimum time 
         minTime = int((datetime.now() - timedelta(days=2)).timestamp())
         if(tokDetails['time'] < minTime):
-            print("token expired time")
             raise Exception("Access token expired")
         print("validated")
         return True
