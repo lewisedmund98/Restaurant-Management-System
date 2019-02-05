@@ -14,5 +14,5 @@ class handleItem:
     def printMenu(self):
         if(self.__data['id']):
             cursor = self.__db.cursor()
-            cursor.execute("SELECT * FROM teamproject.menuItems WHERE teamproject.menuItems.ItemID = %s;", (self.__data['id']))
+            cursor.execute("SELECT * FROM teamproject.menuItems WHERE teamproject.menuItems.itemID = %s;", (self.__data['id']))
             return cursor.fetchall()
