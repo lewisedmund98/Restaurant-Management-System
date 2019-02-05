@@ -18,18 +18,34 @@ USE `teamproject`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Allergies`
+-- Table structure for table `allergies`
 --
 
-DROP TABLE IF EXISTS `Allergies`;
+DROP TABLE IF EXISTS `allergies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Allergies` (
-  `AllergyID` varchar(250) NOT NULL,
-  `AllergyName` mediumtext,
-  `AllergyInformation` mediumtext,
-  PRIMARY KEY (`AllergyID`)
+CREATE TABLE `allergies` (
+  `allergyID` varchar(250) NOT NULL,
+  `allergyName` mediumtext,
+  `allergyInformation` mediumtext,
+  PRIMARY KEY (`allergyID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `credsAPI`
+--
+
+DROP TABLE IF EXISTS `credsAPI`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `credsAPI` (
+  `token` varchar(250) NOT NULL,
+  `secret` varchar(250) NOT NULL,
+  `level` int(11) NOT NULL,
+  PRIMARY KEY (`token`),
+  UNIQUE KEY `token_UNIQUE` (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,14 +56,14 @@ DROP TABLE IF EXISTS `itemAllergies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `itemAllergies` (
-  `AllergyID` varchar(250) NOT NULL,
-  `ItemAllergyEntry` varchar(250) NOT NULL,
-  `ItemID` varchar(250) NOT NULL,
-  PRIMARY KEY (`ItemAllergyEntry`),
-  KEY `fk_itemAllergies_1_idx` (`ItemID`),
-  KEY `fk_itemAllergies_2_idx` (`AllergyID`),
-  CONSTRAINT `fk_itemAllergies_1` FOREIGN KEY (`AllergyID`) REFERENCES `Allergies` (`AllergyID`),
-  CONSTRAINT `fk_itemAllergies_2` FOREIGN KEY (`ItemID`) REFERENCES `menuItems` (`ItemID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  `allergyID` varchar(250) NOT NULL,
+  `itemAllergyEntry` varchar(250) NOT NULL,
+  `itemID` varchar(250) NOT NULL,
+  PRIMARY KEY (`itemAllergyEntry`),
+  KEY `fk_itemAllergies_1_idx` (`itemID`),
+  KEY `fk_itemAllergies_2_idx` (`allergyID`),
+  CONSTRAINT `fk_itemAllergies_1` FOREIGN KEY (`allergyID`) REFERENCES `allergies` (`allergyID`),
+  CONSTRAINT `fk_itemAllergies_2` FOREIGN KEY (`itemID`) REFERENCES `menuItems` (`itemID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -59,15 +75,91 @@ DROP TABLE IF EXISTS `menuItems`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `menuItems` (
-  `ItemID` varchar(250) NOT NULL,
-  `ItemName` mediumtext,
-  `ItemCalories` float DEFAULT NULL,
-  `ItemPrice` float DEFAULT NULL,
-  `ItemType` mediumtext,
-  `ItemInformation` longtext,
-  `ItemImage` longtext,
-  PRIMARY KEY (`ItemID`)
+  `itemID` varchar(250) NOT NULL,
+  `itemName` mediumtext,
+  `itemCalories` float DEFAULT NULL,
+  `itemPrice` float DEFAULT NULL,
+  `itemType` mediumtext,
+  `itemInformation` longtext,
+  `itemImage` longtext,
+  PRIMARY KEY (`itemID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `orderHistory`
+--
+
+DROP TABLE IF EXISTS `orderHistory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `orderHistory` (
+  `idorderHistory` int(11) NOT NULL,
+  PRIMARY KEY (`idorderHistory`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `orderItems`
+--
+
+DROP TABLE IF EXISTS `orderItems`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `orderItems` (
+  `idorderItems` int(11) NOT NULL,
+  PRIMARY KEY (`idorderItems`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `orders` (
+  `idOrders` int(11) NOT NULL,
+  PRIMARY KEY (`idOrders`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `userAccess`
+--
+
+DROP TABLE IF EXISTS `userAccess`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `userAccess` (
+  `id` varchar(250) NOT NULL,
+  `token` varchar(250) NOT NULL,
+  `time` int(11) NOT NULL,
+  `uid` varchar(250) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `fk_userAccess_1_idx` (`uid`),
+  KEY `fk_userAccess_2_idx` (`token`),
+  CONSTRAINT `fk_userAccess_1` FOREIGN KEY (`uid`) REFERENCES `users` (`idusers`),
+  CONSTRAINT `fk_userAccess_2` FOREIGN KEY (`token`) REFERENCES `credsAPI` (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `idusers` varchar(250) NOT NULL,
+  `username` varchar(250) NOT NULL,
+  `password` varchar(250) NOT NULL,
+  PRIMARY KEY (`idusers`),
+  UNIQUE KEY `username_UNIQUE` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -79,4 +171,4 @@ CREATE TABLE `menuItems` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-01  1:07:09
+-- Dump completed on 2019-02-05 20:25:45
