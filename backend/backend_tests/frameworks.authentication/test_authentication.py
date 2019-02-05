@@ -10,3 +10,9 @@ def testauthTrue(authClass):
 
 def testauthFalse(authClass):
     assert authClass.authenticateUser("test", "r@nd0m") == False
+
+def testAuthGenAccessTokFalse(authClass):
+    assert authClass.generateAccessToken("random", "random", "asdasd123123") == False
+
+def testAuthGenAccessTokTrue(authClass):
+    assert isinstance(authClass.generateAccessToken("abc123", "def456", "asdasd123123"), dict)
