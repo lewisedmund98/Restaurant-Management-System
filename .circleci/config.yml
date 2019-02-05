@@ -23,15 +23,14 @@ jobs:
           name: install dependencies
           command: |  # use pipenv to install dependencies
             sudo pip install pipenv
+            cd backend
             pipenv install
 
-      - run:
-          name: install pytest
-          command: |
-            cd backend && pipenv install pytest
-      # run tests!
-      # https://pytest.org
-      
+      # - run:
+      #     name: install pytest
+      #     command: |
+      #       cd backend && pipenv install pytest
+
       - run:
           name: run tests
           command: |
