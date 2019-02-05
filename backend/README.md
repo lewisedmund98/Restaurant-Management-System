@@ -18,6 +18,6 @@ The test framework in use is [pytest](https://docs.pytest.org/en/latest/index.ht
 
 You should only be writing unit tests for business logic classes and these should therefore by for each file in `\handler` in the format `test_classUnderTest.py` so pytest can autodiscover it.  
 
-### Intergration Tests
+### Integration Tests
 
 Coming soon... 
