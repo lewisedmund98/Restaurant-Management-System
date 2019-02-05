@@ -18,13 +18,13 @@ USE `teamproject`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Allergies`
+-- Table structure for table `allergies`
 --
 
-DROP TABLE IF EXISTS `Allergies`;
+DROP TABLE IF EXISTS `allergies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Allergies` (
+CREATE TABLE `allergies` (
   `AllergyID` varchar(250) NOT NULL,
   `AllergyName` mediumtext,
   `AllergyInformation` mediumtext,
@@ -46,7 +46,7 @@ CREATE TABLE `itemAllergies` (
   PRIMARY KEY (`ItemAllergyEntry`),
   KEY `fk_itemAllergies_1_idx` (`ItemID`),
   KEY `fk_itemAllergies_2_idx` (`AllergyID`),
-  CONSTRAINT `fk_itemAllergies_1` FOREIGN KEY (`AllergyID`) REFERENCES `Allergies` (`AllergyID`),
+  CONSTRAINT `fk_itemAllergies_1` FOREIGN KEY (`AllergyID`) REFERENCES `allergies` (`AllergyID`),
   CONSTRAINT `fk_itemAllergies_2` FOREIGN KEY (`ItemID`) REFERENCES `menuItems` (`ItemID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -69,6 +69,58 @@ CREATE TABLE `menuItems` (
   PRIMARY KEY (`ItemID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `orderHistory`
+--
+
+DROP TABLE IF EXISTS `orderHistory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `orderHistory` (
+  `idorderHistory` int(11) NOT NULL,
+  PRIMARY KEY (`idorderHistory`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `orderItems`
+--
+
+DROP TABLE IF EXISTS `orderItems`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `orderItems` (
+  `idorderItems` int(11) NOT NULL,
+  PRIMARY KEY (`idorderItems`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `orders` (
+  `idOrders` int(11) NOT NULL,
+  PRIMARY KEY (`idOrders`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `idusers` int(11) NOT NULL,
+  PRIMARY KEY (`idusers`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -79,4 +131,4 @@ CREATE TABLE `menuItems` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-01  1:07:09
+-- Dump completed on 2019-02-05 12:15:06
