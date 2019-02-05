@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "85621322b415a5da22d997a373ebe79a10320501e83e194f876dd33a75fd4d9c"
+            "sha256": "90e126e7536fb4f7d4df70ec32c0798057a76b5c9289b480b2a55e50a1ac20db"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,21 @@
         ]
     },
     "default": {
+        "argon2": {
+            "hashes": [
+                "sha256:118ee7658fab2950b04de94d52274bab1f9d0e739b9e90ad5b3bb9cf4e52e105",
+                "sha256:523a3d3b88f3a46244b4976a6ca81994705848538bbe9e41426ea54ccb75eb90"
+            ],
+            "index": "pypi",
+            "version": "==0.1.10"
+        },
+        "cuid": {
+            "hashes": [
+                "sha256:7e183f420cbba32dbc63343e0379027ac24f0f8f4662b99dd21fcdbd82c211c7"
+            ],
+            "index": "pypi",
+            "version": "==0.3"
+        },
         "pymysql": {
             "hashes": [
                 "sha256:3943fbbbc1e902f41daf7f9165519f140c4451c179380677e6a848587042561a",
