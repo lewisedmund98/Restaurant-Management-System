@@ -1,7 +1,6 @@
 .topnav {
-	background-color: darkolivegreen;
+	background-color: #D04236;
 	overflow: hidden;
-    border-radius: 0px 0px 15px 15px;
     height: 10.5em
 }
 
@@ -45,16 +44,23 @@
 .ui.fluid.vertical.tabular.menu {
     font-family: 'Corben', Georgia, Times, serif !important;
     border: none !important;
+    background-color: antiquewhite !important;
 }
 
 .ui.fluid.vertical.tabular.menu a.active {
-    background-color: darkolivegreen !important;
-    border-radius: 15px !important;
+    background-color: #D04236 !important;
+
     color: white !important;
+}
+
+.meta.dishPrice {
+    font-family: 'Corben', Georgia, Times, serif !important;
+    color: black !important;
 }
 
 .header.dishName {
     font-family: 'Corben', Georgia, Times, serif !important;
+    color: black !important;
 }
 
 .description.dishInfo {
