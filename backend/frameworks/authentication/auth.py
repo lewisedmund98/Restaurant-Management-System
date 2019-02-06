@@ -38,7 +38,7 @@ class authentication():
         except: 
             return 404
         # check level
-        if(user['level'] > level):
+        if(user['userPrivilegeLevel'] > level):
             return 403
         # check provided access token
         try:
