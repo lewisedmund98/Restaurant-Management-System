@@ -9,7 +9,7 @@ verify_ssl = true
 pytest = "*"
 pymysql = "*"
 cuid = "*"
-argon2 = "*"
+argon2-cffi = "*"
 
 [requires]
 python_version = "3.6"
