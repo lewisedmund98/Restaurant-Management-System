@@ -54,7 +54,7 @@ class authentication():
     # Returns a user object
     def __getUserUsername(self, user):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT * FROM `users` WHERE `username` = %s", (user))
+        cursor.execute("SELECT * FROM `users` WHERE `userUsername` = %s", (user))
         if(cursor.rowcount == 1):
             return cursor.fetchone()
         else: 
@@ -63,7 +63,7 @@ class authentication():
     # Returns a user object
     def __getUserID(self, user):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT * FROM `users` WHERE `idusers` = %s", (user))
+        cursor.execute("SELECT * FROM `users` WHERE `userID` = %s", (user))
         if(cursor.rowcount == 1):
             return cursor.fetchone()
         else: 
