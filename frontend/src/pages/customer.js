@@ -4,8 +4,8 @@
  */
 
 import React from 'react';
-import CardContoller from '../MenuComponents/CardController.js';
 import '../index.css';
+import CustomerPageController from '../Controllers/CustomerPageController';
 
 export default class Customer extends React.Component {
     render() {
@@ -17,12 +17,7 @@ export default class Customer extends React.Component {
                     <h1><b><i aria-hidden="true" className="food icon"></i>Our Menu</b></h1>
                 </div>
             </div>
-                <div className="mainContainer">
-                    <div id="ListCards">
-                        <CardContoller>
-                        </CardContoller>
-                    </div>
-                </div>
+               <CustomerPageController></CustomerPageController>
                 
             </div>
                     

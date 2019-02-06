@@ -36,8 +36,12 @@ export default class TabWrapper extends React.Component {
      * @param {The full list of menu items} dishList 
      */
     splitDishesIntoTypes(dishList) {
+        this.mainDishes = [];
+        this.starterDishes = []; 
+        this.dessertDishes = [];
+        this.drinks = []; 
         dishList.forEach(currentDish => { // Loop over each dish in the full menu
-            switch (currentDish.ItemType.toLowerCase()) { // Check each dishes type
+            switch (currentDish.itemType.toLowerCase()) { // Check each dishes type
                 case "main": this.mainDishes.push(currentDish);
                     break;
                 case "starter": this.starterDishes.push(currentDish);
@@ -55,6 +59,9 @@ export default class TabWrapper extends React.Component {
         return tabs;
     }
 
+
+    
+
     /**
      * This method as described takes the arrays from the class and then makes some
      * tabs from them using the array of tabs. It then assigns a card wrapper to them
@@ -66,19 +73,19 @@ export default class TabWrapper extends React.Component {
             const tabs = [ // This was taken from the semantic UI react documentation for how to make tabs
                 {
                     menuItem: 'Starters',
-                    render: () => <Tab.Pane> <CardWrapper dishList={this.starterDishes} /> </Tab.Pane>
+                    render: () => <Tab.Pane> <CardWrapper basket={this.props.basket} dishList={this.starterDishes} /> </Tab.Pane>
                 },
                 {
                     menuItem: 'Main',
-                    render: () => <Tab.Pane> <CardWrapper dishList={this.mainDishes} /> </Tab.Pane>
+                    render: () => <Tab.Pane> <CardWrapper basket={this.props.basket} dishList={this.mainDishes} /> </Tab.Pane>
                 },
                 {
                     menuItem: 'Desserts',
-                    render: () => <Tab.Pane><CardWrapper dishList={this.dessertDishes} /></Tab.Pane>
+                    render: () => <Tab.Pane><CardWrapper basket={this.props.basket} dishList={this.dessertDishes} /></Tab.Pane>
                 },
                 {
                     menuItem: 'Drinks',
-                    render: () => <Tab.Pane><CardWrapper dishList={this.drinks} /></Tab.Pane>
+                    render: () => <Tab.Pane><CardWrapper basket={this.props.basket} dishList={this.drinks} /></Tab.Pane>
                 },
             ]
             return tabs;
@@ -88,6 +95,8 @@ export default class TabWrapper extends React.Component {
         }
 
     }
+
+
 
     render() {
         var tabs = this.splitDishesIntoTypes(this.props.dishList); // split and create tabs
