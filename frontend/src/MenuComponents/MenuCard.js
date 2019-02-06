@@ -26,11 +26,10 @@ class MenuItemCard extends React.Component {
     }
 
     handleBasketAdd(){
-        this.props.basket(this.props.dishName);
+        this.props.basket(this.props.fullDish);
     }
 
     render() {
-        
         return (
                 <Card className="menuCard"> {/*The main wrapper component for the whole card - from Library*/}
                     <Image className="dishImage" src={this.props.dishImage} size="medium" />
@@ -42,8 +41,8 @@ class MenuItemCard extends React.Component {
 
                     <Card.Content extra={true}>
 
-                        <Button className="addToBasket" id={this.props.dishID} icon={true}
-                            onClick={this.handleBasketAdd   }> {/* Button for adding the item to basket */}
+                        <Button className="addToBasket" icon={true}
+                            onClick={this.handleBasketAdd}> {/* Button for adding the item to basket */}
                             <Icon name="plus" />
                         </Button>
 

@@ -36,6 +36,10 @@ export default class TabWrapper extends React.Component {
      * @param {The full list of menu items} dishList 
      */
     splitDishesIntoTypes(dishList) {
+        this.mainDishes = [];
+        this.starterDishes = []; 
+        this.dessertDishes = [];
+        this.drinks = []; 
         dishList.forEach(currentDish => { // Loop over each dish in the full menu
             switch (currentDish.itemType.toLowerCase()) { // Check each dishes type
                 case "main": this.mainDishes.push(currentDish);
@@ -54,6 +58,9 @@ export default class TabWrapper extends React.Component {
         var tabs = this.createTabs(); // Create tabs from the lists that we made by splitting the elements
         return tabs;
     }
+
+
+    
 
     /**
      * This method as described takes the arrays from the class and then makes some
@@ -88,6 +95,8 @@ export default class TabWrapper extends React.Component {
         }
 
     }
+
+
 
     render() {
         var tabs = this.splitDishesIntoTypes(this.props.dishList); // split and create tabs

@@ -1,6 +1,7 @@
 import React from 'react';
 import CardContoller from './CardController.js';
 import '../index.css';
+import Basket from '../BasketComponents/Basket.js';
 
 export default class CustomerPageController extends React.Component {
     constructor(props) {
@@ -12,8 +13,11 @@ export default class CustomerPageController extends React.Component {
     }
 
     addToBasket(addedMenuItem) {
-         
-        console.log("You clicked " + addedMenuItem);
+            var tempBasket = this.state.currentBasket;
+            tempBasket.push(addedMenuItem);
+            this.setState({
+                currentBasket: tempBasket
+            })
     }
 
     render() {
@@ -23,6 +27,9 @@ export default class CustomerPageController extends React.Component {
                 <div id="ListCards">
                     <CardContoller basket={this.addToBasket}>
                     </CardContoller>
+                </div>
+                <div className="basketButton">
+                    <Basket dishList={this.state.currentBasket}></Basket>
                 </div>
             </div>
         )

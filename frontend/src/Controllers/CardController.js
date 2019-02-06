@@ -26,6 +26,7 @@ class CardController extends React.Component {
         this.state = { // Sets the current state variables to contain a dish list. This will be populated by JSON objects
             dishList: []
         };
+    
     }
 
     componentDidMount() { // React component method, this method runs when the react component is initially rendered
@@ -45,6 +46,7 @@ class CardController extends React.Component {
                 });
     }
 
+    
     render() {
         return (
             // We make a tab wrapper which creates the tabs on the screen and pass the list of dishes

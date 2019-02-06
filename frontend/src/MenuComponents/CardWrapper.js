@@ -26,20 +26,19 @@ class CardWrapper extends React.Component {
     */
     mapJsonToComponent(dishList) {
         var mappedDishList = dishList.map((dish, key) => // Map and create a new react component for each JSON object
-            <MenuCard key={key} dishID={dish.itemID} dishName={dish.itemName} dishImage={dish.itemImage} dishInfo={dish.itemInformation}
+            <MenuCard key={key} fullDish={dish} dishID={dish.itemID} dishName={dish.itemName} dishImage={dish.itemImage} dishInfo={dish.itemInformation}
                 dishPrice={dish.itemPrice} dishAllergies={dish.allergies} dishCalories={dish.itemCalories} basket={this.props.basket} />
         )
-
+        
         return mappedDishList;
     }
-    render() {
+    render() {       
         var dishList = this.mapJsonToComponent(this.props.dishList); // Call to map
         return (
             <Card.Group className="cardWrapper"> {/*Card Group is used to make it horizontal*/}
                 {dishList} {/*React is able to render the list properly in this format - from documentation*/}
             </Card.Group>
         )
-
     }
 }
 
