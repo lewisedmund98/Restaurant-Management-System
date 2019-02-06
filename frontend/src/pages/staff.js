@@ -3,9 +3,8 @@
  */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import '../index.css';
-import CardController from '../MenuComponents/CardController';
+
 
 
 export default class Customer extends React.Component {

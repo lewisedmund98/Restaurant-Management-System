@@ -1,5 +1,5 @@
 import React from 'react';
-import TabWrapper from './TabWrapper.js';
+import TabWrapper from '../MenuComponents/TabWrapper.js';
 
 /**
  * The Card Controller class is a class which is made to deal with the data that is going to be used in the
