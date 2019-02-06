@@ -22,6 +22,11 @@ class MenuItemCard extends React.Component {
     constructor(props) {
         super(props);
         this.dishID = this.props.dishID; // dishID is a unique identifier for each dish.
+        this.handleBasketAdd = this.handleBasketAdd.bind(this);
+    }
+
+    handleBasketAdd(){
+        this.props.basket(this.props.dishName);
     }
 
     render() {
@@ -38,7 +43,7 @@ class MenuItemCard extends React.Component {
                     <Card.Content extra={true}>
 
                         <Button className="addToBasket" id={this.props.dishID} icon={true}
-                            onClick={this.props.basket}> {/* Button for adding the item to basket */}
+                            onClick={this.handleBasketAdd   }> {/* Button for adding the item to basket */}
                             <Icon name="plus" />
                         </Button>
 

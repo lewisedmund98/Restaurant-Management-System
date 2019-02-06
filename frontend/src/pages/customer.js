@@ -18,7 +18,7 @@ export default class Customer extends React.Component {
     
     addToBasket(basketList){
         //menuItems = basketList; // This is a variable to hold the menu items
-        console.log("You clicked");
+        console.log("You clicked" + basketList);
     }
     render() {
         document.title = "Oaxaca Customer";
