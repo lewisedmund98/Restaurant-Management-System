@@ -8,6 +8,18 @@ import CardContoller from '../MenuComponents/CardController.js';
 import '../index.css';
 
 export default class Customer extends React.Component {
+    constructor(props){
+        super(props);
+        this.state={
+            buttonClicked : false
+        };
+        this.addToBasket = this.addToBasket.bind(this); // Method to add to the basket. 
+    }
+    
+    addToBasket(basketList){
+        //menuItems = basketList; // This is a variable to hold the menu items
+        console.log("You clicked");
+    }
     render() {
         document.title = "Oaxaca Customer";
         return (
@@ -19,7 +31,7 @@ export default class Customer extends React.Component {
             </div>
                 <div className="mainContainer">
                     <div id="ListCards">
-                        <CardContoller>
+                        <CardContoller basket={this.addToBasket}>
                         </CardContoller>
                     </div>
                 </div>

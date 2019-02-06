@@ -26,8 +26,8 @@ class CardWrapper extends React.Component {
     */
     mapJsonToComponent(dishList) {
         var mappedDishList = dishList.map((dish, key) => // Map and create a new react component for each JSON object
-            <MenuCard key={key} dishID={dish.ItemID} dishName={dish.ItemName} dishImage={dish.ItemImage} dishInfo={dish.ItemInformation}
-                dishPrice={dish.ItemPrice} dishAllergies={dish.allergies} dishCalories={dish.ItemCalories} />
+            <MenuCard key={key} dishID={dish.itemID} dishName={dish.itemName} dishImage={dish.itemImage} dishInfo={dish.itemInformation}
+                dishPrice={dish.itemPrice} dishAllergies={dish.allergies} dishCalories={dish.itemCalories} basket={this.props.basket} />
         )
 
         return mappedDishList;

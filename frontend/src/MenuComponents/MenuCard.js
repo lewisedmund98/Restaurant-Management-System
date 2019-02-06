@@ -38,7 +38,7 @@ class MenuItemCard extends React.Component {
                     <Card.Content extra={true}>
 
                         <Button className="addToBasket" id={this.props.dishID} icon={true}
-                            onClick={() => console.log("Clicking this button will add to basket")}> {/* Button for adding the item to basket */}
+                            onClick={this.props.basket}> {/* Button for adding the item to basket */}
                             <Icon name="plus" />
                         </Button>
 
