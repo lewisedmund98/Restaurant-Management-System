@@ -6,7 +6,10 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+pytest = "*"
 pymysql = "*"
+cuid = "*"
+argon2-cffi = "*"
 
 [requires]
 python_version = "3.6"

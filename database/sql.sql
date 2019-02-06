@@ -23,13 +23,29 @@ USE `teamproject`;
 
 DROP TABLE IF EXISTS `allergies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `allergies` (
   `allergyID` varchar(250) NOT NULL,
   `allergyName` mediumtext,
   `allergyInformation` mediumtext,
   PRIMARY KEY (`allergyID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `credsAPI`
+--
+
+DROP TABLE IF EXISTS `credsAPI`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `credsAPI` (
+  `token` varchar(250) NOT NULL,
+  `secret` varchar(250) NOT NULL,
+  `level` int(11) NOT NULL,
+  PRIMARY KEY (`token`),
+  UNIQUE KEY `token_UNIQUE` (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +92,7 @@ CREATE TABLE `menuItems` (
 
 DROP TABLE IF EXISTS `orderHistory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `orderHistory` (
   `idorderHistory` int(11) NOT NULL,
   PRIMARY KEY (`idorderHistory`)
@@ -89,7 +105,7 @@ CREATE TABLE `orderHistory` (
 
 DROP TABLE IF EXISTS `orderItems`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `orderItems` (
   `idorderItems` int(11) NOT NULL,
   PRIMARY KEY (`idorderItems`)
@@ -102,10 +118,31 @@ CREATE TABLE `orderItems` (
 
 DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `orders` (
   `idOrders` int(11) NOT NULL,
   PRIMARY KEY (`idOrders`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `userAccess`
+--
+
+DROP TABLE IF EXISTS `userAccess`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `userAccess` (
+  `id` varchar(250) NOT NULL,
+  `token` varchar(250) NOT NULL,
+  `time` int(11) NOT NULL,
+  `uid` varchar(250) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `fk_userAccess_1_idx` (`uid`),
+  KEY `fk_userAccess_2_idx` (`token`),
+  CONSTRAINT `fk_userAccess_1` FOREIGN KEY (`uid`) REFERENCES `users` (`idusers`),
+  CONSTRAINT `fk_userAccess_2` FOREIGN KEY (`token`) REFERENCES `credsAPI` (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -115,7 +152,7 @@ CREATE TABLE `orders` (
 
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `idusers` varchar(250) NOT NULL,
   `username` varchar(250) NOT NULL,
@@ -134,4 +171,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-05 20:14:22
+-- Dump completed on 2019-02-05 20:25:45
