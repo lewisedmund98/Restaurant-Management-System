@@ -17,7 +17,7 @@ class authentication():
     def authenticateUser(self, username, password):
         output = self.__getUserUsername(username)
         try:
-            self.__ph.verify(output['password'], password)
+            self.__ph.verify(output['userPassword'], password)
         except:
             # Password was wrong
             return False
