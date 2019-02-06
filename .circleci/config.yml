@@ -24,7 +24,7 @@ jobs:
           command: |  # use pipenv to install dependencies
             sudo pip install pipenv
             cd backend
-            pipenv install
+            pipenv install -v
 
       # - run:
       #     name: install pytest
