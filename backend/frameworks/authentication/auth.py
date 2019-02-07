@@ -21,7 +21,7 @@ class authentication():
         except:
             # Password was wrong
             return False
-        return True
+        return output['userID']
 
     # Takes provided API creds and ensures the user has been previously authenticated 
     # Returns int with HTTP status code
@@ -95,7 +95,6 @@ class authentication():
         minTime = int((datetime.now() - timedelta(days=2)).timestamp())
         if(tokDetails['time'] < minTime):
             raise Exception("Access token expired")
-        print("validated")
         return True
     
     #  Validates API credentials against the database
