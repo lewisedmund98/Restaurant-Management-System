@@ -14,7 +14,9 @@ class authentication():
         self.__id = id()
 
     # Public. Authenticates user against DB and returns bool
-    def authenticateUser(self, username, password):
+    def authenticateUser(self, token, secret, username, password):
+        if(self.__validateAPICreds(token, secret) == False):
+            return False
         output = self.__getUserUsername(username)
         try:
             self.__ph.verify(output['userPassword'], password)
