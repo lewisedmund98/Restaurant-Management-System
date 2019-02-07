@@ -15,12 +15,12 @@ export default class BasketItem extends React.Component {
 
     mapBasketToUI(currentBasket) {
         var mappedBasket = currentBasket.map((currentDish, key) =>
-            <List celled>
+        <div className="singleBasketItem">
+
+            <List celled key={key}>
                 <List.Item>
                     <Image avatar={true} src={currentDish.itemImage}></Image>
-
                     <List.Content>
-
                         <List.Header>
                             {currentDish.itemName}
                         </List.Header>
@@ -32,6 +32,7 @@ export default class BasketItem extends React.Component {
                     </List.Content>
                 </List.Item>
             </List>
+        </div>
         )
 
         return mappedBasket;
@@ -40,7 +41,7 @@ export default class BasketItem extends React.Component {
     render() {
         var mappedBasket = this.mapBasketToUI(this.props.currentBasket);
         return (
-            <div style={{textAlign:"center"}}>{mappedBasket}</div>
+            <div className="listOfItems" style={{ textAlign: "center" }}>{mappedBasket}</div>
         )
     }
 }
