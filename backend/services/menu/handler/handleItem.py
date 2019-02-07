@@ -11,4 +11,4 @@ class handleItem:
 
     def getItem(self):
         self.__item.load(self.__data.get_json()['id'])
-        return item.data 
+        return self.__item.get()
