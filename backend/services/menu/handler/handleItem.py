@@ -14,7 +14,7 @@ class handleItem:
 
     def getItem(self):
         print(self.__data['id'])
-        item.load(self.__data['id'])
+        item.load(self, self.__data['id'])
         return item.data 
 
     def printMenu(self):
