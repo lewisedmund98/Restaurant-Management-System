@@ -5,7 +5,7 @@ https://trello.com/teamprojectgroup2
 ## Setup
 
 ### Instructions for running
-* navigate to the "frontend"folder
+* navigate to the "frontend" folder
 * run "npm install" then "npm start"
 
 ### Instructions for testing (Tests do not currently work)
