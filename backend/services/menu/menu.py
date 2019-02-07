@@ -8,7 +8,7 @@ class menu:
         if(request.path == "/menu/items"):
             self.responseObj = handleMenu()
         elif(request.path == "/menu/item"):
-            self.responseObj = handleItem(request.form)
+            self.responseObj = handleItem(request)
         else:
             self.responseObj = self
 
