@@ -6,6 +6,7 @@
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
     "create-babelrc": "^1.0.0",
+    "enzyme": "^3.8.0",
     "enzyme-to-json": "^3.3.5",
     "react": "^16.7.0",
     "react-addons-test-utils": "^15.6.2",
@@ -15,7 +16,6 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.84.0"
   },
-  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -32,6 +32,7 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
+
   ],
   "devDependencies": {
 	"@babel/core": "^7.0.0",
@@ -45,3 +46,4 @@
     "react": "^16.7.0"
   }
 }
+

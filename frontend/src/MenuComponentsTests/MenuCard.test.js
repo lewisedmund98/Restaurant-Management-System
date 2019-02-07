@@ -1,11 +1,15 @@
 import React from 'react';
 import MenuCard from '../MenuComponents/MenuCard';
 
+
 test('fake test', () => {
 	expect(true).toBeTruthy();
 })
 
+
 /*import { shallow } from 'enzyme';
+
+>>>>>>> ba3a745afa72c863a0bf13084e79fbe966199734
 describe('<MenuCard /',() => {
 	const properties = {
 		dishName: "some name",
