@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Modal} from 'semantic-ui-react';
+import CreateOrder from './CreateOrder';
 import BasketItem from './BasketItem';
 /**
  * Class is used as the basket. This renders in
@@ -13,8 +13,8 @@ export default class Basket extends React.Component{
     calculateTotal(){
         var total = 0.0;
         try{
-            Object.values(this.props.dishList).forEach(element => {
-                total += Math.round(parseFloat(element.itemPrice));
+            Object.values(this.props.dishList).forEach(dish => {
+                total += Math.round(parseFloat(dish.itemPrice));
             });
         } catch (error) {
             console.log(error);
@@ -23,10 +23,11 @@ export default class Basket extends React.Component{
     }
     render(){
         var total = this.calculateTotal();
-        return(
+                return(
             <div className="basketItems">
-                <BasketItem currentBasket={this.props.dishList}></BasketItem>
+                <BasketItem currentBasket={this.props.dishList}/>
                 <h1> Total Price: £{total} </h1>
+                <CreateOrder currentBasket={this.props.dishList}></CreateOrder>
             </div>
         )
     }
