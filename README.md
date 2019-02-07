@@ -1,4 +1,8 @@
 # TeamProject2019_02
+
+## Introduction
+This is Team 2's Github Repository for the Resteraunt Management System being created for Oaxaca.
+
 ## Trello
 https://trello.com/teamprojectgroup2
 
@@ -9,7 +13,7 @@ https://trello.com/teamprojectgroup2
 * run "npm install" then "npm start"
 
 ### Instructions for testing (Tests do not currently work)
-* navigate to "frontend" folder
+* navigate to the "frontend" folder
 * and run "npm test"
 
 
