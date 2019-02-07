@@ -9,7 +9,6 @@ test('fake test', () => {
 
 /*import { shallow } from 'enzyme';
 
->>>>>>> ba3a745afa72c863a0bf13084e79fbe966199734
 describe('<MenuCard /',() => {
 	const properties = {
 		dishName: "some name",
