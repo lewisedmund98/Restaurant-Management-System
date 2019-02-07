@@ -4,6 +4,7 @@ from flask_cors import CORS
 from services.ping.ping import ping
 from services.database.database import database
 from services.menu.menu import menu
+from services.authentication.authentication import authentication
 
 # Flask Set Up
 app = Flask(__name__)
@@ -24,6 +25,11 @@ def handleDatabase():
 def handleMenu(path):
     menuObj = menu(request)
     return jsonify(menuObj.getResponse())
+
+@app.route("/authentication/<path:path>", methods=['GET', 'POST'])
+def handleAuth(path):
+    authObj = authentication(request)
+    return jsonify(authObj.getResponse())
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
