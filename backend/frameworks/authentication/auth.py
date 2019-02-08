@@ -14,14 +14,16 @@ class authentication():
         self.__id = id()
 
     # Public. Authenticates user against DB and returns bool
-    def authenticateUser(self, username, password):
+    def authenticateUser(self, token, secret, username, password):
+        if(self.__validateAPICreds(token, secret) == False):
+            return False
         output = self.__getUserUsername(username)
         try:
             self.__ph.verify(output['userPassword'], password)
         except:
             # Password was wrong
             return False
-        return True
+        return output['userID']
 
     # Takes provided API creds and ensures the user has been previously authenticated 
     # Returns int with HTTP status code
@@ -95,7 +97,6 @@ class authentication():
         minTime = int((datetime.now() - timedelta(days=2)).timestamp())
         if(tokDetails['time'] < minTime):
             raise Exception("Access token expired")
-        print("validated")
         return True
     
     #  Validates API credentials against the database
