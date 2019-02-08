@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Input, Label, Checkbox, Button, Dropdown } from 'semantic-ui-react';
 
+
 /* This class will have the order form in it. The form submission will be handled in this class too.
 
 This class gets props in the form of the menu list
@@ -10,9 +11,9 @@ export default class OrderForm extends React.Component {
     constructor(props) {
         super(props);
         this.menuids = [];
-        this.state = { // The state are when the user inputs into the fields this is updated. 
-            firstName: null,
-            secondName: null,
+        this.state = { // The state are when the user inputs into the fields this is updated. To add
+            // a new field to the form you need to add it here.
+            name: null,
             email: null,
             phone: null,
             tableNumber: null
@@ -33,14 +34,16 @@ export default class OrderForm extends React.Component {
         console.log(this.menuids);
     }
 
-    createOrder() {
+    createOrder() { 
+        var request=[];
 
         try {
-            alert("You submitted the form, the details: firstname- " + this.state.firstName +
-                " secondname " + this.state.secondName +
-                " email " + this.state.email +
-                " phone " + this.state.phone +
-                " and your table number " + this.state.tableNumber);
+            request.push({name : this.state.name});
+            request.push({email : this.state.email});
+            request.push({phone : this.state.phone});
+            request.push({tableNumber : this.state.tableNumber});
+            request.push({menuIds : this.menuids});
+            console.log(JSON.stringify(request, ' '));
 
         } catch (error) {
             console.log("Something went wrong");
@@ -49,11 +52,8 @@ export default class OrderForm extends React.Component {
 
     handleInputChange(event) { // There is an issue with the dropdown.
         const target = event.target;
-
         const value = target.value;
-
         const name = target.name;
-
         this.setState({
             [name]: value
         });
@@ -65,13 +65,10 @@ export default class OrderForm extends React.Component {
         return (
             <Form onSubmit={this.createOrder}>
                 <Form.Field>
-                    <Label>First Name</Label>
-                    <Input required onChange={this.handleInputChange} name="firstName" placeholder='First Name' />
+                    <Label>Full Name</Label>
+                    <Input required onChange={this.handleInputChange} name="name" placeholder='Full Name' />
                 </Form.Field>
-                <Form.Field>
-                    <Label>Last Name</Label>
-                    <Input required onChange={this.handleInputChange} name="secondName" placeholder='Last Name' />
-                </Form.Field>
+                
                 <Form.Field>
                     <Label>Email Address</Label>
                     <Input required onChange={this.handleInputChange} name="email" placeholder='Email Adress' />

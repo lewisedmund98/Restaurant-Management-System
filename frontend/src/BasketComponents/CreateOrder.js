@@ -22,7 +22,6 @@ export default class CreateOrder extends React.Component {
                         <OrderForm currentBasket={this.props.currentBasket}>
 
                         </OrderForm>
-
                     </div>
                 </Modal.Content>
             </Modal>
