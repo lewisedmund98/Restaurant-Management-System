@@ -33,6 +33,22 @@ CREATE TABLE `allergies` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `credsAPI`
+--
+
+DROP TABLE IF EXISTS `credsAPI`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `credsAPI` (
+  `token` varchar(250) NOT NULL,
+  `secret` varchar(250) NOT NULL,
+  `level` int(11) NOT NULL,
+  PRIMARY KEY (`token`),
+  UNIQUE KEY `token_UNIQUE` (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `itemAllergies`
 --
 
@@ -78,8 +94,14 @@ DROP TABLE IF EXISTS `orderHistory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `orderHistory` (
-  `idorderHistory` int(11) NOT NULL,
-  PRIMARY KEY (`idorderHistory`)
+  `insertionID` int(11) NOT NULL,
+  `orderID` varchar(45) DEFAULT NULL,
+  `stage` varchar(45) DEFAULT NULL,
+  `inserted` tinyint(4) DEFAULT NULL,
+  `metafield` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`insertionID`),
+  KEY `orderID` (`orderID`),
+  CONSTRAINT `orderID_fk2` FOREIGN KEY (`orderID`) REFERENCES `orders` (`orderID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -91,8 +113,11 @@ DROP TABLE IF EXISTS `orderItems`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `orderItems` (
-  `idorderItems` int(11) NOT NULL,
-  PRIMARY KEY (`idorderItems`)
+  `insertionID` int(11) NOT NULL,
+  `orderID` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`insertionID`),
+  KEY `orderID` (`orderID`),
+  CONSTRAINT `orderID_fk` FOREIGN KEY (`orderID`) REFERENCES `orders` (`orderID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -104,8 +129,32 @@ DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `orders` (
-  `idOrders` int(11) NOT NULL,
-  PRIMARY KEY (`idOrders`)
+  `userID` int(11) NOT NULL,
+  `orderID` varchar(45) NOT NULL,
+  `timeCreated` datetime DEFAULT NULL,
+  PRIMARY KEY (`userID`,`orderID`),
+  KEY `orderID` (`orderID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `userAccess`
+--
+
+DROP TABLE IF EXISTS `userAccess`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `userAccess` (
+  `id` varchar(250) NOT NULL,
+  `token` varchar(250) NOT NULL,
+  `time` int(11) NOT NULL,
+  `uid` varchar(250) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `fk_userAccess_1_idx` (`uid`),
+  KEY `fk_userAccess_2_idx` (`token`),
+  CONSTRAINT `fk_userAccess_1` FOREIGN KEY (`uid`) REFERENCES `users` (`userID`),
+  CONSTRAINT `fk_userAccess_2` FOREIGN KEY (`token`) REFERENCES `credsAPI` (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -117,11 +166,13 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `users` (
-  `idusers` varchar(250) NOT NULL,
-  `username` varchar(250) NOT NULL,
-  `password` varchar(250) NOT NULL,
-  PRIMARY KEY (`idusers`),
-  UNIQUE KEY `username_UNIQUE` (`username`)
+  `userID` varchar(250) NOT NULL,
+  `userUsername` varchar(250) NOT NULL,
+  `userPassword` varchar(250) NOT NULL,
+  `userPrivilegeLevel` int(11) NOT NULL,
+  `userEmail` mediumtext,
+  PRIMARY KEY (`userID`),
+  UNIQUE KEY `username_UNIQUE` (`userUsername`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -134,4 +185,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-05 20:14:22
+-- Dump completed on 2019-02-06 20:42:32
