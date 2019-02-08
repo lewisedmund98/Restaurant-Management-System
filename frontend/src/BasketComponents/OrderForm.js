@@ -1,8 +1,9 @@
 import React from 'react';
-import { Form, Input, Label, Checkbox, Button, Dropdown } from 'semantic-ui-react';
+import { Form, Input, Label, Checkbox, Button, Dropdown, Select } from 'semantic-ui-react';
 
 
 /* This class will have the order form in it. The form submission will be handled in this class too.
+* The class only defines the order form as that has some logic and will involve a POST request with a JSON body.
 
 This class gets props in the form of the menu list
 */
@@ -22,22 +23,22 @@ export default class OrderForm extends React.Component {
         this.createOrder = this.createOrder.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.dishes = this.props.currentBasket;
-        this.tables = [{ key: '1', value: '1', text: '1' }, { key: '2', value: '2', text: '2' }, { key: '3', value: '3', text: '3' },
-        { key: '4', value: '4', text: '4' }];
+        this.tables = [{ key: 1, value: '1', text: '1' }, { key: 2, value: '2', text: '2' }, { key: 3, value: '3', text: '3' },
+        { key: 4, value: '4', text: '4' }];
     }
 
     updateMenu(dishes) {
         this.menuids = [];
-        Object.values(dishes).forEach(dish => {
+        Object.values(dishes).forEach(dish => { // Goes through every dish and corresponding ID and stores in array
             this.menuids.push(dish.itemID);
         });
-        console.log(this.menuids);
     }
 
     createOrder() { 
         var request=[];
 
-        try {
+        try { // Pushing some objects onto an array which will be converted into JSON by "stringify"
+    
             request.push({name : this.state.name});
             request.push({email : this.state.email});
             request.push({phone : this.state.phone});
@@ -50,18 +51,27 @@ export default class OrderForm extends React.Component {
         }
     }
 
-    handleInputChange(event) { // There is an issue with the dropdown.
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
+    /**
+     * This method is meant to take any event in the form and store the current value of
+     * what has changed in the form in the state of this class. 
+     * 
+     * There was an issue with using event.target with the drop down so I switched to data.name / value
+     * and this fixed the issue. If another issue arises then look into this class.
+     * 
+     * @param {Event which was firred by the form inputs} event 
+     * @param {data from the form entries} data 
+     */
+    handleInputChange(event, data) { // There is an issue with the dropdown. <- Look here for future issues
+        const name = data.name;
+        const itemData = data.value;
         this.setState({
-            [name]: value
+            [name]: itemData
         });
     }
 
     render() {
 
-        this.updateMenu(this.dishes);
+        this.updateMenu(this.dishes); // Soon as render is called on state change. This changes everytime too. 
         return (
             <Form onSubmit={this.createOrder}>
                 <Form.Field>
