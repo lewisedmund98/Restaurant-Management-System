@@ -25,9 +25,9 @@ export default class Basket extends React.Component{
         var total = this.calculateTotal();
                 return(
             <div className="basketItems">
-                <BasketItem currentBasket={this.props.dishList}/>
+                <BasketItem onRemove={this.props.onRemove} currentBasket={this.props.dishList}/>
                 <h1> Total Price: £{total} </h1>
-                <CreateOrder currentBasket={this.props.dishList}></CreateOrder>
+                <CreateOrder onRemove={this.props.onRemove} currentBasket={this.props.dishList}></CreateOrder>
             </div>
         )
     }
