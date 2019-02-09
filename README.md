@@ -16,4 +16,5 @@ https://trello.com/teamprojectgroup2
 * navigate to the "frontend" folder
 * and run "npm test"
 
+#### For more details on the front and back end navigate to the "frontend" or "backend" folder and have a look at the README files there!
 
