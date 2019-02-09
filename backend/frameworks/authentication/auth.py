@@ -7,11 +7,19 @@ from datetime import datetime, timedelta
 # private methods so there isn't much point designing code to prevent access tokens
 # being generate out of sequence as the method can be called anyway 
 class authentication():
-    def __init__(self):
+    def __init__(self, token, secret):
+        # Instantiate other classes
         instance = db()
         self.__db = instance.getInstance()
         self.__ph = PasswordHasher()
         self.__id = id()
+        #Validate provided credentials
+        if(self.__validateAPICreds(token, secret) == False):
+            raise Exception("Invalid API creds")
+        else:
+            self.__token = token
+            self.__secret = secret
+
 
     # Public. Authenticates user against DB and returns bool
     def authenticateUser(self, username, password):
@@ -21,17 +29,14 @@ class authentication():
         except:
             # Password was wrong
             return False
-        return True
+        return output['userID']
 
     # Takes provided API creds and ensures the user has been previously authenticated 
     # Returns int with HTTP status code
     # 401 - authentication not completed/expired
     # 403 - not permitted for given level
     # 404 - something is not correct
-    def authenticateRequest(self, token, secret, access_tok, uid, level):
-        # check creds
-        if(self.__validateAPICreds(token, secret) == False):
-            return 404
+    def authenticateRequest(self, access_tok, uid, level):
         # find user
         try:
             user = self.__getUserID(uid)
@@ -42,13 +47,12 @@ class authentication():
             return 403
         # check provided access token
         try:
-            self.__validateAccessToken(access_tok, token, uid)
+            self.__validateAccessToken(access_tok, self.__token, uid)
         except Exception as e:
             print(e)
             return 403
-        print("validted")
         # authenticated, return a new access token
-        return {"authenticated": True, "new_access_token": self.generateAccessToken(token, secret, uid)}
+        return {"authenticated": True, "new_access_token": self.generateAccessToken(uid)}
 
     ## These can be abstracted to a user class
     # Returns a user object
@@ -71,13 +75,11 @@ class authentication():
 
     # Generates an access token that can be used to authenticate API requests
     # Needs to be provided to `authenticateRequest`
-    def generateAccessToken(self, token, secret, uid):
-        if(self.__validateAPICreds(token, secret) == False):
-            return False
+    def generateAccessToken(self, uid):
         # Gen ID 
         access_id = self.__id.getID("access_")
         cursor = self.__db.cursor()
-        cursor.execute("INSERT INTO `userAccess` (`id`, `token`, `time`, `uid`) VALUES (%s, %s, %s, %s);", (access_id, token, int(datetime.now().timestamp()), uid))
+        cursor.execute("INSERT INTO `userAccess` (`id`, `token`, `time`, `uid`) VALUES (%s, %s, %s, %s);", (access_id, self.__token, int(datetime.now().timestamp()), uid))
         return {"access_token": access_id}
 
     # Validates existence and correctness of given token including time (2 days)
@@ -90,12 +92,12 @@ class authentication():
             tokDetails = cursor.fetchone()
             # Check most recent token
             if(tokDetails['id'] != access_tok):
+                print(tokDetails['id'] + " | " + access_tok)
                 raise Exception("Access token expired")
         # Calculate minimum time 
         minTime = int((datetime.now() - timedelta(days=2)).timestamp())
         if(tokDetails['time'] < minTime):
             raise Exception("Access token expired")
-        print("validated")
         return True
     
     #  Validates API credentials against the database

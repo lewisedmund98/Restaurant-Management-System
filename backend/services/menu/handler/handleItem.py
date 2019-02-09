@@ -1,18 +1,14 @@
 import pymysql
-from frameworks.database.db import db
+from frameworks.item.item import item
 
 class handleItem:
     def __init__(self, request):
-        instance = db()
-        self.__db = instance.getInstance()
         self.__data = request
+        self.__item = item() 
 
     def getOutput(self):
-        return {"result": self.printMenu()}
+        return {"result": self.getItem()}
 
-
-    def printMenu(self):
-        if(self.__data['id']):
-            cursor = self.__db.cursor()
-            cursor.execute("SELECT * FROM teamproject.menuItems WHERE teamproject.menuItems.itemID = %s;", (self.__data['id']))
-            return cursor.fetchall()
+    def getItem(self):
+        self.__item.load(self.__data.get_json()['id'])
+        return self.__item.get()

@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Image } from 'semantic-ui-react';
+import { List, Image, Button } from 'semantic-ui-react';
 /**
  * Wrapper for a basket item. This will show the image for the item, the name, the quantity and the price.
  * 
@@ -28,7 +28,9 @@ export default class BasketItem extends React.Component {
                             <b>
                                 £{currentDish.itemPrice}
                             </b>
+                            <Button onClick={()=>this.props.onRemove(currentDish)}>Remove This Item</Button>
                         </List.Description>
+                        
                     </List.Content>
                 </List.Item>
             </List>
