@@ -15,14 +15,13 @@ export default class CreateOrder extends React.Component {
                 <Modal.Content>
                     <div style={{ float: "left", width: "30%"}} className="orderBasket">
                         <h1> Your Basket </h1>
-                        <BasketItem currentBasket={this.props.currentBasket}></BasketItem>
+                        <BasketItem onRemove={this.props.onRemove} currentBasket={this.props.currentBasket}></BasketItem>
                     </div>
 
                     <div style={{ float: "right", width:"70%" }} className="orderForm">
                         <OrderForm currentBasket={this.props.currentBasket}>
 
                         </OrderForm>
-
                     </div>
                 </Modal.Content>
             </Modal>
