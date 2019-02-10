@@ -1,5 +1,5 @@
 import React from 'react';
-import CardContoller from './CardController.js';
+import CardController from './CardController.js';
 import '../index.css';
 import Basket from '../BasketComponents/Basket.js';
 
@@ -59,8 +59,8 @@ export default class CustomerPageController extends React.Component {
         return (
             <div className="mainContainer">
                 <div id="ListCards">
-                    <CardContoller basket={this.addToBasket}> {/*Basket is the event handler for a button*/}
-                    </CardContoller>
+                    <CardController basket={this.addToBasket}> {/*Basket is the event handler for a button*/}
+                    </CardController>
                 </div>
                 <div className="basketButton">
                     <Basket onRemove={this.removeFromBasket} dishList={this.state.currentBasket}></Basket>
