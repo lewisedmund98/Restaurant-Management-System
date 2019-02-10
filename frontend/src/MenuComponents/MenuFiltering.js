@@ -6,7 +6,9 @@ import { Checkbox } from 'semantic-ui-react'
 class MenuFiltering extends React.Component {
     render() {
         return (
-            <Checkbox className="priceCheck" label="Price under £20"/>
+            <div className="filteringItems">
+                <Checkbox className="priceCheck" label="Price under £20"/>
+            </div>
         )
     }
 }
