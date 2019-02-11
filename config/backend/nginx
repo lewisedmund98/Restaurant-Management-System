@@ -1,5 +1,16 @@
 server {
     listen 80;
+
+    location / {
+        return 301 https://flask.team-project.crablab.co;
+    }
+}
+
+server {
+    listen 443 ssl;
+    ssl_certificate /etc/letsencrypt/live/flask.team-project.crablab.co/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/flask.team-project.crablab.co/privkey.pem;
+
     server_tokens off;
     server_name flask.team-project.crablab.co;
 
