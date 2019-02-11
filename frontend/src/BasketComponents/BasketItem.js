@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Image } from 'semantic-ui-react';
+import { List, Image, Button } from 'semantic-ui-react';
 /**
  * Wrapper for a basket item. This will show the image for the item, the name, the quantity and the price.
  * 
@@ -13,6 +13,16 @@ export default class BasketItem extends React.Component {
         this.mapBasketToUI = this.mapBasketToUI.bind(this);
     }
 
+    /**
+     * This method simply maps each of the dishes in the basket to a List item
+     * with some of the dish information adn the price. It also renders a button
+     * which is used when the user wishes to remove an item. 
+     * 
+     * The button "Remove This Item" calls a props based event from the "CustomerPageController" which
+     * handles the logic to remove a particular dish. Each list item knows which dish it holds.
+     * 
+     * @param {The current whole basket that the user has chose} currentBasket 
+     */
     mapBasketToUI(currentBasket) {
         var mappedBasket = currentBasket.map((currentDish, key) =>
         <div className="singleBasketItem">
@@ -28,7 +38,9 @@ export default class BasketItem extends React.Component {
                             <b>
                                 £{currentDish.itemPrice}
                             </b>
+                            <Button onClick={()=>this.props.onRemove(currentDish)}>Remove This Item</Button>
                         </List.Description>
+                        
                     </List.Content>
                 </List.Item>
             </List>
