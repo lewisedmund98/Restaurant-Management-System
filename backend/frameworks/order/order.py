@@ -1,4 +1,5 @@
 from frameworks.database.db import db
+from frameworks.idGenerator.id import id
 
 
 class order():
