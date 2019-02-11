@@ -1,0 +1,12 @@
+server {
+  listen 80;
+  server_name react.team-project.crablab.co;
+  root /var/www/html/current;
+  index index.html;
+  
+  access_log /var/log/nginx/krim.com.access.log;
+  error_log /var/log/nginx/krim.com.error.log;
+  location / {
+    try_files $uri /index.html =404;
+  }
+}
