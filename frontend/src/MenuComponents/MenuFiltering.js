@@ -4,8 +4,16 @@ import { Checkbox } from 'semantic-ui-react'
 
 
 class MenuFiltering extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            priceUnder20: false,
+        }
+    }
+
     filter() {
         var tempDishList = this.prop.dishList;
+        var tempMenuItem = tempDishList[tempDishList.length - 1];
     }
 
     render() {
