@@ -1,4 +1,5 @@
 from frameworks.database.db import db
+from frameworks.idGenerator.id import id
 
 
 class order():
@@ -12,12 +13,10 @@ class order():
         self.__name = tableNumber
         self.__name = menuItemID
         self.__UserID = UserID
+        self.__id = id()
 
-    def createOrder(self, id):
 
-
-        #generateAccessToken
-
+    def createOrder(self, i):
 
         cursor = self.__db.cursor()
         cursor.execute(
