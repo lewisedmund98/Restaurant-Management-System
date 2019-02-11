@@ -53,9 +53,10 @@
     color: white !important;
 }
 
-.meta.dishPrice {
+.extra.content {
     font-family: 'Segoe UI', Georgia, Times, serif !important;
     color: black !important;
+    font-size: 18px !important;
 }
 
 .header.dishName {
