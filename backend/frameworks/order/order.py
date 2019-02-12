@@ -1,5 +1,6 @@
 from frameworks.database.db import db
 from frameworks.idGenerator.id import id
+from datetime import datetime, timedelta
 
 
 # noinspection PyPep8Naming
@@ -13,9 +14,7 @@ class order:
         self.__orderstatus = ""  # order status
 
     # noinspection PyMethodMayBeStatic
-    def returnID(self):
-        return id.getID("order")
-
+        
     def getOrderInfo(self):  # getter for private order information field
         return self.__orderinfo
 
@@ -40,4 +39,44 @@ class order:
         else:
             raise Exception("Error: OrderID not found.")
 
-    # sql stuff to add order to database, use ID generator to make an order ID
+    def createOrder(self, name, phone, email, table, items):
+        customerID = self.__locateCustomer(phone, email)
+        # Create customer if not exist
+        if(customerID == False):
+            customerID = self.__createCustomer(name, phone, email)
+        # Create order
+        orderID = self.__insertOrder(customerID, table)
+        # Add items
+        for item in items:
+            self.__orderAddItem(item)
+
+        return orderID
+
+    def __orderAddItem(self, item):
+        cursor = self.__db.cursor()
+        iID = self.__id.getID("orderitem")
+        cursor.execute("INSERT INTO `orders` (`insertionID`, `orderID`) VALUES (%s, %s);", (iID, item))
+        return iID
+
+    def __insertOrder(self, customer, table):
+        cursor = self.__db.cursor()
+        oID = self.__id.getID("order")
+        cursor.execute("INSERT INTO `orders` (`customerID`, `orderID`, `timeCreated`, `table`) VALUES (%s, %s, %s, %s);", (customer, oID, int(datetime.now().timestamp()), table))
+        return oID
+
+    def __createCustomer(self, name, phone, email):
+        cursor = self.__db.cursor()
+        cID = self.__id.getID("order")
+        cursor.execute("INSERT INTO `customers` (`customerID`, `name`, `email`, `phone`) VALUES (%s, %s, %s, %s);", (cID, name, email, phone))
+        return cID
+
+    def __locateCustomer(self, phone, email):
+        cursor = self.__db.cursor()
+        cursor.execute("SELECT * FROM `customers` WHERE `email` = %s AND `phone` = %s;", (email, phone))
+
+        if(cursor.rowcount == 1):
+            return cursor.fetchone()['customerID']
+        elif(cursor.rowcount == 0):
+            return False
+        else:
+            raise Exception("Duplicate users")
