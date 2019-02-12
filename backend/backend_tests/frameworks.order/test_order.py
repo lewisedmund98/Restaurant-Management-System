@@ -18,13 +18,17 @@ def testID():
 
 
 @staticmethod
-def testGetData():  # does the getData method exist?
-    assert order.getData()
+def testGetOrderInfo():  # does the getOrderInfo method exist?
+    assert order.getOrderInfo()
 
 @staticmethod
-def testGetStatus():  # does the getStatus method exist?
-    assert order.getStatus()
+def testGetOrderStatus():  # does the getOrderStatus method exist?
+    assert order.getOrderStatus()
 
 @staticmethod
 def testLoadStatusOfOrder():  # does the loadStatusOfOrder method exist?
     assert order.loadStatusOfOrder("AHHHHHHH")
+
+@staticmethod
+def testLoadInfoOfOrder():  # does the loadInformationOfOrder method exist?
+    assert order.loadInformationOfOrder("AHHHHHHH")

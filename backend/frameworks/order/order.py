@@ -9,29 +9,35 @@ class order:
     def __init__(self):
         instance = db()
         self.__id = id()  # id
-        self.__data = ""  # order information
-        self.__status = ""  # order status
+        self.__orderinfo = ""  # order information
+        self.__orderstatus = ""  # order status
 
     # noinspection PyMethodMayBeStatic
     def returnID(self):
         return id.getID("order")
 
-        # sql stuff to add order to database, use ID generator to make an order ID
+    def getOrderInfo(self):  # getter for private order information field
+        return self.__orderinfo
 
-    def loadOrderInformation(self, data):
-        self.__data = data
-
-    def getData(self):  # getter for private data (order information) field
-        return self.__data
-
-    def getStatus(self):  # getter for private status field
-        return self.__status
+    def getOrderStatus(self):  # getter for private order status field
+        return self.__orderstatus
 
     def loadStatusOfOrder(self, orderID):
         cursor = self.__db.cursor()
         cursor.execute("SELECT `stage` FROM `orderHistory` WHERE `orderID` = %s", orderID)
         if cursor.rowcount == 1:
-            self.__status = cursor.fetchone()
-            print("status of order"+orderID+"loaded into private status field.")
+            self.__orderstatus = cursor.fetchone()
+            print("status of order" + orderID + "loaded into private order status field.")
         else:
             raise Exception("Error: OrderID not found.")
+
+    def loadInformationOfOrder(self, orderID):
+        cursor = self.__db.cursor()
+        cursor.execute("SELECT * FROM `orders` WHERE `orderID` = %s", orderID)
+        if cursor.rowcount == 1:
+            self.__orderinfo = cursor.fetchone()
+            print("status of order" + orderID + "loaded into private order information field.")
+        else:
+            raise Exception("Error: OrderID not found.")
+
+    # sql stuff to add order to database, use ID generator to make an order ID
