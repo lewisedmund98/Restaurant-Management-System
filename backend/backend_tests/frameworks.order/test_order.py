@@ -7,18 +7,14 @@ from frameworks.order.order import order
 def orderClass():  # does class exist?
     return order()
 
-def testID():
-    print(order.returnID()) # does the ID generation method work?
-    assert isinstance(order.returnID(), str)
+def testGetOrderInfo(orderClass):  # does the getOrderInfo method exist?
+    assert isinstance(orderClass.getOrderInfo(), dict)
 
-def testGetOrderInfo():  # does the getOrderInfo method exist?
-    assert order.getOrderInfo()
+def testGetOrderStatus(orderClass):  # does the getOrderStatus method exist?
+    assert isinstance(orderClass.getOrderStatus(), dict)
 
-def testGetOrderStatus():  # does the getOrderStatus method exist?
-    assert order.getOrderStatus()
+def testLoadStatusOfOrder(orderClass):  # does the loadStatusOfOrder method exist?
+    assert orderClass.loadStatusOfOrder("ordercjs1sk6zd0000adaxgzznu4dh") == True
 
-def testLoadStatusOfOrder():  # does the loadStatusOfOrder method exist?
-    assert order.loadStatusOfOrder("AHHHHHHH")
-
-def testLoadInfoOfOrder():  # does the loadInformationOfOrder method exist?
-    assert order.loadInformationOfOrder("AHHHHHHH")
+def testLoadInfoOfOrder(orderClass):  # does the loadInformationOfOrder method exist?
+    assert orderClass.loadInformationOfOrder("ordercjs1sk6zd0000adaxgzznu4dh") == True

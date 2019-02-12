@@ -1,6 +1,7 @@
 from frameworks.database.db import db
 from frameworks.idGenerator.id import id
 from datetime import datetime, timedelta
+import json
 
 
 # noinspection PyPep8Naming
@@ -28,6 +29,7 @@ class order:
         cursor.execute("SELECT `stage` FROM `orderHistory` WHERE `orderID` = %s", orderID)
         if cursor.rowcount == 1:
             self.__orderstatus = cursor.fetchone()
+            return True
         else:
             raise Exception("Error: OrderID not found.")
 
@@ -36,7 +38,7 @@ class order:
         cursor.execute("SELECT * FROM `orders` WHERE `orderID` = %s", orderID)
         if cursor.rowcount == 1:
             self.__orderinfo = cursor.fetchone()
-
+            return True
         else:
             raise Exception("Error: OrderID not found.")
 
@@ -49,21 +51,29 @@ class order:
         orderID = self.__insertOrder(customerID, table)
         # Add items
         for item in items:
-            self.__orderAddItem(item)
+            self.__orderAddItem(orderID, item)
 
         return orderID
 
-    def __orderAddItem(self, item):
+    def __orderAddItem(self, order, item):
         cursor = self.__db.cursor()
         iID = self.__id.getID("orderitem")
-        cursor.execute("INSERT INTO `orderItems` (`insertionID`, `orderID`) VALUES (%s, %s);", (iID, item))
+        cursor.execute("INSERT INTO `orderItems` (`insertionID`, `orderID`, `itemID`) VALUES (%s, %s, %s);", (iID, order, item))
         return iID
 
     def __insertOrder(self, customer, table):
         cursor = self.__db.cursor()
         oID = self.__id.getID("order")
         cursor.execute("INSERT INTO `orders` (`customerID`, `orderID`, `timeCreated`, `table`) VALUES (%s, %s, %s, %s);", (customer, oID, int(datetime.now().timestamp()), table))
+        # Create order history
+        self.__insertOrderHistory(oID, "created", {})
         return oID
+
+    def __insertOrderHistory(self, order, stage, meta):
+        cursor = self.__db.cursor()
+        iID = self.__id.getID("orderhist")
+        cursor.execute("INSERT INTO `orderHistory` (`insertionID`, `orderID`, `stage`, `inserted`, `metafield`) VALUES (%s, %s, %s, %s, %s);", (iID, order, stage, int(datetime.now().timestamp()), json.dumps(meta)))
+        return iID
 
     def __createCustomer(self, name, phone, email):
         cursor = self.__db.cursor()

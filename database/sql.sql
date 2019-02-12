@@ -112,10 +112,10 @@ DROP TABLE IF EXISTS `orderHistory`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `orderHistory` (
   `insertionID` varchar(255) NOT NULL,
-  `orderID` varchar(255) DEFAULT NULL,
-  `stage` varchar(45) DEFAULT NULL,
-  `inserted` tinyint(4) DEFAULT NULL,
-  `metafield` varchar(45) DEFAULT NULL,
+  `orderID` varchar(255) NOT NULL,
+  `stage` varchar(45) NOT NULL,
+  `inserted` int(11) NOT NULL,
+  `metafield` text,
   PRIMARY KEY (`insertionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -129,7 +129,8 @@ DROP TABLE IF EXISTS `orderItems`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `orderItems` (
   `insertionID` varchar(255) NOT NULL,
-  `orderID` varchar(255) DEFAULT NULL,
+  `orderID` varchar(255) NOT NULL,
+  `itemID` varchar(255) NOT NULL,
   PRIMARY KEY (`insertionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -199,4 +200,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-12 12:50:06
+-- Dump completed on 2019-02-12 13:16:53
