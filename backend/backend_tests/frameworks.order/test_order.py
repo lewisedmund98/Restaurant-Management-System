@@ -1,16 +1,21 @@
 import pytest
+from frameworks.order.order import order
 
 
 @pytest.fixture
-def itemClass():
-    from frameworks.item.item import item
-    return item()
+def orderClass():  # does class exist?
+    from frameworks.order.order import order
+    return order()
 
 
-def testLoad(itemClass):
-    assert itemClass.load(1) is None
+#def testConstructor():  # does constructor work?
+#    assert order("aaa", "aaa", "aaa", "aaa", "aaa", "aaa", )
 
 
-def testGetData(itemClass):
-    itemClass.load(1) is None
-    assert isinstance(itemClass.get(), dict)
+#def testConstructor():  # does constructor work?
+#    assert order("aaa", "aaa", "aaa", "aaa", "aaa", "aaa", )
+
+
+def testID():
+    print(order.returnID())
+    assert isinstance(order.returnID(), str)
