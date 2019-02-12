@@ -10,31 +10,26 @@ from services.authentication.authentication import authentication
 app = Flask(__name__)
 CORS(app)
 
-
 # Service calling block
 @app.route("/ping")
 def handlePing():
     pObj = ping(request)
     return jsonify(pObj.getResponse())
 
-
 @app.route("/database")
 def handleDatabase():
     dObj = database(request)
     return jsonify(dObj.getResponse())
-
 
 @app.route("/menu/<path:path>", methods=['GET', 'POST'])
 def handleMenu(path):
     menuObj = menu(request)
     return jsonify(menuObj.getResponse())
 
-
 @app.route("/authentication/<path:path>", methods=['GET', 'POST'])
 def handleAuth(path):
     authObj = authentication(request)
     return jsonify(authObj.getResponse())
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
