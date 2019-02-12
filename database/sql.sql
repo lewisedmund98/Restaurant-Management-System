@@ -150,7 +150,7 @@ CREATE TABLE `orders` (
   `orderID` varchar(45) NOT NULL,
   `timeCreated` datetime NOT NULL,
   `table` int(11) NOT NULL,
-  PRIMARY KEY (`customerID`,`orderID`),
+  PRIMARY KEY (`orderID`),
   KEY `orderID` (`orderID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -203,4 +203,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-12 11:56:54
+-- Dump completed on 2019-02-12 12:10:22
