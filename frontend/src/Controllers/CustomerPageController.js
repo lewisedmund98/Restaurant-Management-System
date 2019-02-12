@@ -2,7 +2,8 @@ import React from 'react';
 import CardContoller from './CardController.js';
 import '../index.css';
 import Basket from '../BasketComponents/Basket.js';
-
+import {Button} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
 
 /**
  * The customer page controller is the main controller for the page with url/customer.
@@ -70,6 +71,10 @@ export default class CustomerPageController extends React.Component {
     render() {
         return (
             <div className="mainContainer">
+                <Link to={{
+                    pathname:"/customerOrder", 
+                    state:{orderNumber: this.state.orderNumber}
+                }}><Button>Your Orders</Button></Link>
                 <div id="ListCards">
                     <CardContoller basket={this.addToBasket}> {/*Basket is the event handler for a button*/}
                     </CardContoller>
