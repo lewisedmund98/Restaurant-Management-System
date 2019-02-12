@@ -15,8 +15,26 @@ import OrderForm from './OrderForm.js';
 export default class CreateOrder extends React.Component {
     constructor(props) {
         super(props);
+        this.makeOrder = this.makeOrder.bind(this);    
+    }
+
+    makeOrder(orderBody){
+        console.log(orderBody);
+        try{
+            fetch("https://flask.team-project.crablab.co/order/create", {
+                method:"POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body:orderBody,
+            }).then(response => response.json())
+            .then(json => console.log(json));
+        } catch (error){
+            console.log(error);
+        }
 
     }
+    
 
     render() {
         return (
@@ -28,7 +46,7 @@ export default class CreateOrder extends React.Component {
                     </div>
 
                     <div style={{ float: "right", width:"70%" }} className="orderForm">
-                        <OrderForm currentBasket={this.props.currentBasket}>
+                        <OrderForm makeOrder={this.makeOrder} currentBasket={this.props.currentBasket}>
 
                         </OrderForm>
                     </div>

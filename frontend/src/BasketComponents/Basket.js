@@ -23,6 +23,7 @@ export default class Basket extends React.Component{
         }
         return total;
     }
+    
     render(){
         var total = this.calculateTotal();
                 return(
