@@ -3,7 +3,7 @@ from frameworks.idGenerator.id import id
 
 
 # noinspection PyPep8Naming
-class order():
+class order:
 
     # noinspection PyUnusedLocal
     def __init__(self):
@@ -21,8 +21,17 @@ class order():
     def loadOrderInformation(self, data):
         self.__data = data
 
-    def getData(self):
+    def getData(self):  # getter for private data (order information) field
         return self.__data
 
-    def getStatus(self):
+    def getStatus(self):  # getter for private status field
         return self.__status
+
+    def loadStatusOfOrder(self, orderID):
+        cursor = self.__db.cursor()
+        cursor.execute("SELECT `stage` FROM `orderHistory` WHERE `orderID` = %s", orderID)
+        if cursor.rowcount == 1:
+            self.__status = cursor.fetchone()
+            print("status of order"+orderID+"loaded into private status field.")
+        else:
+            raise Exception("Error: OrderID not found.")
