@@ -21,11 +21,14 @@ export default class CreateOrder extends React.Component {
     makeOrder(orderBody){
         console.log(orderBody);
         try{
-
-            fetch("URL", {
+            fetch("https://flask.team-project.crablab.co/order/create", {
                 method:"POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 body:orderBody,
-            }).then(response => console.log(response));
+            }).then(response => response.json())
+            .then(json => console.log(json));
         } catch (error){
             console.log(error);
         }
