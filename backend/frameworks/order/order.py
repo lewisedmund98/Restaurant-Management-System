@@ -10,8 +10,8 @@ class order:
     def __init__(self):
         instance = db()
         self.__id = id()  # id
-        self.__orderinfo = ""  # order information
-        self.__orderstatus = ""  # order status
+        self.__orderinfo = {}  # order information
+        self.__orderstatus = {}  # order status
 
     # noinspection PyMethodMayBeStatic
         
@@ -26,7 +26,6 @@ class order:
         cursor.execute("SELECT `stage` FROM `orderHistory` WHERE `orderID` = %s", orderID)
         if cursor.rowcount == 1:
             self.__orderstatus = cursor.fetchone()
-            print("status of order" + orderID + "loaded into private order status field.")
         else:
             raise Exception("Error: OrderID not found.")
 
@@ -35,7 +34,7 @@ class order:
         cursor.execute("SELECT * FROM `orders` WHERE `orderID` = %s", orderID)
         if cursor.rowcount == 1:
             self.__orderinfo = cursor.fetchone()
-            print("status of order" + orderID + "loaded into private order information field.")
+
         else:
             raise Exception("Error: OrderID not found.")
 
