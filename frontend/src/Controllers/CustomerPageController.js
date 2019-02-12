@@ -58,8 +58,8 @@ export default class CustomerPageController extends React.Component {
     render() {
         return (
             <div className="mainContainer">
-                <MenuFiltering/>
                 <div id="ListCards">
+                    <MenuFiltering/>
                     <CardController basket={this.addToBasket}> {/*Basket is the event handler for a button*/}
                     </CardController>
                 </div>
