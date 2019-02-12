@@ -69,8 +69,15 @@ export default class OrderForm extends React.Component {
         });
     }
 
+    /**
+     * Render shows the whole form. This form is used to create an order and takes the name, email, phone and table
+     * number of the customer. Currently there are no checks, but the form will force the user to fill every entry.
+     * 
+     * To add an input to the form simply add another Form.Field and then update the this.state accordingly.
+     * 
+     */
     render() {
-
+        
         this.updateMenu(this.dishes); // Soon as render is called on state change. This changes everytime too. 
         return (
             <Form onSubmit={this.createOrder}>

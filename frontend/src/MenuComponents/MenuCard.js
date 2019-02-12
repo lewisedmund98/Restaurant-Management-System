@@ -36,7 +36,6 @@ class MenuItemCard extends React.Component {
                     <Card.Content textAlign={"center"}> {/*Wraps main body of card while "extra" tag wraps the bottom*/}
                         <Card.Header className="dishName"> {this.props.dishName} </Card.Header>
                         <Card.Description className="dishInfo"> {this.props.dishInfo} </Card.Description>
-                        <Card.Meta className="dishPrice"> {"£"+this.props.dishPrice} </Card.Meta>
                     </Card.Content>
 
                     <Card.Content extra={true}>
@@ -61,6 +60,7 @@ class MenuItemCard extends React.Component {
                         dishName={this.props.dishName} 
                         dishCalories = {this.props.dishCalories}>
                         </InfoModal>
+                        <b> {"£"+this.props.dishPrice}</b>
 
                     </Card.Content>
 
