@@ -2,8 +2,6 @@ import React from 'react';
 import CardController from './CardController.js';
 import '../index.css';
 import Basket from '../BasketComponents/Basket.js';
-import MenuFiltering from '../MenuComponents/MenuFiltering.js'
-
 
 /**
  * The customer page controller is the main controller for the page with url/customer.
@@ -58,7 +56,6 @@ export default class CustomerPageController extends React.Component {
     render() {
         return (
             <div className="mainContainer">
-                <MenuFiltering/>
                 <div id="ListCards">
                     <CardController basket={this.addToBasket}> {/*Basket is the event handler for a button*/}
                     </CardController>

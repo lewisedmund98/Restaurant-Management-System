@@ -1,5 +1,6 @@
 import React from 'react';
 import TabWrapper from '../MenuComponents/TabWrapper.js';
+import MenuFiltering from '../MenuComponents/MenuFiltering.js'
 
 /**
  * The Card Controller class is a class which is made to deal with the data that is going to be used in the
@@ -40,25 +41,27 @@ class CardController extends React.Component {
                         menuResult[currentDish] = finalResponse[currentDish]; // Assign the menuitem to result's array element
                     }
 
-                    this.callFilter(menuResult);
-
                     this.setState({
                         dishList: menuResult
                     });
+
+                    this.props.callFilter();
                 });
     }
 
-    callFilter(dishList) {
-        let tempDishList = dishList;
-        this.props.menuFilter(tempDishList);
-        dishList = tempDishList;
-        return (dishList);
+    callFilter() {
+        this.setState ({
+            dishList: this.props.dishList,
+        })
     }
 
     render() {
         return (
             // We make a tab wrapper which creates the tabs on the screen and pass the list of dishes
-            <TabWrapper basket={this.props.basket} className="tabWrapper" dishList={this.state.dishList}></TabWrapper>
+            <div className="TabWrapping">
+                <TabWrapper basket={this.props.basket} className="tabWrapper" dishList={this.state.dishList}/>
+                <MenuFiltering filteredDishList = {this.state.dishList} />
+            </div>
         )
     }
 }
