@@ -17,7 +17,7 @@ export default class OrderForm extends React.Component {
             name: null,
             email: null,
             phone: null,
-            tableNumber: null
+            table: null
         };
         this.updateMenu = this.updateMenu.bind(this);
         this.createOrder = this.createOrder.bind(this);
@@ -35,19 +35,21 @@ export default class OrderForm extends React.Component {
     }
 
     createOrder() { 
-        var request=[];
+        //var request=[];
 
         try { // Pushing some objects onto an array which will be converted into JSON by "stringify"
-    
-            request.push({name : this.state.name});
-            request.push({email : this.state.email});
-            request.push({phone : this.state.phone});
-            request.push({tableNumber : this.state.tableNumber});
-            request.push({menuIds : this.menuids});
-            console.log(JSON.stringify(request, ' '));
+            var orderRequestBody = JSON.stringify({
+                "name": this.state.name,
+                "email": this.state.email, 
+                "phone" : this.state.phone,
+                "table" : this.state.tableNumber,
+                "items" : this.menuids,
+            });
+
+            this.props.makeOrder(orderRequestBody);
 
         } catch (error) {
-            console.log("Something went wrong");
+            console.log("Something went wrong" + error);
         }
     }
 
