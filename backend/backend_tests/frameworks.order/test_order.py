@@ -1,10 +1,10 @@
 import pytest
+# noinspection PyUnresolvedReferences
 from frameworks.order.order import order
 
 
 @pytest.fixture
 def orderClass():  # does class exist?
-    from frameworks.order.order import order
     return order()
 
 
@@ -16,6 +16,10 @@ def orderClass():  # does class exist?
 #    assert order("aaa", "aaa", "aaa", "aaa", "aaa", "aaa", )
 
 
-def testID():
-    print(order.returnID())
-    assert isinstance(order.returnID(), str)
+#def testID():
+#    print(order.returnID())
+#    assert isinstance(order.returnID(), str)
+
+
+def testgetData():
+    assert order.getData()
