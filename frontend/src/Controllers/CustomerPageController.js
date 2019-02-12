@@ -17,10 +17,14 @@ export default class CustomerPageController extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentBasket:[] // Adds a basket array to which I will append menu objects
+            currentBasket:[], // Adds a basket array to which I will append menu objects
+            orderPlaced: false,
+            orderComplete: false,
+            orderNumber : ""
         };
         this.addToBasket = this.addToBasket.bind(this); // Method to add to the basket.
         this.removeFromBasket = this.removeFromBasket.bind(this); 
+        this.setOrder = this.setOrder.bind(this);
     }
 
     /**
@@ -54,6 +58,14 @@ export default class CustomerPageController extends React.Component {
         })
     }
 
+    setOrder(orderNumber){
+        this.setState({
+            orderPlaced: true,
+            orderNumber : orderNumber.orderID
+        });
+        alert("Congrats, your order is: " + this.state.orderNumber);
+    }
+
 
     render() {
         return (
@@ -63,7 +75,7 @@ export default class CustomerPageController extends React.Component {
                     </CardContoller>
                 </div>
                 <div className="basketButton">
-                    <Basket onRemove={this.removeFromBasket} dishList={this.state.currentBasket}></Basket>
+                    <Basket setOrder={this.setOrder} onRemove={this.removeFromBasket} dishList={this.state.currentBasket}></Basket>
                 </div>
             </div>
         )
