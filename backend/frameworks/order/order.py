@@ -38,6 +38,7 @@ class order:
         cursor.execute("SELECT orders.*, JSON_ARRAYAGG(orderItems.itemID) as items FROM orders LEFT JOIN orderItems ON orderItems.orderID = orders.orderID WHERE orders.orderID = %s GROUP BY orders.orderID;", (orderID))
         if cursor.rowcount == 1:
             self.__orderinfo = cursor.fetchone()
+            self.__orderinfo['items'] = json.loads(self.__orderinfo['items'])
             return True
         else:
             raise Exception("Error: OrderID not found.")
