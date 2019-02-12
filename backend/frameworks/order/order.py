@@ -8,12 +8,14 @@ class order:
 
     # noinspection PyUnusedLocal
     def __init__(self):
+        # Instatiate Database
         instance = db()
-        self.__id = id()  # id
+        self.__db = instance.getInstance()
+        # Instantiate ID
+        self.__id = id()
+        # Private Fields  
         self.__orderinfo = {}  # order information
         self.__orderstatus = {}  # order status
-
-    # noinspection PyMethodMayBeStatic
         
     def getOrderInfo(self):  # getter for private order information field
         return self.__orderinfo
@@ -54,7 +56,7 @@ class order:
     def __orderAddItem(self, item):
         cursor = self.__db.cursor()
         iID = self.__id.getID("orderitem")
-        cursor.execute("INSERT INTO `orders` (`insertionID`, `orderID`) VALUES (%s, %s);", (iID, item))
+        cursor.execute("INSERT INTO `orderItems` (`insertionID`, `orderID`) VALUES (%s, %s);", (iID, item))
         return iID
 
     def __insertOrder(self, customer, table):
@@ -65,7 +67,7 @@ class order:
 
     def __createCustomer(self, name, phone, email):
         cursor = self.__db.cursor()
-        cID = self.__id.getID("order")
+        cID = self.__id.getID("customer")
         cursor.execute("INSERT INTO `customers` (`customerID`, `name`, `email`, `phone`) VALUES (%s, %s, %s, %s);", (cID, name, email, phone))
         return cID
 
