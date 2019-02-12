@@ -11,7 +11,7 @@ class MenuFiltering extends React.Component {
         }
     }
 
-    filter() {
+    menuFilter() {
         //var tempDishList = this.prop.dishList;
         //var tempMenuItem = tempDishList[tempDishList.length - 1];
     }
@@ -28,10 +28,14 @@ class MenuFiltering extends React.Component {
         })
     }
 
+    toggle(stateToToggle) {
+        this.setState({stateToToggle: !this.state.stateToToggle});
+    }
+
     render() {
         return (
             <div className="filteringItems">
-                <Checkbox className="priceCheck" label="Price under £20"/>
+                <Checkbox className="priceCheck" label="Price under £20" onChange = {this.toggle(this.state.priceUnder20)}/>
             </div>
         )
     }

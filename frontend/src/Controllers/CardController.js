@@ -46,7 +46,12 @@ class CardController extends React.Component {
                 });
     }
 
-    
+    callFilter(dishList) {
+        var tempDishList = dishList;
+        this.props.menuFilter(dishList);
+        this.setState({dishList: tempDishList});
+    }
+
     render() {
         return (
             // We make a tab wrapper which creates the tabs on the screen and pass the list of dishes
