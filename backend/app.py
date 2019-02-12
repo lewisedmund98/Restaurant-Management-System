@@ -5,6 +5,7 @@ from services.ping.ping import ping
 from services.database.database import database
 from services.menu.menu import menu
 from services.authentication.authentication import authentication
+from services.order.order import order
 
 # Flask Set Up
 app = Flask(__name__)
@@ -30,6 +31,11 @@ def handleMenu(path):
 def handleAuth(path):
     authObj = authentication(request)
     return jsonify(authObj.getResponse())
+
+@app.route("/order/<path:path>", methods=['GET', 'POST'])
+def handleOrder(path):
+    orderObj = order(request)
+    return jsonify(orderObj.getResponse())
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
