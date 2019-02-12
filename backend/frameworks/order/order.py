@@ -6,11 +6,25 @@ class order():
 
     def __init__(self):
         instance = db()
-        self.__id = id()
+        self.__id = id() # id
+        self.__data = "" # order information
+        self.__status = "" # order status
 
-    @staticmethod
+
     def returnID():
         return id.getID("order")
 
-    def createOrder(self):
-        return self
+
+
+        # sql stuff to add order to database, use ID generator to make an order ID
+
+
+
+    def loadOrderInformation(data):
+        data = data
+
+
+
+
+    def getData(self):
+        return self.__data
