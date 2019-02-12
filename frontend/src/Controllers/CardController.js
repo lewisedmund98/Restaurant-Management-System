@@ -40,7 +40,7 @@ class CardController extends React.Component {
                         menuResult[currentDish] = finalResponse[currentDish]; // Assign the menuitem to result's array element
                     }
 
-                    this.callFilter(menuResult);
+                    //this.callFilter(menuResult);
 
                     this.setState({
                         dishList: menuResult
@@ -49,8 +49,8 @@ class CardController extends React.Component {
     }
 
     callFilter(dishList) {
-        this.props.menuFilter(dishList);
-        return dishList;
+        this.props.menuFilter(this.dishList);
+        return this.dishList;
     }
 
     render() {
