@@ -11,9 +11,10 @@ class MenuFiltering extends React.Component {
         }
     }
 
-    menuFilter() {
+    static menuFilter(dishList) {
         //var tempDishList = this.prop.dishList;
         //var tempMenuItem = tempDishList[tempDishList.length - 1];
+        return dishList;
     }
 
     remove(menuItem) { //call this method with the menuItem that needs to be removed (from filter) and it will be removed
@@ -26,6 +27,7 @@ class MenuFiltering extends React.Component {
         this.setState({
             dishList: tempDishList,
         })
+
     }
 
     /* toggle(stateToToggle) {

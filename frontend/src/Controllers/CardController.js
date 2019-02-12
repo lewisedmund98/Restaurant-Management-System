@@ -49,9 +49,8 @@ class CardController extends React.Component {
     }
 
     callFilter(dishList) {
-        var tempDishList = dishList;
         this.props.menuFilter(dishList);
-        this.setState({dishList: tempDishList});
+        return dishList;
     }
 
     render() {
