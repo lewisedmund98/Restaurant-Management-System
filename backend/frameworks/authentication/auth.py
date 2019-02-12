@@ -2,7 +2,9 @@ from frameworks.database.db import db
 from frameworks.idGenerator.id import id
 from argon2 import PasswordHasher
 from datetime import datetime, timedelta
-# Important to note that there aren't inherant security features built into 
+
+
+# Important to note that there aren't inherent security features built into
 # this class as it is designed to be called by API handlers. Python also doesn't have
 # private methods so there isn't much point designing code to prevent access tokens
 # being generate out of sequence as the method can be called anyway 
@@ -13,13 +15,12 @@ class authentication():
         self.__db = instance.getInstance()
         self.__ph = PasswordHasher()
         self.__id = id()
-        #Validate provided credentials
-        if(self.__validateAPICreds(token, secret) == False):
+        # Validate provided credentials
+        if self.__validateAPICreds(token, secret) == False:
             raise Exception("Invalid API creds")
         else:
             self.__token = token
             self.__secret = secret
-
 
     # Public. Authenticates user against DB and returns bool
     def authenticateUser(self, username, password):
@@ -40,10 +41,10 @@ class authentication():
         # find user
         try:
             user = self.__getUserID(uid)
-        except: 
+        except:
             return 404
         # check level
-        if(user['userPrivilegeLevel'] > level):
+        if (user['userPrivilegeLevel'] > level):
             return 403
         # check provided access token
         try:
@@ -59,18 +60,18 @@ class authentication():
     def __getUserUsername(self, user):
         cursor = self.__db.cursor()
         cursor.execute("SELECT * FROM `users` WHERE `userUsername` = %s", (user))
-        if(cursor.rowcount == 1):
+        if (cursor.rowcount == 1):
             return cursor.fetchone()
-        else: 
+        else:
             raise Exception("User not found")
 
     # Returns a user object
     def __getUserID(self, user):
         cursor = self.__db.cursor()
         cursor.execute("SELECT * FROM `users` WHERE `userID` = %s", (user))
-        if(cursor.rowcount == 1):
+        if (cursor.rowcount == 1):
             return cursor.fetchone()
-        else: 
+        else:
             raise Exception("User not found")
 
     # Generates an access token that can be used to authenticate API requests
@@ -79,33 +80,35 @@ class authentication():
         # Gen ID 
         access_id = self.__id.getID("access_")
         cursor = self.__db.cursor()
-        cursor.execute("INSERT INTO `userAccess` (`id`, `token`, `time`, `uid`) VALUES (%s, %s, %s, %s);", (access_id, self.__token, int(datetime.now().timestamp()), uid))
+        cursor.execute("INSERT INTO `userAccess` (`id`, `token`, `time`, `uid`) VALUES (%s, %s, %s, %s);",
+                       (access_id, self.__token, int(datetime.now().timestamp()), uid))
         return {"access_token": access_id}
 
     # Validates existence and correctness of given token including time (2 days)
     def __validateAccessToken(self, access_tok, token, uid):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT * FROM `userAccess` WHERE `token` = %s AND `uid` = %s ORDER BY `time` DESC;", (token, uid))
-        if(cursor.rowcount == 0):
+        cursor.execute("SELECT * FROM `userAccess` WHERE `token` = %s AND `uid` = %s ORDER BY `time` DESC;",
+                       (token, uid))
+        if (cursor.rowcount == 0):
             raise Exception("Invalid access token details")
         else:
             tokDetails = cursor.fetchone()
             # Check most recent token
-            if(tokDetails['id'] != access_tok):
+            if (tokDetails['id'] != access_tok):
                 print(tokDetails['id'] + " | " + access_tok)
                 raise Exception("Access token expired")
         # Calculate minimum time 
         minTime = int((datetime.now() - timedelta(days=2)).timestamp())
-        if(tokDetails['time'] < minTime):
+        if (tokDetails['time'] < minTime):
             raise Exception("Access token expired")
         return True
-    
+
     #  Validates API credentials against the database
     def __validateAPICreds(self, token, secret):
         cursor = self.__db.cursor()
         cursor.execute("SELECT * FROM `credsAPI` WHERE `token` = %s AND `secret` = %s;", (token, secret))
 
-        if(cursor.rowcount == 1):
+        if (cursor.rowcount == 1):
             return True
         else:
             return False
