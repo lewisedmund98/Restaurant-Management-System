@@ -15,8 +15,8 @@ class order:
         # Instantiate ID
         self.__id = id()
         # Private Fields  
-        self.__orderinfo = {}  # order information
-        self.__orderstatus = {}  # order status
+        self.__orderinfo = None
+        self.__orderstatus = None
         
     def getOrderInfo(self):  # getter for private order information field
         return self.__orderinfo
@@ -24,7 +24,7 @@ class order:
     def getOrderStatus(self):  # getter for private order status field
         return self.__orderstatus
 
-    def loadStatusOfOrder(self, orderID):
+    def loadOrderStatus(self, orderID):
         cursor = self.__db.cursor()
         cursor.execute("SELECT `stage` FROM `orderHistory` WHERE `orderID` = %s", orderID)
         if cursor.rowcount == 1:
@@ -33,11 +33,12 @@ class order:
         else:
             raise Exception("Error: OrderID not found.")
 
-    def loadInformationOfOrder(self, orderID):
+    def loadOrderInfo(self, orderID):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT * FROM `orders` WHERE `orderID` = %s", orderID)
+        cursor.execute("SELECT orders.*, JSON_ARRAYAGG(orderItems.itemID) as items FROM orders LEFT JOIN orderItems ON orderItems.orderID = orders.orderID WHERE orders.orderID = %s GROUP BY orders.orderID;", (orderID))
         if cursor.rowcount == 1:
             self.__orderinfo = cursor.fetchone()
+            self.__orderinfo['items'] = json.loads(self.__orderinfo['items'])
             return True
         else:
             raise Exception("Error: OrderID not found.")
