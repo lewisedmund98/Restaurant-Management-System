@@ -1,6 +1,7 @@
 import React from 'react';
 import CardController from '../Controllers/CardController.js';
-import { Checkbox } from 'semantic-ui-react'
+import { Checkbox } from 'semantic-ui-react';
+import AllergyCheckBoxes from './AllergyCheckboxes';
 
 
 class MenuFiltering extends React.Component {
@@ -8,6 +9,7 @@ class MenuFiltering extends React.Component {
         super(props);
         this.state = {
             priceUnder20: false,
+            allergyList: ["nuts", "dairy", "gluten"],
         }
     }
 
@@ -37,6 +39,7 @@ class MenuFiltering extends React.Component {
     render() {
         return (
             <div className="filteringItems">
+                <AllergyCheckBoxes allergyList={this.state.allergyList} />
                 <Checkbox className="priceCheck" label="Price under £20" /* onChange = {this.toggle(this.state.priceUnder20)} *//>
             </div>
         )
