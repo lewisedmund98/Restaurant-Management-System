@@ -5,7 +5,7 @@ import { Checkbox } from 'semantic-ui-react';
 class AllergyCheckboxes extends Component{
     render(){
         return this.props.allergyList.map((allergy) =>(
-            <Checkbox className="allergyFilter" label={allergy} /> 
+            <Checkbox className="allergyFilter" label={allergy} onChange={this.menuFilter}/>
         ));
     }
 }
