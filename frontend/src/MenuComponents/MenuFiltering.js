@@ -15,23 +15,21 @@ class MenuFiltering extends React.Component {
     }
 
     menuFilter() {
-        var tempDishList = this.props.dishList;
         try{
             Object.values(this.props.dishList).forEach(dish => { // Loops over each dish in the basket and checks its price
                 //for the moment this is temporary just to figure out the logic, and actually making the dishes
                 //disappear from the app
-                if (dish.itemPrice > 20) {
+                if (dish.itemPrice > 20) { //checks if the dish has a price of above £20
                     //alert("removing ");
-                    this.remove(dish);
+                    this.remove(dish); //removing this dish
                 }
             });
         } catch (error) {
             console.log(error);
         }
-        // this.setState({
-        //     dishList: this.props.dishList,
-        // });
-        this.props.callFilter(this.props.dishList);
+
+        this.props.callFilter(this.props.dishList); //a method in CardController that updates the dishList to be the parameter
+        //that it is passed, this updates the dishList in the app to be the one we create with filtering
     }
 
     remove(menuItem) { //call this method with the menuItem that needs to be removed (from filter) and it will be removed
