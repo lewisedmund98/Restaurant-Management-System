@@ -15,16 +15,23 @@ class MenuFiltering extends React.Component {
     }
 
     menuFilter() {
+        var tempDishList = this.props.dishList;
         try{
-            Object.values(this.props.dishList).forEach(dish => { // Loops over each dish in the basket and gets its price
+            Object.values(this.props.dishList).forEach(dish => { // Loops over each dish in the basket and checks its price
+                //for the moment this is temporary just to figure out the logic, and actually making the dishes
+                //disappear from the app
                 if (dish.itemPrice > 20) {
+                    //alert("removing ");
                     this.remove(dish);
-                    alert("removing " + dish.dishName)
                 }
             });
         } catch (error) {
             console.log(error);
         }
+        // this.setState({
+        //     dishList: this.props.dishList,
+        // });
+        this.props.callFilter(this.props.dishList);
     }
 
     remove(menuItem) { //call this method with the menuItem that needs to be removed (from filter) and it will be removed
@@ -35,9 +42,7 @@ class MenuFiltering extends React.Component {
         tempDishList[tempDishList.indexOf(menuItem)] = tempMenuItem; // simple three way swap with a temp variable to move the
         //unwanted item to the end
         tempDishList.pop(); //removes the unwanted menuItem
-        this.setState({
-            dishList: tempDishList,
-        });
+        this.props.dishList = tempDishList;
     }
 
     /* toggle(stateToToggle) {
@@ -48,7 +53,7 @@ class MenuFiltering extends React.Component {
         return (
             <div className="filteringItems">
                 <AllergyCheckBoxes allergyList={this.state.allergyList} menuFilter={this.menuFilter}/>
-                <Checkbox className="priceCheck" label="Price under £20"/>
+                <Checkbox className="priceCheck" label="Price under £20" onClick={this.menuFilter}/>
             </div>
         )
     }

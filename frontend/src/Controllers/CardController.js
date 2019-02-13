@@ -27,7 +27,7 @@ class CardController extends React.Component {
         this.state = { // Sets the current state variables to contain a dish list. This will be populated by JSON objects
             dishList: []
         };
-    
+        this.callFilter = this.callFilter.bind(this);
     }
 
     componentDidMount() { // React component method, this method runs when the react component is initially rendered
@@ -47,9 +47,9 @@ class CardController extends React.Component {
                 });
     }
 
-    callFilter() {
+    callFilter(dishListGiven) {
         this.setState ({
-            dishList: this.state.dishList,
+            dishList: dishListGiven,
         })
     }
 
