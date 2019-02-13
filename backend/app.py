@@ -6,6 +6,7 @@ from services.database.database import database
 from services.menu.menu import menu
 from services.authentication.authentication import authentication
 from services.order.order import order
+from services.orders.orders import orders
 
 # Flask Set Up
 app = Flask(__name__)
@@ -36,6 +37,12 @@ def handleAuth(path):
 def handleOrder(path):
     orderObj = order(request)
     return jsonify(orderObj.getResponse())
+
+@app.route("/orders/<path:path>", methods=['GET', 'POST'])
+def handleOrders(path):
+    ordersObj = orders(request)
+    return jsonify(ordersObj.getResponse())
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

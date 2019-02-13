@@ -16,19 +16,22 @@ class order:
         self.__id = id()
         # Private Fields  
         self.__orderinfo = None
-        self.__orderstatus = None
+        self.__orderhistory = None
         
     def getOrderInfo(self):  # getter for private order information field
         return self.__orderinfo
 
     def getOrderStatus(self):  # getter for private order status field
-        return self.__orderstatus
+        return self.__orderhistory[0]
+    
+    def getOrderHistory(self):  # getter for private order status field
+        return self.__orderhistory
 
-    def loadOrderStatus(self, orderID):
+    def loadOrderHistory(self, orderID):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT `stage` FROM `orderHistory` WHERE `orderID` = %s", orderID)
+        cursor.execute("SELECT * FROM `orderHistory` WHERE `orderID` = %s ORDER BY `inserted` DESC", orderID)
         if cursor.rowcount == 1:
-            self.__orderstatus = cursor.fetchone()
+            self.__orderhistory = cursor.fetchall()
             return True
         else:
             raise Exception("Error: OrderID not found.")
