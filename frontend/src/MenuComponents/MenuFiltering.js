@@ -8,10 +8,36 @@ class MenuFiltering extends React.Component {
         super(props);
         this.state = {
             priceUnder20: false,
-            allergyList: ["nuts", "dairy", "gluten"],
+            allergyList: [
+                {
+                    id : 1,
+                    name: "nuts",
+                    checked : false
+                },
+                {
+                    id : 2,
+                    name : "dairy",
+                    checked : false
+                },
+                {
+                    id : 3,
+                    name : "gluten",
+                    checked : false
+                }
+            ],
         }
         this.menuFilter = this.menuFilter.bind(this);
         this.remove = this.remove.bind(this);
+    }
+
+    toggleChecked = (id) => {
+        this.setState({ allergyList: this.state.allergyList.map(allergy =>{
+            if(allergy.id === id){
+                allergy.checked = !allergy.checked
+            }
+
+            return allergy;
+        })});
     }
 
     menuFilter() {
@@ -52,7 +78,7 @@ class MenuFiltering extends React.Component {
     render() {
         return (
             <div className="filteringItems">
-                <AllergyCheckBoxes allergyList={this.state.allergyList} menuFilter={this.menuFilter}/>
+                <AllergyCheckBoxes allergyList={this.state.allergyList} menuFilter={this.menuFilter} toggleChecked={this.toggleChecked}/>
                 <Checkbox className="priceCheck" label="Price under £20" onClick={this.menuFilter}/>
             </div>
         )
