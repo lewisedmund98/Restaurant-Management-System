@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-
+import OrderController from '../Controllers/CustomerOrderController';
 import '../index.css';
 
 
@@ -20,7 +20,7 @@ export default class CustomerOrderPage extends React.Component {
         document.title = "Your Orders";
         return (
             <div className="orderContainer">
-                <h1>THIS IS YOUR ORDERS PAGE {this.orderDetails.orderNumber}</h1>
+                <OrderController customerOrders={this.orderDetails}></OrderController>
             </div>  
         )
     }

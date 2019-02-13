@@ -64,7 +64,6 @@ export default class CustomerPageController extends React.Component {
             orderPlaced: true,
             orderNumber : orderNumber.orderID
         });
-        alert("Congrats, your order is: " + this.state.orderNumber);
     }
 
 
