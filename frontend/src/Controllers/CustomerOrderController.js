@@ -3,7 +3,7 @@
  * the customer order page.
  */
 import React from 'react';
-import  OrderDisplay  from '../OrderComponents/OrderDisplay.js';
+import OrderDisplay from '../OrderComponents/OrderDisplay.js';
 
 
 export default class OrderController extends React.Component {
@@ -11,9 +11,13 @@ export default class OrderController extends React.Component {
         super(props);
         this.state = {
             orderDetails: [],
+            menuItems: [],
             orderStatus: "You dont have any orders!",
         }
+        this.orderIds = [];
         this.pullOrderDetails = this.pullOrderDetails.bind(this);
+        this.getMenuItems = this.getMenuItems.bind(this);
+        this.getOrderStatus = this.getOrderStatus.bind(this);
         this.pullOrderDetails();
     }
 
@@ -22,33 +26,79 @@ export default class OrderController extends React.Component {
         var ordersArray = this.props.customerOrders.orderNumber; // Set the array to a variable
         if (ordersArray.length) { // Sugar for not null / undefined, empty etc
             Object.values(ordersArray).forEach(orderID => { // Loop through array of orderID's
+                this.orderIds.push(orderID.orderID);
                 fetch("https://flask.team-project.crablab.co/order/view", {
                     headers: {
                         "Content-Type": "application/json",
                     },
                     method: "POST",
-                    body: JSON.stringify({ "id": orderID.orderID}), // pulls the order id from the order ID given
+                    body: JSON.stringify({ "id": orderID.orderID }), // pulls the order id from the order ID given
                 })
                     .then(response => response.json())
-                    .then(orderDetailsFromResponse => {
+                    .then(async orderDetailsFromResponse => {
+                        var finalResponse = orderDetailsFromResponse.order;
+                        await this.getMenuItems(finalResponse.items); // Await for this to finish
+                        await this.getOrderStatus(orderID.orderID);
+                        var menuResponse = { menu: this.state.menuItems };
+                        var combinedResult = { ...finalResponse, ...menuResponse, ...this.state.orderStatus };
                         var tempArray = this.state.orderDetails;
-                        tempArray.push(orderDetailsFromResponse);
+                        tempArray.push(combinedResult);
                         this.setState({
                             orderDetails: tempArray,
-                            orderStatus : "Here are your orders"
-                        })
+                            menuItems: [],
+                            orderStatus: null
+                        });
                     });
             });
         }
     }
 
+    async getMenuItems(itemList) {
+        for (var j = 0; j < itemList.length; j++) {
+            await fetch("https://flask.team-project.crablab.co/menu/item", {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({ id: itemList[j] }), // pulls the order id from the order ID given
+            })
+                .then(response => response.json())
+                .then(menuItems => {
+                    var tempArray = this.state.menuItems;
+                    tempArray.push(menuItems.result);
+                    this.setState({
+                        menuItems: tempArray
+                    })
+                });
+        }
+    }
+
+    async getOrderStatus(orderID) {
+        await fetch("https://flask.team-project.crablab.co/order/status", {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify({ id: orderID }), // pulls the order id from the order ID given
+        })
+            .then(response => response.json())
+            .then(orderStatus => {
+                this.setState({
+                    orderStatus: orderStatus.order
+                })
+            });
+
+    }
+
+
     render() {
+
         return (
             <React.Fragment>
-                <p>The customer order page controller {JSON.stringify(this.state.orderStatus)} </p>
+                <p>The customer order page controller {this.state.orderDetails.stage} </p>
                 <OrderDisplay orderDetails={this.state.orderDetails}></OrderDisplay>
             </React.Fragment>
-            
+
 
         )
     }

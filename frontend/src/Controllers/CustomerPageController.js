@@ -66,6 +66,7 @@ export default class CustomerPageController extends React.Component {
             orderPlaced: true,
             orderNumbers : tempOrderArray
         });
+        
     }
 
 

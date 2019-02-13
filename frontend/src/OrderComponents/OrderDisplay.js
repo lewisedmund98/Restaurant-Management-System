@@ -8,8 +8,22 @@ export default class OrderDisplay extends React.Component {
     constructor(props) {
         super(props);
         this.mapOrderDetails = this.mapOrderDetails.bind(this);
+        // this.getMenuItems = this.getMenuItems.bind(this);
+        // this.getOrderStatus = this.getOrderStatus.bind(this);
 
     }
+
+    // getMenuItems(details) {
+    //     if (details) {
+    //         for (var i = 0; i < details.length; i++) {
+    //             console.log(details[i].items);
+    //         }
+    //     }
+    // }
+
+    // getOrderStatus(){
+
+    // }
 
     mapOrderDetails(details) {
         var mappedDetails = details.map(element => 
@@ -20,6 +34,7 @@ export default class OrderDisplay extends React.Component {
     }
 
     render() {
+        // this.getMenuItems(this.props.orderDetails);
         var orders = this.mapOrderDetails(this.props.orderDetails);
         return (
             <ul>{orders}</ul>
