@@ -21,7 +21,7 @@ export default class CustomerPageController extends React.Component {
             currentBasket:[], // Adds a basket array to which I will append menu objects
             orderPlaced: false,
             orderComplete: false,
-            orderNumber : ""
+            orderNumbers : []
         };
         this.addToBasket = this.addToBasket.bind(this); // Method to add to the basket.
         this.removeFromBasket = this.removeFromBasket.bind(this); 
@@ -60,9 +60,11 @@ export default class CustomerPageController extends React.Component {
     }
 
     setOrder(orderNumber){
+        var tempOrderArray = this.state.orderNumbers; // Adds an order number to the list
+        tempOrderArray.push(orderNumber);
         this.setState({
             orderPlaced: true,
-            orderNumber : orderNumber.orderID
+            orderNumbers : tempOrderArray
         });
     }
 
@@ -72,7 +74,7 @@ export default class CustomerPageController extends React.Component {
             <div className="mainContainer">
                 <Link to={{
                     pathname:"/customerOrder", 
-                    state:{orderNumber: this.state.orderNumber}
+                    state:{orderNumber: this.state.orderNumbers}
                 }}><Button>Your Orders</Button></Link>
                 <div id="ListCards">
                     <CardContoller basket={this.addToBasket}> {/*Basket is the event handler for a button*/}

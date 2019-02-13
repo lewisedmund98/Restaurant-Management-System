@@ -4,10 +4,25 @@
  */
 import React from 'react';
 
- export default class OrderDisplay extends React.Component{
-    render(){
-        return(
-            <h1>Orders will be displayed here</h1>
+export default class OrderDisplay extends React.Component {
+    constructor(props) {
+        super(props);
+        this.mapOrderDetails = this.mapOrderDetails.bind(this);
+
+    }
+
+    mapOrderDetails(details) {
+        var mappedDetails = details.map(element => 
+           <li>{JSON.stringify(element)}</li>
+        )
+        return mappedDetails;
+
+    }
+
+    render() {
+        var orders = this.mapOrderDetails(this.props.orderDetails);
+        return (
+            <ul>{orders}</ul>
         )
     }
- }
+}

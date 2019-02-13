@@ -12,13 +12,14 @@ export default class CustomerOrderPage extends React.Component {
     constructor(props){
         super(props);
         // Because we used a <Link> We need to call the state passed like this:
-        this.orderDetails = this.props.location.state;
+        
     }
     render() {
+        var orderDetails = this.props.location.state;
         document.title = "Your Orders";
         return (
             <div className="orderContainer">
-                <OrderController customerOrders={this.orderDetails}></OrderController>
+                <OrderController customerOrders={orderDetails}></OrderController>
             </div>  
         )
     }
