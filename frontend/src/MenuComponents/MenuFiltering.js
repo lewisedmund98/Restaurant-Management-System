@@ -15,17 +15,16 @@ class MenuFiltering extends React.Component {
     }
 
     menuFilter() {
-        var total = 0;
         try{
             Object.values(this.props.dishList).forEach(dish => { // Loops over each dish in the basket and gets its price
                 if (dish.itemPrice > 20) {
-                    total += 1;
+                    this.remove(dish);
+                    alert("removing " + dish.dishName)
                 }
             });
         } catch (error) {
             console.log(error);
         }
-        alert(total);
     }
 
     remove(menuItem) { //call this method with the menuItem that needs to be removed (from filter) and it will be removed
@@ -39,7 +38,6 @@ class MenuFiltering extends React.Component {
         this.setState({
             dishList: tempDishList,
         });
-        alert([this.props.dishList.length]);
     }
 
     /* toggle(stateToToggle) {
