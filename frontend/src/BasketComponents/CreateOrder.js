@@ -28,7 +28,7 @@ export default class CreateOrder extends React.Component {
                 },
                 body:orderBody,
             }).then(response => response.json())
-            .then(json => console.log(json));
+            .then(json => this.props.setOrder(json));
         } catch (error){
             console.log(error);
         }

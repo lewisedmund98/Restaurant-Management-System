@@ -9,7 +9,9 @@ import BasketItem from './BasketItem';
 export default class Basket extends React.Component{
     constructor(props){
         super(props);
+        
         this.calculateTotal = this.calculateTotal.bind(this);
+    
     }
 
     calculateTotal(){
@@ -23,6 +25,7 @@ export default class Basket extends React.Component{
         }
         return total;
     }
+
     
     render(){
         var total = this.calculateTotal();
@@ -30,7 +33,7 @@ export default class Basket extends React.Component{
             <div className="basketItems">
                 <BasketItem onRemove={this.props.onRemove} currentBasket={this.props.dishList}/>
                 <h1> Total Price: £{total} </h1>
-                <CreateOrder onRemove={this.props.onRemove} currentBasket={this.props.dishList}></CreateOrder>
+                <CreateOrder setOrder={this.props.setOrder} onRemove={this.props.onRemove} currentBasket={this.props.dishList}></CreateOrder>
             </div>
         )
     }
