@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import OrderController from '../Controllers/CustomerOrderController';
+import OrderController from '../Controllers/CustomerOrderController'
 import '../index.css';
 
 
@@ -15,8 +15,6 @@ export default class CustomerOrderPage extends React.Component {
         this.orderDetails = this.props.location.state;
     }
     render() {
-        var order = this.props.state;
-        console.log(this.props.location.state.or);
         document.title = "Your Orders";
         return (
             <div className="orderContainer">
