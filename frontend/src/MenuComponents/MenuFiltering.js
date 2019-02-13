@@ -17,7 +17,6 @@ class MenuFiltering extends React.Component {
     menuFilter() {
         //var tempDishList = this.prop.dishList;
         //var tempMenuItem = tempDishList[tempDishList.length - 1];
-        console.log("hello");
         this.remove(this.props.dishList[0]);
     }
 
@@ -32,8 +31,7 @@ class MenuFiltering extends React.Component {
         this.setState({
             dishList: tempDishList,
         });
-        this.props.callFilter();
-        console.log([this.props.dishList.length]);
+        alert([this.props.dishList.length]);
     }
 
     /* toggle(stateToToggle) {
@@ -43,7 +41,7 @@ class MenuFiltering extends React.Component {
     render() {
         return (
             <div className="filteringItems">
-                <AllergyCheckBoxes allergyList={this.state.allergyList} />
+                <AllergyCheckBoxes allergyList={this.state.allergyList} menuFilter={this.menuFilter}/>
                 <Checkbox className="priceCheck" label="Price under £20"/>
             </div>
         )
