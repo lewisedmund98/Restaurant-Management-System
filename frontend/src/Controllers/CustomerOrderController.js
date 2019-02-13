@@ -10,14 +10,32 @@ import {OrderDisplay} from '../OrderComponents/OrderDisplay.js';
      constructor(props){
          super(props);
          this.state={
-             orderDetails: this.props.customerOrders
+             orderDetails: null,
+             orderStatus: null,
          }
+         this.pullOrderDetails = this.pullOrderDetails.bind(this);
+     }
 
+     pullOrderDetails(){
+        fetch("https://flask.team-project.crablab.co/order/view", {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method:"POST",
+            body:JSON.stringify({"id":this.props.customerOrders.orderNumber}),
+        })
+        .then(response => response.json())
+        .then(orderDetailsFromResponse => {
+            this.setState({
+                orderDetails: orderDetailsFromResponse
+            })
+        });
      }
 
      render(){
+         this.pullOrderDetails();
          return(
-             <p>The customer order page controller {this.state.orderDetails.orderNumber} </p>
+             <p>The customer order page controller {JSON.stringify(this.state.orderDetails)} </p>
          )
      }
  }
