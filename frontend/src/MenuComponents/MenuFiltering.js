@@ -15,9 +15,17 @@ class MenuFiltering extends React.Component {
     }
 
     menuFilter() {
-        //var tempDishList = this.prop.dishList;
-        //var tempMenuItem = tempDishList[tempDishList.length - 1];
-        this.remove(this.props.dishList[0]);
+        var total = 0;
+        try{
+            Object.values(this.props.dishList).forEach(dish => { // Loops over each dish in the basket and gets its price
+                if (dish.itemPrice > 20) {
+                    total += 1;
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+        alert(total);
     }
 
     remove(menuItem) { //call this method with the menuItem that needs to be removed (from filter) and it will be removed
