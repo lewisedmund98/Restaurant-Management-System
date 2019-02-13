@@ -39,6 +39,11 @@ class MenuFiltering extends React.Component {
             return allergy;
         })});
     }
+    showChecked = () => {
+        this.state.allergyList.map(allergy => {
+            console.log(allergy.name + ": " + allergy.checked);
+        })
+    }
 
     menuFilter() {
         var tempDishList = this.props.dishList;
@@ -75,9 +80,12 @@ class MenuFiltering extends React.Component {
         this.setState({stateToToggle: !this.state.stateToToggle});
     } */
 
+    //the button is only temporary it is just there to test that the toggle checked is working
+
     render() {
         return (
             <div className="filteringItems">
+                <button onClick={this.showChecked}>Show checked in console</button>
                 <AllergyCheckBoxes allergyList={this.state.allergyList} menuFilter={this.menuFilter} toggleChecked={this.toggleChecked}/>
                 <Checkbox className="priceCheck" label="Price under £20" onClick={this.menuFilter}/>
             </div>
