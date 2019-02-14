@@ -10,7 +10,7 @@ class order:
     # noinspection PyUnusedLocal
     def __init__(self):
         # Instatiate Database
-        instance = db()
+        self.__database = instance = db()
         self.__db = instance.getInstance()
         # Instantiate ID
         self.__id = id()
