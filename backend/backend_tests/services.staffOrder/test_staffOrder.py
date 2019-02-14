@@ -12,7 +12,7 @@ def staffOrderClass():
 
 # test case 1
 def testwaiterConfirm(staffOrderClass):
-    assert isinstance(waiterConfirm(), dict)
+    assert isinstance(staffOrderClass.waiterConfirm(), dict)
 
 # test case 2
 def testkitchenConfirm(staffOrderClass):
