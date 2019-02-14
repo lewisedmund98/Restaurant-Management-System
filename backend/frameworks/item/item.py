@@ -4,7 +4,7 @@ import json
 class item():
 
     def __init__(self):
-        instance = db()
+        self.__database = instance = db()
         self.__db = instance.getInstance()
 
     def load(self, id):

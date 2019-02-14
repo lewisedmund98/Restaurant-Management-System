@@ -2,7 +2,7 @@ from frameworks.database.db import db
 from frameworks.item.item import item
 class items():
     def __init__(self):
-        instance = db()
+        self.__database = instance = db()
         self.__db = instance.getInstance()
 
     def load(self):

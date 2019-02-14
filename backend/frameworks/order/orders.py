@@ -6,7 +6,7 @@ from .order import order
 class orders():
     def __init__(self):
         # Instatiate Database
-        instance = db()
+        self.__database = instance = db()
         self.__db = instance.getInstance()
     
     def loadOrders(self):

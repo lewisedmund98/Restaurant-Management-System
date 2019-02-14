@@ -6,6 +6,7 @@
 import React from 'react';
 import '../index.css';
 import CustomerPageController from '../Controllers/CustomerPageController';
+import { Button } from 'semantic-ui-react';
 
 export default class Customer extends React.Component {
     render() {
@@ -15,6 +16,9 @@ export default class Customer extends React.Component {
                 <div className="ourmenu" id="menuHeading">
                 <div className="ourmenuheading">
                     <h1><b><i aria-hidden="true" className="food icon"></i>Our Menu</b></h1>
+                </div>
+                <div classname="loginContainer"> 
+                    <Button>Staff Login</Button>
                 </div>
             </div>
                <CustomerPageController></CustomerPageController>
