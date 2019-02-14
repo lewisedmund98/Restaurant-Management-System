@@ -29,7 +29,7 @@ export default class OrderController extends React.Component {
                         this.getMenuItems(orderReturn.order.items)
                             .then((menuItems) => {
                                 var menuItemsArray = [];
-                                for(var i=0; i<menuItems.length; i++){
+                                for (var i = 0; i < menuItems.length; i++) {
                                     menuItemsArray.push(menuItems[i].result);
                                 }
                                 this.getOrderStatus(orderID.orderID)
@@ -69,8 +69,8 @@ export default class OrderController extends React.Component {
     getMenuItems(itemList) {
         var promiseArr = [];
         for (var j = 0; j < itemList.length; j++) {
-            
-           promiseArr.push(fetch("https://flask.team-project.crablab.co/menu/item", {
+
+            promiseArr.push(fetch("https://flask.team-project.crablab.co/menu/item", {
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -78,15 +78,7 @@ export default class OrderController extends React.Component {
                 body: JSON.stringify({ id: itemList[j] }), // pulls the order id from the order ID given
             })
                 .then(response => response.json())
-                // .then(menuItems => {
-                //     var tempArray = this.state.menuItems;
-                //     tempArray.push(menuItems.result);
-
-                //     this.setState({
-                //         menuItems: tempArray
-                //     })
-                // })
-           );
+            );
         }
         return Promise.all(promiseArr);
 
@@ -107,43 +99,6 @@ export default class OrderController extends React.Component {
                     orderStatus: orderStatus.order
                 })
             });
-    }
-
-    pullOrderDetails() { // Takes the order details and stores each into an array
-        //console.log(this.props.customerOrders);
-        var ordersArray = this.props.customerOrders.orderNumber; // Set the array to a variable
-        if (ordersArray.length) { // Sugar for not null / undefined, empty etc
-            Object.values(ordersArray).forEach(orderID => { // Loop through array of orderID's
-                //this.orderIds.push(orderID.orderID);
-                fetch("https://flask.team-project.crablab.co/order/view", {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    method: "POST",
-                    body: JSON.stringify({ "id": orderID.orderID }), // pulls the order id from the order ID given
-                })
-                    .then(response => response.json())
-                    .then(async orderDetailsFromResponse => {
-                        var finalResponse = orderDetailsFromResponse.order;
-                        //  We require the data from the first fetch call so await
-                        console.log(finalResponse.items);
-                        await this.getMenuItems(finalResponse.items); // Await for this to finish
-                        await this.getOrderStatus(orderID.orderID); // Await for this to finish
-                        var menuResponse = { menu: this.state.menuItems };
-                        console.log(menuResponse);
-                        var combinedResult = { ...finalResponse, ...menuResponse, ...this.state.orderStatus };
-                        var tempArray = this.state.orderDetails;
-                        //if(!tempArray.includes(combinedResult)){
-                        tempArray.push(combinedResult);
-                        //}
-                        this.setState({ // Assign details state and then reset other fields
-                            orderDetails: tempArray,
-                            menuItems: [],
-                            orderStatus: null
-                        });
-                    });
-            });
-        }
     }
 
 
