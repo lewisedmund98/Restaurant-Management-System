@@ -43,6 +43,9 @@ export default class StaffPageController extends React.Component {
                 orderList : jsonArray
             });
         })
+        .catch(()=>{
+            console.log("An issue with the server");
+        })
     }
 
 
