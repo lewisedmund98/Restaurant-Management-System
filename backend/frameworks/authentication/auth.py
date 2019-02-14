@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 class authentication():
     def __init__(self, token, secret):
         # Instantiate other classes
-        instance = db()
+        self.__database = instance = db()
         self.__db = instance.getInstance()
         self.__ph = PasswordHasher()
         self.__id = id()
