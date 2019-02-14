@@ -7,7 +7,7 @@ from frameworks.order.order import order
 # test fixture with instance we pass to each test case
 def staffOrderClass():
     order1  = order()
-    orderInstance = order1.createOrder("Test Customer", "3212233 ", "test@gmail", "testtable ", "somestuff")
+    orderInstance = order1.createOrder("Test Customer", "1 ", "test", 13, "1")
     return staffOrder(order)
 
 # test case 1
