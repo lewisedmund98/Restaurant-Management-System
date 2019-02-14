@@ -1,9 +1,7 @@
 import React from 'react';
 import CardContoller from './CardController.js';
 import '../index.css';
-import {Button} from 'semantic-ui-react';
-import {Link} from 'react-router-dom';
-import OrderDisplay from '../OrderComponents/OrderDisplay.js';
+import OrderDisplayWrapper from '../OrderComponents/OrderDisplayWrapper.js';
 
 /**
  * The staff page controller is the main controller for the page with url/staff.
@@ -15,44 +13,48 @@ export default class StaffPageController extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            orderList:[]
+            orderList: []
         };
-    
-    } 
 
-    componentDidMount(){
+    }
+
+    componentDidMount() {
         this.timerID = setInterval(
             () => this.checkForNewOrders(),
-            2000
-          );   
-        }
-
-        
-    checkForNewOrders(){
-        fetch("https://flask.team-project.crablab.co/orders/list")
-        .then(response => response.json())
-        .then(jsonReturn => {
-            // Do stuff with Order
-            jsonReturn = jsonReturn.orders;
-            var jsonArray = []
-            for(var i = 0; i<jsonReturn.length; i++){
-                jsonArray[i] = jsonReturn[i];
-            }
-
-            this.setState({
-                orderList : jsonArray
-            });
-        })
-        .catch(()=>{
-            console.log("An issue with the server");
-        })
+            7500
+        );
     }
 
 
-render() {
-    // The current orders are accesible through "orderList" in the state
-    return (
-        <h1>The staff page controller</h1>
-    )
-}
+    checkForNewOrders() {
+        try {
+
+            fetch("https://flask.team-project.crablab.co/orders/list")
+                .then(response => response.json())
+                .then(jsonReturn => {
+                    // Do stuff with Order
+                    jsonReturn = jsonReturn.orders;
+                    var jsonArray = []
+                    for (var i = 0; i < jsonReturn.length; i++) {
+                        jsonArray[i] = jsonReturn[i];
+                    }
+                    this.setState({
+                        orderList: jsonArray
+                    });
+                })
+                .catch(() => {
+                    console.log("An issue with the server");
+                })
+        } catch (error) {
+            console.log("An issue occured");
+        }
+    }
+
+
+    render() {
+        // The current orders are accesible through "orderList" in the state
+        return (
+            <OrderDisplayWrapper orderList={this.state.orderList}></OrderDisplayWrapper>
+        )
+    }
 }
