@@ -1,5 +1,5 @@
 import pytest
-from services.staffOrder.handler.staffOrder import staffOrder
+from frameworks.order.staffOrder import staffOrder
 from frameworks.order.order import order
 
 
