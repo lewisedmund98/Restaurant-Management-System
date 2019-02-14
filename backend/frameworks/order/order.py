@@ -14,16 +14,16 @@ class order:
         self.__db = instance.getInstance()
         # Instantiate ID
         self.__id = id()
-        # Private Fields  
+        # Private Fields
         self.__orderinfo = None
         self.__orderhistory = None
-        
+
     def getOrderInfo(self):  # getter for private order information field
         return self.__orderinfo
 
     def getOrderStatus(self):  # getter for private order status field
         return self.__orderhistory[0]
-    
+
     def getOrderHistory(self):  # getter for private order status field
         return self.__orderhistory
 

@@ -3,31 +3,22 @@ from frameworks.order.order import order
 from frameworks.database.db import db
 from frameworks.idGenerator.id import id
 
-class staffOrder(order.order):
-     def __init__(self):
-         instance = db()
-         self.__db = instance.getInstance()
-         self.__id = id()
-
-
+class staffOrder(order):
+    def __init__(self, orderID):
+        instance = db()
+        self.__db = instance.getInstance()
+        self.__id = orderID
 
     def waiterConfirm(self):
-        '''
-        initialize the __insertOrderHistory
-        it should return the insertionID that
-        the insert method returns
-        '''
-        order = self.id.getID()
+        order = self.__id
         stage = "waiterConfirmed"
         meta = {}
         iID = __insertOrderHistory(order, stage, meta)
         return iID
 
-
     def kitchenCorfirm(self, ETA):
         meta = {'deliverTime' : ETA}
-        order = self.id.getID()
+        order = self.__id
         stage = "kitchenCorfirm"
-
         iID =__insertOrderHistory(order, stage, meta)
         return iID
