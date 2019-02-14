@@ -47,11 +47,10 @@ class MenuFiltering extends React.Component {
 
     menuFilter() {
         this.props.setFilteredDishList(this.props.dishList);
-        this.props.setDishList(this.props.dishList);
-        if (!document.getElementById('priceCheck').checked) {
+        if (document.getElementById('priceCheck').checked) {
+            alert(document.getElementById('priceCheck').checked);
             this.priceUnder20();
-        }
-        this.props.setDishList(this.props.filteredDishList);//a method in CardController that updates the dishList to be the parameter
+        }//a method in CardController that updates the dishList to be the parameter
         //that it is passed, this updates the dishList in the app to be the one we create with filtering
     }
 
@@ -79,6 +78,8 @@ class MenuFiltering extends React.Component {
         this.props.filteredDishList.pop(); //removes the unwanted menuItem
     }
 
+    toggle = () => this.setState({ checked: !this.state.checked })
+
     /* toggle(stateToToggle) {
         this.setState({stateToToggle: !this.state.stateToToggle});
     } */
@@ -88,10 +89,10 @@ class MenuFiltering extends React.Component {
     render() {
         return (
             <div className="filteringItems">
-                <button onClick={this.showChecked}>Show checked in console</button>
-                <AllergyCheckBoxes allergyList={this.state.allergyList} menuFilter={this.menuFilter} toggleChecked={this.toggleChecked}/>
+                {/*<button onClick={this.showChecked}>Show checked in console</button> */}
+                {/* <AllergyCheckBoxes allergyList={this.state.allergyList} menuFilter={this.menuFilter} toggleChecked={this.toggleChecked}/> */}
                 <Checkbox id="priceCheck" label="Price under £20" onClick={this.menuFilter}
-                          />
+                         onChange={this.toggle} checked={this.state.checked}/>
             </div>
         )
     }

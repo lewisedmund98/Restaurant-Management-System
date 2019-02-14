@@ -28,8 +28,9 @@ class CardController extends React.Component {
             dishList: [],
             filteredDishList: []
         };
-        this.setDishList = this.setDishList.bind(this);
+        //this.setDishList = this.setDishList.bind(this);
         this.setFilteredDishList = this.setFilteredDishList.bind(this);
+        this.setDishList = this.setDishList.bind(this);
     }
 
     componentDidMount() { // React component method, this method runs when the react component is initially rendered
@@ -50,15 +51,14 @@ class CardController extends React.Component {
                 });
     }
 
-    setDishList(dishListGiven) {
-        this.setState ({
-            dishList: dishListGiven,
-        })
-    }
-
     setFilteredDishList(dishListGiven) {
         this.setState ({
             filteredDishList: dishListGiven,
+        })
+    }
+    setDishList(dishListGiven) {
+        this.setState ({
+            dishList: dishListGiven,
         })
     }
 
@@ -66,9 +66,9 @@ class CardController extends React.Component {
         return (
             // We make a tab wrapper which creates the tabs on the screen and pass the list of dishes
             <div className="TabWrapping">
-                <TabWrapper basket={this.props.basket} className="tabWrapper" dishList={this.state.dishList}/>
+                <TabWrapper basket={this.props.basket} className="tabWrapper" filteredDishList={this.state.filteredDishList}/>
                 <MenuFiltering dishList={this.state.dishList} filteredDishList={this.state.filteredDishList}
-                               setDishList={this.setDishList} setFilteredDishList={this.setFilteredDishList}/>
+                               setDishList={this.setDishList} setFilteredDishList={this.setFilteredDishList} />
             </div>
         )
     }
