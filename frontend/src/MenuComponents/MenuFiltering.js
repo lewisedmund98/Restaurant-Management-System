@@ -25,7 +25,7 @@ class MenuFiltering extends React.Component {
                     checked : false
                 }
             ],
-        }
+        };
         this.menuFilter = this.menuFilter.bind(this);
         this.remove = this.remove.bind(this);
     }
@@ -38,12 +38,12 @@ class MenuFiltering extends React.Component {
 
             return allergy;
         })});
-    }
+    };
     showChecked = () => {
         this.state.allergyList.map(allergy => {
             console.log(allergy.name + ": " + allergy.checked);
         })
-    }
+    };
 
     menuFilter() {
         try{
