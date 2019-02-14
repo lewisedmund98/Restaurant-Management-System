@@ -12,9 +12,14 @@ export default class Customer extends React.Component {
     render() {
         document.title = "Oaxaca Staff";
         return (
-            <div className="loginContainer">
-                <h1>THIS IS THE STAFF PAGE</h1>
-            </div>  
+            <div>
+                <div className="loginContainer">
+                    <h1>Staff ID is logged in</h1>
+                </div>  
+                <div className="orderContainer"> 
+                    <h2>Orders are placed here</h2>
+                </div>
+            </div>
         )
     }
 }
