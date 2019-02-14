@@ -15,13 +15,41 @@ export default class StaffPageController extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            orderList:[]
         };
     
     } 
 
+    componentDidMount(){
+        this.timerID = setInterval(
+            () => this.checkForNewOrders(),
+            2000
+          );   
+        }
+
+        
+    checkForNewOrders(){
+        fetch("https://flask.team-project.crablab.co/orders/list")
+        .then(response => response.json())
+        .then(jsonReturn => {
+            // Do stuff with Order
+            jsonReturn = jsonReturn.orders;
+            var jsonArray = []
+            for(var i = 0; i<jsonReturn.length; i++){
+                jsonArray[i] = jsonReturn[i];
+            }
+
+            this.setState({
+                orderList : jsonArray
+            });
+        })
+    }
+
+
 render() {
+    // The current orders are accesible through "orderList" in the state
     return (
-        <OrderDisplay orderDetails={this.state.orderDetails}></OrderDisplay>
+        <h1>The staff page controller</h1>
     )
+}
 }

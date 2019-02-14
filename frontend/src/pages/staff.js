@@ -5,10 +5,16 @@
 import React from 'react';
 
 import '../index.css';
-
-
+import StaffPageController from '../Controllers/StaffPageController';
 
 export default class Customer extends React.Component {
+    constructor(props){
+        super(props);
+        
+
+    }
+
+    
     render() {
         document.title = "Oaxaca Staff";
         return (
@@ -17,7 +23,7 @@ export default class Customer extends React.Component {
                     <h1>Staff ID is logged in</h1>
                 </div>  
                 <div className="orderContainer"> 
-                    <h2>Orders are placed here</h2>
+                    <StaffPageController></StaffPageController>
                 </div>
             </div>
         )
