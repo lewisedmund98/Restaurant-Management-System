@@ -46,9 +46,12 @@ class MenuFiltering extends React.Component {
     };
 
     menuFilter() {
-        this.props.callFilter(this.props.dishList);
-        this.priceUnder20();
-        this.props.callFilter(this.props.filteredDishList);//a method in CardController that updates the dishList to be the parameter
+        this.props.setFilteredDishList(this.props.dishList);
+        this.props.setDishList(this.props.dishList);
+        if (!document.getElementById('priceCheck').checked) {
+            this.priceUnder20();
+        }
+        this.props.setDishList(this.props.filteredDishList);//a method in CardController that updates the dishList to be the parameter
         //that it is passed, this updates the dishList in the app to be the one we create with filtering
     }
 
@@ -87,7 +90,8 @@ class MenuFiltering extends React.Component {
             <div className="filteringItems">
                 <button onClick={this.showChecked}>Show checked in console</button>
                 <AllergyCheckBoxes allergyList={this.state.allergyList} menuFilter={this.menuFilter} toggleChecked={this.toggleChecked}/>
-                <Checkbox className="priceCheck" label="Price under £20" onClick={this.menuFilter}/>
+                <Checkbox id="priceCheck" label="Price under £20" onClick={this.menuFilter}
+                          />
             </div>
         )
     }
