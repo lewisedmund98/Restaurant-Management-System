@@ -25,7 +25,8 @@ class CardController extends React.Component {
     constructor(props) {
         super(props);
         this.state = { // Sets the current state variables to contain a dish list. This will be populated by JSON objects
-            dishList: []
+            dishList: [],
+            filteredDishList: []
         };
         this.callFilter = this.callFilter.bind(this);
     }
@@ -42,7 +43,8 @@ class CardController extends React.Component {
                     }
 
                     this.setState({
-                        dishList: menuResult
+                        dishList: menuResult,
+                        filteredDishList: menuResult
                     });
                 });
     }
@@ -58,7 +60,7 @@ class CardController extends React.Component {
             // We make a tab wrapper which creates the tabs on the screen and pass the list of dishes
             <div className="TabWrapping">
                 <TabWrapper basket={this.props.basket} className="tabWrapper" dishList={this.state.dishList}/>
-                <MenuFiltering dishList={this.state.dishList} callFilter={this.callFilter}/>
+                <MenuFiltering dishList={this.state.dishList} filteredDishList={this.state.filteredDishList} callFilter={this.callFilter}/>
             </div>
         )
     }

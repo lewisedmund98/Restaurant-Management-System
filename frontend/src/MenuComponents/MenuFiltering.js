@@ -46,11 +46,18 @@ class MenuFiltering extends React.Component {
     };
 
     menuFilter() {
+        this.props.callFilter(this.props.dishList);
+        this.priceUnder20();
+        this.props.callFilter(this.props.filteredDishList);//a method in CardController that updates the dishList to be the parameter
+        //that it is passed, this updates the dishList in the app to be the one we create with filtering
+    }
+
+    priceUnder20() {
         try{
-            Object.values(this.props.dishList).forEach(dish => { // Loops over each dish in the basket and checks its price
+            Object.values(this.props.filteredDishList).forEach(dish => { // Loops over each dish in the basket and checks its price
                 //for the moment this is temporary just to figure out the logic, and actually making the dishes
                 //disappear from the app
-                if (dish.itemPrice > 20) { //checks if the dish has a price of above £20
+                if (dish.itemPrice < 20) { //checks if the dish has a price of above £20
                     //alert("removing ");
                     this.remove(dish); //removing this dish
                 }
@@ -58,20 +65,15 @@ class MenuFiltering extends React.Component {
         } catch (error) {
             console.log(error);
         }
-
-        this.props.callFilter(this.props.dishList); //a method in CardController that updates the dishList to be the parameter
-        //that it is passed, this updates the dishList in the app to be the one we create with filtering
     }
 
     remove(menuItem) { //call this method with the menuItem that needs to be removed (from filter) and it will be removed
         // just putting this here to simplify my code and make a start
-        var tempDishList = this.props.dishList;
-        var tempMenuItem = tempDishList[tempDishList.length - 1];
-        tempDishList[tempDishList.length - 1] = menuItem;
-        tempDishList[tempDishList.indexOf(menuItem)] = tempMenuItem; // simple three way swap with a temp variable to move the
+        var tempMenuItem = this.props.filteredDishList[this.props.filteredDishList.length - 1];
+        this.props.filteredDishList[this.props.filteredDishList.length - 1] = menuItem;
+        this.props.filteredDishList[this.props.filteredDishList.indexOf(menuItem)] = tempMenuItem; // simple three way swap with a temp variable to move the
         //unwanted item to the end
-        tempDishList.pop(); //removes the unwanted menuItem
-        this.props.dishList = tempDishList;
+        this.props.filteredDishList.pop(); //removes the unwanted menuItem
     }
 
     /* toggle(stateToToggle) {
