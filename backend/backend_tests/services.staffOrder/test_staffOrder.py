@@ -16,4 +16,4 @@ def testwaiterConfirm(staffOrderClass):
 
 # test case 2
 def testkitchenConfirm(staffOrderClass):
-    assert isinstance(kitchenCorfirm(), dict)
+    assert isinstance(staffOrderClass.kitchenCorfirm(), dict)

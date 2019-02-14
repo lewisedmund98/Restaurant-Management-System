@@ -13,12 +13,12 @@ class staffOrder(order):
         order = self.__id
         stage = "waiterConfirmed"
         meta = {}
-        iID = __insertOrderHistory(order, stage, meta)
+        iID = super(order, self).__insertOrderHistory(order, stage, meta)
         return iID
 
     def kitchenCorfirm(self, ETA):
         meta = {'deliverTime' : ETA}
         order = self.__id
         stage = "kitchenCorfirm"
-        iID =__insertOrderHistory(order, stage, meta)
+        iID =super(order,self).__insertOrderHistory(order, stage, meta)
         return iID
