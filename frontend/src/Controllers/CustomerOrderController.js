@@ -14,20 +14,22 @@ export default class OrderController extends React.Component {
             menuItems: [],
             orderStatus: "You dont have any orders!",
         }
-        this.orderIds = [];
         this.pullOrderDetails = this.pullOrderDetails.bind(this);
         this.getMenuItems = this.getMenuItems.bind(this);
         this.getOrderStatus = this.getOrderStatus.bind(this);
-        this.pullOrderDetails();
+    }
+
+     componentDidMount(){
+         this.pullOrderDetails();
     }
 
     pullOrderDetails() { // Takes the order details and stores each into an array
         //console.log(this.props.customerOrders);
         var ordersArray = this.props.customerOrders.orderNumber; // Set the array to a variable
         if (ordersArray.length) { // Sugar for not null / undefined, empty etc
-            Object.values(ordersArray).forEach(orderID => { // Loop through array of orderID's
-                this.orderIds.push(orderID.orderID);
-                fetch("https://flask.team-project.crablab.co/order/view", {
+            Object.values(ordersArray).forEach( orderID => { // Loop through array of orderID's
+                //this.orderIds.push(orderID.orderID);
+                 fetch("https://flask.team-project.crablab.co/order/view", {
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -37,15 +39,20 @@ export default class OrderController extends React.Component {
                     .then(response => response.json())
                     .then(async orderDetailsFromResponse => {
                         var finalResponse = orderDetailsFromResponse.order;
+                        //  We require the data from the first fetch call so await
+                        console.log(finalResponse.items);
                         await this.getMenuItems(finalResponse.items); // Await for this to finish
-                        await this.getOrderStatus(orderID.orderID);
+                        await this.getOrderStatus(orderID.orderID); // Await for this to finish
                         var menuResponse = { menu: this.state.menuItems };
+                        console.log(menuResponse);
                         var combinedResult = { ...finalResponse, ...menuResponse, ...this.state.orderStatus };
                         var tempArray = this.state.orderDetails;
-                        tempArray.push(combinedResult);
-                        this.setState({
+                        //if(!tempArray.includes(combinedResult)){
+                            tempArray.push(combinedResult);
+                        //}
+                        this.setState({ // Assign details state and then reset other fields
                             orderDetails: tempArray,
-                            menuItems: [],
+                            menuItems:[],
                             orderStatus: null
                         });
                     });
@@ -66,6 +73,7 @@ export default class OrderController extends React.Component {
                 .then(menuItems => {
                     var tempArray = this.state.menuItems;
                     tempArray.push(menuItems.result);
+                    console.log("this is run");
                     this.setState({
                         menuItems: tempArray
                     })
@@ -87,19 +95,12 @@ export default class OrderController extends React.Component {
                     orderStatus: orderStatus.order
                 })
             });
-
     }
 
 
     render() {
-
         return (
-            <React.Fragment>
-                <p>The customer order page controller {this.state.orderDetails.stage} </p>
-                <OrderDisplay orderDetails={this.state.orderDetails}></OrderDisplay>
-            </React.Fragment>
-
-
+            <OrderDisplay orderDetails={this.state.orderDetails}></OrderDisplay>
         )
     }
 }

@@ -3,41 +3,65 @@
  * This will take some order state in too.
  */
 import React from 'react';
+import { Card, List , Image, Label} from 'semantic-ui-react';
 
 export default class OrderDisplay extends React.Component {
     constructor(props) {
         super(props);
         this.mapOrderDetails = this.mapOrderDetails.bind(this);
-        // this.getMenuItems = this.getMenuItems.bind(this);
-        // this.getOrderStatus = this.getOrderStatus.bind(this);
-
+        this.mapMenuToLabels = this.mapMenuToLabels.bind(this);
     }
 
-    // getMenuItems(details) {
-    //     if (details) {
-    //         for (var i = 0; i < details.length; i++) {
-    //             console.log(details[i].items);
-    //         }
-    //     }
-    // }
 
-    // getOrderStatus(){
-
-    // }
+    mapMenuToLabels(menu) {
+        var menuMap = menu.map((menuItem, key) => {
+            return (
+                <List>
+                <List.Item>
+                    <Image avatar src={menuItem.itemImage} />
+                    <List.Content>
+                        <List.Header>{menuItem.itemName}</List.Header>
+                       
+                    </List.Content>
+                </List.Item>
+                </List>
+            )
+        })
+        return menuMap;
+    }
 
     mapOrderDetails(details) {
-        var mappedDetails = details.map(element => 
-           <li>{JSON.stringify(element)}</li>
+        var mappedDetails = details.map((orderDetail, key) => {
+            var menuMapped = this.mapMenuToLabels(orderDetail.menu);
+            return (<Card style={{ width: "50%" }}>
+                <Card.Content>
+                    <Card.Header>
+                        Order Number: {orderDetail.orderID}
+                    </Card.Header>
+                    <Card.Description>
+                        Order Time: {orderDetail.timeCreated}
+                    </Card.Description>
+                    <Card.Meta >
+                        Table Number: {orderDetail.table}
+                    </Card.Meta>
+                    <Label color="red">{orderDetail.stage}</Label>
+                </Card.Content>
+                <Card.Content extra>
+                    {menuMapped}
+                </Card.Content>
+            </Card>
+            )
+        }
         )
         return mappedDetails;
-
     }
 
     render() {
-        // this.getMenuItems(this.props.orderDetails);
         var orders = this.mapOrderDetails(this.props.orderDetails);
         return (
-            <ul>{orders}</ul>
+            <div style={{ width: "100%" }} className="ordersDiv">
+                <ul>{orders}</ul>
+            </div>
         )
     }
 }
