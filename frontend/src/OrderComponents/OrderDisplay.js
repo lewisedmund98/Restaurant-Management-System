@@ -33,7 +33,7 @@ export default class OrderDisplay extends React.Component {
     mapOrderDetails(details) {
         var mappedDetails = details.map((orderDetail, key) => {
             var menuMapped = this.mapMenuToLabels(orderDetail.menu);
-            return (<Card style={{ width: "50%" }}>
+            return (<Card key={key} style={{ width: "50%" }}>
                 <Card.Content>
                     <Card.Header>
                         Order Number: {orderDetail.orderID}

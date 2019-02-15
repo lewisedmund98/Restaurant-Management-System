@@ -6,3 +6,7 @@ class db():
 
     def getInstance(self):
         return self.__db
+
+    def __del__(self):
+        # Close connection on destruction
+        self.__db.close()
