@@ -1,3 +1,21 @@
+
+.basketItems {
+    float: right;
+        
+}
+.singleBasketItem{
+    width: 280px;
+}
+.singleBasketListHeadAndDes {
+    float: left;
+}
+.basketItemIcon{
+    float: left;
+}
+.removeBasketItemBtn{
+    float: right;
+}
+
 .topnav {
 	background-color: #D04236;
 	overflow: hidden;
