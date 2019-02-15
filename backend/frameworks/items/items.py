@@ -7,9 +7,11 @@ class items():
 
     def load(self):
         ids = self.__getIds()
-        self.list = {}
+        self.list = []
         for s in ids:
-            self.list.append(item().load(s).get())
+            item0 = item()
+            item0.load(s['itemID'])
+            self.list.append(item0.get())
         return
 
 
