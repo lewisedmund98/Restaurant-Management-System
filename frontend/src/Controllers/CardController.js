@@ -68,7 +68,8 @@ class CardController extends React.Component {
             <div className="TabWrapping">
                 <TabWrapper basket={this.props.basket} className="tabWrapper" filteredDishList={this.state.filteredDishList}/>
                 <MenuFiltering dishList={this.state.dishList} filteredDishList={this.state.filteredDishList}
-                               setDishList={this.setDishList} setFilteredDishList={this.setFilteredDishList} />
+                               setDishList={this.setDishList} setFilteredDishList={this.setFilteredDishList}
+                componentDidMount={this.componentDidMount}/>
             </div>
         )
     }

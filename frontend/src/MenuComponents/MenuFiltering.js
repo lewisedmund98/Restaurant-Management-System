@@ -50,8 +50,10 @@ class MenuFiltering extends React.Component {
         if (document.getElementById('priceCheck').checked) {
             alert(document.getElementById('priceCheck').checked);
             this.priceUnder20();
-        }//a method in CardController that updates the dishList to be the parameter
-        //that it is passed, this updates the dishList in the app to be the one we create with filtering
+        } else {
+            alert("should be filled");
+            this.props.componentDidMount();
+        }
     }
 
     priceUnder20() {
