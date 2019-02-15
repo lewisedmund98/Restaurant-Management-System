@@ -16,6 +16,8 @@ export default class CustomerOrderPage extends React.Component {
     }
     render() {
         var orderDetails = this.props.location.state;
+        console.log(orderDetails);
+        
         document.title = "Your Orders";
         return (
             <div className="orderContainer">
