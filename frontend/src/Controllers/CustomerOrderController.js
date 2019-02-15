@@ -14,7 +14,7 @@ export default class OrderController extends React.Component {
             menuItems: [],
             orderStatus: "You dont have any orders!",
         }
-        this.pullOrderDetails = this.pullOrderDetails.bind(this);
+        this.pullDetails = this.pullDetails.bind(this);
         this.getMenuItems = this.getMenuItems.bind(this);
         this.getOrderStatus = this.getOrderStatus.bind(this);
     }
