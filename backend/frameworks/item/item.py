@@ -4,7 +4,7 @@ import json
 class item():
 
     def __init__(self):
-        self.__database = instance = db()
+        instance = db()
         self.__db = instance.getInstance()
 
     def load(self, id):
@@ -14,7 +14,7 @@ class item():
         "LEFT JOIN teamproject.allergies ON teamproject.itemAllergies.allergyID = teamproject.allergies.allergyID WHERE teamproject.menuItems.itemID = %s GROUP BY teamproject.menuItems.itemID;", (id))
         self.data = cursor.fetchone()
         self.data['allergies'] = json.loads(self.data['allergies'])
-        return 
+        return
 
     def get(self):
         return self.data
