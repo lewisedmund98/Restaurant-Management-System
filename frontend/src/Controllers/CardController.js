@@ -46,7 +46,8 @@ class CardController extends React.Component {
 
                     this.setState({
                         dishList: menuResult,
-                        filteredDishList: menuResult
+                        filteredDishList: menuResult,
+                        originalDishList: menuResult
                     });
                 });
     }
@@ -66,10 +67,10 @@ class CardController extends React.Component {
         return (
             // We make a tab wrapper which creates the tabs on the screen and pass the list of dishes
             <div className="TabWrapping">
-                <TabWrapper basket={this.props.basket} className="tabWrapper" filteredDishList={this.state.filteredDishList}/>
+                <TabWrapper basket={this.props.basket} className="tabWrapper" dishList={this.state.dishList}/>
                 <MenuFiltering dishList={this.state.dishList} filteredDishList={this.state.filteredDishList}
                                setDishList={this.setDishList} setFilteredDishList={this.setFilteredDishList}
-                componentDidMount={this.componentDidMount}/>
+                componentDidMount={this.componentDidMount} originalDishList={this.state.originalDishList}/>
             </div>
         )
     }

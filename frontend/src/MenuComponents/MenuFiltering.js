@@ -46,38 +46,43 @@ class MenuFiltering extends React.Component {
     };
 
     menuFilter() {
-        this.props.setFilteredDishList(this.props.dishList);
+        //this.props.setFilteredDishList(this.props.dishList);
+        alert(this.props.originalDishList.length);
         if (document.getElementById('priceCheck').checked) {
             alert(document.getElementById('priceCheck').checked);
             this.priceUnder20();
+            this.props.setDishList(this.props.filteredDishList);
         } else {
-            alert("should be filled");
-            this.props.componentDidMount();
+            alert(this.props.originalDishList.length);
+            this.props.setDishList(this.props.originalDishList);
         }
     }
 
     priceUnder20() {
+        var tempDishList = this.props.filteredDishList;
         try{
-            Object.values(this.props.filteredDishList).forEach(dish => { // Loops over each dish in the basket and checks its price
+            Object.values(tempDishList).forEach(dish => { // Loops over each dish in the basket and checks its price
                 //for the moment this is temporary just to figure out the logic, and actually making the dishes
                 //disappear from the app
                 if (dish.itemPrice < 20) { //checks if the dish has a price of above £20
                     //alert("removing ");
-                    this.remove(dish); //removing this dish
+                    this.remove(dish, tempDishList); //removing this dish
                 }
             });
         } catch (error) {
             console.log(error);
         }
+        this.props.setDishList(tempDishList);
     }
 
-    remove(menuItem) { //call this method with the menuItem that needs to be removed (from filter) and it will be removed
+    remove(menuItem, dishList) { //call this method with the menuItem that needs to be removed (from filter) and it will be removed
         // just putting this here to simplify my code and make a start
-        var tempMenuItem = this.props.filteredDishList[this.props.filteredDishList.length - 1];
-        this.props.filteredDishList[this.props.filteredDishList.length - 1] = menuItem;
-        this.props.filteredDishList[this.props.filteredDishList.indexOf(menuItem)] = tempMenuItem; // simple three way swap with a temp variable to move the
+        var tempMenuItem = dishList[dishList.length - 1];
+        dishList[dishList.length - 1] = menuItem;
+        dishList[dishList.indexOf(menuItem)] = tempMenuItem; // simple three way swap with a temp variable to move the
         //unwanted item to the end
-        this.props.filteredDishList.pop(); //removes the unwanted menuItem
+        dishList.pop(); //removes the unwanted menuItem
+        return dishList;
     }
 
     toggle = () => this.setState({ checked: !this.state.checked })

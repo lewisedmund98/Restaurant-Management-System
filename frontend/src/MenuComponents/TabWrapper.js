@@ -99,7 +99,7 @@ export default class TabWrapper extends React.Component {
 
 
     render() {
-        var tabs = this.splitDishesIntoTypes(this.props.filteredDishList); // split and create tabs
+        var tabs = this.splitDishesIntoTypes(this.props.dishList); // split and create tabs
         return (
             // Render the tab, the tab is singular but the panes allows all of the card wrappers to occur
             <Tab className="menuTabs" menu={{ fluid: true, vertical: true, tabular: true }} panes={tabs} />
