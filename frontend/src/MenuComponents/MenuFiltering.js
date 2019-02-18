@@ -44,7 +44,8 @@ class MenuFiltering extends React.Component {
         })
     };
 
-    dishListToDefault() {
+    dishListToDefault() { //retrieving the menu list from online again to set the dish list back to main default
+        //doing it like this means on filter changes, any menu changes will come into effect
         fetch("https://flask.team-project.crablab.co/menu/items")
             .then(res => res.json())
             .then(
@@ -60,16 +61,17 @@ class MenuFiltering extends React.Component {
     }
 
     menuFilter() {
-        this.dishListToDefault();
-        var tempDishList = this.props.dishList;
-        alert(this.props.dishList.length);
+        this.dishListToDefault(); // set dishlist to default
+        var tempDishList = this.props.dishList; //set temp variable to dishlist to avoid altering it directly
+        alert(this.props.dishList.length); //test to see it gets edited correctly, should always be 8
 
-        if (document.getElementById('priceCheck').checked) {
-            this.priceUnder20(tempDishList);
+        if (document.getElementById('priceCheck').checked) { // if the checkbox is checked. this will check through
+            //all the boxes once they are all implemented, and filter accordingly
+            this.priceUnder20(tempDishList); // filters the given list
         }
 
-        alert(this.props.dishList.length);
-        this.props.setDishList(tempDishList);
+        alert(this.props.dishList.length); //test to see if edited correctly, should be whatever length it appears on the website
+        this.props.setDishList(tempDishList); // setting the dishlist to the filtered dishlist
     }
 
     priceUnder20(dishList) {
