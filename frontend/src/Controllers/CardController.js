@@ -27,8 +27,6 @@ class CardController extends React.Component {
         this.state = { // Sets the current state variables to contain a dish list. This will be populated by JSON objects
             dishList: []
         };
-        //this.setDishList = this.setDishList.bind(this);
-        this.setFilteredDishList = this.setFilteredDishList.bind(this);
         this.setDishList = this.setDishList.bind(this);
     }
 
@@ -49,11 +47,6 @@ class CardController extends React.Component {
                 });
     }
 
-    setFilteredDishList(dishListGiven) {
-        this.setState ({
-            filteredDishList: dishListGiven,
-        })
-    }
     setDishList(dishListGiven) {
         this.setState ({
             dishList: dishListGiven,
