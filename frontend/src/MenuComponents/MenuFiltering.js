@@ -56,7 +56,7 @@ class MenuFiltering extends React.Component {
     }
 
     priceUnder20(dishList) {
-        var tempDishList = this.props.dishList;
+        var tempDishList = dishList;
         try{
             Object.values(dishList).forEach(dish => { // Loops over each dish in the basket and checks its price
                 //for the moment this is temporary just to figure out the logic, and actually making the dishes
