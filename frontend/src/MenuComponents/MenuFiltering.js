@@ -47,19 +47,15 @@ class MenuFiltering extends React.Component {
 
     menuFilter() {
         //this.props.setFilteredDishList(this.props.dishList);
-        alert(this.props.originalDishList.length);
         if (document.getElementById('priceCheck').checked) {
             alert(document.getElementById('priceCheck').checked);
             this.priceUnder20();
             this.props.setDishList(this.props.filteredDishList);
-        } else {
-            alert(this.props.originalDishList.length);
-            this.props.setDishList(this.props.originalDishList);
         }
     }
 
     priceUnder20() {
-        var tempDishList = this.props.filteredDishList;
+        var tempDishList = this.props.dishList;
         try{
             Object.values(tempDishList).forEach(dish => { // Loops over each dish in the basket and checks its price
                 //for the moment this is temporary just to figure out the logic, and actually making the dishes
