@@ -48,9 +48,7 @@ class MenuFiltering extends React.Component {
     menuFilter() {
         //this.props.setFilteredDishList(this.props.dishList);
         if (document.getElementById('priceCheck').checked) {
-            alert(document.getElementById('priceCheck').checked);
             this.priceUnder20();
-            this.props.setDishList(this.props.filteredDishList);
         }
     }
 
