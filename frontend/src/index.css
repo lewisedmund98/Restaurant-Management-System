@@ -1,6 +1,7 @@
 
 .basketItems {
     float: right;
+    background-color: white;
         
 }
 .singleBasketItem{
@@ -14,6 +15,13 @@
 }
 .removeBasketItemBtn{
     float: right;
+    background-color: #D04236!important;
+    color: white !important;
+    padding-bottom: 1px !important;
+    padding-top: 1px !important;
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+    font-size: 30px !important;
 }
 
 .topnav {

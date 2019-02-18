@@ -44,7 +44,7 @@ export default class BasketItem extends React.Component {
                         </List.Description>
                         
                     </List.Content>
-                    <Button className="removeBasketItemBtn" onClick={()=>this.props.onRemove(currentDish)}>Remove</Button>
+                    <Button className="removeBasketItemBtn" onClick={()=>this.props.onRemove(currentDish)}><b>-</b></Button>
                 </List.Item>
             </List>
         </div>
