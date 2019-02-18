@@ -3,11 +3,38 @@ import { Modal, Button, Form } from 'semantic-ui-react';
 import BasketItem from './BasketItem';
 import OrderForm from './OrderForm.js';
 
+/**
+ * The create order class is a modal which pops up to the user when they click on the "View Basket" button
+ * It is where the user can see their basket and then place the final order and enter their details. 
+ * 
+ * This class will eventually contain the methods needed for payment taking.
+ * 
+ * In the modal it shows 2 divs styled to be next to each other. It shows the basket element
+ * and it also shows the form from "OrderForm.js". 
+ */
 export default class CreateOrder extends React.Component {
     constructor(props) {
         super(props);
+        this.makeOrder = this.makeOrder.bind(this);    
+    }
+
+    makeOrder(orderBody){
+        console.log(orderBody);
+        try{
+            fetch("https://flask.team-project.crablab.co/order/create", {
+                method:"POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body:orderBody,
+            }).then(response => response.json())
+            .then(json => this.props.setOrder(json));
+        } catch (error){
+            console.log(error);
+        }
 
     }
+    
 
     render() {
         return (
@@ -19,7 +46,7 @@ export default class CreateOrder extends React.Component {
                     </div>
 
                     <div style={{ float: "right", width:"70%" }} className="orderForm">
-                        <OrderForm currentBasket={this.props.currentBasket}>
+                        <OrderForm makeOrder={this.makeOrder} currentBasket={this.props.currentBasket}>
 
                         </OrderForm>
                     </div>

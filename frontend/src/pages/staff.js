@@ -3,17 +3,29 @@
  */
 
 import React from 'react';
+
 import '../index.css';
-
-
+import StaffPageController from '../Controllers/StaffPageController';
 
 export default class Customer extends React.Component {
+    constructor(props){
+        super(props);
+        
+
+    }
+
+    
     render() {
         document.title = "Oaxaca Staff";
         return (
-            <div className="loginContainer">
-                <h1>THIS IS THE STAFF PAGE</h1>
-            </div>  
+            <div>
+                <div className="loginContainer">
+                    <h1>Staff ID is logged in</h1>
+                </div>  
+                <div className="orderContainer"> 
+                    <StaffPageController></StaffPageController>
+                </div>
+            </div>
         )
     }
 }

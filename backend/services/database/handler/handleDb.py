@@ -1,10 +1,9 @@
-import pymysql
 from frameworks.database.db import db
 
 class handleDb:
     def __init__(self):
-        instance = db()
-        self.__db = instance.getInstance()
+        self.__database = db()
+        self.__db = self.__database.getInstance()
 
     def getOutput(self):
         return {"database": self.__getVersion()}
@@ -12,4 +11,5 @@ class handleDb:
     def __getVersion(self):
         cursor = self.__db.cursor()
         cursor.execute("SELECT VERSION()")
-        return cursor.fetchone()
+        value = cursor.fetchone()
+        return value

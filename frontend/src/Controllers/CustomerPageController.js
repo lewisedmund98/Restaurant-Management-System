@@ -2,7 +2,8 @@ import React from 'react';
 import CardContoller from './CardController.js';
 import '../index.css';
 import Basket from '../BasketComponents/Basket.js';
-
+import {Button} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
 
 /**
  * The customer page controller is the main controller for the page with url/customer.
@@ -17,10 +18,14 @@ export default class CustomerPageController extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentBasket:[] // Adds a basket array to which I will append menu objects
+            currentBasket:[], // Adds a basket array to which I will append menu objects
+            orderPlaced: false,
+            orderComplete: false,
+            orderNumbers : []
         };
         this.addToBasket = this.addToBasket.bind(this); // Method to add to the basket.
         this.removeFromBasket = this.removeFromBasket.bind(this); 
+        this.setOrder = this.setOrder.bind(this);
     }
 
     /**
@@ -54,16 +59,30 @@ export default class CustomerPageController extends React.Component {
         })
     }
 
+    setOrder(orderNumber){
+        var tempOrderArray = this.state.orderNumbers; // Adds an order number to the list
+        tempOrderArray.push(orderNumber);
+        this.setState({
+            orderPlaced: true,
+            orderNumbers : tempOrderArray
+        });
+        
+    }
+
 
     render() {
         return (
             <div className="mainContainer">
+                <Link to={{
+                    pathname:"/customerOrder", 
+                    state:{orderNumber: this.state.orderNumbers}
+                }}><Button>Your Orders</Button></Link>
                 <div id="ListCards">
                     <CardContoller basket={this.addToBasket}> {/*Basket is the event handler for a button*/}
                     </CardContoller>
                 </div>
                 <div className="basketButton">
-                    <Basket onRemove={this.removeFromBasket} dishList={this.state.currentBasket}></Basket>
+                    <Basket setOrder={this.setOrder} onRemove={this.removeFromBasket} dishList={this.state.currentBasket}></Basket>
                 </div>
             </div>
         )

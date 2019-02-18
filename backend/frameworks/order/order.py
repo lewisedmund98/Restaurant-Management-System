@@ -1,34 +1,97 @@
 from frameworks.database.db import db
 from frameworks.idGenerator.id import id
+from datetime import datetime, timedelta
+import json
 
 
-class order():
+# noinspection PyPep8Naming
+class order:
 
-    def __init__(self, name, email, phone, tableNumber, menuItemID,UserID):
-        instance = db()
+    # noinspection PyUnusedLocal
+    def __init__(self):
+        # Instatiate Database
+        self.__database = instance = db()
         self.__db = instance.getInstance()
-        self.__name = name
-        self.__name = email
-        self.__name = phone
-        self.__name = tableNumber
-        self.__name = menuItemID
-        self.__UserID = UserID
+        # Instantiate ID
         self.__id = id()
+        # Private Fields  
+        self.__orderinfo = None
+        self.__orderhistory = None
+        
+    def getOrderInfo(self):  # getter for private order information field
+        return self.__orderinfo
 
+    def getOrderStatus(self):  # getter for private order status field
+        return self.__orderhistory[0]
+    
+    def getOrderHistory(self):  # getter for private order status field
+        return self.__orderhistory
 
-    def createOrder(self, i):
-
+    def loadOrderHistory(self, orderID):
         cursor = self.__db.cursor()
-        cursor.execute(
-            "INSERT INTO table_name (column1, column2, column3, ...)"
-            "AS allergies FROM teamproject.menuItems LEFT JOIN teamproject.itemAllergies ON teamproject.menuItems.itemID = teamproject.itemAllergies.itemID "
-            "LEFT JOIN teamproject.allergies ON teamproject.itemAllergies.allergyID = teamproject.allergies.allergyID WHERE teamproject.menuItems.itemID = %s GROUP BY teamproject.menuItems.itemID;",
-            )
-        self.data = cursor.fetchone()
+        cursor.execute("SELECT * FROM `orderHistory` WHERE `orderID` = %s ORDER BY `inserted` DESC", orderID)
+        if cursor.rowcount == 1:
+            self.__orderhistory = cursor.fetchall()
+            return True
+        else:
+            raise Exception("Error: OrderID not found.")
 
-    ##def g):
-    ##    return self.data
+    def loadOrderInfo(self, orderID):
+        cursor = self.__db.cursor()
+        cursor.execute("SELECT orders.*, JSON_ARRAYAGG(orderItems.itemID) as items FROM orders LEFT JOIN orderItems ON orderItems.orderID = orders.orderID WHERE orders.orderID = %s GROUP BY orders.orderID;", (orderID))
+        if cursor.rowcount == 1:
+            self.__orderinfo = cursor.fetchone()
+            self.__orderinfo['items'] = json.loads(self.__orderinfo['items'])
+            return True
+        else:
+            raise Exception("Error: OrderID not found.")
 
-    ##def save(self):
-    ##    return
-    ##
+    def createOrder(self, name, phone, email, table, items):
+        customerID = self.__locateCustomer(phone, email)
+        # Create customer if not exist
+        if(customerID == False):
+            customerID = self.__createCustomer(name, phone, email)
+        # Create order
+        orderID = self.__insertOrder(customerID, table)
+        # Add items
+        for item in items:
+            self.__orderAddItem(orderID, item)
+
+        return orderID
+
+    def __orderAddItem(self, order, item):
+        cursor = self.__db.cursor()
+        iID = self.__id.getID("orderitem")
+        cursor.execute("INSERT INTO `orderItems` (`insertionID`, `orderID`, `itemID`) VALUES (%s, %s, %s);", (iID, order, item))
+        return iID
+
+    def __insertOrder(self, customer, table):
+        cursor = self.__db.cursor()
+        oID = self.__id.getID("order")
+        cursor.execute("INSERT INTO `orders` (`customerID`, `orderID`, `timeCreated`, `table`) VALUES (%s, %s, %s, %s);", (customer, oID, int(datetime.now().timestamp()), table))
+        # Create order history
+        self.__insertOrderHistory(oID, "created", {})
+        return oID
+
+    def __insertOrderHistory(self, order, stage, meta):
+        cursor = self.__db.cursor()
+        iID = self.__id.getID("orderhist")
+        cursor.execute("INSERT INTO `orderHistory` (`insertionID`, `orderID`, `stage`, `inserted`, `metafield`) VALUES (%s, %s, %s, %s, %s);", (iID, order, stage, int(datetime.now().timestamp()), json.dumps(meta)))
+        return iID
+
+    def __createCustomer(self, name, phone, email):
+        cursor = self.__db.cursor()
+        cID = self.__id.getID("customer")
+        cursor.execute("INSERT INTO `customers` (`customerID`, `name`, `email`, `phone`) VALUES (%s, %s, %s, %s);", (cID, name, email, phone))
+        return cID
+
+    def __locateCustomer(self, phone, email):
+        cursor = self.__db.cursor()
+        cursor.execute("SELECT * FROM `customers` WHERE `email` = %s AND `phone` = %s;", (email, phone))
+
+        if(cursor.rowcount == 1):
+            return cursor.fetchone()['customerID']
+        elif(cursor.rowcount == 0):
+            return False
+        else:
+            raise Exception("Duplicate users")

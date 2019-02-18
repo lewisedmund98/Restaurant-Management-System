@@ -3,7 +3,7 @@ from frameworks.database.db import db
 
 class handleMenu:
     def __init__(self):
-        instance = db()
+        self.__database = instance = db()
         self.__db = instance.getInstance()
 
     def getOutput(self):
