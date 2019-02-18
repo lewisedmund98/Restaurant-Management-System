@@ -1,7 +1,5 @@
 import React from 'react';
 import { Checkbox } from 'semantic-ui-react';
-import AllergyCheckBoxes from './AllergyCheckboxes';
-
 
 class MenuFiltering extends React.Component {
     constructor(props) {
@@ -27,6 +25,7 @@ class MenuFiltering extends React.Component {
             ],
         };
         this.menuFilter = this.menuFilter.bind(this);
+        this.dishListToDefault = this.dishListToDefault.bind(this);
         this.remove = this.remove.bind(this);
     }
 
@@ -45,13 +44,31 @@ class MenuFiltering extends React.Component {
         })
     };
 
+    dishListToDefault() {
+        fetch("https://flask.team-project.crablab.co/menu/items")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    var finalResponse = result.result; // The header passed starts with "result"
+                    var menuResult = []; // Variable to store the JSON list as JSON objects in an array
+                    for (var currentDish = 0; currentDish < finalResponse.length; currentDish++) { // Loop through each JSON object
+                        menuResult[currentDish] = finalResponse[currentDish]; // Assign the menuitem to result's array element
+                    }
+
+                    this.props.setDishList(menuResult);
+                });
+    }
+
     menuFilter() {
-        //this.props.setFilteredDishList(this.props.dishList);
-        this.props.componentDidMount();
+        this.dishListToDefault();
         var tempDishList = this.props.dishList;
+        alert(this.props.dishList.length);
+
         if (document.getElementById('priceCheck').checked) {
             this.priceUnder20(tempDishList);
         }
+
+        alert(this.props.dishList.length);
         this.props.setDishList(tempDishList);
     }
 

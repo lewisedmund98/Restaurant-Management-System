@@ -22,6 +22,7 @@ import MenuFiltering from '../MenuComponents/MenuFiltering.js'
  */
 
 class CardController extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = { // Sets the current state variables to contain a dish list. This will be populated by JSON objects
@@ -40,7 +41,6 @@ class CardController extends React.Component {
                     for (var currentDish = 0; currentDish < finalResponse.length; currentDish++) { // Loop through each JSON object
                         menuResult[currentDish] = finalResponse[currentDish]; // Assign the menuitem to result's array element
                     }
-
                     this.setState({
                         dishList: menuResult
                     });
@@ -58,8 +58,7 @@ class CardController extends React.Component {
             // We make a tab wrapper which creates the tabs on the screen and pass the list of dishes
             <div className="TabWrapping">
                 <TabWrapper basket={this.props.basket} className="tabWrapper" dishList={this.state.dishList}/>
-                <MenuFiltering dishList={this.state.dishList} setDishList={this.setDishList}
-                               componentDidMount={this.componentDidMount}/>
+                <MenuFiltering dishList={this.state.dishList} setDishList={this.setDishList}/>
             </div>
         )
     }
