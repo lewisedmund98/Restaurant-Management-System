@@ -31,14 +31,14 @@ export default class BasketItem extends React.Component {
                 <List.Item>
                     <Image avatar={true} src={currentDish.itemImage}></Image>
                     <List.Content>
-                        <List.Header>
+                        <List.Header id="orderDishName">
                             {currentDish.itemName}
                         </List.Header>
                         <List.Description>
                             <b>
                                 £{currentDish.itemPrice}
                             </b>
-                            <Button onClick={()=>this.props.onRemove(currentDish)}>Remove This Item</Button>
+                            <Button id="removeItemButton" onClick={()=>this.props.onRemove(currentDish)}>Remove This Item</Button>
                         </List.Description>
                         
                     </List.Content>
