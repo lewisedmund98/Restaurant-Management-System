@@ -48,13 +48,7 @@ class MenuFiltering extends React.Component {
         return dishList;
     }
 
-    toggle = () => this.setState({ checked: !this.state.checked })
-
-    /* toggle(stateToToggle) {
-        this.setState({stateToToggle: !this.state.stateToToggle});
-    } */
-
-    //the button is only temporary it is just there to test that the toggle checked is working
+    toggle = () => this.setState({ checked: !this.state.checked });
 
     render() {
         return (
