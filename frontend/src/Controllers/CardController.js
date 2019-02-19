@@ -1,5 +1,6 @@
 import React from 'react';
 import TabWrapper from '../MenuComponents/TabWrapper.js';
+import MenuFiltering from '../MenuComponents/MenuFiltering.js'
 
 /**
  * The Card Controller class is a class which is made to deal with the data that is going to be used in the
@@ -21,12 +22,14 @@ import TabWrapper from '../MenuComponents/TabWrapper.js';
  */
 
 class CardController extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = { // Sets the current state variables to contain a dish list. This will be populated by JSON objects
-            dishList: []
+            dishList: [],
+            permDishList : []
         };
-    
+        this.setDishList = this.setDishList.bind(this);
     }
 
     componentDidMount() { // React component method, this method runs when the react component is initially rendered
@@ -40,17 +43,29 @@ class CardController extends React.Component {
                         menuResult[currentDish] = finalResponse[currentDish]; // Assign the menuitem to result's array element
                     }
 
+                    console.log(menuResult);
+
                     this.setState({
+                        permDishList: menuResult,
                         dishList: menuResult
                     });
                 });
     }
 
-    
+    setDishList(dishListGiven) {
+        this.setState ({
+            dishList: dishListGiven,
+        })
+    }
+
     render() {
         return (
             // We make a tab wrapper which creates the tabs on the screen and pass the list of dishes
-            <TabWrapper basket={this.props.basket} className="tabWrapper" dishList={this.state.dishList}></TabWrapper>
+            <div className="TabWrapping">
+                <TabWrapper basket={this.props.basket} className="tabWrapper" dishList={this.state.dishList}/>
+                <MenuFiltering defaultList={this.state.permDishList} dishList={this.state.dishList}
+                               setDishList={this.setDishList}/>
+            </div>
         )
     }
 }
