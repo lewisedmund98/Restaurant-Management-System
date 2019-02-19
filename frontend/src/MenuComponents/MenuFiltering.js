@@ -8,24 +8,8 @@ class MenuFiltering extends React.Component {
             priceUnder20: false,
         };
         this.menuFilter = this.menuFilter.bind(this);
-        //this.dishListToDefault = this.dishListToDefault.bind(this);
         this.remove = this.remove.bind(this);
     }
-
-    toggleChecked = (id) => {
-        this.setState({ allergyList: this.state.allergyList.map(allergy =>{
-            if(allergy.id === id){
-                allergy.checked = !allergy.checked
-            }
-
-            return allergy;
-        })});
-    };
-    showChecked = () => {
-        this.state.allergyList.map(allergy => {
-            console.log(allergy.name + ": " + allergy.checked);
-        })
-    };
 
     menuFilter() {
         var tempDishList = this.props.defaultList.slice(); //set temp variable to a COPY of dishList, to avoid altering it
