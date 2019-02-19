@@ -14,7 +14,7 @@ class MenuFiltering extends React.Component {
     menuFilter() {
         var tempDishList = this.props.defaultList.slice(); //set temp variable to a COPY of dishList, to avoid altering it
         //directly
-        if (document.getElementById('priceCheck').checked) { // if the checkbox is checked. this will check through
+        if (document.getElementById("priceUnder20").checked) { // if the checkbox is checked. this will check through
             //all the boxes once they are all implemented, and filter accordingly
             tempDishList = this.priceUnder20(tempDishList); // filters the given list
         }
@@ -55,8 +55,10 @@ class MenuFiltering extends React.Component {
             <div className="filteringItems">
                 {/*<button onClick={this.showChecked}>Show checked in console</button> */}
                 {/* <AllergyCheckBoxes allergyList={this.state.allergyList} menuFilter={this.menuFilter} toggleChecked={this.toggleChecked}/> */}
-                <Checkbox id="priceCheck" label="Price under £20" onClick={this.menuFilter}
-                         onChange={this.toggle} checked={this.state.checked}/>
+                <Checkbox id="priceUnder20" label="Price under £20" onClick={this.menuFilter}
+                          checked={this.state.checked}/>
+                <Checkbox id="nuts" label="Nuts" onClick={this.menuFilter}
+                          checked={this.state.checked}/>
             </div>
         )
     }
