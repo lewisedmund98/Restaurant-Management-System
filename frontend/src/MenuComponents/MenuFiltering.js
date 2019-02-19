@@ -23,9 +23,10 @@ class MenuFiltering extends React.Component {
                     checked : false
                 }
             ],
+            permDishList: []
         };
         this.menuFilter = this.menuFilter.bind(this);
-        this.dishListToDefault = this.dishListToDefault.bind(this);
+        //this.dishListToDefault = this.dishListToDefault.bind(this);
         this.remove = this.remove.bind(this);
     }
 
@@ -44,45 +45,25 @@ class MenuFiltering extends React.Component {
         })
     };
 
-    dishListToDefault() { //retrieving the menu list from online again to set the dish list back to main default
-        //doing it like this means on filter changes, any menu changes will come into effect
-        fetch("https://flask.team-project.crablab.co/menu/items")
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    var finalResponse = result.result; // The header passed starts with "result"
-                    var menuResult = []; // Variable to store the JSON list as JSON objects in an array
-                    for (var currentDish = 0; currentDish < finalResponse.length; currentDish++) { // Loop through each JSON object
-                        menuResult[currentDish] = finalResponse[currentDish]; // Assign the menuitem to result's array element
-                    }
-
-                    this.props.setDishList(menuResult);
-                });
-    }
-
     menuFilter() {
-        this.dishListToDefault(); // set dishlist to default
-        var tempDishList = this.props.dishList; //set temp variable to dishlist to avoid altering it directly
-        alert(this.props.dishList.length); //test to see it gets edited correctly, should always be 8
+        var tempDishList = this.props.defaultList.slice(); //set temp variable to a COPY of dishList, to avoid altering it
+        //directly
 
         if (document.getElementById('priceCheck').checked) { // if the checkbox is checked. this will check through
             //all the boxes once they are all implemented, and filter accordingly
-            this.priceUnder20(tempDishList); // filters the given list
+            tempDishList = this.priceUnder20(tempDishList); // filters the given list
         }
-
-        alert(this.props.dishList.length); //test to see if edited correctly, should be whatever length it appears on the website
         this.props.setDishList(tempDishList); // setting the dishlist to the filtered dishlist
     }
 
     priceUnder20(dishList) {
-        var tempDishList = dishList;
         try{
             Object.values(dishList).forEach(dish => { // Loops over each dish in the basket and checks its price
                 //for the moment this is temporary just to figure out the logic, and actually making the dishes
                 //disappear from the app
-                if (dish.itemPrice < 20) { //checks if the dish has a price of above £20
+                if (dish.itemPrice > 20) { //checks if the dish has a price of above £20
                     //alert("removing ");
-                    this.remove(dish, tempDishList); //removing this dish
+                    dishList = this.remove(dish, dishList); //removing this dish
                 }
             });
         } catch (error) {
