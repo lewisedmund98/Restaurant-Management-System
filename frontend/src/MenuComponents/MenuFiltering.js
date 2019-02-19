@@ -6,24 +6,6 @@ class MenuFiltering extends React.Component {
         super(props);
         this.state = {
             priceUnder20: false,
-            allergyList: [
-                {
-                    id : 1,
-                    name: "nuts",
-                    checked : false
-                },
-                {
-                    id : 2,
-                    name : "dairy",
-                    checked : false
-                },
-                {
-                    id : 3,
-                    name : "gluten",
-                    checked : false
-                }
-            ],
-            permDishList: []
         };
         this.menuFilter = this.menuFilter.bind(this);
         //this.dishListToDefault = this.dishListToDefault.bind(this);
@@ -48,7 +30,6 @@ class MenuFiltering extends React.Component {
     menuFilter() {
         var tempDishList = this.props.defaultList.slice(); //set temp variable to a COPY of dishList, to avoid altering it
         //directly
-
         if (document.getElementById('priceCheck').checked) { // if the checkbox is checked. this will check through
             //all the boxes once they are all implemented, and filter accordingly
             tempDishList = this.priceUnder20(tempDishList); // filters the given list

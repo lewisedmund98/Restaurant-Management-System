@@ -61,8 +61,8 @@ class CardController extends React.Component {
             // We make a tab wrapper which creates the tabs on the screen and pass the list of dishes
             <div className="TabWrapping">
                 <TabWrapper basket={this.props.basket} className="tabWrapper" dishList={this.state.dishList}/>
-                <MenuFiltering defaultList={this.state.permDishList} getDefault={this.getDefault}
-                               dishList={this.state.dishList} setDishList={this.setDishList}/>
+                <MenuFiltering defaultList={this.state.permDishList} dishList={this.state.dishList}
+                               setDishList={this.setDishList}/>
             </div>
         )
     }
