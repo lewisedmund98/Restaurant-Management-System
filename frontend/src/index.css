@@ -57,7 +57,7 @@
     font-family: 'Segoe UI', Georgia, Times, serif !important;
 }
 
-.ui.button {
+#ConfirmButton {
     margin-bottom: 10px !important;
     background-color: green !important;
     color: white !important;
@@ -68,7 +68,6 @@
     background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
     background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
     background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
-    background-image: linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
 
     /*Shadow*/
     -webkit-box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2)!important;
@@ -83,7 +82,7 @@
     transition: All 0.3s ease!important;
 }
 
-.ui.button:hover {
+#ConfirmButton:hover {
     background-color: darkgreen !important;
 }
 

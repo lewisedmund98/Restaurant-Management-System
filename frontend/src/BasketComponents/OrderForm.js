@@ -90,7 +90,7 @@ export default class OrderForm extends React.Component {
                 
                 <Form.Field>
                     <Label>Email Address</Label>
-                    <Input required onChange={this.handleInputChange} name="email" placeholder='Email Adress' />
+                    <Input required onChange={this.handleInputChange} name="email" placeholder='Email Address' />
                 </Form.Field>
                 <Form.Field>
                     <Label>Phone Number</Label>
@@ -105,7 +105,7 @@ export default class OrderForm extends React.Component {
                 <Form.Field>
                     <Checkbox required label='I agree to the Terms and Conditions' />
                 </Form.Field>
-                <Button type='submit'>Confirm and pay</Button>
+                <Button type='submit' id="ConfirmButton">Confirm and pay</Button>
             </Form>
         )
     }
