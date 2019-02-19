@@ -4,9 +4,12 @@ from .handler.handleListOrders import handleListOrders
 
 class orders:
     def __init__(self, request):
-        #self.__auth = authentication()
+        self.__auth = authentication(request.get_json()['key'], request.get_json()['secret'])
         if(request.path == "/orders/list"):
-            self.responseObj = handleListOrders(request)
+            if(isinstance(self.__auth.authenticateRequest(request.get_json()['access_token'], request.get_json()['id'], 0), dict)):
+                self.responseObj = handleListOrders(request)
+            else:
+                abort(403)
         else:
             self.responseObj = self
 
