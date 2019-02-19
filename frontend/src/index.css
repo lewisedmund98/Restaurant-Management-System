@@ -1,4 +1,6 @@
-
+.cardWrapper{
+    background-color: white;
+}
 .basketItems {
     float: right;
     background-color: white;
@@ -25,9 +27,13 @@
 }
 
 .topnav {
+    
+    background: url(topnavBackgroundImage.png) no-repeat center center;
 	background-color: #D04236;
 	overflow: hidden;
-    height: 10.5em
+    height: 10.5em;
+    
+   
 }
 
 .ourmenu .ourmenuheading{
@@ -70,11 +76,11 @@
 .ui.fluid.vertical.tabular.menu {
     font-family: 'Segoe UI', Georgia, Times, serif !important;
     border: none !important;
-    background-color: antiquewhite !important;
+    background-color: white !important;
 }
 
 .ui.fluid.vertical.tabular.menu a.active {
-    background-color: #D04236 !important;
+    background-color: green !important;
 
     color: white !important;
 }
@@ -116,9 +122,10 @@ p, div {
 img.logo {
 	display: block;
 	margin-left: auto;
-	margin-right: auto;
+    margin-right: auto;
 }
 
 body {
-    background: url(leaves.png) repeat 0 0;
+    background: url(mexicanImagesBackground2.jpg) repeat 0 0;
+    margin: 0;
 }
