@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox } from 'semantic-ui-react';
+import {Checkbox} from 'semantic-ui-react';
 
 class MenuFiltering extends React.Component {
     constructor(props) {
@@ -16,16 +16,39 @@ class MenuFiltering extends React.Component {
         //directly
         if (document.getElementById("priceUnder20").checked) { // if the checkbox is checked. this will check through
             //all the boxes once they are all implemented, and filter accordingly
-            tempDishList = this.priceUnder20(tempDishList); // filters the given list
+            tempDishList = this.priceUnder20Filter(tempDishList); // filters the given list
+        }
+        if (document.getElementById("nuts").checked) {
+            this.allergenFilter("nuts", tempDishList)
+        }
+        if (document.getElementById("egg").checked) {
+            this.allergenFilter("egg", tempDishList)
+        }
+        if (document.getElementById("fish").checked) {
+            this.allergenFilter("fish", tempDishList)
         }
         this.props.setDishList(tempDishList); // setting the dishlist to the filtered dishlist
     }
 
-    priceUnder20(dishList) {
-        try{
-            Object.values(dishList).forEach(dish => { // Loops over each dish in the basket and checks its price
-                //for the moment this is temporary just to figure out the logic, and actually making the dishes
-                //disappear from the app
+    allergenFilter(allergen, dishList) {
+        try {
+            Object.values(dishList).forEach(dish => { // Loops over each dish in the basket
+                Object.values(dish.allergies).forEach(ingredient => {
+                        if (ingredient === "Warning: This food product contains " + allergen + ".") {
+                            dishList = this.remove(dish, dishList);
+                        }
+                    }
+                )
+            });
+        } catch (error) {
+            console.log(error);
+        }
+        return dishList
+    }
+
+    priceUnder20Filter(dishList) {
+        try {
+            Object.values(dishList).forEach(dish => { // Loops over each dish in the basket
                 if (dish.itemPrice > 20) { //checks if the dish has a price of above £20
                     //alert("removing ");
                     dishList = this.remove(dish, dishList); //removing this dish
@@ -35,7 +58,6 @@ class MenuFiltering extends React.Component {
             console.log(error);
         }
         return dishList
-        //this.props.setDishList(tempDishList);
     }
 
     remove(menuItem, dishList) { //call this method with the menuItem that needs to be removed (from filter) and it will be removed
@@ -48,7 +70,7 @@ class MenuFiltering extends React.Component {
         return dishList;
     }
 
-    toggle = () => this.setState({ checked: !this.state.checked });
+    toggle = () => this.setState({checked: !this.state.checked});
 
     render() {
         return (
@@ -58,6 +80,10 @@ class MenuFiltering extends React.Component {
                 <Checkbox id="priceUnder20" label="Price under £20" onClick={this.menuFilter}
                           checked={this.state.checked}/>
                 <Checkbox id="nuts" label="Nuts" onClick={this.menuFilter}
+                          checked={this.state.checked}/>
+                <Checkbox id="egg" label="Egg" onClick={this.menuFilter}
+                          checked={this.state.checked}/>
+                <Checkbox id="fish" label="Fish" onClick={this.menuFilter}
                           checked={this.state.checked}/>
             </div>
         )

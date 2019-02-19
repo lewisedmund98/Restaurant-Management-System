@@ -43,6 +43,8 @@ class CardController extends React.Component {
                         menuResult[currentDish] = finalResponse[currentDish]; // Assign the menuitem to result's array element
                     }
 
+                    console.log(menuResult);
+
                     this.setState({
                         permDishList: menuResult,
                         dishList: menuResult
