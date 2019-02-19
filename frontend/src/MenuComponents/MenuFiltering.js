@@ -70,8 +70,6 @@ class MenuFiltering extends React.Component {
         return dishList;
     }
 
-    toggle = () => this.setState({checked: !this.state.checked});
-
     render() {
         return (
             <div className="filteringItems">
