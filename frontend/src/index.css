@@ -1,16 +1,58 @@
-.cardWrapper{
-    background-color: white;
+.basketAndMenuItems{
+    
 }
+.yourOrdersBtnDiv{
+    
+    float: right;
+}
+.cardWrapper{
+    border: 0px !important;
+    outline: 0px !important;
+    background-color: rgb(255, 0, 0)52, 252, 252);
+}
+.ui.segment.active.tab{
+    outline: none !important;
+    padding: 0px !important;
+    shadow: none !important;
+    border: 0px !important;
+    margin: 0px !important;
+    width: 75%;
+    display: grid !important;
+    grid-template-columns: auto auto auto !important;
+}
+
 .basketItems {
+    padding-top: 7.8em;
     float: right;
     background-color: white;
-        
+    width: 20%;   
 }
+.basketItems h1{
+    text-align: right;
+}
+.viewBasket{
+    float: right;
+    background-color: rgb(31, 112, 233) !important;
+    color: white !important;
+}
+
 .singleBasketItem{
     width: 280px;
 }
+
 .singleBasketListHeadAndDes {
     float: left;
+}
+.addToBasket{
+    background-color: green !important;
+    color: white !important;
+}
+.infoIconButton{
+    background-color: rgb(31, 112, 233) !important;
+    color: white !important;
+}
+.listOfItems{
+    float: right;
 }
 .basketItemIcon{
     float: left;
@@ -28,8 +70,8 @@
 
 .topnav {
     
-    background: url(topnavBackgroundImage.png) no-repeat center center;
-	background-color: #D04236;
+    background: url(mexicanImagesBackground2.jpg) repeat 0 0;
+	
 	overflow: hidden;
     height: 10.5em;
     
@@ -60,22 +102,23 @@
 }
 
 .topnav a.active {
-	Background-color: black;
+    Background-color: black;
 }
 
 .ui.bottom.attached.segment.active.tab {
     background-color: transparent !important;
-    border: none !important;
+    border: 0px !important;
 }
 
 .ui.card.menuCard {
-    margin-left: auto !important;
-    margin-right: auto !important;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    
 }
 
 .ui.fluid.vertical.tabular.menu {
     font-family: 'Segoe UI', Georgia, Times, serif !important;
-    border: none !important;
+    border: 0px !important;
     background-color: white !important;
 }
 
@@ -84,6 +127,22 @@
 
     color: white !important;
 }
+.ui.text.menu{
+    font-size: 2em;
+    
+}
+
+
+.ui.text.menu a{
+    
+}
+.ui.text.menu a.active{
+    color: rgb(31, 112, 233) !important;
+}
+.ui.text.menu a:hover{
+    color: rgb(31, 112, 233) !important;
+}
+
 
 .extra.content {
     font-family: 'Segoe UI', Georgia, Times, serif !important;
@@ -120,12 +179,12 @@ p, div {
 }
 
 img.logo {
-	display: block;
+    display: block;
 	margin-left: auto;
     margin-right: auto;
 }
 
 body {
-    background: url(mexicanImagesBackground2.jpg) repeat 0 0;
+    
     margin: 0;
 }

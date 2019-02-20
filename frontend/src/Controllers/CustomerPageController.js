@@ -74,10 +74,8 @@ export default class CustomerPageController extends React.Component {
         return (
             <div className="mainContainer">
                 
-                <Link to={{
-                    pathname:"/customerOrder", 
-                    state:{orderNumber: this.state.orderNumbers}
-                }}><Button className="yourOrdersBtn">Your Orders</Button></Link>
+                
+                <div className="basketAndMenuItems">
                 <div className="basketButton">
                     <Basket setOrder={this.setOrder} onRemove={this.removeFromBasket} dishList={this.state.currentBasket}></Basket>
                 </div>
@@ -88,6 +86,10 @@ export default class CustomerPageController extends React.Component {
                     
                 
                 </div>
+                </div><div className="yourOrdersBtnDiv"><Link to={{
+                    pathname:"/customerOrder", 
+                    state:{orderNumber: this.state.orderNumbers}
+                }}><Button className="yourOrdersBtn">Your Orders</Button></Link></div>
                 
             </div>
         )
