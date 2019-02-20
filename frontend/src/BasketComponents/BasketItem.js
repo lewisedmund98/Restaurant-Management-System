@@ -28,19 +28,17 @@ export default class BasketItem extends React.Component {
         <div className="singleBasketItem">
 
             <List celled key={key}>
-                <List.Item >
+                <List.Item>
                 
                     <Image className="basketItemIcon" avatar={true} src={currentDish.itemImage}></Image>
                     <List.Content className="singleBasketListHeadAndDes" >
-                        <List.Header >
+                        <List.Header id="orderDishName">
                             {currentDish.itemName}
                         </List.Header>
                         <List.Description className="singleBasketListHeadAndDes">
                             <b>
                                 £{currentDish.itemPrice}
                             </b>
-                            
-                            
                         </List.Description>
                         
                     </List.Content>

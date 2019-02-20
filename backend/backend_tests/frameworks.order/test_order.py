@@ -2,15 +2,18 @@ import pytest
 # noinspection PyUnresolvedReferences
 from frameworks.order.order import order
 
-
 @pytest.fixture
 def orderClass():  # does class exist?
     return order()
 
-def testLoadStatusOfOrder(orderClass):  # does the loadStatusOfOrder method exist?
-    assert orderClass.loadOrderHistory("ordercjs1sk6zd0000adaxgzznu4dh") == True
+@pytest.fixture
+def createOrder(orderClass):
+    return orderClass.createOrder("Test Order", 12345678911, "test@test.com", 1, [1,2])
+
+def testLoadStatusOfOrder(orderClass, createOrder):  # does the loadStatusOfOrder method exist?
+    assert orderClass.loadOrderHistory(createOrder) == True
     assert isinstance(orderClass.getOrderStatus(), dict)
 
-def loadOrderInfo(orderClass):  # does the loadInformationOfOrder method exist?
-    assert orderClass.loadInformationOfOrder("ordercjs1sk6zd0000adaxgzznu4dh") == True
+def loadOrderInfo(orderClass, createOrder):  # does the loadInformationOfOrder method exist?
+    assert orderClass.loadInformationOfOrder(createOrder) == True
     assert isinstance(orderClass.getOrderInfo(), dict)
