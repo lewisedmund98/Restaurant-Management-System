@@ -75,17 +75,18 @@ export default class CustomerPageController extends React.Component {
                 
                 
                 <div className="basketAndMenuItems">
-                <div className="basketButton">
+                <div className="basketSide">
                     <Basket setOrder={this.setOrder} onRemove={this.removeFromBasket} dishList={this.state.currentBasket}></Basket>
-                </div>
+                    <Link to={{
+                        pathname:"/customerOrder", 
+                        state:{orderNumber: this.state.orderNumbers}
+                    }}>
+                    <Button className="yourOrdersBtn">Your Orders</Button></Link></div>
                 <div id="ListCards">
                     <CardController basket={this.addToBasket}> {/*Basket is the event handler for a button*/}
                     </CardController>
                 </div>
-                </div><div className="yourOrdersBtnDiv"><Link to={{
-                    pathname:"/customerOrder", 
-                    state:{orderNumber: this.state.orderNumbers}
-                }}><Button className="yourOrdersBtn">Your Orders</Button></Link></div>
+                </div>
                 
             </div>
         )
