@@ -9,7 +9,7 @@
 .ui.segment.active.tab{
     outline: none !important;
     padding: 0px !important;
-    shadow: none !important;
+    box-shadow: none !important;
     border: 0px !important;
     margin: 0px !important;
     width: 75%;
@@ -36,13 +36,6 @@
     background-color: rgb(31, 112, 233) !important;
     color: white !important;
 }
-#yourOrdersBtnDiv{
-    display: block !important;
-	margin-left: 0 auto !important;
-    margin-right: 0 auto !important;
-    
-}
-
 
 .singleBasketItem{
     width: 100%;
