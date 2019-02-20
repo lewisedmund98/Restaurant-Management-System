@@ -20,7 +20,9 @@
     display: grid !important;
     grid-template-columns: auto auto auto !important;
 }
-
+.basketSide{
+    
+}
 .basketItems {
     padding-top: 7.8em;
     float: right;
@@ -28,16 +30,16 @@
     width: 20%;   
 }
 .basketItems h1{
-    text-align: right;
+    text-align: center;
 }
 .viewBasket{
-    float: right;
+    width: 100%;
     background-color: rgb(31, 112, 233) !important;
     color: white !important;
 }
 
 .singleBasketItem{
-    width: 280px;
+    width: 100%;
 }
 
 .singleBasketListHeadAndDes {
@@ -52,7 +54,7 @@
     color: white !important;
 }
 .listOfItems{
-    float: right;
+    
 }
 .basketItemIcon{
     float: left;
