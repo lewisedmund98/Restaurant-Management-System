@@ -32,9 +32,12 @@
     color: white !important;
 }
 .yourOrdersBtn{
-    margin-top: 10px !important;
+    margin-top: 20px !important;
     background-color: rgb(31, 112, 233) !important;
     color: white !important;
+    display: block !important;
+	margin-left: auto !important;
+    margin-right: auto !important;
 }
 
 .singleBasketItem{
