@@ -6,6 +6,7 @@
 import React from 'react';
 import '../index.css';
 import CustomerPageController from '../Controllers/CustomerPageController';
+import LoginController from '../Controllers/LoginController';
 import { Button } from 'semantic-ui-react';
 
 export default class Customer extends React.Component {
@@ -22,7 +23,7 @@ export default class Customer extends React.Component {
                 </div>
             </div>
                <CustomerPageController></CustomerPageController>
-                
+               <LoginController></LoginController>
             </div>
                     
         )
