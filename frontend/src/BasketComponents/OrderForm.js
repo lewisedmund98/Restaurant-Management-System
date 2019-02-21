@@ -84,20 +84,20 @@ export default class OrderForm extends React.Component {
         return (
             <Form onSubmit={this.createOrder}>
                 <Form.Field>
-                    <Label>Full Name</Label>
-                    <Input required onChange={this.handleInputChange} name="name" placeholder='Full Name' />
+                    <Label class="basketLabel">Full Name</Label>
+                    <Input required onChange={this.handleInputChange} name="name" placeholder='Full Name...' />
                 </Form.Field>
                 
                 <Form.Field>
-                    <Label>Email Address</Label>
-                    <Input required onChange={this.handleInputChange} name="email" placeholder='Email Adress' />
+                    <Label class="basketLabel">Email Address</Label>
+                    <Input required onChange={this.handleInputChange} name="email" placeholder='Email Address...' />
                 </Form.Field>
                 <Form.Field>
-                    <Label>Phone Number</Label>
-                    <Input required onChange={this.handleInputChange} name="phone" placeholder='Phone Number' />
+                    <Label class="basketLabel">Phone Number</Label>
+                    <Input required onChange={this.handleInputChange} name="phone" placeholder='Phone Number...' />
                 </Form.Field>
                 <Form.Field>
-                    <Label>Table Number</Label>
+                    <Label class="basketLabel">Table Number</Label>
                     <Dropdown required onChange={this.handleInputChange} name="tableNumber"
                         placeholder='Select a table...' search selection options={this.tables} />
 
@@ -105,7 +105,7 @@ export default class OrderForm extends React.Component {
                 <Form.Field>
                     <Checkbox required label='I agree to the Terms and Conditions' />
                 </Form.Field>
-                <Button type='submit'>Confirm and pay</Button>
+                <Button type='submit' id="ConfirmButton">Confirm and pay</Button>
             </Form>
         )
     }
