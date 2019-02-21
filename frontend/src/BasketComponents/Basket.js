@@ -15,7 +15,7 @@ export default class Basket extends React.Component{
     }
 
     calculateTotal(){
-        var total = 0.0;
+        let total = 0.0;
         try{
             Object.values(this.props.dishList).forEach(dish => { // Loops over each dish in the basket and gets its price
                 total += Math.round(parseFloat(dish.itemPrice));
