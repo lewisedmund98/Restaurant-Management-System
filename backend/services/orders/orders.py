@@ -10,13 +10,11 @@ class orders:
         self.__newAccessToken = None
         # These can't be abstracted as permission levels are granular
         if(request.path == '/orders/list/completed'):
-            # if(self.__checkPermish(0)):
-            #     pass
-            self.responseObj = handleListOrders("completed")
+            if(self.__checkPermish(0)):
+                self.responseObj = handleListOrders("completed")
         elif(request.path == '/orders/list/waiterUnconfirmed'):
-            # if(self.__checkPermish(0)):
-            #     pass
-            self.responseObj = handleListOrders("waiterUnconfirmed")
+            if(self.__checkPermish(0)):
+                self.responseObj = handleListOrders("waiterUnconfirmed")
         else:
             self.responseObj = self
 
