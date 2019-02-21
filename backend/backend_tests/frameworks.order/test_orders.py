@@ -9,4 +9,4 @@ def ordersClass():
 
 def testOrders(ordersClass):
     assert ordersClass.loadOrders() == True
-    assert isinstance(ordersClass.getOrders(), list)
+    assert isinstance(ordersClass.getOrders("completed"), list)
