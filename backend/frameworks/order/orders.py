@@ -24,7 +24,6 @@ class orders():
             ids = self.__getAllOrderIDs()
         else:
             raise Exception('Filter condition missing')
-        print(ids)
         self.__loadItems(ids)
         return True
 
@@ -50,5 +49,6 @@ class orders():
     
     def __getWaiterUnconfirmed(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID from orderHistory WHERE orderID NOT EXISTS (SELECT orderID from orderHistory WHERE stage != 'created') LIMIT 1;")
+        print("query")
+        cursor.execute("SELECT orderID FROM orderHistory GROUP BY orderID HAVING COUNT(orderID) = 2;")
         return cursor.fetchall()
