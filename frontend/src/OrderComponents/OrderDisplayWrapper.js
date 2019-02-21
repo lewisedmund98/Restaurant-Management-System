@@ -15,8 +15,7 @@ export default class OrderDisplayWrapper extends React.Component {
 
     mapOrderList(orders) {
         var mappedList = orders.map((order, key) => {
-            var moment = require('moment');
-            var time = moment.unix(order.timeCreated).format("DD MMM YYYY hh:mm a");
+            
             return (
                 <Table.Row key={key}>
                     <Table.Cell>{order.customerID}</Table.Cell>
