@@ -23,11 +23,13 @@
          this.state={
              unconfirmedOrders: [],
              toBeDelivered: [],
-             twentyFourHours: []
+             twentyFourHours: [],
+             accessToken : this.props.accessToken
          };
 
      }
      render(){
+         if(this.props.accessToken){console.log(this.props.accessToken);}
          return(
              <WaiterPageWrapper></WaiterPageWrapper>
 
