@@ -73,19 +73,19 @@ export default class TabWrapper extends React.Component {
             const tabs = [ // This was taken from the semantic UI react documentation for how to make tabs
                 {
                     menuItem: 'Starters',
-                    render: () => <Tab.Pane> <CardWrapper basket={this.props.basket} dishList={this.starterDishes} /> </Tab.Pane>
+                    render: () => <Tab.Pane attached={false}> <CardWrapper basket={this.props.basket} dishList={this.starterDishes} /> </Tab.Pane>
                 },
                 {
                     menuItem: 'Main',
-                    render: () => <Tab.Pane> <CardWrapper basket={this.props.basket} dishList={this.mainDishes} /> </Tab.Pane>
+                    render: () => <Tab.Pane attached={false}> <CardWrapper basket={this.props.basket} dishList={this.mainDishes} /> </Tab.Pane>
                 },
                 {
                     menuItem: 'Desserts',
-                    render: () => <Tab.Pane><CardWrapper basket={this.props.basket} dishList={this.dessertDishes} /></Tab.Pane>
+                    render: () => <Tab.Pane attached={false}><CardWrapper basket={this.props.basket} dishList={this.dessertDishes} /></Tab.Pane>
                 },
                 {
                     menuItem: 'Drinks',
-                    render: () => <Tab.Pane><CardWrapper basket={this.props.basket} dishList={this.drinks} /></Tab.Pane>
+                    render: () => <Tab.Pane attached={false}><CardWrapper basket={this.props.basket} dishList={this.drinks} /></Tab.Pane>
                 },
             ]
             return tabs;
@@ -102,7 +102,7 @@ export default class TabWrapper extends React.Component {
         var tabs = this.splitDishesIntoTypes(this.props.dishList); // split and create tabs
         return (
             // Render the tab, the tab is singular but the panes allows all of the card wrappers to occur
-            <Tab className="menuTabs" menu={{ fluid: true, vertical: true, tabular: true }} panes={tabs} />
+            <Tab className="menuTabs" menu={{ text: true }} panes={tabs} />
         )
     }
 }
