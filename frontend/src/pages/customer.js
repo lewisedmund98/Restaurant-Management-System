@@ -14,14 +14,7 @@ export default class Customer extends React.Component {
         document.title = "Oaxaca Customer";
         return (
             <div>
-                <div className="ourmenu" id="menuHeading">
-                <div className="ourmenuheading">
-                    <h1><b><i aria-hidden="true" className="food icon"></i>Our Menu</b></h1>
-                </div>
-                <div classname="loginContainer"> 
-                    <Button>Staff Login</Button>
-                </div>
-            </div>
+                
                <CustomerPageController></CustomerPageController>
                <LoginController></LoginController>
             </div>
