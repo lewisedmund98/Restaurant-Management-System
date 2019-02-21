@@ -49,6 +49,5 @@ class orders():
     
     def __getWaiterUnconfirmed(self):
         cursor = self.__db.cursor()
-        print("query")
-        cursor.execute("SELECT orderID FROM orderHistory GROUP BY orderID HAVING COUNT(orderID) = 2;")
+        cursor.execute("SELECT orderID from orderHistory WHERE orderID NOT IN (SELECT orderID from orderHistory WHERE stage != 'created');")
         return cursor.fetchall()
