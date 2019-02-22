@@ -16,6 +16,7 @@
 
  import React from 'react';
  import WaiterPageWrapper from './WaiterPageWrapper.js';
+ var request = require('../Requests');
 
  export default class WaiterPageController extends React.Component{
      constructor(props){
@@ -26,10 +27,51 @@
              twentyFourHours: [],
              accessToken : this.props.accessToken
          };
+         this.getUnconfirmedOrders = this.getUnconfirmedOrders.bind(this);
+    }
 
-     }
+    componentDidMount() {
+        this.timerID = setInterval(
+            () => {
+                try{
+                    this.checkForUpdate();
+                } catch (error){
+                    console.log(error);
+                }
+            },
+            2000
+        );
+    }
+
+    checkForUpdate(){
+        if(this.props.accessToken){
+            this.getUnconfirmedOrders(this.props.accessToken);
+        }
+    }
+
+    
+    getUnconfirmedOrders(accessTokenE){
+        console.log(JSON.stringify({ key: "abc123", secret:"def456", accessToken: accessTokenE}));
+        fetch("https://flask.team-project.crablab.co/orders/list/waiterUnconfirmed",{
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify({ id: "asdasd123123", key: "abc123", secret:"def456", access_token: accessTokenE}), // pulls the order id from the order ID given
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            this.props.updateToken(data.new_access_token.access_token);
+            this.setState({
+                unconfirmedOrders : data.orders
+            })
+        })
+    }
+    
+
      render(){
-         if(this.props.accessToken){console.log(this.props.accessToken);}
+         
          return(
              <WaiterPageWrapper></WaiterPageWrapper>
 

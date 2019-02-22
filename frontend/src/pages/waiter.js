@@ -11,11 +11,13 @@ import React from 'react';
 
 import '../index.css';
 import WaiterPageController from '../WaiterComponents/WaiterPageController.js';
+import { networkInterfaces } from 'os';
 
 export default class Customer extends React.Component {
     constructor(props){
         super(props);
         this.tempGetAccess = this.tempGetAccess.bind(this);
+        this.updateAccessToken = this.updateAccessToken.bind(this);
         this.state = {
             accessToken : null
         }
@@ -35,6 +37,13 @@ export default class Customer extends React.Component {
         .then(result => result.json())
         .then(json => this.setState({accessToken : json.login.access_token}));
     }
+
+    updateAccessToken(newAccessToken){
+        console.log(newAccessToken);
+        this.setState({
+            accessToken: newAccessToken
+        })
+    }
     
     render() {
         document.title = "Oaxaca Staff";
@@ -44,7 +53,7 @@ export default class Customer extends React.Component {
                     <h1>Staff ID is logged in</h1>
                 </div>  
                 <div className="orderContainer"> 
-                    <WaiterPageController accessToken = {this.state.accessToken}></WaiterPageController>
+                    <WaiterPageController updateToken = {this.updateAccessToken} accessToken = {this.state.accessToken}></WaiterPageController>
                 </div>
             </div>
         )

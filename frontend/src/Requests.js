@@ -1,3 +1,10 @@
+/**
+ * The pull details function takes an orderid and then it returns a json object to which you then have to select
+ * ".then(json => ) and then deal with the object."
+ * 
+ * The JSON object it returns is information about a single order to which the OrderID was given.
+ * @param {The orderID you would like the details for. The order ID will usually be stored in the user cooke} orderID 
+ */
 
 export function pullDetails(orderID) {
     return fetch("https://flask.team-project.crablab.co/order/view", {
@@ -15,7 +22,6 @@ export function getMenuItems(itemList) {
     try{
         for (var j = 0; j < itemList.length; j++) {
             if(itemList[j]!=null){
-
                 promiseArr.push(fetch("https://flask.team-project.crablab.co/menu/item", {
                     headers: {
                         "Content-Type": "application/json",
