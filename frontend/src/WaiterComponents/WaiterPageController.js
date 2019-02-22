@@ -39,7 +39,7 @@
                     console.log(error);
                 }
             },
-            2000
+            2500
         );
     }
 
@@ -51,7 +51,7 @@
 
     
     getUnconfirmedOrders(accessTokenE){
-        console.log(JSON.stringify({ key: "abc123", secret:"def456", accessToken: accessTokenE}));
+        
         fetch("https://flask.team-project.crablab.co/orders/list/waiterUnconfirmed",{
             headers: {
                 "Content-Type": "application/json",
@@ -63,8 +63,9 @@
         .then(data => {
             console.log(data);
             this.props.updateToken(data.new_access_token.access_token);
-            this.setState({
-                unconfirmedOrders : data.orders
+            request.getMenuItems(data.order.items) // Pass Items
+            .then((menuItems) => {
+                console.log(menuItems);
             })
         })
     }
@@ -73,7 +74,11 @@
      render(){
          
          return(
-             <WaiterPageWrapper></WaiterPageWrapper>
+             <WaiterPageWrapper 
+             updateToken={this.props.updateToken} 
+             accessToken={this.props.accessToken}
+             unconfirmedOrders={this.state.unconfirmedOrders}>
+             </WaiterPageWrapper>
 
          )
      }
