@@ -19,6 +19,7 @@ import ReactDOM from 'react-dom';
 import Customer from './pages/customer.js';
 import Waiter from './pages/waiter.js';
 import CustomerOrderPage from './pages/customerOrders';
+import Kitchen from "./pages/kitchen.js";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 /**
@@ -34,6 +35,7 @@ class App extends React.Component {
                     <Route path="/customer" component={Customer} />
                     <Route path="/waiter" component={Waiter}/>
                     <Route path="/customerOrder" component={CustomerOrderPage}/>
+                        <Route path="/kitchen" component={Kitchen}/>
                     </div>
                 </Router>
             </React.Fragment>
