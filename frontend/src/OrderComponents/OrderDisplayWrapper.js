@@ -15,11 +15,12 @@ export default class OrderDisplayWrapper extends React.Component {
 
     mapOrderList(orders) {
         var mappedList = orders.map((order, key) => {
+            
             return (
                 <Table.Row key={key}>
                     <Table.Cell>{order.customerID}</Table.Cell>
                     <Table.Cell>{order.orderID}</Table.Cell>
-                    <Table.Cell>{order.timeCreated}</Table.Cell>
+                    <Table.Cell>{time}</Table.Cell>
                     <Table.Cell>Not yet</Table.Cell>
                     <Table.Cell>Not yet</Table.Cell>
                     <Table.Cell><Button>Confirm Order</Button></Table.Cell>
