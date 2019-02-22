@@ -1,7 +1,7 @@
 import React from 'react';
-import CardContoller from './CardController.js';
 import '../index.css';
 import OrderDisplayWrapper from '../OrderComponents/OrderDisplayWrapper.js';
+let requests = require('../Requests');
 
 /**
  * The staff page controller is the main controller for the page with url/staff.
@@ -15,12 +15,17 @@ export default class StaffPageController extends React.Component {
         this.state = {
             orderList: []
         };
-
     }
 
     componentDidMount() {
         this.timerID = setInterval(
-            () => this.checkForNewOrders(),
+            () => {
+                try{
+                    this.checkForNewOrders();
+                } catch (error){
+                    console.log(error);
+                }
+            },
             7500
         );
     }
@@ -28,7 +33,6 @@ export default class StaffPageController extends React.Component {
 
     checkForNewOrders() {
         try {
-
             fetch("https://flask.team-project.crablab.co/orders/list")
                 .then(response => response.json())
                 .then(jsonReturn => {
@@ -49,6 +53,7 @@ export default class StaffPageController extends React.Component {
             console.log("An issue occured");
         }
     }
+
 
 
     render() {
