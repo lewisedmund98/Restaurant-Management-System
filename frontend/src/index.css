@@ -1,6 +1,9 @@
 .basketAndMenuItems{
     
 }
+.filteringItems{
+    float: right;
+}
 .cardWrapper{
     border: 0px !important;
     outline: 0px !important;

@@ -75,8 +75,10 @@ class MenuFiltering extends React.Component {
             <div className="filteringItems">
                 {/*<button onClick={this.showChecked}>Show checked in console</button> */}
                 {/* <AllergyCheckBoxes allergyList={this.state.allergyList} menuFilter={this.menuFilter} toggleChecked={this.toggleChecked}/> */}
+                <h3>Menu Filter:</h3>
                 <Checkbox id="priceUnder20" label="Price under £20" onClick={this.menuFilter}
                           checked={this.state.checked}/>
+                <h5>Tick to remove items containing the following: </h5>
                 <Checkbox id="nuts" label="Nuts" onClick={this.menuFilter}
                           checked={this.state.checked}/>
                 <Checkbox id="egg" label="Egg" onClick={this.menuFilter}
