@@ -77,9 +77,33 @@
 }
 
 #kitchenConfirmButton {
-    padding-bottom: 3px !important;
+    padding-bottom: 4px !important;
     padding-top: 3px !important;
     float: right !important;
+    margin-bottom: 10px !important;
+    background-color: green !important;
+    color: white !important;
+
+    /*Gradient*/
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
+    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
+    background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
+    background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
+
+    /*Shadow*/
+    -webkit-box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2)!important;
+    -moz-box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2)!important;
+    box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2)!important;
+
+    /*Transition*/
+    -webkit-transition: All 0.3s ease!important;
+    -moz-transition: All 0.3s ease!important;
+    -o-transition: All 0.3s ease!important;
+    transition: All 0.3s ease!important;
+}
+
+#kitchenConfirmButton:hover {
+    background-color: darkgreen !important;
 }
 
 .topnav {

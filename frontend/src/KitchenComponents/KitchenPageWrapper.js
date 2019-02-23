@@ -6,7 +6,10 @@ export default class KitchenPageWrapper extends React.Component {
     render() {
         return (
             <Card>
-                <Card.Content description={"Dishes:"} />
+                <Card.Content>
+                    <h3>Dishes</h3>
+                    <KitchenItemsView/>
+                </Card.Content>
                 <Card.Content extra>
                     <Button className="kitchenTimeButton">3</Button>
                     <Button className="kitchenTimeButton">5</Button>

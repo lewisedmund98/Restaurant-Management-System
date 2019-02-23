@@ -12,33 +12,46 @@
  */
 
 import React from 'react';
-import {Table, List, Button} from 'semantic-ui-react';
+import {Feed} from 'semantic-ui-react';
 
 export default class KitchenItemsView extends React.Component{
-    constructor(props){
-        super(props);
-        this.getCorrectButton = this.getCorrectButton.bind(this);
-    }
 
-    getCorrectButton(){
-        if(this.props.unconfirmed){
-            return(
-                <Button>Confirm</Button>
-            )
-        }
-
-        if(this.props.delivered){
-            return(
-                <Button>Confirm Delivery</Button>
-            )
-        }
-
-    }
 
     render(){
         // In the render we will have the table logic using the props. Like menuCard.js
         return(
-            <p>hi</p>
+            <Feed>
+                <Feed.Event>
+                    <Feed.Label>
+                        <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
+                    </Feed.Label>
+                    <Feed.Content>
+                        <Feed.Summary>
+                            Could
+                        </Feed.Summary>
+                    </Feed.Content>
+                </Feed.Event>
+                <Feed.Event>
+                    <Feed.Label>
+                        <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
+                    </Feed.Label>
+                    <Feed.Content>
+                        <Feed.Summary>
+                            Use
+                        </Feed.Summary>
+                    </Feed.Content>
+                </Feed.Event>
+                <Feed.Event>
+                    <Feed.Label>
+                        <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
+                    </Feed.Label>
+                    <Feed.Content>
+                        <Feed.Summary>
+                            Feeds
+                        </Feed.Summary>
+                    </Feed.Content>
+                </Feed.Event>
+            </Feed>
         )
     }
 
