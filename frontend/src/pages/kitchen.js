@@ -27,14 +27,15 @@ export default class kitchen extends React.Component {
     }
 
     render() {
-        document.title = "Oaxaca Staff";
+        document.title = "Oaxaca Kitchen";
         return (
-            <div>
+            <div className="kitchenPage">
                 <div className="loginContainer">
                     <h1>Staff ID is logged in</h1>
                 </div>
-                <div className="orderContainer">
-                    <KitchenPageController accessToken = {this.state.accessToken}/>
+                <div className="kitchenOrderCardsContainer">
+                    <h1>Kitchen Order</h1>
+                    <KitchenPageController accessToken = {this.state.accessToken} />
                 </div>
             </div>
         )

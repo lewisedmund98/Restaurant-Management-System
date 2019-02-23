@@ -5,25 +5,18 @@ import {Card, Button} from 'semantic-ui-react';
 export default class KitchenPageWrapper extends React.Component {
     render() {
         return (
-            <React.fragment>
-                <h1>Incoming Order</h1>
-                <div style={{padding: "20px"}} className="kitchenOrderDiv">
-                    <Card className="kitchenOrderCard">
-                        <Card.content>
-                            <Button>+5</Button>
-                            <KitchenItemsView unconfirmed={true}/>
-                        </Card.content>
-                        <Card.Content extra>
-                            <Button>+5</Button>
-                            <Button>+10</Button>
-                            <Button>+15</Button>
-                            <Button>+20</Button>
-                            <Button>+25</Button>
-                            <Button>+30</Button>
-                        </Card.Content>
-                    </Card>
-                </div>
-            </React.fragment>
+            <Card>
+                <Card.Content description={"Dishes:"} />
+                <Card.Content extra>
+                    <Button className="kitchenTimeButton">3</Button>
+                    <Button className="kitchenTimeButton">5</Button>
+                    <Button className="kitchenTimeButton">10</Button>
+                    <Button className="kitchenTimeButton">15</Button>
+                    <Button className="kitchenTimeButton">20</Button>
+                    <Button className="kitchenTimeButton">30</Button>
+                    <Button id="kitchenConfirmButton">Confirmed</Button>
+                </Card.Content>
+            </Card>
         )
     }
 }

@@ -72,6 +72,15 @@
     
 }
 
+.kitchenTimeButton {
+    padding:3px !important;
+}
+
+#kitchenConfirmButton {
+    padding-bottom: 3px !important;
+    padding-top: 3px !important;
+    float: right !important;
+}
 
 .topnav {
     
