@@ -1,6 +1,5 @@
 import React from 'react';
 import KitchenPageWrapper from "./KitchenPageWrapper";
-import {Card} from 'semantic-ui-react';
 
 export default class KitchenPageController extends React.Component {
     constructor(props) {
