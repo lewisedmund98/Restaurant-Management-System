@@ -28,7 +28,7 @@ export default class WaiterPageController extends React.Component {
             accessToken: this.props.accessToken
         };
         this.var = "Hello";
-        this.tempArray = [];
+        this.arrayOfUnconfirmedOrders = []; // This is needed as updating the state each request is unfeesible
         this.getUnconfirmedOrders = this.getUnconfirmedOrders.bind(this);
     }
 
@@ -41,7 +41,7 @@ export default class WaiterPageController extends React.Component {
                     console.log(error);
                 }
             },
-            2500
+            7500
         );
     }
 
@@ -63,7 +63,7 @@ export default class WaiterPageController extends React.Component {
             .then(response => response.json())
             .then(data => {
                 this.props.updateToken(data.new_access_token.access_token);
-              
+
                 data = data.orders;
                 data.forEach(async (order) => {
                     await request.getMenuItems(order.items) // Pass Items
@@ -72,15 +72,15 @@ export default class WaiterPageController extends React.Component {
                             for (var i = 0; i < menuItems.length; i++) {
                                 menuItemsArray.push(menuItems[i].result);
                             }
-                            var combinedResult = { ...{menuItems : menuItemsArray}, ...order};
-                           
-                            if (!this.tempArray.some(element => element.orderID === combinedResult.orderID)) {
-                                this.tempArray.push(combinedResult);
-                              }
-                        })        
+                            var combinedResult = { ...{ menuItems: menuItemsArray }, ...order };
+
+                            if (!this.arrayOfUnconfirmedOrders.some(element => element.orderID === combinedResult.orderID)) {
+                                this.arrayOfUnconfirmedOrders.push(combinedResult);
+                            }
+                        })
                 })
                 this.setState({
-                    unconfirmedOrders : this.tempArray
+                    unconfirmedOrders: this.arrayOfUnconfirmedOrders
                 })
             })
 
