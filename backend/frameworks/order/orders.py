@@ -8,7 +8,7 @@ class orders():
         # Instatiate Database
         self.__database = instance = db()
         self.__db = instance.getInstance()
-    
+
     def loadOrders(self, filter):
         if(filter == "waiterUnconfirmed"):
             ids = self.__getWaiterUnconfirmed()
@@ -41,13 +41,17 @@ class orders():
             self.__objects.append(od)
         return
 
-    # Endpoint queries 
+    # Endpoint queries
     def __getAllOrderIDs(self):
         cursor = self.__db.cursor()
         cursor.execute("SELECT orderID FROM `orders`")
         return cursor.fetchall()
-    
+
     def __getWaiterUnconfirmed(self):
         cursor = self.__db.cursor()
         cursor.execute("SELECT orderID from orderHistory WHERE orderID NOT IN (SELECT orderID from orderHistory WHERE stage != 'created');")
         return cursor.fetchall()
+
+    def __getWaiterConfirmed(self):
+        cursor = self.__db.cursor()
+        cursor.execute("SELECT orderID from orderHistory WHERE orderID NO")

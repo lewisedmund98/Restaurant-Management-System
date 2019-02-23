@@ -16,8 +16,8 @@ class order:
             self.responseObj = handleOrderHistory(request)
         elif(request.path == "/order/status"):
             self.responseObj = handleOrderStatus(request)
-        # elif(request.path == "order/confirm"):
-        #     self.responseObj = handleOrderConfirm(request)
+        elif(request.path == "order/confirm"):
+            self.responseObj = handleOrderConfirm(request)
         # elif(request.path == "order/payment"):
         #     self.responseObj = handleOrderPayment(request)
         else:
@@ -25,6 +25,6 @@ class order:
 
     def getResponse(self):
         return self.responseObj.getOutput()
-    
+
     def getOutput(self):
         abort(404)
