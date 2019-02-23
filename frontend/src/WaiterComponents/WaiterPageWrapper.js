@@ -11,9 +11,6 @@ import { Table, Image } from 'semantic-ui-react';
 export default class WaiterPageWrapper extends React.Component {
     constructor(props) {
         super(props);
-        this.state= {
-            menuState : []
-        }
         this.mapToUnconfirmedOrders = this.mapToUnconfirmedOrders.bind(this);
         this.mapMenuItemsToList = this.mapMenuItemsToList.bind(this);
 
@@ -22,8 +19,14 @@ export default class WaiterPageWrapper extends React.Component {
     mapToUnconfirmedOrders(unconfirmedOrders) {
         // Map the unconfirmed orders
         var mappedUnconfirmed = [];
-        mappedUnconfirmed = unconfirmedOrders.map((order, key) => {
-               
+        mappedUnconfirmed = unconfirmedOrders.map((order, key) => { 
+        
+            var mappedMenu = this.mapMenuItemsToList(order.menuItems);
+            return(
+                <OrderListView custID={order.customerID} custName={order.customerName} orderID={order.orderID}
+                    timeCreated = { order.timeCreated } menuList = {mappedMenu } unconfirmed = { true}
+                />
+            )
         })
         return mappedUnconfirmed;
     }
@@ -32,11 +35,11 @@ export default class WaiterPageWrapper extends React.Component {
         // /<OrderListView custID={order.customerID} custName={order.customerName} orderID={order.orderID}
        // timeCreated={order.timeCreated} menuList={mappedMenu} unconfirmed={true}
        // />
+
         var menuItemsMap = [];
-        var itemRes = null;
         menuItemsMap = menuItems.map((item) => {
-            itemRes = item.result; // Returns an array with each item being in a result
-            return(<li>{itemRes.itemName} <Image src={itemRes.itemImage}/></li>)
+             
+            return(<li>{item.itemName} <Image avatar src={item.itemImage}/></li>)
         })
         return menuItemsMap;
     }
@@ -44,9 +47,9 @@ export default class WaiterPageWrapper extends React.Component {
 
     render() {
         if(this.props.unconfirmedOrders != undefined && this.props.unconfirmedOrders){
-            console.log(this.props.unconfirmedOrders);
             var mappedOrderList = this.mapToUnconfirmedOrders(this.props.unconfirmedOrders);
         }
+       
         return (
             <React.Fragment>
                 <div style={{padding: "20px"}} className="unconfirmedOrderDiv">

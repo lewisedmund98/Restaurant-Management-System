@@ -14,28 +14,30 @@
  * Note: For now this will not have requests done, but I will mimic this statically in the card wrapper
  */
 
- import React from 'react';
- import WaiterPageWrapper from './WaiterPageWrapper.js';
- var request = require('../Requests');
+import React from 'react';
+import WaiterPageWrapper from './WaiterPageWrapper.js';
+var request = require('../Requests');
 
- export default class WaiterPageController extends React.Component{
-     constructor(props){
-         super(props);
-         this.state={
-             unconfirmedOrders: [],
-             toBeDelivered: [],
-             twentyFourHours: [],
-             accessToken : this.props.accessToken
-         };
-         this.getUnconfirmedOrders = this.getUnconfirmedOrders.bind(this);
+export default class WaiterPageController extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            unconfirmedOrders: [],
+            toBeDelivered: [],
+            twentyFourHours: [],
+            accessToken: this.props.accessToken
+        };
+        this.var = "Hello";
+        this.tempArray = [];
+        this.getUnconfirmedOrders = this.getUnconfirmedOrders.bind(this);
     }
 
     componentDidMount() {
         this.timerID = setInterval(
             () => {
-                try{
+                try {
                     this.checkForUpdate();
-                } catch (error){
+                } catch (error) {
                     console.log(error);
                 }
             },
@@ -43,43 +45,56 @@
         );
     }
 
-    checkForUpdate(){
-        if(this.props.accessToken){
+    checkForUpdate() {
+        if (this.props.accessToken) {
             this.getUnconfirmedOrders(this.props.accessToken);
         }
     }
 
-    
-    getUnconfirmedOrders(accessTokenE){
-        
-        fetch("https://flask.team-project.crablab.co/orders/list/waiterUnconfirmed",{
+
+    async getUnconfirmedOrders(accessTokenE) {
+        await fetch("https://flask.team-project.crablab.co/orders/list/waiterUnconfirmed", {
             headers: {
                 "Content-Type": "application/json",
             },
             method: "POST",
-            body: JSON.stringify({ id: "asdasd123123", key: "abc123", secret:"def456", access_token: accessTokenE}), // pulls the order id from the order ID given
+            body: JSON.stringify({ id: "asdasd123123", key: "abc123", secret: "def456", access_token: accessTokenE }), // pulls the order id from the order ID given
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            this.props.updateToken(data.new_access_token.access_token);
-            request.getMenuItems(data.order.items) // Pass Items
-            .then((menuItems) => {
-                console.log(menuItems);
+            .then(response => response.json())
+            .then(data => {
+                this.props.updateToken(data.new_access_token.access_token);
+              
+                data = data.orders;
+                data.forEach(async (order) => {
+                    await request.getMenuItems(order.items) // Pass Items
+                        .then((menuItems) => {
+                            var menuItemsArray = [];
+                            for (var i = 0; i < menuItems.length; i++) {
+                                menuItemsArray.push(menuItems[i].result);
+                            }
+                            var combinedResult = { ...{menuItems : menuItemsArray}, ...order};
+                           
+                            if (!this.tempArray.some(element => element.orderID === combinedResult.orderID)) {
+                                this.tempArray.push(combinedResult);
+                              }
+                        })        
+                })
+                this.setState({
+                    unconfirmedOrders : this.tempArray
+                })
             })
-        })
+
     }
-    
 
-     render(){
-         
-         return(
-             <WaiterPageWrapper 
-             updateToken={this.props.updateToken} 
-             accessToken={this.props.accessToken}
-             unconfirmedOrders={this.state.unconfirmedOrders}>
-             </WaiterPageWrapper>
 
-         )
-     }
- }
+    render() {
+        return (
+            <WaiterPageWrapper
+                updateToken={this.props.updateToken}
+                accessToken={this.props.accessToken}
+                unconfirmedOrders={this.state.unconfirmedOrders}>
+            </WaiterPageWrapper>
+
+        )
+    }
+}
