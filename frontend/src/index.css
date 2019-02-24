@@ -1,8 +1,11 @@
 .basketAndMenuItems{
     
 }
-.filteringItems{
+.FilterModalButton{
     float: right;
+    background-color: rgb(31, 112, 233) !important;
+    color: white !important;
+
 }
 .cardWrapper{
     border: 0px !important;
