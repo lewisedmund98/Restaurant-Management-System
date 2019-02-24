@@ -119,9 +119,15 @@
 }
 
 .ui.card.menuCard {
-    margin-left: 0.5%;
-    margin-right: 0.5%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    width: 45%;
     
+}
+.dishImage{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .ui.fluid.vertical.tabular.menu {
