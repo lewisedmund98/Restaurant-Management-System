@@ -4,6 +4,8 @@ from .handler.handleCreateOrder import handleCreateOrder
 from .handler.handleOrderView import handleOrderView
 from .handler.handleOrderHistory import handleOrderHistory
 from .handler.handleOrderStatus import handleOrderStatus
+from .handler.handleOrderConfirm import handleOrderConfirm
+
 
 class order:
     def __init__(self, request):
