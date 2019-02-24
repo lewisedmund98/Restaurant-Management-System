@@ -6,26 +6,46 @@
 
 import React from 'react';
 import OrderListView from './OrderListView';
-import { Table } from 'semantic-ui-react';
+import { Table, Image } from 'semantic-ui-react';
+
 export default class WaiterPageWrapper extends React.Component {
     constructor(props) {
         super(props);
         this.mapToUnconfirmedOrders = this.mapToUnconfirmedOrders.bind(this);
+        this.mapMenuItemsToList = this.mapMenuItemsToList.bind(this);
+
     }
 
-    mapToUnconfirmedOrders(unconfimedOrders) {
+    mapToUnconfirmedOrders(unconfirmedOrders) {
         // Map the unconfirmed orders
         var mappedUnconfirmed = [];
+        mappedUnconfirmed = unconfirmedOrders.map((order, key) => { 
+        
+            var mappedMenu = this.mapMenuItemsToList(order.menuItems);
+            return(
+                <OrderListView custID={order.customerID} custName={order.customerName} orderID={order.orderID}
+                    timeCreated = { order.timeCreated } menuList = {mappedMenu } unconfirmed = { true}
+                />
+            )
+        })
         return mappedUnconfirmed;
     }
 
     mapMenuItemsToList(menuItems) {
         var menuItemsMap = [];
+        menuItemsMap = menuItems.map((item) => {
+             
+            return(<li>{item.itemName} <Image avatar src={item.itemImage}/></li>)
+        })
         return menuItemsMap;
     }
 
 
     render() {
+        if(this.props.unconfirmedOrders != undefined && this.props.unconfirmedOrders){
+            var mappedOrderList = this.mapToUnconfirmedOrders(this.props.unconfirmedOrders);
+        }
+       
         return (
             <React.Fragment>
                 <div style={{padding: "20px"}} className="unconfirmedOrderDiv">
@@ -42,7 +62,7 @@ export default class WaiterPageWrapper extends React.Component {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        <OrderListView unconfirmed={true}></OrderListView>
+                        {mappedOrderList} {/*<OrderListView unconfirmed={true}></OrderListView>*/}
                     </Table.Body>
                 </Table>
                 </div>
