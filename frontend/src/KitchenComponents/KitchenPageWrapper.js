@@ -11,13 +11,15 @@ export default class KitchenPageWrapper extends React.Component {
                     <KitchenItemsView/>
                 </Card.Content>
                 <Card.Content extra>
-                    <Button className="kitchenTimeButton">3</Button>
-                    <Button className="kitchenTimeButton">5</Button>
-                    <Button className="kitchenTimeButton">10</Button>
-                    <Button className="kitchenTimeButton">15</Button>
-                    <Button className="kitchenTimeButton">20</Button>
-                    <Button className="kitchenTimeButton">30</Button>
-                    <Button id="kitchenConfirmButton">Confirmed</Button>
+                    <div id="kitchenOrderButtons">
+                        <div id="kitchenTimeButtons">
+                            <Button className="kitchenTimeButton">05</Button>
+                            <Button className="kitchenTimeButton">10</Button>
+                            <Button className="kitchenTimeButton">20</Button>
+                            <Button className="kitchenTimeButton">30</Button>
+                            <Button id="kitchenConfirmButton">Confirm</Button>
+                        </div>
+                    </div>
                 </Card.Content>
             </Card>
         )

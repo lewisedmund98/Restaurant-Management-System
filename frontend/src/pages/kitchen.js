@@ -33,7 +33,7 @@ export default class kitchen extends React.Component {
                 <div className="loginContainer">
                     <h1>Staff ID is logged in</h1>
                 </div>
-                <div className="kitchenOrderCardsContainer">
+                <div id="kitchenOrderCardsContainer">
                     <h1>Kitchen Order</h1>
                     <KitchenPageController accessToken = {this.state.accessToken} />
                 </div>
