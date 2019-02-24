@@ -91,9 +91,6 @@ class MenuFiltering extends React.Component {
                 <Checkbox id="fish" label="Fish" onClick={this.menuFilter}
                           checked={this.state.checked}/>
                 </Modal.Content>
-                <Modal.Header>
-                    <p>The {this.props.dishName}'s allergy and calorie information</p>
-                </Modal.Header>
             </Modal>
         )
     }
