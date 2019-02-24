@@ -63,14 +63,7 @@
 .singleBasketListHeadAndDes {
     float: left;
 }
-.addToBasket{
-    background-color: green !important;
-    color: white !important;
-}
-.infoIconButton{
-    background-color: rgb(31, 112, 233) !important;
-    color: white !important;
-}
+
 .listOfItems{
     
 }
@@ -128,6 +121,16 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.addToBasket{
+    background-color: green !important;
+    color: white !important;
+    
+}
+.infoIconButton{
+    background-color: rgb(31, 112, 233) !important;
+    color: white !important;
 }
 
 .ui.fluid.vertical.tabular.menu {
