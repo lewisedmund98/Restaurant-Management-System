@@ -7,6 +7,8 @@ class handleOrderConfirm:
         self.__data = request.get_json()
 
     def getOutput(self):
-        return {"order has been confirmed by the waiter"  : self.__getWaiterConfirmed()}
+        return {"order has been confirmed by the waiter"  : self.__waiterConfirmation()}
 
-    def __getWaiterConfirmed():
+    def __waiterConfirmation():
+        self.order = loadOrderHistory(self.__data['id'], "waiterConfirmed")
+        return self.__order.__getWaiterConfirmed()
