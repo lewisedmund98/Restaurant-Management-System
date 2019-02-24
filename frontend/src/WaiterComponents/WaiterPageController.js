@@ -37,6 +37,18 @@ export default class WaiterPageController extends React.Component {
             () => {
                 try {
                     this.checkForUpdate();
+                    fetch("https://flask.team-project.crablab.co/orders/list/getwaiterConfirmed", {
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        method: "POST",
+                        body: JSON.stringify({ id: "asdasd123123", key: "abc123", secret: "def456", access_token: this.props.accessToken}),
+                    })
+                    .then(json => json.json())
+                    .then(cyka =>{
+                        console.log(cyka);
+                        this.props.updateToken(cyka.new_access_token.access_token);
+                    })
                 } catch (error) {
                     console.log(error);
                 }
