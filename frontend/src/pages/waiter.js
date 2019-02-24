@@ -11,21 +11,26 @@ import React from 'react';
 
 import '../index.css';
 import WaiterPageController from '../WaiterComponents/WaiterPageController.js';
+import { networkInterfaces } from 'os';
 
 export default class Customer extends React.Component {
     constructor(props){
         super(props);
         this.tempGetAccess = this.tempGetAccess.bind(this);
+        this.updateAccessToken = this.updateAccessToken.bind(this);
         this.state = {
-            accessToken : null
+            accessToken : null,
+            menuItems: null
         }
+         this.tempGetAccess();
     }
 
-    async componentDidMount(){
-        await this.tempGetAccess();
-    }
-    async tempGetAccess(){
-        await fetch("https://flask.team-project.crablab.co/authentication/login", {
+   
+    tempGetAccess(){
+        fetch("https://flask.team-project.crablab.co/menu/items")
+        .then(response => response.json())
+        .then(json => this.setState({menuItems : json.result}))
+        fetch("https://flask.team-project.crablab.co/authentication/login", {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -35,16 +40,24 @@ export default class Customer extends React.Component {
         .then(result => result.json())
         .then(json => this.setState({accessToken : json.login.access_token}));
     }
+
+    updateAccessToken(newAccessToken){
+        console.log(newAccessToken);
+        this.setState({
+            accessToken: newAccessToken
+        })
+    }
     
     render() {
         document.title = "Oaxaca Staff";
+        console.log(this.state.menuItems);
         return (
             <div>
                 <div className="loginContainer">
                     <h1>Staff ID is logged in</h1>
                 </div>  
                 <div className="orderContainer"> 
-                    <WaiterPageController accessToken = {this.state.accessToken}></WaiterPageController>
+                    <WaiterPageController menu={this.state.menuItems} updateToken = {this.updateAccessToken} accessToken = {this.state.accessToken}></WaiterPageController>
                 </div>
             </div>
         )
