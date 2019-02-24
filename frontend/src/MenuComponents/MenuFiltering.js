@@ -84,11 +84,11 @@ class MenuFiltering extends React.Component {
                 <Checkbox id="priceUnder20" label="Price under £20" onClick={this.menuFilter}
                           checked={this.state.checked}/>
                 <h5>Tick to remove items containing the following: </h5>
-                <Checkbox id="nuts" label="Nuts" onClick={this.menuFilter}
+                <Checkbox style={{marginRight: "2%"}} id="nuts" label="Nuts" onClick={this.menuFilter}
                           checked={this.state.checked}/>
-                <Checkbox id="egg" label="Egg" onClick={this.menuFilter}
+                <Checkbox style={{marginRight: "2%"}} id="egg" label="Egg" onClick={this.menuFilter}
                           checked={this.state.checked}/>
-                <Checkbox id="fish" label="Fish" onClick={this.menuFilter}
+                <Checkbox style={{marginRight: "2%"}} id="fish" label="Fish" onClick={this.menuFilter}
                           checked={this.state.checked}/>
                 </Modal.Content>
             </Modal>
