@@ -38,14 +38,14 @@
     render(){
         // In the render we will have the table logic using the props. Like menuCard.js
         var moment = require('moment');
-        var time = moment.unix("22552255").format("DD MMM YYYY hh:mm a");
+        var time = moment.unix(this.props.timeCreated).format("DD MMM YYYY hh:mm a");
         return(
                 <Table.Row key={"this.props.key"}>
-                    <Table.Cell>{"Example Customer Id"}</Table.Cell>
-                    <Table.Cell>{"Example Customer NAme"}</Table.Cell>
-                    <Table.Cell>{"Example Order ID"}</Table.Cell>
+                    <Table.Cell>{this.props.custID}</Table.Cell>
+                    <Table.Cell>{this.props.custName}</Table.Cell>
+                    <Table.Cell>{this.props.orderID}</Table.Cell>
                     <Table.Cell>{time}</Table.Cell>
-                    <Table.Cell><List>{"Example Menu List"}</List></Table.Cell>
+                    <Table.Cell><List>{this.props.menuList}</List></Table.Cell>
                     <Table.Cell>{this.getCorrectButton()}</Table.Cell>
                 </Table.Row>
         )
