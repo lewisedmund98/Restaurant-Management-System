@@ -30,6 +30,7 @@ export default class WaiterPageController extends React.Component {
         this.var = "Hello";
         this.arrayOfUnconfirmedOrders = []; // This is needed as updating the state each request is unfeesible
         this.getUnconfirmedOrders = this.getUnconfirmedOrders.bind(this);
+        this.confirmOrder = this.confirmOrder.bind(this);
     }
 
     componentDidMount() {
@@ -37,23 +38,11 @@ export default class WaiterPageController extends React.Component {
             () => {
                 try {
                     this.checkForUpdate();
-                    fetch("https://flask.team-project.crablab.co/orders/list/getwaiterConfirmed", {
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        method: "POST",
-                        body: JSON.stringify({ id: "asdasd123123", key: "abc123", secret: "def456", access_token: this.props.accessToken}),
-                    })
-                    .then(json => json.json())
-                    .then(cyka =>{
-                        console.log(cyka);
-                        this.props.updateToken(cyka.new_access_token.access_token);
-                    })
                 } catch (error) {
                     console.log(error);
                 }
             },
-            7500
+            2500
         );
     }
 
@@ -62,6 +51,10 @@ export default class WaiterPageController extends React.Component {
             this.getUnconfirmedOrders(this.props.accessToken);
         }
     }
+
+    // Called when the waiter wishes to confirm an order.
+
+    
 
 
     async getUnconfirmedOrders(accessTokenE) {
@@ -75,9 +68,8 @@ export default class WaiterPageController extends React.Component {
             .then(response => response.json())
             .then(data => {
                 this.props.updateToken(data.new_access_token.access_token);
-
                 data = data.orders;
-                data.forEach(async (order) => {
+                data.forEach(async (order, index) => {
                     await request.getMenuItems(order.items) // Pass Items
                         .then((menuItems) => {
                             var menuItemsArray = [];
@@ -86,22 +78,39 @@ export default class WaiterPageController extends React.Component {
                             }
                             var combinedResult = { ...{ menuItems: menuItemsArray }, ...order };
 
+                            this.arrayOfUnconfirmedOrders[index] = combinedResult;
                             if (!this.arrayOfUnconfirmedOrders.some(element => element.orderID === combinedResult.orderID)) {
                                 this.arrayOfUnconfirmedOrders.push(combinedResult);
                             }
+
+                            
                         })
                 })
+              
                 this.setState({
                     unconfirmedOrders: this.arrayOfUnconfirmedOrders
                 })
+                this.arrayOfUnconfirmedOrders = [];
             })
 
     }
 
+    confirmOrder(orderID){
+        fetch("https://flask.team-project.crablab.co/order/waiterConfirm", {
+            method: "POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body : JSON.stringify({id: orderID})
+        })
+        .then(response => response.json())
+        .then(json => console.log(json))
+    }
 
     render() {
         return (
             <WaiterPageWrapper
+                confirmOrder = {this.confirmOrder}
                 updateToken={this.props.updateToken}
                 accessToken={this.props.accessToken}
                 unconfirmedOrders={this.state.unconfirmedOrders}>

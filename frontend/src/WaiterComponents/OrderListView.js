@@ -18,12 +18,21 @@
     constructor(props){
         super(props);
         this.getCorrectButton = this.getCorrectButton.bind(this);
+        this.confirmOrderLoc = this.confirmOrderLoc.bind(this);
     }
 
+   confirmOrderLoc(){
+       this.props.confirmOrder(this.props.orderID);
+   }
+
     getCorrectButton(){
+        var buttonState = "";
         if(this.props.unconfirmed){
+            buttonState = "Confirm";
             return(
-                <Button>Confirm</Button>
+                <Button content={buttonState} onClick={(event, data) => {
+                    this.confirmOrderLoc();
+                }}></Button>
             )
         }
 
