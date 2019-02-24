@@ -15,6 +15,9 @@ class orders:
         elif(request.path == '/orders/list/waiterUnconfirmed'):
             if(self.__checkPermish(0)):
                 self.responseObj = handleListOrders("waiterUnconfirmed")
+        elif(request.path == 'orders/list/waiterConfirmed'):
+            if(self.__checkPermish(0)):
+                self.responseObj = handleListOrders("waiterConfirmed")
         else:
             self.responseObj = self
 
@@ -23,7 +26,7 @@ class orders:
         if(isinstance(self.__newAccessToken, dict)):
             output.update(self.__newAccessToken)
         return output
-    
+
     def getOutput(self):
         abort(404)
 
