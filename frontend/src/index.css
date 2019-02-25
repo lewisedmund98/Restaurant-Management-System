@@ -331,3 +331,9 @@ body {
     
     margin: 0;
 }
+.kitchenPage{
+    color: white;
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+}
