@@ -1,5 +1,5 @@
 import React from 'react' 
-import LoginPageController from "../LoginComponents/LoginPageController";
+import LoginController from "../LoginComponents/LoginController";
 import '../index.css';
 
 /**
@@ -27,7 +27,7 @@ import '../index.css';
            <div className="loginpage">
              <div className="loginContainer">
               <h1>Staff Login</h1> 
-              <LoginPageController></LoginPageController>
+              <LoginController></LoginController>
              </div>
            </div>
          )
