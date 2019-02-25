@@ -56,5 +56,5 @@ class orders():
 
     def __getWaiterConfirmed(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID from orderHistory WHERE orderID NOT IN (SELECT orderID from orderHistory WHERE stage != 'waiterUnconfirmed')")
+        cursor.execute("SELECT orderID FROM (SELECT orderId, stage FROM orderHistory ORDER BY inserted DESC LIMIT 1) AS OH WHERE OH.stage = 'waiterConfirmed'")
         return cursor.fetchall()
