@@ -72,8 +72,12 @@ export default class CustomerPageController extends React.Component {
     render() {
         return (
             <div className="mainContainer">
-                
-                
+                <div className="login">
+                    <Link to={{
+                        pathname:"/login"
+                    }}>
+                    <Button className="loginButton">Staff Login</Button></Link>
+                </div> 
                 <div className="basketAndMenuItems">
                 <div className="basketSide">
                     <Basket setOrder={this.setOrder} onRemove={this.removeFromBasket} dishList={this.state.currentBasket}></Basket>
