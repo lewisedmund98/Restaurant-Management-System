@@ -18,6 +18,9 @@ class orders:
         elif(request.path == 'orders/list/waiterConfirmed'):
             if(self.__checkPermish(0)):
                 self.responseObj = handleListOrders("waiterConfirmed")
+        elif(request.path == 'orders/list/kitchenConfirmed'):
+            if(self.__checkPermish(0)):
+                self.responseObj = handleListOrders("kitchenConfirmed")
         else:
             self.responseObj = self
 
