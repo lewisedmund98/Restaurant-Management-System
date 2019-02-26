@@ -54,11 +54,11 @@ class orders():
 
     def __getWaiterConfirmed(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM (SELECT orderId, stage FROM orderHistory ORDER BY inserted DESC LIMIT 1) AS OH WHERE OH.stage = 'waiterConfirmed'")
+        cursor.execute("SELECT orderID FROM (SELECT orderId, stage FROM orderHistory ORDER BY inserted) AS OH WHERE OH.stage = 'waiterConfirmed'")
         return cursor.fetchall()
 
     def __getKitchenConfirmed(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM (SELECT orderId, stage FROM orderHistory ORDER BY inserted DESC LIMIT 1) AS OH WHERE OH.stage = 'kitchenConfirmed'")
+        cursor.execute("SELECT orderID FROM (SELECT orderId, stage FROM orderHistory ORDER BY inserted) AS OH WHERE OH.stage = 'kitchenConfirmed'")
         return cursor.fetchall()
 
