@@ -15,10 +15,10 @@ class orders:
         elif(request.path == '/orders/list/waiterUnconfirmed'):
             if(self.__checkPermish(0)):
                 self.responseObj = handleListOrders("waiterUnconfirmed")
-        elif(request.path == 'orders/list/waiterConfirmed'):
+        elif(request.path == '/orders/list/waiterConfirmed'):
             if(self.__checkPermish(0)):
                 self.responseObj = handleListOrders("waiterConfirmed")
-        elif(request.path == 'orders/list/kitchenConfirmed'):
+        elif(request.path == '/orders/list/kitchenConfirmed'):
             if(self.__checkPermish(0)):
                 self.responseObj = handleListOrders("kitchenConfirmed")
         else:
