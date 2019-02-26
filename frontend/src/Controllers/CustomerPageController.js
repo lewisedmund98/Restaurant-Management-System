@@ -1,5 +1,5 @@
 import React from 'react';
-import CardContoller from './CardController.js';
+import CardController from './CardController.js';
 import '../index.css';
 import Basket from '../BasketComponents/Basket.js';
 import {Button} from 'semantic-ui-react';
@@ -69,21 +69,25 @@ export default class CustomerPageController extends React.Component {
         
     }
 
-
     render() {
         return (
             <div className="mainContainer">
-                <Link to={{
-                    pathname:"/customerOrder", 
-                    state:{orderNumber: this.state.orderNumbers}
-                }}><Button>Your Orders</Button></Link>
-                <div id="ListCards">
-                    <CardContoller basket={this.addToBasket}> {/*Basket is the event handler for a button*/}
-                    </CardContoller>
-                </div>
-                <div className="basketButton">
+                
+                
+                <div className="basketAndMenuItems">
+                <div className="basketSide">
                     <Basket setOrder={this.setOrder} onRemove={this.removeFromBasket} dishList={this.state.currentBasket}></Basket>
+                    <Link to={{
+                        pathname:"/customerOrder", 
+                        state:{orderNumber: this.state.orderNumbers}
+                    }}>
+                    <Button className="yourOrdersBtn">Your Orders</Button></Link></div>
+                <div id="ListCards">
+                    <CardController basket={this.addToBasket}> {/*Basket is the event handler for a button*/}
+                    </CardController>
                 </div>
+                </div>
+                
             </div>
         )
     }

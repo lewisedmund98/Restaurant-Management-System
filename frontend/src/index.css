@@ -1,7 +1,137 @@
+.basketAndMenuItems{
+    
+}
+.cardWrapper{
+    border: 0px !important;
+    outline: 0px !important;
+    background-color: rgb(255, 0, 0)52, 252, 252);
+}
+.ui.segment.active.tab{
+    outline: none !important;
+    padding: 0px !important;
+    box-shadow: none !important;
+    border: 0px !important;
+    margin: 0px !important;
+    width: 75%;
+    display: grid !important;
+    grid-template-columns: auto auto auto !important;
+}
+.basketSide{
+    padding-top: 7.8em;
+    float: right;
+    background-color: white;
+    width: 20%; 
+}
+
+.basketItems h1{
+    text-align: center;
+}
+.viewBasket{
+    width: 100%;
+    background-color: rgb(31, 112, 233) !important;
+    color: white !important;
+}
+.yourOrdersBtn{
+    margin-top: 20px !important;
+    background-color: rgb(31, 112, 233) !important;
+    color: white !important;
+    display: block !important;
+	margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.singleBasketItem{
+    width: 100%;
+}
+.basketItemIcon{
+    float: left;
+}
+.removeBasketItemBtn{
+    float: right;
+    background-color: #D04236!important;
+    color: white !important;
+    padding-bottom: 1px !important;
+    padding-top: 1px !important;
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+    font-size: 30px !important;
+}
+
+.singleBasketListHeadAndDes {
+    float: left;
+}
+.addToBasket{
+    background-color: green !important;
+    color: white !important;
+}
+.infoIconButton{
+    background-color: rgb(31, 112, 233) !important;
+    color: white !important;
+}
+.listOfItems{
+    
+}
+
+#kitchenOrderButtons {
+    text-align: center !important;
+    display: table !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.kitchenTimeButton {
+    /*To fill width*/
+    height: 3.5em !important;
+    display: inline-block !important;
+    flex: 1 !important;
+}
+
+#kitchenConfirmButton {
+    margin-top: 4px !important;
+    margin-bottom: 10px !important;
+    background-color: green !important;
+    color: white !important;
+    width: 100% !important;
+    display: table-cell !important;
+    height: 3.5em !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+
+    /*Gradient*/
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
+    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
+    background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
+    background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
+
+    /*Shadow*/
+    -webkit-box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2)!important;
+    -moz-box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2)!important;
+    box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2)!important;
+
+    /*Transition*/
+    -webkit-transition: All 0.3s ease!important;
+    -moz-transition: All 0.3s ease!important;
+    -o-transition: All 0.3s ease!important;
+    transition: All 0.3s ease!important;
+
+    /*To fill width*/
+    flex-grow: 1 !important;
+}
+
+#kitchenConfirmButton:hover {
+    background-color: darkgreen !important;
+}
+
 .topnav {
-	background-color: #D04236;
-	overflow: hidden;
-    height: 10.5em
+    
+    background: url(mexicanImagesBackground2.jpg) repeat 0 0;
+	
+    overflow: hidden;
+    height: 10.5em;
+    
+   
 }
 
 .ourmenu .ourmenuheading{
@@ -28,29 +158,118 @@
 }
 
 .topnav a.active {
-	Background-color: black;
+    Background-color: black;
 }
 
 .ui.bottom.attached.segment.active.tab {
     background-color: transparent !important;
-    border: none !important;
+    border: 0px !important;
 }
 
 .ui.card.menuCard {
-    margin-left: auto !important;
-    margin-right: auto !important;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    
 }
 
 .ui.fluid.vertical.tabular.menu {
     font-family: 'Segoe UI', Georgia, Times, serif !important;
-    border: none !important;
-    background-color: antiquewhite !important;
+    border: 0px !important;
+    background-color: white !important;
 }
 
 .ui.fluid.vertical.tabular.menu a.active {
-    background-color: #D04236 !important;
+    background-color: green !important;
 
     color: white !important;
+}
+.ui.text.menu{
+    font-size: 2em;
+    margin-top: 1% !important;
+    margin-bottom: 1% !important;
+}
+
+
+.ui.text.menu a{
+    
+}
+.ui.text.menu a.active{
+    color: rgb(31, 112, 233) !important;
+}
+.ui.text.menu a:hover{
+    color: rgb(31, 112, 233) !important;
+}
+
+
+.ui.scrolling.modal.transition.visible.active {
+    font-family: 'Segoe UI', Georgia, Times, serif !important;
+}
+
+.basketLabel {
+    color: black !important;
+    background-color: lawngreen !important;
+}
+
+#orderFormTitle {
+    color: dimgrey !important;
+}
+
+#orderDishName {
+    font-size: medium !important;
+    font-weight: 900 !important;
+}
+
+#removeItemButton {
+    background-color: #f10000 !important;
+    margin: 4px !important;
+
+    /*Gradient*/
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
+    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
+    background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
+    background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
+
+    /*Shadow*/
+    -webkit-box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2)!important;
+    -moz-box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2)!important;
+    box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2)!important;
+
+    /*Transition*/
+    -webkit-transition: All 0.3s ease!important;
+    -moz-transition: All 0.3s ease!important;
+    -o-transition: All 0.3s ease!important;
+    transition: All 0.3s ease!important;
+}
+
+#removeItemButton:hover {
+    background-color: #d80000 !important;
+}
+
+#ConfirmButton {
+    margin-bottom: 10px !important;
+    background-color: green !important;
+    color: white !important;
+
+    /*Gradient*/
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
+    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
+    background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
+    background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))!important;
+
+    /*Shadow*/
+    -webkit-box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2)!important;
+    -moz-box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2)!important;
+    box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2)!important;
+
+    /*Transition*/
+    -webkit-transition: All 0.3s ease!important;
+    -moz-transition: All 0.3s ease!important;
+    -o-transition: All 0.3s ease!important;
+    transition: All 0.3s ease!important;
+}
+
+#ConfirmButton:hover {
+    background-color: darkgreen !important;
 }
 
 .extra.content {
@@ -88,11 +307,12 @@ p, div {
 }
 
 img.logo {
-	display: block;
+    display: block;
 	margin-left: auto;
-	margin-right: auto;
+    margin-right: auto;
 }
 
 body {
-    background: url(leaves.png) repeat 0 0;
+    
+    margin: 0;
 }
