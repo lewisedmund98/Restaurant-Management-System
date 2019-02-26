@@ -5,7 +5,7 @@ import {Card, Button} from 'semantic-ui-react';
 export default class KitchenPageWrapper extends React.Component {
     render() {
         return (
-            <Card>
+            <Card className="kitchenCard">
                 <Card.Content>
                     <h3>Dishes</h3>
                     <KitchenItemsView/>
