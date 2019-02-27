@@ -9,6 +9,14 @@ export default class kitchen extends React.Component {
         this.state = {
             accessToken : null
         }
+        this.updateAccessToken = this.updateAccessToken.bind(this);
+    }
+
+    updateAccessToken(newAccessToken){
+        console.log(newAccessToken);
+        this.setState({
+            accessToken: newAccessToken
+        })
     }
 
     async componentDidMount(){
@@ -35,7 +43,7 @@ export default class kitchen extends React.Component {
                 </div>
                 <div id="kitchenOrderCardsContainer">
                     <h1>Kitchen Order</h1>
-                    <KitchenPageController accessToken = {this.state.accessToken} />
+                    <KitchenPageController accessToken = {this.state.accessToken} updateToken = {this.updateAccessToken} />
                 </div>
             </div>
         )
