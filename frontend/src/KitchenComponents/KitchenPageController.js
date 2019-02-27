@@ -11,7 +11,7 @@ export default class KitchenPageController extends React.Component {
             twentyFourHours: [],
             accessToken: this.props.accessToken
         };
-        this.waiterUnconfirmedArray = [];
+        this.waiterConfirmedArray = [];
         this.getWaiterConfirmed = this.getWaiterConfirmed.bind(this);
         this.checkForUpdate = this.checkForUpdate.bind(this);
         this.req = true;
@@ -19,9 +19,9 @@ export default class KitchenPageController extends React.Component {
 
     componentDidMount() {
         this.timerID = setInterval(
-            () => {
+            async () => {
                 try {
-                    this.checkForUpdate();
+                    await this.checkForUpdate();
                 } catch (error) {
                     console.log(error);
                 }
@@ -38,12 +38,13 @@ export default class KitchenPageController extends React.Component {
 
 
     async getWaiterConfirmed() {
+        console.log(this.props.accessToken);
         await fetch("https://flask.team-project.crablab.co/orders/list/waiterConfirmed", {
             headers: {
                 "Content-Type": "application/json",
             },
             method: "POST",
-            body: JSON.stringify({ id: "asdasd123123", key: "abc123", secret: "def456", access_token: this.props.accessToken }) // pulls the order id from the order ID given
+            body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }) // pulls the order id from the order ID given
         })
             .then(response => response.json())
             .then(result => {
@@ -57,16 +58,20 @@ export default class KitchenPageController extends React.Component {
                                 menuItemsArray.push(menuItems[i].result);
                             }
                             var combinedResult = { ...{ menuItems: menuItemsArray }, ...order };
-                            this.waiterUnconfirmedArray[index] = combinedResult;
-                            if (!this.waiterUnconfirmedArray.some(element => element.orderID === combinedResult.orderID)) {
-                                this.waiterUnconfirmedArray.push(combinedResult);
+                            this.waiterConfirmedArray[index] = combinedResult;
+                            if (!this.waiterConfirmedArray.some(element => element.orderID === combinedResult.orderID)) {
+                                this.waiterConfirmedArray.push(combinedResult);
                             }
                         })
                 })
                 this.setState({
-                    waiterConfirmed: this.waiterUnconfirmedArray
+                    waiterConfirmed: this.waiterConfirmedArray
                 })
-                this.waiterUnconfirmedArray = [];
+                this.waiterConfirmedArray = [];
+
+            })
+            .catch(error=> {
+                console.log(error);
 
             })
 

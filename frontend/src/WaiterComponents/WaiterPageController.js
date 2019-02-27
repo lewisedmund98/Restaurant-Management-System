@@ -92,6 +92,10 @@ export default class WaiterPageController extends React.Component {
                 })
                 this.arrayOfUnconfirmedOrders = [];
             })
+            .catch(error=> {
+                console.log(error);
+                
+            })
 
     }
 
