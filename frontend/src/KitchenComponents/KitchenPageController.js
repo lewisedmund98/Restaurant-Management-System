@@ -74,14 +74,13 @@ export default class KitchenPageController extends React.Component {
                 console.log(error);
 
             })
-
-
     }
+    
 
     render() {
         console.log(this.state.waiterConfirmed);
         return (
-            <KitchenPageWrapper waiterUnconfirmed={this.state.waiterConfirmed}/>
+            <KitchenPageWrapper waiterConfirmed={this.state.waiterConfirmed}/>
         )
     }
 }
