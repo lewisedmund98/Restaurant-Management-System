@@ -12,7 +12,7 @@
  */
 
 import React from 'react';
-import {Feed} from 'semantic-ui-react';
+import {Feed, Image} from 'semantic-ui-react';
 
 export default class KitchenItemsView extends React.Component{
 
@@ -23,31 +23,11 @@ export default class KitchenItemsView extends React.Component{
             <Feed>
                 <Feed.Event>
                     <Feed.Label>
-                        <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
+                        <Image avatar={true} src={this.props.itemImage} />
                     </Feed.Label>
                     <Feed.Content>
                         <Feed.Summary>
-                            Could
-                        </Feed.Summary>
-                    </Feed.Content>
-                </Feed.Event>
-                <Feed.Event>
-                    <Feed.Label>
-                        <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-                    </Feed.Label>
-                    <Feed.Content>
-                        <Feed.Summary>
-                            Use
-                        </Feed.Summary>
-                    </Feed.Content>
-                </Feed.Event>
-                <Feed.Event>
-                    <Feed.Label>
-                        <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-                    </Feed.Label>
-                    <Feed.Content>
-                        <Feed.Summary>
-                            Feeds
+                            {this.props.itemName}
                         </Feed.Summary>
                     </Feed.Content>
                 </Feed.Event>
