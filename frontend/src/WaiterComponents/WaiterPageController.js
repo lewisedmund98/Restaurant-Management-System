@@ -83,10 +83,10 @@ export default class WaiterPageController extends React.Component {
                                 this.arrayOfUnconfirmedOrders.push(combinedResult);
                             }
 
-                            
                         })
                 })
-              
+                console.log("Hello");
+                console.log(this.arrayOfUnconfirmedOrders);
                 this.setState({
                     unconfirmedOrders: this.arrayOfUnconfirmedOrders
                 })
