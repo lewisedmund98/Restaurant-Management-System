@@ -23,7 +23,7 @@ export default class WaiterPageWrapper extends React.Component {
         
             var mappedMenu = this.mapMenuItemsToList(order.menuItems);
             return(
-                <OrderListView custID={order.customerID} custName={order.customerName} orderID={order.orderID}
+                <OrderListView confirmOrder={this.props.confirmOrder} custID={order.customerID} custName={order.customerName} orderID={order.orderID}
                     timeCreated = { order.timeCreated } menuList = {mappedMenu } unconfirmed = { true}
                 />
             )
