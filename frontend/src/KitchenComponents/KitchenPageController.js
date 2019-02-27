@@ -13,6 +13,7 @@ export default class KitchenPageController extends React.Component {
         };
         this.waiterConfirmedArray = [];
         this.getWaiterConfirmed = this.getWaiterConfirmed.bind(this);
+        this.kitchenConfirmOrder = this.kitchenConfirmOrder.bind(this);
         this.checkForUpdate = this.checkForUpdate.bind(this);
         this.req = true;
     }
@@ -76,11 +77,22 @@ export default class KitchenPageController extends React.Component {
             })
     }
     
+    async kitchenConfirmOrder(orderID){
+        await fetch("https://flask.team-project.crablab.co/order/waiterConfirm", {
+            method: "POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body : JSON.stringify({id: orderID})
+        })
+        .then(response => response.json())
+        .then(json => console.log(json))
+    }
 
     render() {
         console.log(this.state.waiterConfirmed);
         return (
-            <KitchenPageWrapper waiterConfirmed={this.state.waiterConfirmed}/>
+            <KitchenPageWrapper kitchenConfirmOrder={this.kitchenConfirmOrder} waiterConfirmed={this.state.waiterConfirmed}/>
         )
     }
 }
