@@ -20,6 +20,7 @@ export default class Customer extends React.Component {
         this.updateAccessToken = this.updateAccessToken.bind(this);
         this.state = {
             accessToken : null,
+            userID: null
             
         }
          this.tempGetAccess();
@@ -36,11 +37,13 @@ export default class Customer extends React.Component {
             body: JSON.stringify({username:"test", password:"s3kr3tp4ssw0rd", key: "abc123", secret: "def456"}), // pulls the order id from the order ID given
         })
         .then(result => result.json())
-        .then(json => this.setState({accessToken : json.login.access_token}));
+        .then(json => this.setState({accessToken : json.login.access_token,
+            userID: json.login.userID}));
     }
 
     updateAccessToken(newAccessToken){
-        console.log(newAccessToken);
+        console.log("Old access " + this.state.accessToken);
+        console.log("New Access " + newAccessToken);
         this.setState({
             accessToken: newAccessToken
         })
@@ -55,7 +58,7 @@ export default class Customer extends React.Component {
                     <h1>Staff ID is logged in</h1>
                 </div>  
                 <div className="orderContainer"> 
-                    <WaiterPageController  updateToken = {this.updateAccessToken} accessToken = {this.state.accessToken}></WaiterPageController>
+                    <WaiterPageController uID={this.state.userID} updateToken = {this.updateAccessToken} accessToken = {this.state.accessToken}></WaiterPageController>
                 </div>
             </div>
         )

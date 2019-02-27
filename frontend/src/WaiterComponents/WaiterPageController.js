@@ -63,7 +63,7 @@ export default class WaiterPageController extends React.Component {
                 "Content-Type": "application/json",
             },
             method: "POST",
-            body: JSON.stringify({ id: "asdasd123123", key: "abc123", secret: "def456", access_token: accessTokenE }), // pulls the order id from the order ID given
+            body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: accessTokenE }), // pulls the order id from the order ID given
         })
             .then(response => response.json())
             .then(data => {
@@ -85,8 +85,6 @@ export default class WaiterPageController extends React.Component {
 
                         })
                 })
-                console.log("Hello");
-                console.log(this.arrayOfUnconfirmedOrders);
                 this.setState({
                     unconfirmedOrders: this.arrayOfUnconfirmedOrders
                 })
