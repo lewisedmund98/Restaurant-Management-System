@@ -48,7 +48,7 @@ export default class WaiterPageController extends React.Component {
 
     checkForUpdate() {
         if (this.props.accessToken) {
-            this.getUnconfirmedOrders(this.props.accessToken);
+            this.getUnconfirmedOrders();
         }
     }
 
@@ -63,7 +63,7 @@ export default class WaiterPageController extends React.Component {
                 "Content-Type": "application/json",
             },
             method: "POST",
-            body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: accessTokenE }), // pulls the order id from the order ID given
+            body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
         })
             .then(response => response.json())
             .then(data => {
