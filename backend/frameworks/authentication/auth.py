@@ -81,7 +81,7 @@ class authentication():
         access_id = self.__id.getID("access_")
         cursor = self.__db.cursor()
         cursor.execute("INSERT INTO `userAccess` (`id`, `token`, `time`, `uid`) VALUES (%s, %s, %s, %s);",
-                       (access_id, self.__token, int(datetime.now().timestamp()), uid))
+                       (access_id, self.__token, float(datetime.now().timestamp()), uid))
         return {"access_token": access_id}
 
     # Validates existence and correctness of given token including time (2 days)
