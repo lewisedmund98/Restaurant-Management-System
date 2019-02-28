@@ -133,7 +133,7 @@ export default class KitchenPageController extends React.Component {
     }
 
     async kitchenCompleteOrder(orderID) {
-        await fetch("https://flask.team-project.crablab.co/order/kitchenConfirm", {
+        await fetch("https://flask.team-project.crablab.co/order/kitchenComplete", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
