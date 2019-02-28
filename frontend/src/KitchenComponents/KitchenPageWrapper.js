@@ -17,7 +17,7 @@ export default class KitchenPageWrapper extends React.Component {
     }
 
     handleKitchenComplete(orderID){
-        console.log(orderID);
+        this.props.kitchenConfirmOrder(orderID);
     }
 
     mappedWaiterConfirm(waiterConfirmed){
@@ -68,26 +68,19 @@ export default class KitchenPageWrapper extends React.Component {
                 </Card.Content>
                 <Card.Content extra>
                     <div id="kitchenOrderButtons">
-                        <div id="kitchenTimeButtons">
-                            <Button className="kitchenTimeButton">05</Button>
-                            <Button className="kitchenTimeButton">10</Button>
-                            <Button className="kitchenTimeButton">20</Button>
-                            <Button className="kitchenTimeButton">30</Button>
                             <Button onClick={() => {this.handleKitchenComplete(element.orderID)}}
-                            id="kitchenConfirmButton">Confirm</Button>
-                        </div>
+                            id="kitchenConfirmButton">Complete Order</Button>
+                    
                     </div>
                 </Card.Content>
             </Card>
             )
         })
-
         return mappedCards;
     }
     render() {
         if(this.props.waiterConfirmed){
             var mappedWaiter = this.mappedWaiterConfirm(this.props.waiterConfirmed);
-
         }
 
         if(this.props.toBeCompleted){

@@ -15,6 +15,7 @@ export default class KitchenPageController extends React.Component {
         this.toBeCompletedArray = [];
         this.getWaiterConfirmed = this.getWaiterConfirmed.bind(this);
         this.kitchenConfirmOrder = this.kitchenConfirmOrder.bind(this);
+        this.kitchenCompleteOrder = this.kitchenCompleteOrder.bind(this);
         this.checkForUpdate = this.checkForUpdate.bind(this);
         this.getKitchenConfirmed = this.getKitchenConfirmed.bind(this);
         this.requestLock = true; // Variable to tell whether a request has finished
@@ -131,9 +132,21 @@ export default class KitchenPageController extends React.Component {
             .then(json => console.log(json))
     }
 
+    async kitchenCompleteOrder(orderID) {
+        await fetch("https://flask.team-project.crablab.co/order/kitchenConfirm", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ id: orderID })
+        })
+            .then(response => response.json())
+            .then(json => console.log(json))
+    }
+
     render() {
         return (
-            <KitchenPageWrapper toBeCompleted={this.state.toBeCompleted} kitchenConfirmOrder={this.kitchenConfirmOrder} waiterConfirmed={this.state.waiterConfirmed} />
+            <KitchenPageWrapper completeOrder={this.kitchenCompleteOrder} toBeCompleted={this.state.toBeCompleted} kitchenConfirmOrder={this.kitchenConfirmOrder} waiterConfirmed={this.state.waiterConfirmed} />
         )
     }
 }
