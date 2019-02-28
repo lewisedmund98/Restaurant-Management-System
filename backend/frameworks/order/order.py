@@ -64,6 +64,12 @@ class order:
     
     def kitchenConfirm(self, id, eta):
         return self.__insertOrderHistory(id, "kitchenConfirmed", {"eta": eta})
+    
+    def kitchenComplete(self, id):
+        return self.__insertOrderHistory(id, "kitchenComplete", {})
+    
+    def waiterComplete(self, id):
+        return self.__insertOrderHistory(id, "waiterComplete", {})
 
     def __orderAddItem(self, order, item):
         cursor = self.__db.cursor()
