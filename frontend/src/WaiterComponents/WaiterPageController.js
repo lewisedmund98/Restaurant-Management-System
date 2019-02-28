@@ -37,9 +37,9 @@ export default class WaiterPageController extends React.Component {
 
     componentDidMount() {
         this.timerID = setInterval(
-            () => {
+            async () => {
                 try {
-                    this.checkForUpdate();
+                    await this.checkForUpdate();
                 } catch (error) {
                     console.log(error);
                 }
@@ -169,7 +169,6 @@ export default class WaiterPageController extends React.Component {
     }
 
     render() {
-        console.log(this.state.toBeDelivered);
         return (
             <WaiterPageWrapper
                 deliverOrder= {this.deliverOrder}
