@@ -21,6 +21,12 @@ class orders:
         elif request.path == '/orders/list/kitchenConfirmed':
             if self.__checkPermish(0):
                 self.responseObj = handleListOrders("kitchenConfirmed")
+        elif request.path == '/orders/list/kitchenComplete':
+            if self.__checkPermish(0):
+                self.responseObj = handleListOrders("kitchenComplete")
+        elif request.path == '/orders/list/waiterComplete':
+            if self.__checkPermish(0):
+                self.responseObj = handleListOrders("waiterComplete")
         else:
             self.responseObj = self
 
