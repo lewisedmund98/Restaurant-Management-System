@@ -49,6 +49,5 @@ def handleNotifications(path):
     notifObj = notifications(request)
     return jsonify(notifObj.getResponse())
 
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

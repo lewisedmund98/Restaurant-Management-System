@@ -10,7 +10,7 @@ class handleCreateOrder:
         return {"orderID": self.__createOrder()}
 
     def __createOrder(self):
-        if self.__data['items'] == []:
+        if self.__data['items'] == {}:
             raise Exception ('No items have been selected')
         else:
             return self.__order.createOrder(self.__data['name'], self.__data['phone'], self.__data['email'], self.__data['table'], self.__data['items'])
