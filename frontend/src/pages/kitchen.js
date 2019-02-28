@@ -15,7 +15,8 @@ export default class kitchen extends React.Component {
     }
 
     updateAccessToken(newAccessToken){
-        console.log(newAccessToken);
+        console.log("Old: " + this.state.accessToken);
+        console.log("New: " + newAccessToken);
         this.setState({
             accessToken: newAccessToken
         })
