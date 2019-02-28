@@ -11,7 +11,7 @@ import React from 'react';
 
 import '../index.css';
 import WaiterPageController from '../WaiterComponents/WaiterPageController.js';
-import { networkInterfaces } from 'os';
+
 
 export default class Customer extends React.Component {
     constructor(props){
