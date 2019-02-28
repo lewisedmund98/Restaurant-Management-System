@@ -17,7 +17,7 @@ export default class LoginController extends React.Component {
         fetch("https://flask.team-project.crablab.co/handle/login", {
             method: "POST",
             headers : new Headers(),
-            body: JSON.stringify(data),
+            //body: JSON.stringify(data),
         }).then(res => res.json())
           .then(data => this.setState({ data })); 
      }
