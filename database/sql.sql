@@ -4,7 +4,7 @@ USE `teamproject`;
 --
 -- Host: localhost    Database: teamproject
 -- ------------------------------------------------------
--- Server version	8.0.14
+-- Server version	8.0.15
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -145,7 +145,7 @@ DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `customerID` varchar(255) NOT NULL,
   `orderID` varchar(255) NOT NULL,
-  `timeCreated` int(11) NOT NULL,
+  `timeCreated` float NOT NULL,
   `table` int(11) NOT NULL,
   PRIMARY KEY (`orderID`),
   KEY `orderID` (`orderID`)
@@ -200,4 +200,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-12 13:16:53
+-- Dump completed on 2019-02-28 11:55:34
