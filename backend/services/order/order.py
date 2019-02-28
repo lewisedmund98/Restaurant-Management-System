@@ -6,7 +6,8 @@ from .handler.handleOrderHistory import handleOrderHistory
 from .handler.handleOrderStatus import handleOrderStatus
 from .handler.handleWaiterConfirm import handleWaiterConfirm
 from .handler.handleKitchenConfirm import handleKitchenConfirm 
-
+from .handler.handleKitchenComplete import handleKitchenComplete
+from .handler.handleWaiterComplete import handleWaiterComplete
 
 class order:
     def __init__(self, request):
@@ -23,6 +24,10 @@ class order:
             self.responseObj = handleWaiterConfirm(request)
         elif(request.path == "/order/kitchenConfirm"):
             self.responseObj = handleKitchenConfirm(request)
+        elif(request.path == "/order/kitchenComplete"):
+            self.responseObj = handleKitchenComplete(request)
+        elif(request.path == "/order/waiterComplete"):
+            self.responseObj = handleWaiterComplete(request)
         # elif(request.path == "order/payment"):
         #     self.responseObj = handleOrderPayment(request)
         else:
