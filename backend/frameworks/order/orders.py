@@ -14,10 +14,8 @@ class orders():
             ids = self.__getWaiterUnconfirmed()
         elif (filter == "waiterConfirmed"):
             ids = self.__getWaiterConfirmed()
-        elif(filter == "kitchenUnconfirmed"):
-            pass;
-        elif(filter == "kitchenInProgress"):
-            pass;
+        elif(filter == "kitchenConfirmed"):
+            ids = self.__getKitchenConfirmed()
         elif(filter == "awaitingDelivery"):
             pass;
         elif(filter == "completedRecent"):
@@ -56,5 +54,11 @@ class orders():
 
     def __getWaiterConfirmed(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM (SELECT orderId, stage FROM orderHistory ORDER BY inserted DESC LIMIT 1) AS OH WHERE OH.stage = 'waiterConfirmed'")
+        cursor.execute("SELECT orderID FROM (SELECT orderID, count(*) as idCount FROM orderHistory GROUP BY orderID) AS OH WHERE OH.idCount = '2';")
         return cursor.fetchall()
+
+    def __getKitchenConfirmed(self):
+        cursor = self.__db.cursor()
+        cursor.execute("SELECT orderID FROM (SELECT orderID, count(*) as idCount FROM orderHistory GROUP BY orderID) AS OH WHERE OH.idCount = '3';")
+        return cursor.fetchall()
+
