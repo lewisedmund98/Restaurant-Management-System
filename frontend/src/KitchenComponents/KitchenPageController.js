@@ -34,12 +34,9 @@ export default class KitchenPageController extends React.Component {
     }
 
     async checkForUpdate() {
-        console.log(this.props.uID);
         if (this.props.accessToken) {
-            console.log("JUST BEFORE WAITER CONFIRMED: " + this.props.accessToken);
             await this.getWaiterConfirmed();
             await this.sleep(1000);
-            console.log("JUST BEFORE KITCHEN CONFIRMED: " + this.props.accessToken);
             await this.getKitchenConfirmed();
         }
     }
@@ -48,7 +45,6 @@ export default class KitchenPageController extends React.Component {
     }
 
     async getWaiterConfirmed() {
-        console.log("getWaiterConfirmed with token: " + this.props.accessToken);
         await fetch("https://flask.team-project.crablab.co/orders/list/waiterConfirmed", {
             headers: {
                 "Content-Type": "application/json",
@@ -78,7 +74,6 @@ export default class KitchenPageController extends React.Component {
                     waiterConfirmed: this.waiterConfirmedArray
                 })
                 this.waiterConfirmedArray = [];
-
             })
             .catch(error => {
                 console.log(error);
@@ -86,7 +81,6 @@ export default class KitchenPageController extends React.Component {
     }
 
     async getKitchenConfirmed() {
-        console.log("getKitchenConfirmed with token: " + this.props.accessToken);
         await fetch("https://flask.team-project.crablab.co/orders/list/kitchenConfirmed", {
             headers: {
                 "Content-Type": "application/json",
@@ -138,7 +132,6 @@ export default class KitchenPageController extends React.Component {
     }
 
     render() {
-        console.log(this.state.toBeCompleted);
         return (
             <KitchenPageWrapper toBeCompleted={this.state.toBeCompleted} kitchenConfirmOrder={this.kitchenConfirmOrder} waiterConfirmed={this.state.waiterConfirmed} />
         )
