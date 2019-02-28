@@ -19,10 +19,15 @@
         super(props);
         this.getCorrectButton = this.getCorrectButton.bind(this);
         this.confirmOrderLoc = this.confirmOrderLoc.bind(this);
+        this.deliverOrder = this.deliverOrder.bind(this);
     }
 
    confirmOrderLoc(){
        this.props.confirmOrder(this.props.orderID);
+   }
+
+   deliverOrder(){
+       this.props.deliver(this.props.orderID);
    }
 
     getCorrectButton(){
@@ -38,7 +43,9 @@
 
         if(this.props.delivered){
             return(
-                <Button>Confirm Delivery</Button>
+                <Button content={"Confirm Delivery"} onClick={(event, data) => {
+                    this.deliverOrder();
+                }}></Button>
             )
         }
        
