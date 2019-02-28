@@ -26,8 +26,8 @@ class orders():
             ids = self.__getAllOrderIDs()
         else:
             raise Exception('Filter condition missing')
-        self.__loadItems(ids)
-        return True
+            self.__loadItems(ids)
+            return True
 
     def getOrders(self):
         data = []
