@@ -331,7 +331,7 @@ body {
     
     margin: 0;
 }
-.kitchenPage{
+.kitchenPageold{
     color: white;
     height: 100%;
     width: 100%;
@@ -341,5 +341,23 @@ body {
     width: 90% !important;
     margin-left: 5% !important;
     margin-right: 5% !important;
-    margin-bottom: 5% !important;
+    margin-bottom: 10% !important;
+}
+.waiterConfirmedSide{
+    width: 45%;
+    margin: 0;
+    float: left;
+
+
+}
+
+.toBeCompletedSide{
+    width: 45%;
+    float: right;
+    margin: 0;
+    
+}
+.kitchenOrderCardsContainer{
+    width: 100%;
+    background-color: black;
 }

@@ -61,7 +61,7 @@ export default class KitchenPageWrapper extends React.Component {
         var mappedCards = toBeCompleted.map((element) => {
             var mappedKitchenItems = this.mapKitchenItems(element.menuItems);
             return(
-                <Card>
+                <Card className="kitchenCard" >
                 <Card.Content>
                     <h5>{element.orderID}</h5>
                     {mappedKitchenItems}
@@ -87,15 +87,20 @@ export default class KitchenPageWrapper extends React.Component {
             var mappedToBeCompleted = this.mapKitchenToBeCompleted(this.props.toBeCompleted);
         }
         return (
+            
             <React.Fragment>
+                <div className="waiterConfirmedSide" >
+            <Card.Group>
                 <h1>Waiter Confirmed</h1>
-            <Card.Group>
                 {mappedWaiter}
-            </Card.Group>
-                <h1>To be Completed</h1>
+            </Card.Group></div>
+            <div className="toBeCompletedSide" >
+                
             <Card.Group>
+                <h1>To be Completed</h1>
                 {mappedToBeCompleted}
             </Card.Group>
+            </div>
             </React.Fragment>
         )
     }
