@@ -1,6 +1,5 @@
 import React from 'react';
 import KitchenPageWrapper from "./KitchenPageWrapper";
-import { SSL_OP_EPHEMERAL_RSA } from 'constants';
 var request = require('../Requests');
 
 export default class KitchenPageController extends React.Component {
