@@ -90,14 +90,15 @@ export default class KitchenPageWrapper extends React.Component {
             
             <React.Fragment>
                 <div className="waiterConfirmedSide" >
-            <Card.Group>
                 <h1>Waiter Confirmed</h1>
+            <Card.Group>
+                
                 {mappedWaiter}
             </Card.Group></div>
             <div className="toBeCompletedSide" >
-                
+            <h1>To be Completed</h1>    
             <Card.Group>
-                <h1>To be Completed</h1>
+                
                 {mappedToBeCompleted}
             </Card.Group>
             </div>
