@@ -38,29 +38,30 @@ class MenuItemCard extends React.Component {
                         <Card.Description className="dishInfo"> {this.props.dishInfo} </Card.Description>
                     </Card.Content>
 
-                    <Card.Content extra={true}>
-
-                        <Button className="addToBasket" icon={true}
-                            onClick={this.handleBasketAdd}> {/* Button for adding the item to basket */}
-                            <Icon name="plus" />
-                        </Button>
-
-                        {/*Render the infromation modal setting the trigger for the
-                        modal to open with the button encased in curly braces.
+                    <Card.Content style={{display: "block", marginLeft: "auto", marginRight: "auto"}}extra={true}>
                         
-                        We pass the information modal the list of allergies, dishname
-                        and the dishCalories text where it deals with mapping*/}
-
-                        <InfoModal className="dishInformationModal" modalTrigger= {
-                            <Button className="infoIconButton" icon={true}>
-                                <Icon name="info"></Icon>
+                            <Button className="addToBasket" icon={true}
+                                onClick={this.handleBasketAdd}> {/* Button for adding the item to basket */}
+                                <Icon name="plus" />
                             </Button>
-                        } 
-                        allergyList={this.props.dishAllergies} 
-                        dishName={this.props.dishName} 
-                        dishCalories = {this.props.dishCalories}>
-                        </InfoModal>
-                        <b> {"£"+this.props.dishPrice}</b>
+
+                            {/*Render the infromation modal setting the trigger for the
+                            modal to open with the button encased in curly braces.
+                            
+                            We pass the information modal the list of allergies, dishname
+                            and the dishCalories text where it deals with mapping*/}
+
+                            <InfoModal className="dishInformationModal" modalTrigger= {
+                                <Button className="infoIconButton" icon={true}>
+                                    <Icon name="info"></Icon>
+                                </Button>
+                            } 
+                            allergyList={this.props.dishAllergies} 
+                            dishName={this.props.dishName} 
+                            dishCalories = {this.props.dishCalories}>
+                            </InfoModal>
+                            <b> {"£"+this.props.dishPrice}</b>
+                        
 
                     </Card.Content>
 

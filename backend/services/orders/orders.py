@@ -9,18 +9,24 @@ class orders:
         self.__auth = authentication(request.get_json()['key'], request.get_json()['secret'])
         self.__newAccessToken = None
         # These can't be abstracted as permission levels are granular
-        if(request.path == '/orders/list/completed'):
-            if(self.__checkPermish(0)):
+        if request.path == '/orders/list/completed':
+            if self.__checkPermish(0):
                 self.responseObj = handleListOrders("completed")
-        elif(request.path == '/orders/list/waiterUnconfirmed'):
-            if(self.__checkPermish(0)):
+        elif request.path == '/orders/list/waiterUnconfirmed':
+            if self.__checkPermish(0):
                 self.responseObj = handleListOrders("waiterUnconfirmed")
-        elif(request.path == '/orders/list/waiterConfirmed'):
-            if(self.__checkPermish(0)):
+        elif request.path == '/orders/list/waiterConfirmed':
+            if self.__checkPermish(0):
                 self.responseObj = handleListOrders("waiterConfirmed")
-        elif(request.path == '/orders/list/kitchenConfirmed'):
-            if(self.__checkPermish(0)):
+        elif request.path == '/orders/list/kitchenConfirmed':
+            if self.__checkPermish(0):
                 self.responseObj = handleListOrders("kitchenConfirmed")
+        elif request.path == '/orders/list/kitchenComplete':
+            if self.__checkPermish(0):
+                self.responseObj = handleListOrders("kitchenComplete")
+        elif request.path == '/orders/list/waiterComplete':
+            if self.__checkPermish(0):
+                self.responseObj = handleListOrders("waiterComplete")
         else:
             self.responseObj = self
 

@@ -1,14 +1,25 @@
 import React from 'react';
 import '../index.css';
 import KitchenPageController from "../KitchenComponents/KitchenPageController";
+import { normalizeUnits } from 'moment';
 
 export default class kitchen extends React.Component {
     constructor(props){
         super(props);
         this.tempGetAccess = this.tempGetAccess.bind(this);
         this.state = {
-            accessToken : null
+            accessToken : null,
+            userID: null
         }
+        this.updateAccessToken = this.updateAccessToken.bind(this);
+    }
+
+    updateAccessToken(newAccessToken){
+        console.log("Old: " + this.state.accessToken);
+        console.log("New: " + newAccessToken);
+        this.setState({
+            accessToken: newAccessToken
+        })
     }
 
     async componentDidMount(){
@@ -20,10 +31,13 @@ export default class kitchen extends React.Component {
                 "Content-Type": "application/json",
             },
             method: "POST",
-            body: JSON.stringify({username:"test", password:"s3kr3tp4ssw0rd", key: "abc123", secret: "def456"}), // pulls the order id from the order ID given
+            body: JSON.stringify({username:"kitchen", password:"s3kr3tp4ssw0rd", key: "abc123", secret: "def456"}), // pulls the order id from the order ID given
         })
             .then(result => result.json())
-            .then(json => this.setState({accessToken : json.login.access_token}));
+            .then(json => {
+                this.setState({accessToken : json.login.access_token,
+                userID: json.login.userID})
+            });
     }
 
     render() {
@@ -33,10 +47,10 @@ export default class kitchen extends React.Component {
                 <div className="loginContainer">
                     <h1>Staff ID is logged in</h1>
                 </div>
-                <div id="kitchenOrderCardsContainer">
+                
                     <h1>Kitchen Order</h1>
-                    <KitchenPageController accessToken = {this.state.accessToken} />
-                </div>
+                    <KitchenPageController uID = {this.state.userID} accessToken = {this.state.accessToken} updateToken = {this.updateAccessToken} />
+                
             </div>
         )
     }
