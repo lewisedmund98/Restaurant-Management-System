@@ -1,5 +1,6 @@
 import React from 'react';
-import {Checkbox} from 'semantic-ui-react';
+import {Checkbox, Modal, Button} from 'semantic-ui-react';
+
 
 class MenuFiltering extends React.Component {
     constructor(props) {
@@ -72,18 +73,25 @@ class MenuFiltering extends React.Component {
 
     render() {
         return (
-            <div className="filteringItems">
-                {/*<button onClick={this.showChecked}>Show checked in console</button> */}
-                {/* <AllergyCheckBoxes allergyList={this.state.allergyList} menuFilter={this.menuFilter} toggleChecked={this.toggleChecked}/> */}
+            
+            <Modal trigger={
+                <Button className="FilterModalButton" >
+                    Menu Filter
+                </Button>
+            }> {/*Set the trigger to the button*/}
+                <Modal.Content>
+                <h3>Menu Filter:</h3>
                 <Checkbox id="priceUnder20" label="Price under £20" onClick={this.menuFilter}
                           checked={this.state.checked}/>
-                <Checkbox id="nuts" label="Nuts" onClick={this.menuFilter}
+                <h5>Tick to remove items containing the following: </h5>
+                <Checkbox style={{marginRight: "2%"}} id="nuts" label="Nuts" onClick={this.menuFilter}
                           checked={this.state.checked}/>
-                <Checkbox id="egg" label="Egg" onClick={this.menuFilter}
+                <Checkbox style={{marginRight: "2%"}} id="egg" label="Egg" onClick={this.menuFilter}
                           checked={this.state.checked}/>
-                <Checkbox id="fish" label="Fish" onClick={this.menuFilter}
+                <Checkbox style={{marginRight: "2%"}} id="fish" label="Fish" onClick={this.menuFilter}
                           checked={this.state.checked}/>
-            </div>
+                </Modal.Content>
+            </Modal>
         )
     }
 }

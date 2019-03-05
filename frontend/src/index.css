@@ -1,6 +1,12 @@
 .basketAndMenuItems{
     
 }
+.FilterModalButton{
+    float: right;
+    background-color: rgb(31, 112, 233) !important;
+    color: white !important;
+
+}
 .cardWrapper{
     border: 0px !important;
     outline: 0px !important;
@@ -60,14 +66,7 @@
 .singleBasketListHeadAndDes {
     float: left;
 }
-.addToBasket{
-    background-color: green !important;
-    color: white !important;
-}
-.infoIconButton{
-    background-color: rgb(31, 112, 233) !important;
-    color: white !important;
-}
+
 .listOfItems{
     
 }
@@ -167,9 +166,25 @@
 }
 
 .ui.card.menuCard {
-    margin-left: 0.5%;
-    margin-right: 0.5%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    width: 45%;
     
+}
+.dishImage{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.addToBasket{
+    background-color: green !important;
+    color: white !important;
+    
+}
+.infoIconButton{
+    background-color: rgb(31, 112, 233) !important;
+    color: white !important;
 }
 
 .ui.fluid.vertical.tabular.menu {
@@ -315,4 +330,34 @@ img.logo {
 body {
     
     margin: 0;
+}
+.kitchenPageold{
+    color: white;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+}
+.kitchenCard{
+    width: 90% !important;
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+    margin-bottom: 10% !important;
+}
+.waiterConfirmedSide{
+    width: 45%;
+    margin: 0;
+    float: left;
+
+
+}
+
+.toBeCompletedSide{
+    width: 45%;
+    float: right;
+    margin: 0;
+    
+}
+.kitchenOrderCardsContainer{
+    width: 100%;
+    background-color: black;
 }
