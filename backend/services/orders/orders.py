@@ -3,8 +3,6 @@ import fnmatch
 from frameworks.authentication.auth import authentication
 from .handler.handleListOrders import handleListOrders
 
-
-# noinspection PyRedundantParentheses,PyNoneFunctionAssignment,PyMethodMayBeStatic
 class orders:
     def __init__(self, request):
         self.__request = request
