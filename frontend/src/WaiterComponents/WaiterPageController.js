@@ -167,6 +167,24 @@ export default class WaiterPageController extends React.Component {
             .then(json => console.log(json))
     }
 
+    /**
+     * 
+     * @param {the orderID which needs to be cancelled} orderID 
+     */
+    cancelOrder(orderID){
+        // Take an order ID and make an API request passing that order ID. 
+    //     fetch("URLTOCANCELANORDER", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify({ id: orderID })
+    //     })
+    //         .then(response => response.json())
+    //         .then(json => console.log(json))
+    console.log(orderID);
+}
+
     render() {
         return (
             <WaiterPageWrapper
