@@ -34,7 +34,7 @@ export default class OrderDisplay extends React.Component {
         if(details){
             var mappedDetails = details.map((orderDetail, key) => {
                 var menuMapped = this.mapMenuToLabels(orderDetail.menu);
-                return (<Card key={key} style={{ width: "50%" }}>
+                return (<Card key={key} style={{display: "block", marginLeft: "auto", marginRight: "auto",  width: "50%" }}>
                 <Card.Content>
                     <Card.Header>
                         Order Number: {orderDetail.orderID}
@@ -64,6 +64,7 @@ export default class OrderDisplay extends React.Component {
         var orders = this.mapOrderDetails(this.props.orderDetails);
         return (
             <div style={{ width: "100%" }} className="ordersDiv">
+            <h1 style={{textAlign: "center"}}>Your orders</h1>
                 <ul>{orders}</ul>
             </div>
         )
