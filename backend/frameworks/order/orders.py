@@ -12,6 +12,8 @@ class orders():
     def loadOrders(self, filter):
         if(filter == "waiterUnconfirmed"):
             ids = self.__getWaiterUnconfirmed()
+        if (filter == "cancelledOrders"):
+            ids = self.__getCancelledOrders()
         elif (filter == "waiterConfirmed"):
             ids = self.__getWaiterConfirmed()
         elif(filter == "kitchenUnconfirmed"):
@@ -57,4 +59,9 @@ class orders():
     def __getWaiterConfirmed(self):
         cursor = self.__db.cursor()
         cursor.execute("SELECT orderID FROM (SELECT orderId, stage FROM orderHistory ORDER BY inserted DESC LIMIT 1) AS OH WHERE OH.stage = 'waiterConfirmed'")
+        return cursor.fetchall()
+
+    def __getCancelledOrders(self):
+        cursor = self.__db.cursor()
+        cursor.execute("SELECT orderID from orderHistory WHERE orderID NOT IN (SELECT orderID from orderHistory WHERE stage != 'cancelled');")
         return cursor.fetchall()

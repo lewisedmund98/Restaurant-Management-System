@@ -3,20 +3,25 @@ import fnmatch
 from frameworks.authentication.auth import authentication
 from .handler.handleListOrders import handleListOrders
 
+
+# noinspection PyRedundantParentheses,PyNoneFunctionAssignment,PyMethodMayBeStatic
 class orders:
     def __init__(self, request):
         self.__request = request
         self.__auth = authentication(request.get_json()['key'], request.get_json()['secret'])
         self.__newAccessToken = None
         # These can't be abstracted as permission levels are granular
-        if(request.path == '/orders/list/completed'):
-            if(self.__checkPermish(0)):
+        if request.path == '/orders/list/completed':
+            if self.__checkPermish(0):
                 self.responseObj = handleListOrders("completed")
-        elif(request.path == '/orders/list/waiterUnconfirmed'):
-            if(self.__checkPermish(0)):
+        elif request.path == '/orders/list/waiterUnconfirmed':
+            if self.__checkPermish(0):
                 self.responseObj = handleListOrders("waiterUnconfirmed")
-        elif(request.path == 'orders/list/waiterConfirmed'):
-            if(self.__checkPermish(0)):
+        elif request.path == '/orders/list/ordersCancelled':
+            if self.__checkPermish(0):
+                self.responseObj = handleListOrders("ordersCancelled")
+        elif request.path == 'orders/list/waiterConfirmed':
+            if self.__checkPermish(0):
                 self.responseObj = handleListOrders("waiterConfirmed")
         else:
             self.responseObj = self
