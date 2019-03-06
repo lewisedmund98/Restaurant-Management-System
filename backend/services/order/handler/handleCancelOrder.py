@@ -7,7 +7,7 @@ class handleCancelOrder:
         self.__data = request.get_json()
 
     def getOutput(self):
-        return {"confirmed": self.__cancelOrder()}
+        return {"cancelled": self.__cancelOrder()}
 
     def __cancelOrder(self):
-        return self.__order.cancelOrder(self.__data['id'])
+        return self.__order.orderCancel(self.__data['id'])

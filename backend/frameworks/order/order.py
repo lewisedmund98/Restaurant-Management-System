@@ -62,7 +62,7 @@ class order:
     def waiterConfirm(self, id):
         return self.__insertOrderHistory(id, "waiterConfirmed", {})
 
-    def orderCancelled(self, id):
+    def orderCancel(self, id):
         return self.__insertOrderHistory(id, "cancelled", {})
     
     def kitchenConfirm(self, id, eta):
