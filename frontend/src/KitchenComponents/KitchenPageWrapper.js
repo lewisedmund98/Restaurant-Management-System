@@ -31,7 +31,7 @@ export default class KitchenPageWrapper extends React.Component {
                 <Card.Content>
                     <h5>{element.orderID}</h5>
                     {mappedKitchenItems}
-                    <h5>Ordered: {time}</h5>
+                    <h5>{time}</h5>
                 </Card.Content>
                 <Card.Content extra>
                     <div id="kitchenOrderButtons">
@@ -72,7 +72,7 @@ export default class KitchenPageWrapper extends React.Component {
                 <Card.Content>
                     <h5>{element.orderID}</h5>
                     {mappedKitchenItems}
-                    <h5>Ordered: {time}</h5>
+                    <h5>{time}</h5>
                 </Card.Content>
                 <Card.Content extra>
                     <div id="kitchenOrderButtons">
