@@ -55,14 +55,17 @@ export function getOrderStatus(orderID) {
 }
 
 export function cancelOrder(orderID) {
-    // return fetch("URLTOCANCELANORDER", {
-    //     method: "POST",
-    //     headers: {
-    //         "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({ id: orderID })
-    // })
-    //     .then(response => response.json())
-    //     .then(json => console.log("Cancelling Order : " + orderID))
-    console.log(orderID + "Is being canceled");    
+     return fetch("https://flask.team-project.crablab.co/order/cancel", {
+         method: "POST",
+         headers: {
+             "Content-Type": "application/json"
+         },
+         body: JSON.stringify({ id: orderID })
+     })
+         .then(response => response.json())
+         .then(json => {
+             console.log(json);
+             console.log("Cancelling Order : " + orderID + json);
+         })
+       
 }

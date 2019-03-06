@@ -32,6 +32,7 @@ export default class WaiterPageController extends React.Component {
         this.getUnconfirmedOrders = this.getUnconfirmedOrders.bind(this);
         this.getKitchenCompleted = this.getKitchenCompleted.bind(this);
         this.confirmOrder = this.confirmOrder.bind(this);
+        this.cancelOrder = this.cancelOrder.bind(this);
     }
 
     componentDidMount() {
@@ -167,11 +168,26 @@ export default class WaiterPageController extends React.Component {
             .then(json => console.log(json))
     }
 
-   
+    cancelOrder(orderID) {
+        return fetch("https://flask.team-project.crablab.co/order/cancel", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ id: orderID })
+        })
+            .then(response => response.json())
+            .then(json => {
+                console.log(json);
+                console.log("Cancelling Order : " + orderID + json);
+            })
+    }
+
+
     render() {
         return (
             <WaiterPageWrapper
-              
+                cancelOrder = {this.cancelOrder}
                 deliverOrder={this.deliverOrder}
                 toBeDelivered={this.state.toBeDelivered}
                 confirmOrder={this.confirmOrder}
