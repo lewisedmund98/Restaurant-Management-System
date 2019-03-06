@@ -12,7 +12,7 @@ class orders():
     def loadOrders(self, filter):
         if filter == "waiterUnconfirmed":
             ids = self.__getWaiterUnconfirmed()
-        if filter == "cancelledOrders":
+        elif filter == "cancelledOrders":
             ids = self.__getCancelledOrders()
         elif filter == "waiterConfirmed":
             ids = self.__getWaiterConfirmed()
