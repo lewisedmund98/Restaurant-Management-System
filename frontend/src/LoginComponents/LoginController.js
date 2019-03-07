@@ -10,18 +10,24 @@ import LoginPageWrapper from "../LoginComponents/LoginPageWrapper";
 export default class LoginController extends React.Component {
     constructor(props) {
         super (props);
+        this.postData = this.postData.bind(this);
         
     }
 
-     postData(staffID, Password) {
+     postData(loginBody) {
+         console.log(loginBody);
+        try{
         fetch("https://flask.team-project.crablab.co/handle/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({id : staffID}, {pswd: Password}),
+            body: loginBody,
         }).then(res => res.json())
           .then(json => console.log(json))
+        } catch (error) {
+            console.log(error);
+        }
      }
 
      render() {

@@ -74,7 +74,7 @@ export default class CustomerPageController extends React.Component {
             <div className="mainContainer">
                 <div className="login">
                     <Link to={{
-                        pathname:"/kitchen"
+                        pathname:"/login"
                     }}>
                     <Button className="loginButton">Staff Login</Button></Link>
                 </div> 

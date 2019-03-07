@@ -6,10 +6,20 @@ import { Button, Form } from 'semantic-ui-react';
  */
 
 export default class LoginPageWrapper extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      staffID : null,
+      password : null,
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-  handleChange(event){
+  handleChange(event, data){
+    const name = data.name;
+    const itemData = data.value;
     this.setState({
-        value: event.target.value
+        [name] : itemData
     });
   }
 
@@ -18,25 +28,37 @@ export default class LoginPageWrapper extends React.Component {
     event.preventDefault();
   }
 
+  createLogin() {
+    try {
+      var loginRequestBody = JSON.stringify({
+        "staffID" : this.state.staffID,
+        "password" : this.state.password
+      });
+      this.props.postData(loginRequestBody);
+    } catch (error) {
+      console.log("Something went wrong!" + error);
+    }
+  }
+
     render() {
         return(
-            <Form>
+            <Form onSubmit={this.createLogin}>
                 <Form.Field>
                   <label>Staff ID</label>
                   <input
                    placeholder='Please enter Staff ID here...'
                    name="staffID"
-                   //onChange={this.handleChange}
+                   required onChange={this.handleChange}
                    />
                 </Form.Field>
                 <Form.Field>
                   <label>Password</label>
                   <input placeholder='Please enter password here...'
                    name="password"
-                   //onChange={this.handleChange}
+                   required onChange={this.handleChange}
                    />
                 </Form.Field>
-                <Button type='login' onClick="location.href='/kitchen'">Login</Button>
+                <Button type='submit' onClick="location.href='/kitchen'">Login</Button>
             </Form>
         )
     }
