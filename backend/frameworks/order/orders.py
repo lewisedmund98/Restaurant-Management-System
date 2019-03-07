@@ -28,6 +28,8 @@ class orders():
             pass;
         elif filter == "completed":
             ids = self.__getAllOrderIDs()
+        elif filter == "table"
+            ids = self.__getOrderByTable()
         else:
             raise Exception('Filter condition missing')
         self.__loadItems(ids)
@@ -81,4 +83,9 @@ class orders():
     def __getKitchenComplete(self):
         cursor = self.__db.cursor()
         cursor.execute("SELECT orderID FROM (SELECT orderID, count(*) as idCount FROM orderHistory GROUP BY orderID) AS OH WHERE OH.idCount = '4';")
+        return cursor.fetchall()
+
+    def __getOrderByTable(self, table):
+        cursor = self.__db.cursor()
+        cursor.execute("...")
         return cursor.fetchall()
