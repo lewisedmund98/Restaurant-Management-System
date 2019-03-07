@@ -10,7 +10,6 @@ class handleCreateOrder:
         return {"orderID": self.__createOrder()}
 
     def __createOrder(self):
-> git ls-files --stage -- /home/crablab/Documents/TeamProject2019_02/backend/frameworks/order/orders.py
         if self.__data['items'] == {}:
             raise Exception ('No items have been selected')
         else:
