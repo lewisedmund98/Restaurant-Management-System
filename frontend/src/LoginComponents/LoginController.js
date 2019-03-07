@@ -24,7 +24,7 @@ export default class LoginController extends React.Component {
             },
             body: loginBody,
         }).then(res => res.json())
-          .then(json => console.log(json))
+          .then(res => console.log(res))
         } catch (error) {
             console.log(error);
         }
