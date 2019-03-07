@@ -1,6 +1,7 @@
 from flask import Request, abort
 from frameworks.authentication.auth import authentication
 from .handler.handleCallWaiter import handleCallWaiter
+from .handler.handleListTable import handleListTable
 
 class notifications:
 
@@ -12,6 +13,9 @@ class notifications:
         if(request.path == "/notifications/callWaiter"):
             # Doesn't require staff privilages
             self.responseObj = handleCallWaiter(request.get_json())
+        elif(request.path == "/notifications/listTable"):
+            if self.__checkPermish(0):
+                self.responseObj = handleListTable(request.get_json())
         else:
             self.responseObj = self
 
