@@ -44,10 +44,13 @@ def handleOrders(path):
     ordersObj = orders(request)
     return jsonify(ordersObj.getResponse())
 
+<<<<<<< HEAD
 @app.route("/notifications/<path:path>", methods=['GET', 'POST'])
 def handleNotifications(path):
     notifObj = notifications(request)
     return jsonify(notifObj.getResponse())
 
+=======
+>>>>>>> e7df706809c3a1638139c053cb980d476c0863b3
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
