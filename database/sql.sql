@@ -114,7 +114,7 @@ CREATE TABLE `notifications` (
   `id` varchar(250) NOT NULL,
   `table` int(11) NOT NULL,
   `inserted` float NOT NULL,
-  `retrieved` float NOT NULL,
+  `retrieved` float DEFAULT NULL,
   `type` text NOT NULL,
   `meta` text,
   PRIMARY KEY (`id`),
@@ -219,4 +219,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-07  9:54:40
+-- Dump completed on 2019-03-07 12:00:11
