@@ -361,3 +361,7 @@ body {
     width: 100%;
     background-color: black;
 }
+.waiterConfirmBtn{
+    background-color: green !important;
+    color: white !important;
+}

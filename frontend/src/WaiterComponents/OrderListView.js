@@ -35,7 +35,7 @@
         if(this.props.unconfirmed){
             buttonState = "Confirm";
             return(
-                <Button content={buttonState} onClick={(event, data) => {
+                <Button className="waiterConfirmBtn" content={buttonState} onClick={(event, data) => {
                     this.confirmOrderLoc();
                 }}></Button>
             )
@@ -43,7 +43,7 @@
 
         if(this.props.delivered){
             return(
-                <Button content={"Confirm Delivery"} onClick={(event, data) => {
+                <Button className="waiterConfirmBtn" content={"Confirm Delivery"} onClick={(event, data) => {
                     this.deliverOrder();
                 }}></Button>
             )
