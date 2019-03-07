@@ -11,59 +11,72 @@
  * is display
  */
 
- import React from 'react';
- import {Table, List, Button} from 'semantic-ui-react';
+import React from 'react';
+import { Table, List, Button } from 'semantic-ui-react';
+var requests = require('../Requests');
 
- export default class OrderListView extends React.Component{
-    constructor(props){
+export default class OrderListView extends React.Component {
+    constructor(props) {
         super(props);
         this.getCorrectButton = this.getCorrectButton.bind(this);
         this.confirmOrderLoc = this.confirmOrderLoc.bind(this);
         this.deliverOrder = this.deliverOrder.bind(this);
+        this.cancelOrder = this.cancelOrder.bind(this);
     }
 
-   confirmOrderLoc(){
-       this.props.confirmOrder(this.props.orderID);
-   }
+    confirmOrderLoc() {
+        this.props.confirmOrder(this.props.orderID);
+    }
 
-   deliverOrder(){
-       this.props.deliver(this.props.orderID);
-   }
+    deliverOrder() {
+        this.props.deliver(this.props.orderID);
+    }
 
-    getCorrectButton(){
+    cancelOrder() {
+        this.props.cancelOrder(this.props.orderID);
+    }
+
+    getCorrectButton() {
         var buttonState = "";
-        if(this.props.unconfirmed){
+        if (this.props.unconfirmed) {
             buttonState = "Confirm";
-            return(
-                <Button className="waiterConfirmBtn" content={buttonState} onClick={(event, data) => {
-                    this.confirmOrderLoc();
-                }}></Button>
+            return (
+                
+                    <Button className="waiterConfirmBtn" content={buttonState} onClick={(event, data) => {
+                        this.confirmOrderLoc();
+                    }}></Button>
+                
             )
         }
 
-        if(this.props.delivered){
-            return(
+        if (this.props.delivered) {
+            return (
                 <Button className="waiterConfirmBtn" content={"Confirm Delivery"} onClick={(event, data) => {
                     this.deliverOrder();
                 }}></Button>
             )
         }
-       
+
     }
 
-    render(){
+    render() {
         // In the render we will have the table logic using the props. Like menuCard.js
         var moment = require('moment');
         var time = moment.unix(this.props.timeCreated).format("DD MMM YYYY hh:mm a");
-        return(
-                <Table.Row key={"this.props.key"}>
-                    <Table.Cell>{this.props.custID}</Table.Cell>
-                    <Table.Cell>{this.props.custName}</Table.Cell>
-                    <Table.Cell>{this.props.orderID}</Table.Cell>
-                    <Table.Cell>{time}</Table.Cell>
-                    <Table.Cell><List>{this.props.menuList}</List></Table.Cell>
-                    <Table.Cell>{this.getCorrectButton()}</Table.Cell>
-                </Table.Row>
+        return (
+            <Table.Row key={"this.props.key"}>
+                <Table.Cell>{this.props.custID}</Table.Cell>
+                <Table.Cell>{this.props.custName}</Table.Cell>
+                <Table.Cell>{this.props.orderID}</Table.Cell>
+                <Table.Cell>{time}</Table.Cell>
+                <Table.Cell><List>{this.props.menuList}</List></Table.Cell>
+                <Table.Cell>
+
+                    {this.getCorrectButton()}
+                    <Button onClick={() => { this.cancelOrder() }}>Cancel</Button>
+
+                </Table.Cell>
+            </Table.Row>
         )
     }
 

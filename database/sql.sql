@@ -181,7 +181,7 @@ DROP TABLE IF EXISTS `userAccess`;
 CREATE TABLE `userAccess` (
   `id` varchar(250) NOT NULL,
   `token` varchar(250) NOT NULL,
-  `time` int(11) NOT NULL,
+  `time` text NOT NULL,
   `uid` varchar(250) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
@@ -219,4 +219,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-07 12:00:11
+-- Dump completed on 2019-03-07 13:37:32
