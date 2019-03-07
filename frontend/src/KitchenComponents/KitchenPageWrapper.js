@@ -20,6 +20,9 @@ export default class KitchenPageWrapper extends React.Component {
         this.props.kitchenConfirmOrder(orderID);
     }
 
+    // handleKitchenNotify(orderID) {}
+
+
     mappedWaiterConfirm(waiterConfirmed){
         var mappedCards = waiterConfirmed.map((element) => {
             var mappedKitchenItems = this.mapKitchenItems(element.menuItems);
@@ -78,6 +81,28 @@ export default class KitchenPageWrapper extends React.Component {
         })
         return mappedCards;
     }
+
+    mapToBeDelivered(toBeDelivered) {
+        var mappedCards = toBeDelivered.map((element) => {
+            var mappedKitchenItems = this.mapKitchenItems(element.menuItems);
+            return(
+                <Card className="kitchenCard">
+                    <Card.Content>
+                        <h5>{element.orderID}</h5>
+                        {mappedKitchenItems}
+                    </Card.Content>
+                    <Card.Content extra>
+                        <div id="kitchenOrderButtons">
+                            <Button onClick={() => {this.handleKitchenNotify(element.orderID)}}
+                            id="KitchenNotifyButton">Notify Waiter</Button>
+                        </div>
+                    </Card.Content>
+                </Card>
+            )
+        })
+        return mappedCards;
+    }
+
     render() {
         if(this.props.waiterConfirmed){
             var mappedWaiter = this.mappedWaiterConfirm(this.props.waiterConfirmed);
@@ -100,6 +125,12 @@ export default class KitchenPageWrapper extends React.Component {
             <Card.Group>
                 
                 {mappedToBeCompleted}
+            </Card.Group>
+            </div>
+            <div className="toBeDelivered">
+            <h1>To be Delivered</h1>
+            <Card.Group>
+
             </Card.Group>
             </div>
             </React.Fragment>
