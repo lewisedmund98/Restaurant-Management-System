@@ -2,6 +2,7 @@ from flask import Request, abort
 from frameworks.authentication.auth import authentication
 from .handler.handleCallWaiter import handleCallWaiter
 from .handler.handleListTable import handleListTable
+import .handler.handleListNotification import handleListNotification
 
 class notifications:
 
@@ -16,6 +17,9 @@ class notifications:
         elif(request.path == "/notifications/listTable"):
             if self.__checkPermish(0):
                 self.responseObj = handleListTable(request.get_json())
+        elif(request.path == "/notifications/listNotification"):
+            if self.__checkPermish(0):
+                self.responseObj = handleListNotification(request.get_json())
         else:
             self.responseObj = self
 
