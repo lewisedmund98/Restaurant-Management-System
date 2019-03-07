@@ -7,16 +7,16 @@ class items():
 
     def load(self):
         ids = self.__getIds()
-        self.list = []
+        self.__list = []
         for s in ids:
             item0 = item()
             item0.load(s['itemID'])
-            self.list.append(item0.get())
+            self.__list.append(item0.get())
         return
 
 
     def get(self):
-        return self.list
+        return self.__list
 
     def __getIds(self):
         cursor = self.__db.cursor()

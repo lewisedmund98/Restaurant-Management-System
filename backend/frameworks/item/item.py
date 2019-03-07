@@ -4,8 +4,8 @@ import json
 class item():
 
     def __init__(self):
-        instance = db()
-        self.__db = instance.getInstance()
+        self.__database = db()
+        self.__db = self.__database.getInstance()
 
     def load(self, id):
         cursor = self.__db.cursor()
