@@ -81,7 +81,6 @@ class authentication():
         # Gen ID 
         access_id = self.__id.getID("access_")
         cursor = self.__db.cursor()
-        print(time.time())
         cursor.execute("INSERT INTO `userAccess` (`id`, `token`, `time`, `uid`) VALUES (%s, %s, %s, %s);",
                        (access_id, self.__token, float(time.time()), uid))
         return {"access_token": access_id}
