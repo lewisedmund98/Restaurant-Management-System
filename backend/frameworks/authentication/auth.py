@@ -2,6 +2,7 @@ from frameworks.database.db import db
 from frameworks.idGenerator.id import id
 from argon2 import PasswordHasher
 from datetime import datetime, timedelta
+import time
 
 
 # Important to note that there aren't inherent security features built into
@@ -80,8 +81,9 @@ class authentication():
         # Gen ID 
         access_id = self.__id.getID("access_")
         cursor = self.__db.cursor()
+        print(time.time())
         cursor.execute("INSERT INTO `userAccess` (`id`, `token`, `time`, `uid`) VALUES (%s, %s, %s, %s);",
-                       (access_id, self.__token, float(datetime.now().timestamp()), uid))
+                       (access_id, self.__token, float(time.time()), uid))
         return {"access_token": access_id}
 
     # Validates existence and correctness of given token including time (2 days)
@@ -99,7 +101,7 @@ class authentication():
                 raise Exception("Access token expired")
         # Calculate minimum time 
         minTime = int((datetime.now() - timedelta(days=2)).timestamp())
-        if (tokDetails['time'] < minTime):
+        if (float(tokDetails['time']) < minTime):
             raise Exception("Access token expired")
         return True
 
