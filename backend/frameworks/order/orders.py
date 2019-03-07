@@ -5,22 +5,28 @@ from .order import order
 # This class returns an array of order objects
 class orders():
     def __init__(self):
-        # Instatiate Database
+        # Instantiate Database
         self.__database = instance = db()
         self.__db = instance.getInstance()
 
     def loadOrders(self, filter):
-        if(filter == "waiterUnconfirmed"):
+        if filter == "waiterUnconfirmed":
             ids = self.__getWaiterUnconfirmed()
-        elif (filter == "waiterConfirmed"):
+        elif filter == "cancelledOrders":
+            ids = self.__getCancelledOrders()
+        elif filter == "waiterConfirmed":
             ids = self.__getWaiterConfirmed()
-        elif(filter == "kitchenConfirmed"):
+        elif filter == "kitchenConfirmed":
             ids = self.__getKitchenConfirmed()
-        elif(filter == "awaitingDelivery"):
+        elif filter == "kitchenComplete":
+            ids = self.__getKitchenComplete()
+        elif filter == "waiterComplete":
+            ids = self.__getWaiterComplete()
+        elif filter == "awaitingDelivery":
             pass;
-        elif(filter == "completedRecent"):
+        elif filter == "completedRecent":
             pass;
-        elif(filter == "completed"):
+        elif filter == "completed":
             ids = self.__getAllOrderIDs()
         else:
             raise Exception('Filter condition missing')
@@ -57,8 +63,22 @@ class orders():
         cursor.execute("SELECT orderID FROM (SELECT orderID, count(*) as idCount FROM orderHistory GROUP BY orderID) AS OH WHERE OH.idCount = '2';")
         return cursor.fetchall()
 
+    def __getCancelledOrders(self):
+        cursor = self.__db.cursor()
+        cursor.execute("SELECT orderID from orderHistory WHERE orderID NOT IN (SELECT orderID from orderHistory WHERE stage != 'cancelled');")
+        return cursor.fetchall()
+
     def __getKitchenConfirmed(self):
         cursor = self.__db.cursor()
         cursor.execute("SELECT orderID FROM (SELECT orderID, count(*) as idCount FROM orderHistory GROUP BY orderID) AS OH WHERE OH.idCount = '3';")
         return cursor.fetchall()
 
+    def __getWaiterComplete(self):
+        cursor = self.__db.cursor()
+        cursor.execute("SELECT orderID FROM (SELECT orderID, count(*) as idCount FROM orderHistory GROUP BY orderID) AS OH WHERE OH.idCount = '5';")
+        return cursor.fetchall()
+
+    def __getKitchenComplete(self):
+        cursor = self.__db.cursor()
+        cursor.execute("SELECT orderID FROM (SELECT orderID, count(*) as idCount FROM orderHistory GROUP BY orderID) AS OH WHERE OH.idCount = '4';")
+        return cursor.fetchall()

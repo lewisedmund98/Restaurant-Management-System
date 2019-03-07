@@ -15,7 +15,8 @@ export default class kitchen extends React.Component {
     }
 
     updateAccessToken(newAccessToken){
-        console.log(newAccessToken);
+        console.log("Old: " + this.state.accessToken);
+        console.log("New: " + newAccessToken);
         this.setState({
             accessToken: newAccessToken
         })
@@ -46,10 +47,10 @@ export default class kitchen extends React.Component {
                 <div className="loginContainer">
                     <h1>Staff ID is logged in</h1>
                 </div>
-                <div id="kitchenOrderCardsContainer">
+                
                     <h1>Kitchen Order</h1>
                     <KitchenPageController uID = {this.state.userID} accessToken = {this.state.accessToken} updateToken = {this.updateAccessToken} />
-                </div>
+                
             </div>
         )
     }

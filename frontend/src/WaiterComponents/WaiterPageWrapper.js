@@ -20,7 +20,6 @@ export default class WaiterPageWrapper extends React.Component {
         // Map the unconfirmed orders
         var mappedUnconfirmed = [];
         mappedUnconfirmed = unconfirmedOrders.map((order, key) => { 
-        
             var mappedMenu = this.mapMenuItemsToList(order.menuItems);
             return(
                 <OrderListView confirmOrder={this.props.confirmOrder} custID={order.customerID} custName={order.customerName} orderID={order.orderID}
@@ -31,10 +30,23 @@ export default class WaiterPageWrapper extends React.Component {
         return mappedUnconfirmed;
     }
 
+    mapToBeDeliveredOrders(toBeDelivered) {
+        // Map the unconfirmed orders
+        var mappedToBeDelivered = [];
+        mappedToBeDelivered = toBeDelivered.map((order, key) => { 
+            var mappedMenu = this.mapMenuItemsToList(order.menuItems);
+            return(
+                <OrderListView deliver={this.props.deliverOrder} custID={order.customerID} custName={order.customerName} orderID={order.orderID}
+                    timeCreated = { order.timeCreated } menuList = {mappedMenu} delivered = { true}
+                />
+            )
+        })
+        return mappedToBeDelivered;
+    }
+
     mapMenuItemsToList(menuItems) {
         var menuItemsMap = [];
         menuItemsMap = menuItems.map((item) => {
-             
             return(<li>{item.itemName} <Image avatar src={item.itemImage}/></li>)
         })
         return menuItemsMap;
@@ -44,6 +56,10 @@ export default class WaiterPageWrapper extends React.Component {
     render() {
         if(this.props.unconfirmedOrders != undefined && this.props.unconfirmedOrders){
             var mappedOrderList = this.mapToUnconfirmedOrders(this.props.unconfirmedOrders);
+        }
+
+        if(this.props.toBeDelivered){
+            var mappedToBeDel = this.mapToBeDeliveredOrders(this.props.toBeDelivered);
         }
        
         return (
@@ -58,7 +74,7 @@ export default class WaiterPageWrapper extends React.Component {
                             <Table.HeaderCell>Order ID</Table.HeaderCell>
                             <Table.HeaderCell>Order Time</Table.HeaderCell>
                             <Table.HeaderCell>Order Items</Table.HeaderCell>
-                            <Table.HeaderCell>Status</Table.HeaderCell>
+                            <Table.HeaderCell>Action</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -77,11 +93,11 @@ export default class WaiterPageWrapper extends React.Component {
                             <Table.HeaderCell>Order ID</Table.HeaderCell>
                             <Table.HeaderCell>Order Time</Table.HeaderCell>
                             <Table.HeaderCell>Order Items</Table.HeaderCell>
-                            <Table.HeaderCell>Status</Table.HeaderCell>
+                            <Table.HeaderCell>Action</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        <OrderListView delivered={true}></OrderListView>
+                        {mappedToBeDel}
                     </Table.Body>
                     </Table>
                 </div>

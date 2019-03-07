@@ -12,15 +12,30 @@ class orders:
         if request.path == '/orders/list/completed':
             if self.__checkPermish(0):
                 self.responseObj = handleListOrders("completed")
+
         elif request.path == '/orders/list/waiterUnconfirmed':
             if self.__checkPermish(0):
                 self.responseObj = handleListOrders("waiterUnconfirmed")
+
+        elif request.path == '/orders/list/ordersCancelled':
+            if self.__checkPermish(0):
+                self.responseObj = handleListOrders("ordersCancelled")
+
         elif request.path == '/orders/list/waiterConfirmed':
             if self.__checkPermish(0):
                 self.responseObj = handleListOrders("waiterConfirmed")
+
         elif request.path == '/orders/list/kitchenConfirmed':
             if self.__checkPermish(0):
                 self.responseObj = handleListOrders("kitchenConfirmed")
+
+        elif request.path == '/orders/list/kitchenComplete':
+            if self.__checkPermish(0):
+                self.responseObj = handleListOrders("kitchenComplete")
+
+        elif request.path == '/orders/list/waiterComplete':
+            if self.__checkPermish(0):
+                self.responseObj = handleListOrders("waiterComplete")
         else:
             self.responseObj = self
 
