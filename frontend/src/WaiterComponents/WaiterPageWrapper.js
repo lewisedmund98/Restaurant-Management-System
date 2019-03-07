@@ -22,7 +22,7 @@ export default class WaiterPageWrapper extends React.Component {
         mappedUnconfirmed = unconfirmedOrders.map((order, key) => { 
             var mappedMenu = this.mapMenuItemsToList(order.menuItems);
             return(
-                <OrderListView confirmOrder={this.props.confirmOrder} custID={order.customerID} custName={order.customerName} orderID={order.orderID}
+                <OrderListView cancelOrder={this.props.cancelOrder} confirmOrder={this.props.confirmOrder} custID={order.customerID} custName={order.customerName} orderID={order.orderID}
                     timeCreated = { order.timeCreated } menuList = {mappedMenu } unconfirmed = { true}
                 />
             )
@@ -36,7 +36,7 @@ export default class WaiterPageWrapper extends React.Component {
         mappedToBeDelivered = toBeDelivered.map((order, key) => { 
             var mappedMenu = this.mapMenuItemsToList(order.menuItems);
             return(
-                <OrderListView deliver={this.props.deliverOrder} custID={order.customerID} custName={order.customerName} orderID={order.orderID}
+                <OrderListView cancelOrder={this.props.cancelOrder} deliver={this.props.deliverOrder} custID={order.customerID} custName={order.customerName} orderID={order.orderID}
                     timeCreated = { order.timeCreated } menuList = {mappedMenu} delivered = { true}
                 />
             )
