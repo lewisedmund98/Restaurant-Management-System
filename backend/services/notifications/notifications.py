@@ -2,7 +2,7 @@ from flask import Request, abort
 from frameworks.authentication.auth import authentication
 from .handler.handleCallWaiter import handleCallWaiter
 from .handler.handleListTable import handleListTable
-import .handler.handleListNotification import handleListNotification
+from .handler.handleListNotification import handleListNotification
 
 class notifications:
 
