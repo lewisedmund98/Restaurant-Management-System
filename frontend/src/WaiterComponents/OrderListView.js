@@ -73,7 +73,7 @@ export default class OrderListView extends React.Component {
                 <Table.Cell>
 
                     {this.getCorrectButton()}
-                    <Button onClick={() => { this.cancelOrder() }}>Cancel</Button>
+                    <Button className="waiterCancelBtn" onClick={() => { this.cancelOrder() }}>Cancel</Button>
 
                 </Table.Cell>
             </Table.Row>
