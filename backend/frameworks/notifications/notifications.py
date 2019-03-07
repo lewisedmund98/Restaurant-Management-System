@@ -15,7 +15,7 @@ class notifications:
     def createNotification(self, table, type, meta):
         cursor = self.__db.cursor()
         nID = self.__id.getID("notification_")
-        cursor.execute("INSERT INTO `notifications` (`id`, `table`, `inserted`, `retrieved`, `type`, `meta`) VALUES (%s, %s, %s, null, %s, %s);", (nID, table, int(datetime.now().timestamp()), type, meta))
+        cursor.execute("INSERT INTO `notifications` (`id`, `table`, `inserted`, `retrieved`, `type`, `meta`) VALUES (%s, %s, %s, null, %s, %s);", (nID, table, int(datetime.now().timestamp()), type, json.dumps(meta)))
         return nID
 
     def getNotification(self, id):
