@@ -44,7 +44,7 @@ export default class WaiterPageController extends React.Component {
                     console.log(error);
                 }
             },
-            4000
+            5000
         );
     }
 
@@ -169,7 +169,7 @@ export default class WaiterPageController extends React.Component {
     }
 
     cancelOrder(orderID) {
-        return fetch("https://flask.team-project.crablab.co/order/cancel", {
+        fetch("https://flask.team-project.crablab.co/order/cancel", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

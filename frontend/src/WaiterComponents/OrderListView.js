@@ -33,7 +33,7 @@ export default class OrderListView extends React.Component {
     }
 
     cancelOrder() {
-        requests.cancelOrder(this.props.orderID);
+        this.props.cancelOrder(this.props.orderID);
     }
 
     getCorrectButton() {
