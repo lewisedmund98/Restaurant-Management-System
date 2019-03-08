@@ -7,15 +7,20 @@ export default class CallWaiter extends React.Component{
         this.makeCallToWaiter = this.makeCallToWaiter.bind(this);
         this.handleSetTable = this.handleSetTable.bind(this);
         this.state={
-            table: null
+            table: null,
+            selected: false,
+            called: false
         }
+        this.called = false;
     }
 
     makeCallToWaiter(){ 
-        console.log("Calling Waiter");
-        if(this.state.table == null){
+        this.setState({
+            called: true
+        })
+        if(!this.state.selected){
             console.log("Please select a table");
-            return;
+            
         }
         console.log("Table " + this.state.table);
 
@@ -24,11 +29,13 @@ export default class CallWaiter extends React.Component{
     handleSetTable(event){
         if(this.state.table === event.target.value){
             this.setState({
-                table: null
+                table: null,
+                selected: false
             })
         } else {
             this.setState({
-                table: event.target.value
+                table: event.target.value,
+                selected: true
             });
         }
     }
@@ -49,7 +56,10 @@ export default class CallWaiter extends React.Component{
                 </Modal.Content>
                 <Modal.Description>
                     <Button className="call" onClick={()=>{this.makeCallToWaiter()}}>Call</Button>
-                    <p style={{float: "right"}}><b>Your table: {table}</b></p>        
+                    <p style={{float: "right"}}><b>Your table: {table}</b></p>
+                    {this.state.selected === false && this.state.called === true &&
+                        <p className="selectTableWarning"> Please select a table </p>
+                    }        
                 </Modal.Description>
             </Modal>
         )
