@@ -67,9 +67,6 @@ export default class WaiterPageController extends React.Component {
             await this.getKitchenCompleted();
             await this.getNotifications();
         }
-        // setTimeout(() => {
-        //     this.startTimer();
-        // }, 500);
         this.startTimer(4000);
     }
 
@@ -91,12 +88,14 @@ export default class WaiterPageController extends React.Component {
                 .then(response => response.json())
                 // eslint-disable-next-line no-loop-func
                 .then((json) => {
-                    console.log(json);
                     this.props.updateToken(json.new_access_token.access_token);
                     var tempArray = this.state.notifications;
-                    tempArray[i] = json.results;
-                    console.log("HERE YOU FUCKING MORON");
-                    console.log(tempArray);
+                    if(json.results.length > 0){ // If there is a new notification
+                        json.results.forEach((notification)=>{ // Add it to the current list which will be passed
+                            tempArray.push(notification);
+
+                        })
+                    }
                     this.setState({
                         notifications: tempArray
                     });
