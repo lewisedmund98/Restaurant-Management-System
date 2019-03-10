@@ -67,7 +67,7 @@ export default class WaiterPageController extends React.Component {
             await this.getKitchenCompleted();
             await this.getNotifications();
         }
-        this.startTimer(4000);
+        this.startTimer(1000);
     }
 
 
