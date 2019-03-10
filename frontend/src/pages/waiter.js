@@ -24,7 +24,7 @@ export default class Customer extends React.Component {
         this.state = {
             accessToken: null,
             userID: null,
-            tables: []
+            tables: [1,2,3,4]
         }
         this.tempGetAccess();
     }
@@ -57,6 +57,7 @@ export default class Customer extends React.Component {
     }
 
     setTables(tableList) {
+        console.log("!!!!!!!!!!!!!!!!! WHY THE HELL AM I RUNNING ")
         this.setState({
             tables: tableList
         });
@@ -64,6 +65,7 @@ export default class Customer extends React.Component {
 
     render() {
         document.title = "Oaxaca Waiters";
+        console.log(this.state.tables);
         return (
             <div>
                 <div className="loginContainer">

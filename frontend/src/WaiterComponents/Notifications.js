@@ -19,8 +19,12 @@ export default class Notifications extends React.Component {
             if (this.checkUniqueElement(element)) {
                 // Show
                 // Add to list
-                console.log("Notify : table " + element.table + " is in need of assistance");
-                this.displayedList.push(element);
+                // console.log(typeof element.table);
+                // console.log(element.table);
+                // if (this.props.tables.length === 0 || this.props.tables.includes(element.table)) {
+                    
+                    this.displayedList.push(element);
+                //}
             }
         });
     }
@@ -35,9 +39,9 @@ export default class Notifications extends React.Component {
 
     }
 
-    mapNotifications(displayedList){
+    mapNotifications(displayedList) {
         var mappedList = displayedList.map((element) => {
-            return(
+            return (
                 <NotificationModal timeCreated={element.inserted} tableNumber={element.table}></NotificationModal>
             )
         })
@@ -46,11 +50,12 @@ export default class Notifications extends React.Component {
     }
 
     render() {
-        if(this.props.notifications){
+        if (this.props.notifications) {
+            //console.log(this.props.notifications.length);
             this.doSomething(this.props.notifications);
             var mappedList = this.mapNotifications(this.displayedList);
         }
-    
+
         return (
             <ul>
                 {mappedList}

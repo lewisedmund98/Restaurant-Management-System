@@ -1,40 +1,47 @@
 import React from 'react';
-import {Modal, Button} from 'semantic-ui-react';
+import { Modal, Button } from 'semantic-ui-react';
 
-export default class ChooseTable extends React.Component{
-    constructor(props){
+export default class ChooseTable extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
-            tables: []
+            chosenTables: []
         }
 
-        this.selectTables = this.selectTables.bind(this);
+        this.selectchosenTables = this.selectchosenTables.bind(this);
         this.addTable = this.addTable.bind(this);
         this.checkTableList = this.checkTableList.bind(this);
     }
 
-    selectTables(){
-        this.props.setTable(this.state.tables);
-        console.log(this.state.tables);
+    selectchosenTables() {
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        if (this.state.chosenTables.length === 0) {
+            console.log("Please choose a table");
+        } else {
+            this.props.setTable(this.state.chosenTables);
+            console.log(this.state.chosenTables);
+        }
+
     }
 
-    addTable(event){
+    addTable(event) {
         var tableNumber = event.target.value;
-        var tableArrayCopy = this.state.tables;
-        if(!this.checkTableList(tableNumber)){ // Doesn't contain the table
-            tableArrayCopy.push(tableNumber);
-            // this.setState({
-            //     tables:tableArrayCopy
-            // })
-        }   
+        var tableArrayCopy = this.state.chosenTables;
+        if (!this.checkTableList(tableNumber)) { // Doesn't contain the table
+        console.log("PUSHING");
+            tableArrayCopy.push(parseInt(tableNumber));
+            this.setState({
+                chosenTables:tableArrayCopy
+            })
+        }
     }
 
-    checkTableList(tableNumber){
-        return this.state.tables.includes(tableNumber);
+    checkTableList(tableNumber) {
+        return this.state.chosenTables.includes(parseInt(tableNumber));
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <Modal trigger={<Button>Choose Tables</Button>}>
                 <Modal.Content>
                     <Button value="1" onClick={(e) => { this.addTable(e) }}>1</Button>
@@ -43,8 +50,8 @@ export default class ChooseTable extends React.Component{
                     <Button value="4" onClick={(e) => { this.addTable(e) }}>4</Button>
                 </Modal.Content>
                 <Modal.Description>
-                    <Button onClick={()=>{this.selectTables()}}>Set Tables</Button>
-                    <Button onClick={()=>{this.setState({tables : []})}}>Reset</Button>
+                    <Button onClick={() => { this.selectchosenTables() }}>Set Tables</Button>
+                    <Button onClick={() => { this.setState({ chosenTables: [] }) }}>Reset</Button>
                 </Modal.Description>
             </Modal>
 

@@ -77,13 +77,13 @@ export default class WaiterPageController extends React.Component {
 
 
     async getNotifications() {
-        for (var i = 1; i < 5; i++) {
+        for (var i = 0; i < this.props.selectedTables.length; i++) {
             await fetch("https://flask.team-project.crablab.co/notifications/listTable", {
                 headers: {
                     "Content-Type": "application/json",
                 },
                 method: "POST",
-                body: JSON.stringify({ table: i, id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
+                body: JSON.stringify({ table: this.props.selectedTables[i], id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
             })
                 .then(response => response.json())
                 // eslint-disable-next-line no-loop-func
