@@ -15,7 +15,6 @@ export default class Notifications extends React.Component {
     }
 
     doSomething(notifications) {
-        
         notifications.forEach(element => {
             if (this.checkUniqueElement(element)) {
                 // Show
