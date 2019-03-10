@@ -57,10 +57,11 @@ export default class Customer extends React.Component {
     }
 
     setTables(tableList) {
-        console.log("!!!!!!!!!!!!!!!!! WHY THE HELL AM I RUNNING ")
+        console.log("!!!!!!!!!!!!!!!!! WHY THE HELL AM I RUNNING ");
         this.setState({
             tables: tableList
         });
+        console.log("WHAT AM I DOIONG HERE AND RUNNING");
     }
 
     render() {

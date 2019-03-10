@@ -16,15 +16,9 @@ export default class Notifications extends React.Component {
 
     doSomething(notifications) {
         notifications.forEach(element => {
-            if (this.checkUniqueElement(element)) {
-                // Show
-                // Add to list
-                // console.log(typeof element.table);
-                // console.log(element.table);
-                // if (this.props.tables.length === 0 || this.props.tables.includes(element.table)) {
-                    
+            if (this.checkUniqueElement(element)) {     
                     this.displayedList.push(element);
-                //}
+                
             }
         });
     }

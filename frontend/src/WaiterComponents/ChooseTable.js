@@ -27,6 +27,7 @@ export default class ChooseTable extends React.Component {
     addTable(event) {
         var tableNumber = event.target.value;
         var tableArrayCopy = this.state.chosenTables;
+        console.log(this.state.chosenTables);
         if (!this.checkTableList(tableNumber)) { // Doesn't contain the table
         console.log("PUSHING");
             tableArrayCopy.push(parseInt(tableNumber));
