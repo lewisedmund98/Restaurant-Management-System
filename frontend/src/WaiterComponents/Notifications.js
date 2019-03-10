@@ -39,7 +39,7 @@ export default class Notifications extends React.Component {
     mapNotifications(displayedList){
         var mappedList = displayedList.map((element) => {
             return(
-                <NotificationModal></NotificationModal>
+                <NotificationModal timeCreated={element.inserted} tableNumber={element.table}></NotificationModal>
             )
         })
 
