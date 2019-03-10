@@ -46,13 +46,11 @@ export default class Notifications extends React.Component {
     }
 
     render() {
-        console.log(this.state.displayedNotificiations);
         if(this.props.notifications){
             this.doSomething(this.props.notifications);
             var mappedList = this.mapNotifications(this.displayedList);
         }
-        console.log("Displayed List: ");
-        console.log(this.displayedList);
+    
         return (
             <ul>
                 {mappedList}

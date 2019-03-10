@@ -228,7 +228,7 @@ export default class WaiterPageController extends React.Component {
         return (
             <div>
 
-                <Notifications notifications={this.state.notifications}></Notifications>
+                <Notifications tables={this.props.selectedTables} notifications={this.state.notifications}></Notifications>
                 <WaiterPageWrapper
                     cancelOrder={this.cancelOrder}
                     deliverOrder={this.deliverOrder}
