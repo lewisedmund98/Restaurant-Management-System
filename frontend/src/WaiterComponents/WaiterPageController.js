@@ -16,6 +16,7 @@
 
 import React from 'react';
 import WaiterPageWrapper from './WaiterPageWrapper.js';
+import Notifications from './Notifications.js';
 var request = require('../Requests');
 
 export default class WaiterPageController extends React.Component {
@@ -25,35 +26,48 @@ export default class WaiterPageController extends React.Component {
             unconfirmedOrders: [],
             toBeDelivered: [],
             twentyFourHours: [],
+            notifications: [],
             accessToken: this.props.accessToken
         };
         this.arrayOfUnconfirmedOrders = []; // This is needed as updating the state each request is unfeesible
         this.toBeDeliveredArray = [];
         this.getUnconfirmedOrders = this.getUnconfirmedOrders.bind(this);
         this.getKitchenCompleted = this.getKitchenCompleted.bind(this);
+        this.getNotifications = this.getNotifications.bind(this);
         this.confirmOrder = this.confirmOrder.bind(this);
         this.cancelOrder = this.cancelOrder.bind(this);
     }
 
+    // componentDidMount() {
+    //     this.timerID = setInterval(
+    //         async () => {
+    //             try {
+    //                 await this.checkForUpdate()
+    //             } catch (error) {
+    //                 console.log(error);
+    //             }
+    //         },
+    //         5000
+    //     );
+    // }
+
     componentDidMount() {
-        this.timerID = setInterval(
-            async () => {
-                try {
-                    await this.checkForUpdate();
-                } catch (error) {
-                    console.log(error);
-                }
-            },
-            5000
-        );
+        this.startTimer(500);
+    }
+
+    startTimer(interval){
+        setTimeout(() => {
+            this.checkForUpdate();
+        }, interval);
     }
 
     async checkForUpdate() {
         if (this.props.accessToken) {
             await this.getUnconfirmedOrders();
-            await this.sleep(1500);
             await this.getKitchenCompleted();
+            await this.getNotifications();
         }
+        this.startTimer(1000);
     }
 
 
@@ -62,6 +76,32 @@ export default class WaiterPageController extends React.Component {
     }
 
 
+    async getNotifications() {
+        for (var i = 0; i < this.props.selectedTables.length; i++) {
+            await fetch("https://flask.team-project.crablab.co/notifications/listTable", {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({ table: this.props.selectedTables[i], id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
+            })
+                .then(response => response.json())
+                // eslint-disable-next-line no-loop-func
+                .then((json) => {
+                    this.props.updateToken(json.new_access_token.access_token);
+                    var tempArray = this.state.notifications;
+                    if(json.results.length > 0){ // If there is a new notification
+                        json.results.forEach((notification)=>{ // Add it to the current list which will be passed
+                            tempArray.push(notification);
+
+                        })
+                    }
+                    this.setState({
+                        notifications: tempArray
+                    });
+                })
+        }
+    }
 
     async getUnconfirmedOrders() {
         await fetch("https://flask.team-project.crablab.co/orders/list/waiterUnconfirmed", {
@@ -186,14 +226,18 @@ export default class WaiterPageController extends React.Component {
 
     render() {
         return (
-            <WaiterPageWrapper
-                cancelOrder = {this.cancelOrder}
-                deliverOrder={this.deliverOrder}
-                toBeDelivered={this.state.toBeDelivered}
-                confirmOrder={this.confirmOrder}
-                unconfirmedOrders={this.state.unconfirmedOrders}>
-            </WaiterPageWrapper>
+            <div>
 
+                <Notifications tables={this.props.selectedTables} notifications={this.state.notifications}></Notifications>
+                <WaiterPageWrapper
+                    cancelOrder={this.cancelOrder}
+                    deliverOrder={this.deliverOrder}
+                    toBeDelivered={this.state.toBeDelivered}
+                    confirmOrder={this.confirmOrder}
+                    unconfirmedOrders={this.state.unconfirmedOrders}>
+                </WaiterPageWrapper>
+
+            </div>
         )
     }
 }
