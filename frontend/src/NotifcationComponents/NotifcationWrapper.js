@@ -11,6 +11,6 @@ export default class NotificationWrapper extends React.Component {
     render() {
         return(
 
-        );
+        )
     }
 }
