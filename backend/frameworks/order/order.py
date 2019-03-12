@@ -46,11 +46,11 @@ class order:
         else:
             raise Exception("Error: OrderID not found.")
 
-    def createOrder(self, name, phone, email, table, items):
-        customerID = self.__locateCustomer(phone, email)
+    def createOrder(self, name, email, table, items):
+        customerID = self.__locateCustomer(email)
         # Create customer if not exist
         if(customerID == False):
-            customerID = self.__createCustomer(name, phone, email)
+            customerID = self.__createCustomer(name, email)
         # Create order
         orderID = self.__insertOrder(customerID, table)
         # Add items
@@ -94,15 +94,15 @@ class order:
         cursor.execute("INSERT INTO `orderHistory` (`insertionID`, `orderID`, `stage`, `inserted`, `metafield`) VALUES (%s, %s, %s, %s, %s);", (iID, order, stage, int(datetime.now().timestamp()), json.dumps(meta)))
         return iID
 
-    def __createCustomer(self, name, phone, email):
+    def __createCustomer(self, name, email):
         cursor = self.__db.cursor()
         cID = self.__id.getID("customer")
-        cursor.execute("INSERT INTO `customers` (`customerID`, `name`, `email`, `phone`) VALUES (%s, %s, %s, %s);", (cID, name, email, phone))
+        cursor.execute("INSERT INTO `customers` (`customerID`, `name`, `email`) VALUES (%s, %s, %s, %s);", (cID, name, email))
         return cID
 
-    def __locateCustomer(self, phone, email):
+    def __locateCustomer(self, email):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT * FROM `customers` WHERE `email` = %s AND `phone` = %s;", (email, phone))
+        cursor.execute("SELECT * FROM `customers` WHERE `email` = %s;", (email))
 
         if(cursor.rowcount == 1):
             return cursor.fetchone()['customerID']
