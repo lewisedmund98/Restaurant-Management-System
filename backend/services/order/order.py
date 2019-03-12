@@ -8,6 +8,7 @@ from .handler.handleOrderStatus import handleOrderStatus
 from .handler.handleOrderView import handleOrderView
 from .handler.handleWaiterComplete import handleWaiterComplete
 from .handler.handleWaiterConfirm import handleWaiterConfirm
+from .handler.handlePayment import handlePayment
 
 
 class order:
@@ -32,7 +33,7 @@ class order:
         elif request.path == "/order/waiterComplete":
             self.responseObj = handleWaiterComplete(request)
         elif(request.path == "order/payment"):
-            self.responseObj = handleOrderPayment(request)
+            self.responseObj = handlePayment(request)
         else:
             self.responseObj = self
 
