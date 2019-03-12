@@ -11,9 +11,11 @@ class payment:
         self.__itemClass = item()
     
     def submitAuthorisation(self, orderID, tokenID):
-        # Get order info
+        # Get order info and history 
         self.__order.loadOrderInfo(orderID)
+        self.__order.loadOrderHistory(orderID)
         orderInfo = self.__order.getOrderInfo()
+
         # Check order is in the right stage
         if(self.__order.getOrderStatus()['stage'] != "created"):
             raise Exception("Order not in correct stage for payment")
@@ -58,6 +60,6 @@ class payment:
         for item in orderInfo['items']:
             self.__itemClass.load(item)
             itemRecord = self.__itemClass.get()
-            total = total + float(itemRecord['price'])
+            total = total + float(itemRecord['itemPrice'])
         
         return total

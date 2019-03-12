@@ -32,7 +32,7 @@ class order:
             self.responseObj = handleKitchenComplete(request)
         elif request.path == "/order/waiterComplete":
             self.responseObj = handleWaiterComplete(request)
-        elif(request.path == "order/payment"):
+        elif(request.path == "/order/payment"):
             self.responseObj = handlePayment(request)
         else:
             self.responseObj = self
