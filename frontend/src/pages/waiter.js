@@ -54,6 +54,9 @@ export default class Customer extends React.Component {
         
         return (
             <div>
+                <div class="topnav">
+                    <img class="logo" src="oaxaca_logo.png" alt="Oaxaca Logo" height="150" width="150"/>
+                </div>
                 <div className="loginContainer">
                     <h1>Staff ID is logged in</h1>
                 </div>  
