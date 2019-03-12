@@ -31,9 +31,8 @@ class order:
             self.responseObj = handleKitchenComplete(request)
         elif request.path == "/order/waiterComplete":
             self.responseObj = handleWaiterComplete(request)
-
-        # elif(request.path == "order/payment"):
-        #     self.responseObj = handleOrderPayment(request)
+        elif(request.path == "order/payment"):
+            self.responseObj = handleOrderPayment(request)
         else:
             self.responseObj = self
 
