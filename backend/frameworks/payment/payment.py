@@ -37,7 +37,7 @@ class payment:
         return {'complete': insertionID}
 
 
-    def submitPresentmnet(self, orderID):
+    def submitPresentment(self, orderID):
         # Get order information from orderID including chargeID
         self.__order.loadOrderInfo(orderID)
         orderInfo = self.__order.getOrderStatus()
