@@ -62,4 +62,4 @@ class payment:
             itemRecord = self.__itemClass.get()
             total = total + float(itemRecord['itemPrice'])
         
-        return total
+        return int(total*100)
