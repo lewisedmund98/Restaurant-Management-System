@@ -1,7 +1,7 @@
 from frameworks.database.db import db
 from frameworks.order.order import order
 from frameworks.item.item import item
-import stripe
+import stripe, json
 
 class payment:
 
@@ -39,8 +39,19 @@ class payment:
 
     def submitPresentmnet(self, orderID):
         # Get order information from orderID including chargeID
-        charge = stripe.Charge.retrieve('ch_mfTMHyfuKezENkHGwYhs')
-        charge.capture()
+        self.__order.loadOrderInfo(orderID)
+        orderInfo = self.__order.getOrderStatus()
+        if(['stage'] != "paid"):
+            raise Exception("Order not in correct stage for presentment")
+        
+        extractedChargeID = json.loads(orderInfo['meta'])['stripeChargeID']
+        charge = stripe.Charge.retrieve(extractedChargeID)
+        response = charge.capture()
+
+        if(response['captured'] == True):
+            return True
+        else:
+            raise Exception("Charge could not be presented")
 
     def __calculatePrice(self, orderInfo):
         total = float(0.00)
