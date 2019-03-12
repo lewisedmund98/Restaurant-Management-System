@@ -97,7 +97,7 @@ class order:
     def __createCustomer(self, name, email):
         cursor = self.__db.cursor()
         cID = self.__id.getID("customer")
-        cursor.execute("INSERT INTO `customers` (`customerID`, `name`, `email`) VALUES (%s, %s, %s, %s);", (cID, name, email))
+        cursor.execute("INSERT INTO `customers` (`customerID`, `name`, `email`) VALUES (%s, %s, %s);", (cID, name, email))
         return cID
 
     def __locateCustomer(self, email):
