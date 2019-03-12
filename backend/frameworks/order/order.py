@@ -58,6 +58,9 @@ class order:
             self.__orderAddItem(orderID, item)
 
         return orderID
+
+    def paymentComplete(self, id, chargeID):
+        return self.__insertOrderHistory(id, "paid", {"stripeChargeID": chargeID})
     
     def waiterConfirm(self, id):
         return self.__insertOrderHistory(id, "waiterConfirmed", {})

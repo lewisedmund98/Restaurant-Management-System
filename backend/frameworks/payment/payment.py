@@ -8,6 +8,7 @@ class payment:
     def __init__(self):
         stripe.api_key = "sk_test_keZYXG2kFfc2GeQOEDA6gSyI"
         self.__order = order()
+        self.__itemClass = item()
     
     def submitAuthorisation(self, orderID, tokenID):
         # Get order info
@@ -26,7 +27,15 @@ class payment:
             source=tokenID,
             capture=False, # Don't submit for presentment
         )
-        # Update order 
+
+        # Card was declined
+        if(charge['failure_message'] != None): 
+            return {'failed': charge['failure_message']}
+
+        insertionID = self.__order.paymentComplete(orderID, charge['id'])
+        
+        return {'complete': insertionID}
+
 
     def submitPresentmnet(self, orderID):
         # Get order information from orderID including chargeID
@@ -35,10 +44,9 @@ class payment:
 
     def __calculatePrice(self, orderInfo):
         total = float(0.00)
-        itemClass = item()
         for item in orderInfo['items']:
-            itemClass.load(item)
-            itemRecord = itemClass.get()
+            self.__itemClass.load(item)
+            itemRecord = self.__itemClass.get()
             total = total + float(itemRecord['price'])
         
         return total
