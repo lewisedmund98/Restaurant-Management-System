@@ -1,5 +1,6 @@
 import React from 'react';
 import CardController from './CardController.js';
+import CallWaiter from '../MenuComponents/CallWaiter.js';
 import '../index.css';
 import Basket from '../BasketComponents/Basket.js';
 import {Button} from 'semantic-ui-react';
@@ -85,7 +86,9 @@ export default class CustomerPageController extends React.Component {
                         pathname:"/customerOrder", 
                         state:{orderNumber: this.state.orderNumbers}
                     }}>
-                    <Button className="yourOrdersBtn">Your Orders</Button></Link></div>
+                    <Button className="yourOrdersBtn">Your Orders</Button></Link>
+                    <CallWaiter></CallWaiter>
+                    </div>
                 <div id="ListCards">
                     <CardController basket={this.addToBasket}> {/*Basket is the event handler for a button*/}
                     </CardController>

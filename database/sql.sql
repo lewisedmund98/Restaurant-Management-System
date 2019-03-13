@@ -59,7 +59,6 @@ CREATE TABLE `customers` (
   `customerID` varchar(255) NOT NULL,
   `name` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `phone` varchar(45) NOT NULL,
   PRIMARY KEY (`customerID`),
   UNIQUE KEY `customerID_UNIQUE` (`customerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -219,4 +218,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-07 13:37:32
+-- Dump completed on 2019-03-12 21:48:30
