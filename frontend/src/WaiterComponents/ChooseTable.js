@@ -43,16 +43,25 @@ export default class ChooseTable extends React.Component {
 
     render() {
         return (
-            <Modal trigger={<Button style ={{backgroundColor: "blue", color: "white", display: "block", marginLeft: "auto", marginRight: "auto"}}>Choose Tables</Button>}>
+            <Modal trigger={<Button style ={{backgroundColor: "blue", color: "white", display: "block", marginLeft: "auto", marginRight: "auto" }}>Choose Tables</Button>}>
                 <Modal.Content>
-                    <Button value="1" onClick={(e) => { this.addTable(e) }}>1</Button>
-                    <Button value="2" onClick={(e) => { this.addTable(e) }}>2</Button>
-                    <Button value="3" onClick={(e) => { this.addTable(e) }}>3</Button>
-                    <Button value="4" onClick={(e) => { this.addTable(e) }}>4</Button>
+                    <div style={{textAlign: "center"}}>
+                        <div style={{display: "block", marginLeft: "auto", marginRight: "auto"}}>
+                            <h1>Tables:</h1>
+                            <Button className="tableNumberBtnWaiter" value="1" onClick={(e) => { this.addTable(e) }}>1</Button>
+                            <Button className="tableNumberBtnWaiter" value="2" onClick={(e) => { this.addTable(e) }}>2</Button>
+                            <Button className="tableNumberBtnWaiter" value="3" onClick={(e) => { this.addTable(e) }}>3</Button>
+                            <Button className="tableNumberBtnWaiter" value="4" onClick={(e) => { this.addTable(e) }}>4</Button>
+                        </div>
+                    </div>
                 </Modal.Content>
                 <Modal.Description>
-                    <Button onClick={() => { this.selectchosenTables() }}>Set Tables</Button>
-                    <Button onClick={() => { this.setState({ chosenTables: [] }) }}>Reset</Button>
+                    <div style={{textAlign: "center", paddingBottom: "1%"}}>
+                        <div style={{display: "block", marginLeft: "auto", marginRight: "auto"}}>
+                            <Button className="chooseTableActions" style={{backgroundColor: "green", color: "white"}} onClick={() => { this.selectchosenTables() }}>Set Tables</Button>
+                            <Button className="chooseTableActions" style={{backgroundColor: "#D04236", color: "white"}} onClick={() => { this.setState({ chosenTables: [] }) }}>Reset</Button>
+                        </div>
+                    </div>
                 </Modal.Description>
             </Modal>
 

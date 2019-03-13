@@ -10,7 +10,6 @@
 .cardWrapper{
     border: 0px !important;
     outline: 0px !important;
-    background-color: rgb(255, 0, 0)52, 252, 252);
 }
 .ui.segment.active.tab{
     outline: none !important;
@@ -368,4 +367,12 @@ body {
 .waiterCancelBtn{
     background-color: #D04236 !important;
     color: white !important;
+}
+.tableNumberBtnWaiter{
+    margin-left: 1% !important;
+    margin-right: 1% !important;    
+}
+.chooseTableActions{
+    margin-left: 1% !important;
+    margin-right: 1% !important; 
 }
