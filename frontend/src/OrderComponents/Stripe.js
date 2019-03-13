@@ -39,6 +39,7 @@ export default class TakeMoney extends React.Component {
     return (
       // ...
       <StripeCheckout
+        email={"Payment@Placeholder.com"}
         token={(token) => { this.onToken(token) }} // Replaced with non anon function, had to add orderid
         stripeKey="pk_test_Q4rJhvGHpIIBZsRPORvPQhPE"
       />
