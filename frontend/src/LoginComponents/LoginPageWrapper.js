@@ -41,6 +41,7 @@ export default class LoginPageWrapper extends React.Component {
   }
 
     render() {
+        //if(this.props.state.) 
         return(
             <Form onSubmit={this.createLogin}>
                 <Form.Field>
