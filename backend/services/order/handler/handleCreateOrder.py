@@ -13,4 +13,4 @@ class handleCreateOrder:
         if self.__data['items'] == []:
             raise Exception ('No items have been selected')
         else:
-            return self.__order.createOrder(self.__data['name'], self.__data['phone'], self.__data['email'], self.__data['table'], self.__data['items'])
+            return self.__order.createOrder(self.__data['name'], self.__data['email'], self.__data['table'], self.__data['items'])

@@ -11,15 +11,33 @@ export default class OrderController extends React.Component {
     constructor(props) {
         super(props);
         this.pullOrderDetails = this.pullOrderDetails.bind(this);
+        this.startTimer = this.startTimer.bind(this);
+        this.pollEndpoint = this.pollEndpoint.bind(this);
         this.state = {
-            combinedResults : []
+            combinedResults: []
         }
         this.pullOrderDetails();
+        this.arrayOfOrderDetails = [];
+    }
+
+    componentDidMount() {
+        this.startTimer(500);
+    }
+
+    startTimer(interval) {
+        setTimeout(() => {
+            this.pollEndpoint();
+        }, interval);
+    }
+
+    async pollEndpoint() {
+        this.pullOrderDetails();
+        this.startTimer(2500);
     }
 
 
     pullOrderDetails() {
-        Object.values(this.props.customerOrders.orderNumber).forEach((orderID) => {
+        Object.values(this.props.customerOrders.orderNumber).forEach((orderID, index) => {
             requests.pullDetails(orderID.orderID) // Pass order ID's
                 .then(orderReturn => {
                     requests.getMenuItems(orderReturn.order.items) // Pass Items
@@ -32,20 +50,25 @@ export default class OrderController extends React.Component {
                                 .then((orderStatus) => {
                                     var menuResponse = { menu: menuItemsArray };
                                     var combinedResult = { ...orderReturn.order, ...menuResponse, ...orderStatus.order };
-                                    var tempResultArr = this.state.combinedResults;
-                                    tempResultArr.push(combinedResult);
-                                    this.setState({
-                                        combinedResult: tempResultArr
-                                    })
+                                    //var tempResultArr = this.state.combinedResults;
+                                    //tempResultArr.push(combinedResult);
+
+                                    this.arrayOfOrderDetails[index] = combinedResult;
+                                    if (!this.arrayOfOrderDetails.some(element => element.orderID === combinedResult.orderID)) {
+                                        this.arrayOfOrderDetails.push(combinedResult);
+                                    }
                                 })
 
                         })
                 })
-                .catch(error =>{
+                .catch(error => {
                     console.log("An error has occured " + error);
                 })
-        }
-        )
+        })
+        this.setState({
+            combinedResult: this.arrayOfOrderDetails
+        })
+        this.arrayOfOrderDetails = [];
     }
 
 
