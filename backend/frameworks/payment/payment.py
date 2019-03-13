@@ -41,12 +41,12 @@ class payment:
 
     def submitPresentment(self, orderID):
         # Get order information from orderID including chargeID
-        self.__order.loadOrderInfo(orderID)
+        self.__order.loadOrderHistory(orderID)
         orderInfo = self.__order.getOrderStatus()
-        if(['stage'] != "paid"):
+        if(orderInfo['stage'] != "paid"):
             raise Exception("Order not in correct stage for presentment")
         
-        extractedChargeID = json.loads(orderInfo['meta'])['stripeChargeID']
+        extractedChargeID = json.loads(orderInfo['metafield'])['stripeChargeID']
         charge = stripe.Charge.retrieve(extractedChargeID)
         response = charge.capture()
 
@@ -54,6 +54,27 @@ class payment:
             return True
         else:
             raise Exception("Charge could not be presented")
+
+    def cancelCharge(self, orderID):
+        # Get order information from orderID including chargeID
+        self.__order.loadOrderHistory(orderID)
+        chargeID = None
+        for historyRow in self.__order.getOrderHistory():
+            if(historyRow['paid']):
+                chargeID = json.loads(historyRow['metafield'])['stripeChargeID']
+
+        if(chargeID == None): 
+            return False
+
+        re = stripe.Refund.create(
+            charge = chargeID
+        )
+
+        if(re['status'] != "succeeded"):
+            return False
+        else 
+            return re['id']
+
 
     def __calculatePrice(self, orderInfo):
         total = float(0.00)
