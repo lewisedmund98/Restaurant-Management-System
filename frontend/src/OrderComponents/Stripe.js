@@ -7,8 +7,20 @@ import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 
 export default class TakeMoney extends React.Component {
-    onToken(token){
-        console.log(JSON.stringify(token));
+  constructor(props){
+    super(props);
+    this.payForOrder = this.payForOrder.bind(this);
+  }
+    onToken(token){  
+        token = {...token, ...{order_id: this.props.orderID}};
+        var newToken = JSON.stringify(token);
+        var newTokenIdReplaced = newToken.replace(/"id"/, "\"token_id\"");
+        this.payForOrder(newTokenIdReplaced);
+    }
+
+    payForOrder(finalToken){
+      // Makes fetch call
+
     }
   
     // ...
@@ -17,8 +29,8 @@ export default class TakeMoney extends React.Component {
       return (
         // ...
         <StripeCheckout
-          token={this.onToken}
-          stripeKey="pk_test_IpuLRj54pedNNvXnmEnz1Rr3"
+          token={(token)=>{this.onToken(token)}} // Replaced with non anon function, had to add orderid
+          stripeKey="pk_test_Q4rJhvGHpIIBZsRPORvPQhPE"
         />
       )
     }

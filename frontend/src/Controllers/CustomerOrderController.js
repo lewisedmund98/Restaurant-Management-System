@@ -4,7 +4,6 @@
  */
 import React from 'react';
 import OrderDisplay from '../OrderComponents/OrderDisplay.js';
-import TakeMoney from '../OrderComponents/Stripe.js';
 let requests = require('../Requests');
 
 
@@ -53,11 +52,7 @@ export default class OrderController extends React.Component {
 
     render() {
         return (
-            <React.Fragment>
-                
-            <TakeMoney></TakeMoney>
             <OrderDisplay orderDetails={this.state.combinedResult}></OrderDisplay>
-            </React.Fragment>
         )
     }
 
