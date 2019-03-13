@@ -59,7 +59,6 @@ CREATE TABLE `customers` (
   `customerID` varchar(255) NOT NULL,
   `name` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `phone` varchar(45) NOT NULL,
   PRIMARY KEY (`customerID`),
   UNIQUE KEY `customerID_UNIQUE` (`customerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -101,6 +100,25 @@ CREATE TABLE `menuItems` (
   `itemImage` longtext,
   PRIMARY KEY (`itemID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `notifications`
+--
+
+DROP TABLE IF EXISTS `notifications`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notifications` (
+  `id` varchar(250) NOT NULL,
+  `table` int(11) NOT NULL,
+  `inserted` float NOT NULL,
+  `retrieved` float DEFAULT NULL,
+  `type` text NOT NULL,
+  `meta` text,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -162,7 +180,7 @@ DROP TABLE IF EXISTS `userAccess`;
 CREATE TABLE `userAccess` (
   `id` varchar(250) NOT NULL,
   `token` varchar(250) NOT NULL,
-  `time` int(11) NOT NULL,
+  `time` text NOT NULL,
   `uid` varchar(250) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
@@ -200,4 +218,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-28 11:55:34
+-- Dump completed on 2019-03-12 21:48:30

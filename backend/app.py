@@ -7,6 +7,7 @@ from services.menu.menu import menu
 from services.authentication.authentication import authentication
 from services.order.order import order
 from services.orders.orders import orders
+from services.notifications.notifications import notifications
 
 # Flask Set Up
 app = Flask(__name__)
@@ -42,6 +43,11 @@ def handleOrder(path):
 def handleOrders(path):
     ordersObj = orders(request)
     return jsonify(ordersObj.getResponse())
+
+@app.route("/notifications/<path:path>", methods=['GET', 'POST'])
+def handleNotifications(path):
+    notifObj = notifications(request)
+    return jsonify(notifObj.getResponse())
 
 
 if __name__ == '__main__':

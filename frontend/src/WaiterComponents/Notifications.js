@@ -1,0 +1,59 @@
+import React from 'react';
+import NotificationModal from './NotficationView';
+
+
+export default class Notifications extends React.Component {
+    constructor(props) {
+        super(props);
+        this.notificationList = [];
+        this.doSomething = this.doSomething.bind(this);
+        this.checkUniqueElement = this.checkUniqueElement.bind(this);
+        this.displayedList = [];
+        this.state = {
+            displayedNotificiations: []
+        }
+    }
+
+    doSomething(notifications) {
+        notifications.forEach(element => {
+            if (this.checkUniqueElement(element)) {     
+                    this.displayedList.push(element);
+                
+            }
+        });
+    }
+
+    checkUniqueElement(element) {
+        for (var i = 0; i < this.displayedList.length; i++) {
+            if (this.displayedList[i] === element) {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+    mapNotifications(displayedList) {
+        var mappedList = displayedList.map((element) => {
+            return (
+                <NotificationModal timeCreated={element.inserted} tableNumber={element.table}></NotificationModal>
+            )
+        })
+
+        return mappedList;
+    }
+
+    render() {
+        if (this.props.notifications) {
+            //console.log(this.props.notifications.length);
+            this.doSomething(this.props.notifications);
+            var mappedList = this.mapNotifications(this.displayedList);
+        }
+
+        return (
+            <ul>
+                {mappedList}
+            </ul>
+        )
+    }
+}
