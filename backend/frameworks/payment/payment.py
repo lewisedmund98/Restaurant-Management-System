@@ -60,7 +60,7 @@ class payment:
         self.__order.loadOrderHistory(orderID)
         chargeID = None
         for historyRow in self.__order.getOrderHistory():
-            if(historyRow['paid']):
+            if(historyRow['stage'] == "paid"):
                 chargeID = json.loads(historyRow['metafield'])['stripeChargeID']
 
         if(chargeID == None): 
@@ -72,7 +72,7 @@ class payment:
 
         if(re['status'] != "succeeded"):
             return False
-        else 
+        else:
             return re['id']
 
 
