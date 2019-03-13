@@ -30,7 +30,7 @@ class order:
     def loadOrderHistory(self, orderID):
         cursor = self.__db.cursor()
         cursor.execute("SELECT * FROM `orderHistory` WHERE `orderID` = %s ORDER BY `inserted` DESC", orderID)
-        if cursor.rowcount == 1:
+        if cursor.rowcount != 0:
             self.__orderhistory = cursor.fetchall()
             return True
         else:
@@ -58,12 +58,15 @@ class order:
             self.__orderAddItem(orderID, item)
 
         return orderID
+
+    def paymentComplete(self, id, chargeID):
+        return self.__insertOrderHistory(id, "paid", {"stripeChargeID": chargeID})
     
     def waiterConfirm(self, id):
         return self.__insertOrderHistory(id, "waiterConfirmed", {})
 
-    def orderCancel(self, id):
-        return self.__insertOrderHistory(id, "cancelled", {})
+    def orderCancel(self, id, refund=""):
+        return self.__insertOrderHistory(id, "cancelled", {"stripeRefundID": refund})
     
     def kitchenConfirm(self, id, eta):
         return self.__insertOrderHistory(id, "kitchenConfirmed", {"eta": eta})
