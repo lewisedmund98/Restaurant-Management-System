@@ -43,7 +43,7 @@ export default class ChooseTable extends React.Component {
 
     render() {
         return (
-            <Modal trigger={<Button>Choose Tables</Button>}>
+            <Modal trigger={<Button style ={{backgroundColor: "blue", color: "white", display: "block", marginLeft: "auto", marginRight: "auto"}}>Choose Tables</Button>}>
                 <Modal.Content>
                     <Button value="1" onClick={(e) => { this.addTable(e) }}>1</Button>
                     <Button value="2" onClick={(e) => { this.addTable(e) }}>2</Button>

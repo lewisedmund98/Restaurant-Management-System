@@ -72,7 +72,7 @@ export default class Customer extends React.Component {
                 <div class="topnav">
                     <img class="logo" src="oaxaca_logo.png" alt="Oaxaca Logo" height="150" width="150"/>
                 </div>
-                <div className="loginContainer">
+                <div className="loginContainer" style={{paddingTop: "1%", paddingBottom: "1%"}}>
                     <ChooseTable setTable={this.setTables}></ChooseTable>
                 </div>
                 <div className="orderContainer">
