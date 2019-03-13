@@ -7,31 +7,41 @@ import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 
 export default class TakeMoney extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.payForOrder = this.payForOrder.bind(this);
   }
-    onToken(token){  
-        token = {...token, ...{order_id: this.props.orderID}};
-        var newToken = JSON.stringify(token);
-        var newTokenIdReplaced = newToken.replace(/"id"/, "\"token_id\"");
-        this.payForOrder(newTokenIdReplaced);
-    }
+  onToken(token) {
+    token = { ...token, ...{ order_id: this.props.orderID } };
+    var newToken = JSON.stringify(token);
+    var newTokenIdReplaced = newToken.replace(/"id"/, "\"token_id\"");
+    this.payForOrder(newTokenIdReplaced); // Pays for order
+  }
 
-    payForOrder(finalToken){
-      // Makes fetch call
+  payForOrder(finalToken) {
+    // Makes fetch call
+    fetch("https://flask.team-project.crablab.co/order/payment", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: finalToken
+    })
+    .then(response => response.json())
+    .then(json => {
+      console.log(json);
+    })
+  }
 
-    }
-  
-    // ...
-  
-    render() {
-      return (
-        // ...
-        <StripeCheckout
-          token={(token)=>{this.onToken(token)}} // Replaced with non anon function, had to add orderid
-          stripeKey="pk_test_Q4rJhvGHpIIBZsRPORvPQhPE"
-        />
-      )
-    }
+  // ...
+
+  render() {
+    return (
+      // ...
+      <StripeCheckout
+        token={(token) => { this.onToken(token) }} // Replaced with non anon function, had to add orderid
+        stripeKey="pk_test_Q4rJhvGHpIIBZsRPORvPQhPE"
+      />
+    )
+  }
 }
