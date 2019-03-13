@@ -21,14 +21,19 @@ class payment:
             raise Exception("Order not in correct stage for payment")
         
         total = self.__calculatePrice(orderInfo)
-
-        charge = stripe.Charge.create(
-            amount=total,
-            currency='gbp',
-            description=orderID,
-            source=tokenID,
-            capture=False, # Don't submit for presentment
-        )
+        
+        # Try to charge card
+        try:
+            charge = stripe.Charge.create(
+                amount=total,
+                currency='gbp',
+                description=orderID,
+                source=tokenID,
+                capture=False, # Don't submit for presentment
+            )
+        except:
+            # Card was declined for a weird reason
+            return {"failed": ""}
 
         # Card was declined
         if(charge['failure_message'] != None): 
