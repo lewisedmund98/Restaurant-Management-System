@@ -126,6 +126,7 @@ export default class WaiterPageController extends React.Component {
                                 .then(customerDetails => {
                                     customerDetails = customerDetails.result[0];
                                     var combinedResult = { ...{ menuItems: menuItemsArray }, ...order, ...customerDetails};
+                                    console.log(combinedResult);
                                     this.arrayOfUnconfirmedOrders[index] = combinedResult;
                                     if (!this.arrayOfUnconfirmedOrders.some(element => element.orderID === combinedResult.orderID)) {
                                         this.arrayOfUnconfirmedOrders.push(combinedResult);

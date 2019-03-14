@@ -65,7 +65,7 @@ export default class OrderListView extends React.Component {
         var time = moment.unix(this.props.timeCreated).format("DD MMM YYYY hh:mm a");
         return (
             <Table.Row key={"this.props.key"}>
-                <Table.Cell>{this.props.custID}</Table.Cell>
+                <Table.Cell>{this.props.table}</Table.Cell>
                 <Table.Cell>{this.props.custName}</Table.Cell>
                 <Table.Cell>{this.props.orderID}</Table.Cell>
                 <Table.Cell>{time}</Table.Cell>
