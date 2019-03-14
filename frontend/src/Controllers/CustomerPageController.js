@@ -63,22 +63,24 @@ export default class CustomerPageController extends React.Component {
         })
     }
 
-    componentDidMount() {
-        const cookies = new Cookies();
-        cookies.set(this.state.cookieKey, "", { path: '/' });
-    }
-
     setOrder(orderNumber){
-        alert("reaches here0");
-        var tempCookieArr = this.cookies.get(this.state.cookieKey).split("|");
-        alert("reaches here1");
-        tempCookieArr.push(orderNumber.orderId);
-        alert("reaches here2");
-        tempCookieArr = tempCookieArr.join("|");
-        this.cookies.set(this.state.cookieKey, tempCookieArr, { path: '/' });
-        alert("reaches here3");
-        alert(this.cookies.get(this.state.cookieKey));
-        alert("reaches here4");
+        const cookies = new Cookies();
+        // cookies.remove(this.state.cookieKey);
+        // alert(cookies.get(this.state.cookieKey));
+        // var tempCookieArr = [];
+        // tempCookieArr[0] = cookies.get(this.state.cookieKey);
+        // if (tempCookieArr[0] != null) {
+        //     alert("here");
+        //     tempCookieArr = JSON.parse(tempCookieArr);
+        //     alert("here2");
+        //     tempCookieArr.push(orderNumber.orderID);
+        //     alert("here3");
+        // } else {
+        //     tempCookieArr[0] = [orderNumber.orderID]
+        // }
+        // alert(tempCookieArr);
+        // cookies.set(this.state.cookieKey, JSON.stringify(tempCookieArr), { path: '/' });
+        // alert("got here then good sign");
         var tempOrderArray = this.state.orderNumbers; // Adds an order number to the list
         tempOrderArray.push(orderNumber);
         this.setState({
