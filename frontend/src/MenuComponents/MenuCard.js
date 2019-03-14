@@ -57,7 +57,8 @@ class MenuItemCard extends React.Component {
                                 </Button>
                             } 
                             allergyList={this.props.dishAllergies} 
-                            dishName={this.props.dishName} 
+                            dishName={this.props.dishName}
+                            dishImage = {this.props.dishImage} 
                             dishCalories = {this.props.dishCalories}>
                             </InfoModal>
                             <b> {"£"+this.props.dishPrice}</b>
