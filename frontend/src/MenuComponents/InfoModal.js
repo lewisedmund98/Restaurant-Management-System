@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal } from 'semantic-ui-react';
+import { Modal, Image } from 'semantic-ui-react';
 
 /**
  * The information modal class is used to show the dish information.
@@ -34,18 +34,20 @@ export default class InfoModal extends React.Component {
         var allergyList = this.mapAllergyInformation(this.props.allergyList);
         return (
             <Modal trigger={this.props.modalTrigger}> {/*Set the trigger to the button*/}
+                <Modal.Header>
+                {/*<Image avatar={true} src={this.props.dishImage}></Image>*/}
+                   <h1 style={{textAlign:"center"}}>{this.props.dishName}</h1>
+                </Modal.Header>
                 <Modal.Content>
-                    <h1>Allergy Information</h1>
+                    <h2>Allergy Information:</h2>
 
                     <ul className="allergyList">{allergyList}</ul> {/*Render the list of allergies*/}
 
-                    <h1>Calories</h1>
+                    <h2>Calories:</h2>
 
                     <ul className="caloriesList">{this.props.dishCalories}</ul>
                 </Modal.Content>
-                <Modal.Header>
-                    <p>The {this.props.dishName}'s allergy and calorie information</p>
-                </Modal.Header>
+                
             </Modal>
         )
     }
