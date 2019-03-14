@@ -12,8 +12,11 @@ export default class Customer extends React.Component {
     render() {
         document.title = "Oaxaca Customer";
         return (
+            
             <div>
-                
+                <div class="topnav">
+                    <img class="logo" src="oaxaca_logo.png" alt="Oaxaca Logo" height="150" width="150"/>
+            </div>
                <CustomerPageController></CustomerPageController>
                 
             </div>

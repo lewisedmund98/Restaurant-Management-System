@@ -66,7 +66,8 @@ export default class WaiterPageWrapper extends React.Component {
             <React.Fragment>
                 <div style={{padding: "20px"}} className="unconfirmedOrderDiv">
                 <h1>New Orders</h1>
-                <Table>
+                <div style={{height: "400px", overflowY: "scroll"}}>
+                <Table >
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Customer ID</Table.HeaderCell>
@@ -77,14 +78,19 @@ export default class WaiterPageWrapper extends React.Component {
                             <Table.HeaderCell>Action</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
+
                     <Table.Body>
+                    
                         {mappedOrderList} {/*<OrderListView unconfirmed={true}></OrderListView>*/}
+                    
                     </Table.Body>
                 </Table>
+                </div>
                 </div>
 
                 <div  style={{padding: "20px"}} className="toBeDeliveredDiv">
                     <h1>To Be Delivered</h1>
+                    <div style={{height: "400px", overflowY: "scroll"}}>
                     <Table>
                     <Table.Header>
                         <Table.Row>
@@ -100,6 +106,7 @@ export default class WaiterPageWrapper extends React.Component {
                         {mappedToBeDel}
                     </Table.Body>
                     </Table>
+                </div>
                 </div>
 
                 <div className="24hourdiv">
