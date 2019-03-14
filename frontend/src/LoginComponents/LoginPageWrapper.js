@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Form } from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
 
 /**
  * This 
@@ -15,11 +16,12 @@ export default class LoginPageWrapper extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(event, data){
-    const name = data.name;
-    const itemData = data.value;
+  handleChange(event){
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
     this.setState({
-        [name] : itemData
+        [name] : value
     });
   }
 
@@ -41,9 +43,8 @@ export default class LoginPageWrapper extends React.Component {
   }
 
     render() {
-        //if(this.props.state.) 
         return(
-            <Form onSubmit={this.createLogin}>
+            <Form>
                 <Form.Field>
                   <label>Staff ID</label>
                   <input
@@ -59,8 +60,13 @@ export default class LoginPageWrapper extends React.Component {
                    required onChange={this.handleChange}
                    />
                 </Form.Field>
-                <Button type='submit' onClick="location.href='/kitchen'">Login</Button>
+                <Link to={{
+                        pathname:"/waiter"
+                    }}>
+                <Button type='submit' onClick={this.createLogin}>Login</Button>
+                </Link>
             </Form>
+            
         )
     }
 }

@@ -7,12 +7,12 @@ export default class NotificationWrapper extends React.Component {
     
     }
 
-    export const MessageList = () => (
-         <Message>
-             <Message.Header>Order Ready For Delivery</Message.Header>
-             <Message.list>
-                 <NotificationController></NotificationController>
-             </Message.list>
-         </Message>
-    )
+    //export const MessageList = () => (
+      //   <Message>
+        //     <Message.Header>Order Ready For Delivery</Message.Header>
+          //   <Message.list>
+            //     <NotificationController></NotificationController>
+             //</Message.list>
+         //</Message>
+    //)
 }
