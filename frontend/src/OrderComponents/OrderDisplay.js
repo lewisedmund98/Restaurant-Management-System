@@ -4,6 +4,7 @@
  */
 import React from 'react';
 import { Card, List , Image, Label} from 'semantic-ui-react';
+import TakeMoney from '../OrderComponents/Stripe.js';
 
 export default class OrderDisplay extends React.Component {
     constructor(props) {
@@ -50,6 +51,9 @@ export default class OrderDisplay extends React.Component {
                 <Card.Content extra>
                     {menuMapped}
                 </Card.Content>
+                <Card.Description>
+                    <TakeMoney orderID={orderDetail.orderID}></TakeMoney>
+                </Card.Description>
             </Card>
             )
         }
