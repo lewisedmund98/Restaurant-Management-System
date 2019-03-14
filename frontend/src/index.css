@@ -10,7 +10,6 @@
 .cardWrapper{
     border: 0px !important;
     outline: 0px !important;
-    background-color: rgb(255, 0, 0)52, 252, 252);
 }
 .ui.segment.active.tab{
     outline: none !important;
@@ -187,6 +186,21 @@
     color: white !important;
 }
 
+.call{
+    width: 60% !important;
+    display: block !important; 
+    margin-right: auto !important;
+    margin-left: auto !important; 
+    color: white !important;
+    background-Color: green !important; 
+    margin-bottom: 2% !important; 
+    margin-top: 2% !important;
+}
+.selectTableWarning{
+    text-align: center;
+    color: red;
+}
+
 .ui.fluid.vertical.tabular.menu {
     font-family: 'Segoe UI', Georgia, Times, serif !important;
     border: 0px !important;
@@ -360,4 +374,21 @@ body {
 .kitchenOrderCardsContainer{
     width: 100%;
     background-color: black;
+}
+.waiterConfirmBtn{
+    background-color: green !important;
+    color: white !important;
+}
+.waiterCancelBtn{
+    background-color: #D04236 !important;
+    color: white !important;
+}
+.tableNumberBtnWaiter{
+    margin-left: 1% !important;
+    margin-right: 1% !important;
+    border: dashed rgb(31, 112, 233) !important;  
+}
+.chooseTableActions{
+    margin-left: 1% !important;
+    margin-right: 1% !important; 
 }
