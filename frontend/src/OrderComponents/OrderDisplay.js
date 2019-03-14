@@ -35,6 +35,8 @@ export default class OrderDisplay extends React.Component {
         if(details){
             var mappedDetails = details.map((orderDetail, key) => {
                 var menuMapped = this.mapMenuToLabels(orderDetail.menu);
+                var colour = "red";
+                if(orderDetail.stage === "paid"){colour="green"}
                 return (<Card key={key} style={{display: "block", marginLeft: "auto", marginRight: "auto",  width: "50%" }}>
                 <Card.Content>
                     <Card.Header>
@@ -46,13 +48,13 @@ export default class OrderDisplay extends React.Component {
                     <Card.Meta >
                         Table Number: {orderDetail.table}
                     </Card.Meta>
-                    <Label color="red">{orderDetail.stage}</Label>
+                    <Label color={colour}>{orderDetail.stage}</Label>
                 </Card.Content>
                 <Card.Content extra>
                     {menuMapped}
                 </Card.Content>
                 <Card.Description>
-                    { orderDetail.stage !== "paid" &&
+                    { (orderDetail.stage !== "paid" && orderDetail.stage !== "cancelled") &&
                     <TakeMoney orderID={orderDetail.orderID}></TakeMoney>
                     }
                 </Card.Description>
