@@ -186,6 +186,21 @@
     color: white !important;
 }
 
+.call{
+    width: 60% !important;
+    display: block !important; 
+    margin-right: auto !important;
+    margin-left: auto !important; 
+    color: white !important;
+    background-Color: green !important; 
+    margin-bottom: 2% !important; 
+    margin-top: 2% !important;
+}
+.selectTableWarning{
+    text-align: center;
+    color: red;
+}
+
 .ui.fluid.vertical.tabular.menu {
     font-family: 'Segoe UI', Georgia, Times, serif !important;
     border: 0px !important;

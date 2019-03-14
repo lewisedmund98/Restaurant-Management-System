@@ -56,21 +56,32 @@ export default class CallWaiter extends React.Component {
         console.log(table)
         return (
             <Modal trigger={<Button>Call Waiter</Button>}>
-                <Modal.Header>
+                <Modal.Header style={{textAlign: "center"}}>
                     Which table are you sitting at?
                 </Modal.Header>
-                <Modal.Content>
-                    <Button value="1" onClick={(e) => { this.handleSetTable(e) }}>1</Button>
-                    <Button value="2" onClick={(e) => { this.handleSetTable(e) }}>2</Button>
-                    <Button value="3" onClick={(e) => { this.handleSetTable(e) }}>3</Button>
-                    <Button value="4" onClick={(e) => { this.handleSetTable(e) }}>4</Button>
+                <Modal.Content className="tableNumberBtnCustomer">
+                    <div style={{textAlign: "center"}}>
+                        <div style={{display: "block", marginRight: "auto", marginLeft: "auto"}}>
+                            <Button className="tableNumberBtnCustomer" value="1" onClick={(e) => { this.handleSetTable(e) }}>1</Button>
+                            <Button className="tableNumberBtnCustomer" value="2" onClick={(e) => { this.handleSetTable(e) }}>2</Button>
+                            <Button className="tableNumberBtnCustomer" value="3" onClick={(e) => { this.handleSetTable(e) }}>3</Button>
+                            <Button className="tableNumberBtnCustomer" value="4" onClick={(e) => { this.handleSetTable(e) }}>4</Button>
+                        </div>
+                    </div>
                 </Modal.Content>
                 <Modal.Description>
-                    <Button className="call" onClick={() => { this.makeCallToWaiter() }}>Call</Button>
-                    <p style={{ float: "right" }}><b>Your table: {table}</b></p>
-                    {this.state.selected === false && this.state.called === true &&
-                        <p className="selectTableWarning"> Please select a table </p>
-                    }
+                    <div>
+                        <div>
+                            <h3 style={{textAlign: "center"}}><b>Your table: {table}</b></h3>
+                            {this.state.selected === false && this.state.called === true &&
+                                <h3 className="selectTableWarning"> Please select a table! </h3>
+                            }
+                        </div>
+                        <div>
+                            <Button className="call" onClick={() => { this.makeCallToWaiter() }}>Call</Button>
+                        </div>
+                        
+                    </div>
                 </Modal.Description>
             </Modal>
         )
