@@ -27,6 +27,15 @@ class order:
     def getOrderHistory(self):  # getter for private order status field
         return self.__orderhistory
 
+    def getCustomer(self):
+        if(self.__orderinfo == None):
+            return False
+        print(self.__orderinfo['customerID'])
+        cursor = self.__db.cursor()
+        cursor.execute("SELECT * FROM `customers` WHERE `customerID` = %s", self.__orderinfo['customerID'])
+        return cursor.fetchall()
+
+
     def loadOrderHistory(self, orderID):
         cursor = self.__db.cursor()
         cursor.execute("SELECT * FROM `orderHistory` WHERE `orderID` = %s ORDER BY `inserted` DESC", orderID)
