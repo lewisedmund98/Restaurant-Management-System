@@ -41,17 +41,17 @@ export default class OrderListView extends React.Component {
         if (this.props.unconfirmed) {
             buttonState = "Confirm";
             return (
-                <div className="unconfirmedButtons">
-                    <Button content={buttonState} onClick={(event, data) => {
+                
+                    <Button className="waiterConfirmBtn" content={buttonState} onClick={(event, data) => {
                         this.confirmOrderLoc();
                     }}></Button>
-                </div>
+                
             )
         }
 
         if (this.props.delivered) {
             return (
-                <Button content={"Confirm Delivery"} onClick={(event, data) => {
+                <Button className="waiterConfirmBtn" content={"Confirm Delivery"} onClick={(event, data) => {
                     this.deliverOrder();
                 }}></Button>
             )
@@ -65,7 +65,7 @@ export default class OrderListView extends React.Component {
         var time = moment.unix(this.props.timeCreated).format("DD MMM YYYY hh:mm a");
         return (
             <Table.Row key={"this.props.key"}>
-                <Table.Cell>{this.props.custID}</Table.Cell>
+                <Table.Cell>{this.props.table}</Table.Cell>
                 <Table.Cell>{this.props.custName}</Table.Cell>
                 <Table.Cell>{this.props.orderID}</Table.Cell>
                 <Table.Cell>{time}</Table.Cell>
@@ -73,7 +73,7 @@ export default class OrderListView extends React.Component {
                 <Table.Cell>
 
                     {this.getCorrectButton()}
-                    <Button onClick={() => { this.cancelOrder() }}>Cancel</Button>
+                    <Button className="waiterCancelBtn" onClick={() => { this.cancelOrder() }}>Cancel</Button>
 
                 </Table.Cell>
             </Table.Row>

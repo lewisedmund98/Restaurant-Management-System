@@ -93,16 +93,17 @@ export default class CustomerPageController extends React.Component {
         return (
             <div className="mainContainer">
                 
-                
+                <div style={{textAlign: "center"}}>
+                    <CallWaiter></CallWaiter></div>
                 <div className="basketAndMenuItems">
                 <div className="basketSide">
-                    <Basket setOrder={this.setOrder} onRemove={this.removeFromBasket} dishList={this.state.currentBasket}></Basket>
+                <Basket setOrder={this.setOrder} onRemove={this.removeFromBasket} dishList={this.state.currentBasket}></Basket>
                     <Link to={{
                         pathname:"/customerOrder", 
                         state:{orderNumber: this.state.orderNumbers}
                     }}>
                     <Button className="yourOrdersBtn">Your Orders</Button></Link>
-                    <CallWaiter></CallWaiter>
+                    
                     </div>
                 <div id="ListCards">
                     <CardController basket={this.addToBasket}> {/*Basket is the event handler for a button*/}
