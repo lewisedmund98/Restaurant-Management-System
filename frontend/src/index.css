@@ -385,7 +385,8 @@ body {
 }
 .tableNumberBtnWaiter{
     margin-left: 1% !important;
-    margin-right: 1% !important;    
+    margin-right: 1% !important;
+    border: dashed rgb(31, 112, 233) !important;  
 }
 .chooseTableActions{
     margin-left: 1% !important;
