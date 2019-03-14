@@ -5,6 +5,7 @@ import '../index.css';
 import Basket from '../BasketComponents/Basket.js';
 import {Button} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 /**
  * The customer page controller is the main controller for the page with url/customer.
@@ -22,7 +23,9 @@ export default class CustomerPageController extends React.Component {
             currentBasket:[], // Adds a basket array to which I will append menu objects
             orderPlaced: false,
             orderComplete: false,
-            orderNumbers : []
+            orderNumbers : [],
+            cookieArr : [],
+            cookieKey : "myCookie"
         };
         this.addToBasket = this.addToBasket.bind(this); // Method to add to the basket.
         this.removeFromBasket = this.removeFromBasket.bind(this); 
@@ -60,14 +63,28 @@ export default class CustomerPageController extends React.Component {
         })
     }
 
+    componentDidMount() {
+        const cookies = new Cookies();
+        cookies.set(this.state.cookieKey, "", { path: '/' });
+    }
+
     setOrder(orderNumber){
+        alert("reaches here0");
+        var tempCookieArr = this.cookies.get(this.state.cookieKey).split("|");
+        alert("reaches here1");
+        tempCookieArr.push(orderNumber.orderId);
+        alert("reaches here2");
+        tempCookieArr = tempCookieArr.join("|");
+        this.cookies.set(this.state.cookieKey, tempCookieArr, { path: '/' });
+        alert("reaches here3");
+        alert(this.cookies.get(this.state.cookieKey));
+        alert("reaches here4");
         var tempOrderArray = this.state.orderNumbers; // Adds an order number to the list
         tempOrderArray.push(orderNumber);
         this.setState({
             orderPlaced: true,
             orderNumbers : tempOrderArray
         });
-        
     }
 
     render() {
