@@ -52,7 +52,9 @@ export default class OrderDisplay extends React.Component {
                     {menuMapped}
                 </Card.Content>
                 <Card.Description>
+                    { orderDetail.stage !== "paid" &&
                     <TakeMoney orderID={orderDetail.orderID}></TakeMoney>
+                    }
                 </Card.Description>
             </Card>
             )
