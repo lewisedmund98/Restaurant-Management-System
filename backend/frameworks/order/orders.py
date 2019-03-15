@@ -60,7 +60,7 @@ class orders():
 
     def __getWaiterConfirmed(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM (SELECT orderID, count(*) as idCount FROM orderHistory GROUP BY orderID) AS OH WHERE OH.idCount = '2';")
+        cursor.execute("SELECT orderID FROM orderHistory WHERE stage = 'waiterConfirmed' AND stage NOT LIKE 'cancelled' AND stage NOT LIKE 'kitchenConfirmed' AND stage NOT LIKE 'waiterComplete' AND stage NOT LIKE 'kitchenComplete' GROUP BY orderID;")
         return cursor.fetchall()
 
     def __getCancelledOrders(self):
@@ -70,15 +70,20 @@ class orders():
 
     def __getKitchenConfirmed(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM (SELECT orderID, count(*) as idCount FROM orderHistory GROUP BY orderID) AS OH WHERE OH.idCount = '3';")
+        cursor.execute("SELECT orderID FROM orderHistory WHERE stage = 'kitchenConfirmed' AND stage NOT LIKE 'cancelled' AND stage NOT LIKE 'waiterComplete' AND stage NOT LIKE 'kitchenComplete' GROUP BY orderID;")
         return cursor.fetchall()
 
     def __getWaiterComplete(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM (SELECT orderID, count(*) as idCount FROM orderHistory GROUP BY orderID) AS OH WHERE OH.idCount = '5';")
+        cursor.execute("SELECT orderID FROM orderHistory WHERE stage = 'waiterComplete'AND stage NOT LIKE 'cancelled' GROUP BY orderID;")
         return cursor.fetchall()
 
     def __getKitchenComplete(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM (SELECT orderID, count(*) as idCount FROM orderHistory GROUP BY orderID) AS OH WHERE OH.idCount = '4';")
+        cursor.execute("SELECT orderID FROM orderHistory WHERE stage = 'kitchenComplete' AND stage NOT LIKE 'cancelled' AND stage NOT LIKE 'waiterComplete' GROUP BY orderID;")
+        return cursor.fetchall()
+
+    def __getPaid(self):
+        cursor = self.__db.cursor()
+        cursor.execute("SELECT orderID FROM orderHistory WHERE stage = 'paid' AND stage NOT LIKE 'cancelled' AND stage NOT LIKE 'kitchenConfirmed' AND stage NOT LIKE 'waiterComplete' AND stage NOT LIKE 'kitchenComplete' AND stage NOT LIKE 'waiterConfirmed'' GROUP BY orderID;")
         return cursor.fetchall()
