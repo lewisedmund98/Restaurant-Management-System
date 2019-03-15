@@ -33,7 +33,10 @@ export default class OrderDisplay extends React.Component {
 
     mapOrderDetails(details) {
         if(details){
+            var moment = require('moment');
+            var time;
             var mappedDetails = details.map((orderDetail, key) => {
+                time = moment.unix(orderDetail.timeCreated).format("hh:mm a");
                 var menuMapped = this.mapMenuToLabels(orderDetail.menu);
                 var colour = "red";
                 if(orderDetail.stage === "paid"){colour="green"}
@@ -43,7 +46,7 @@ export default class OrderDisplay extends React.Component {
                         Order Number: {orderDetail.orderID}
                     </Card.Header>
                     <Card.Description>
-                        Order Time: {orderDetail.timeCreated}
+                        Order Time: {time}
                     </Card.Description>
                     <Card.Meta >
                         Table Number: {orderDetail.table}
