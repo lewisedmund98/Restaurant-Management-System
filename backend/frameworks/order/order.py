@@ -38,7 +38,7 @@ class order:
 
     def loadOrderInfo(self, orderID):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orders.*, JSON_ARRAYAGG(orderItems.itemID) as items FROM orders LEFT JOIN orderItems ON orderItems.orderID = orders.orderID GROUP BY orders.orderID;", (orderID))
+        cursor.execute("SELECT orders.*, JSON_ARRAYAGG(orderItems.itemID) as items FROM orders LEFT JOIN orderItems ON orderItems.orderID = orders.orderID WHERE orders.orderID = %s GROUP BY orders.orderID;", (orderID))
         if cursor.rowcount == 1:
             self.__orderinfo = cursor.fetchone()
             self.__orderinfo['items'] = json.loads(self.__orderinfo['items'])
