@@ -55,7 +55,7 @@ class orders():
 
     def __getWaiterUnconfirmed(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID from orderHistory WHERE orderID NOT IN (SELECT orderID from orderHistory WHERE stage != 'created');")
+        cursor.execute("SELECT orderID FROM orderHistory WHERE stage = 'paid' AND stage != 'cancelled' AND stage != 'kitchenConfirmed' AND stage != 'waiterComplete' AND stage != 'kitchenComplete' GROUP BY orderID;")
         return cursor.fetchall()
 
     def __getWaiterConfirmed(self):
