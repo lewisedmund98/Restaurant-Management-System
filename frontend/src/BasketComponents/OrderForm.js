@@ -92,10 +92,10 @@ export default class OrderForm extends React.Component {
                     <Label class="basketLabel">Email Address</Label>
                     <Input required onChange={this.handleInputChange} name="email" placeholder='Email Address...' />
                 </Form.Field>
-                <Form.Field>
+                {/* <Form.Field>
                     <Label class="basketLabel">Phone Number</Label>
                     <Input required onChange={this.handleInputChange} name="phone" placeholder='Phone Number...' />
-                </Form.Field>
+                </Form.Field> */}
                 <Form.Field>
                     <Label class="basketLabel">Table Number</Label>
                     <Dropdown required onChange={this.handleInputChange} name="tableNumber"
