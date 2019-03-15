@@ -55,7 +55,7 @@ export default class CallWaiter extends React.Component {
         var table = this.state.table === null ? "None" : this.state.table;
         console.log(table)
         return (
-            <Modal trigger={<Button style={{border: "dashed orange", backgroundColor: "white", color: "rgb(31, 112, 233)"}}>Call Waiter</Button>}>
+            <Modal trigger={<Button className="callWaiterModalTrigger" >Call Waiter</Button>}>
                 <Modal.Header style={{textAlign: "center"}}>
                     Which table are you sitting at?
                 </Modal.Header>
