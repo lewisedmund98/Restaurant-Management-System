@@ -5,6 +5,7 @@ import '../index.css';
 import Basket from '../BasketComponents/Basket.js';
 import {Button} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 /**
  * The customer page controller is the main controller for the page with url/customer.
@@ -22,7 +23,9 @@ export default class CustomerPageController extends React.Component {
             currentBasket:[], // Adds a basket array to which I will append menu objects
             orderPlaced: false,
             orderComplete: false,
-            orderNumbers : []
+            orderNumbers : [],
+            cookieArr : [],
+            cookieKey : "myCookie"
         };
         this.addToBasket = this.addToBasket.bind(this); // Method to add to the basket.
         this.removeFromBasket = this.removeFromBasket.bind(this); 
@@ -61,29 +64,46 @@ export default class CustomerPageController extends React.Component {
     }
 
     setOrder(orderNumber){
+        const cookies = new Cookies();
+        // cookies.remove(this.state.cookieKey);
+        // alert(cookies.get(this.state.cookieKey));
+        // var tempCookieArr = [];
+        // tempCookieArr[0] = cookies.get(this.state.cookieKey);
+        // if (tempCookieArr[0] != null) {
+        //     alert("here");
+        //     tempCookieArr = JSON.parse(tempCookieArr);
+        //     alert("here2");
+        //     tempCookieArr.push(orderNumber.orderID);
+        //     alert("here3");
+        // } else {
+        //     tempCookieArr[0] = [orderNumber.orderID]
+        // }
+        // alert(tempCookieArr);
+        // cookies.set(this.state.cookieKey, JSON.stringify(tempCookieArr), { path: '/' });
+        // alert("got here then good sign");
         var tempOrderArray = this.state.orderNumbers; // Adds an order number to the list
         tempOrderArray.push(orderNumber);
         this.setState({
             orderPlaced: true,
             orderNumbers : tempOrderArray
         });
-        
     }
 
     render() {
         return (
             <div className="mainContainer">
                 
-                
+                <div style={{textAlign: "center"}}>
+                    <CallWaiter></CallWaiter></div>
                 <div className="basketAndMenuItems">
                 <div className="basketSide">
-                    <Basket setOrder={this.setOrder} onRemove={this.removeFromBasket} dishList={this.state.currentBasket}></Basket>
+                <Basket setOrder={this.setOrder} onRemove={this.removeFromBasket} dishList={this.state.currentBasket}></Basket>
                     <Link to={{
                         pathname:"/customerOrder", 
                         state:{orderNumber: this.state.orderNumbers}
                     }}>
                     <Button className="yourOrdersBtn">Your Orders</Button></Link>
-                    <CallWaiter></CallWaiter>
+                    
                     </div>
                 <div id="ListCards">
                     <CardController basket={this.addToBasket}> {/*Basket is the event handler for a button*/}
