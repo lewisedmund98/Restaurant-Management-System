@@ -69,7 +69,7 @@ export default class CustomerPageController extends React.Component {
         tempCookieArr.push(orderNumber.orderId);
         this.setState({
             cookieArr: tempCookieArr
-        })
+        });
         cookies.set(this.state.cookieKey, tempCookieArr, { path: '/' });
         var tempOrderArray = this.state.orderNumbers; // Adds an order number to the list
         tempOrderArray.push(orderNumber);
