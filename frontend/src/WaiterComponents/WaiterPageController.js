@@ -55,7 +55,7 @@ export default class WaiterPageController extends React.Component {
         this.startTimer(500);
     }
 
-    startTimer(interval){
+    startTimer(interval) {
         setTimeout(() => {
             this.checkForUpdate();
         }, interval);
@@ -90,8 +90,8 @@ export default class WaiterPageController extends React.Component {
                 .then((json) => {
                     this.props.updateToken(json.new_access_token.access_token);
                     var tempArray = this.state.notifications;
-                    if(json.results.length > 0){ // If there is a new notification
-                        json.results.forEach((notification)=>{ // Add it to the current list which will be passed
+                    if (json.results.length > 0) { // If there is a new notification
+                        json.results.forEach((notification) => { // Add it to the current list which will be passed
                             tempArray.push(notification);
 
                         })
@@ -117,17 +117,21 @@ export default class WaiterPageController extends React.Component {
                 data = data.orders;
                 data.forEach(async (order, index) => {
                     await request.getMenuItems(order.items) // Pass Items
-                        .then((menuItems) => {
+                        .then(async (menuItems) => {
                             var menuItemsArray = [];
                             for (var i = 0; i < menuItems.length; i++) {
                                 menuItemsArray.push(menuItems[i].result);
                             }
-                            var combinedResult = { ...{ menuItems: menuItemsArray }, ...order };
+                            await request.getCustomerDetailsFromOrder(order.orderID)
+                                .then(customerDetails => {
+                                    customerDetails = customerDetails.result[0];
+                                    var combinedResult = { ...{ menuItems: menuItemsArray }, ...order, ...customerDetails};
+                                    this.arrayOfUnconfirmedOrders[index] = combinedResult;
+                                    if (!this.arrayOfUnconfirmedOrders.some(element => element.orderID === combinedResult.orderID)) {
+                                        this.arrayOfUnconfirmedOrders.push(combinedResult);
+                                    }
 
-                            this.arrayOfUnconfirmedOrders[index] = combinedResult;
-                            if (!this.arrayOfUnconfirmedOrders.some(element => element.orderID === combinedResult.orderID)) {
-                                this.arrayOfUnconfirmedOrders.push(combinedResult);
-                            }
+                                })
 
                         })
                 })

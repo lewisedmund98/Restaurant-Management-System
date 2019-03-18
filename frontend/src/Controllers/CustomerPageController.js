@@ -1,10 +1,31 @@
+/**
+ * Old Card controller description
+ * The Card Controller class is a class which is made to deal with the data that is going to be used in the
+ * menu cards. This makes the API call and then stores the data in a state. This state propogates through
+ * the program. This means that the properties of CardWrapper and MenuCard update when this updates.
+ * 
+ * This decouples the CardController from the Card wrapper.
+ * 
+ * The CardController calls the TabWrapper and passes in a JSON object array as properties. The logic
+ * for how that is handled and rendered is in the TabWrapper class which takes the list and splits it into menu items
+ * 
+ * The controller can be made better by using a thread which updates the API call if the menu changes all
+ * of a sudden.
+ * 
+ * CURRENT HIERACHY: CardController -> TabWrapper (Splits into 4 TYPES) -> CardWrapper (Makes 4 of these) -> 
+ * MenuCard (Takes the items and displays) -> InfoModal (Event from MenuCard)
+ * 
+ * Note: Fetch is an asynchronous call so state must be used and may take a while to update a user PC if it's slow.
+ */
 import React from 'react';
-import CardController from './CardController.js';
 import CallWaiter from '../MenuComponents/CallWaiter.js';
 import '../index.css';
 import Basket from '../BasketComponents/Basket.js';
+import TabWrapper from '../MenuComponents/TabWrapper.js';
+import MenuFiltering from '../MenuComponents/MenuFiltering.js'
 import {Button} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 /**
  * The customer page controller is the main controller for the page with url/customer.
@@ -22,11 +43,41 @@ export default class CustomerPageController extends React.Component {
             currentBasket:[], // Adds a basket array to which I will append menu objects
             orderPlaced: false,
             orderComplete: false,
-            orderNumbers : []
+            orderNumbers : [],
+            dishList: [], // Sets the current state variables to contain a dish list. This will be populated by JSON objects
+            permDishList : [],
+            cookieArr : [],
+            cookieKey : "myCookie"
         };
         this.addToBasket = this.addToBasket.bind(this); // Method to add to the basket.
         this.removeFromBasket = this.removeFromBasket.bind(this); 
         this.setOrder = this.setOrder.bind(this);
+        this.setDishList = this.setDishList.bind(this);
+    }
+
+    componentDidMount() { // React component method, this method runs when the react component is initially rendered
+        fetch("https://flask.team-project.crablab.co/menu/items") 
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    var finalResponse = result.result; // The header passed starts with "result"
+                    var menuResult = []; // Variable to store the JSON list as JSON objects in an array
+                    for (var currentDish = 0; currentDish < finalResponse.length; currentDish++) { // Loop through each JSON object
+                        menuResult[currentDish] = finalResponse[currentDish]; // Assign the menuitem to result's array element
+                    }
+
+                    console.log(menuResult);
+
+                    this.setState({
+                        permDishList: menuResult,
+                        dishList: menuResult
+                    });
+                });
+    }
+    setDishList(dishListGiven) {
+        this.setState ({
+            dishList: dishListGiven,
+        })
     }
 
     /**
@@ -61,37 +112,64 @@ export default class CustomerPageController extends React.Component {
     }
 
     setOrder(orderNumber){
+        const cookies = new Cookies();
+        // cookies.remove(this.state.cookieKey);
+        // alert(cookies.get(this.state.cookieKey));
+        // var tempCookieArr = [];
+        // tempCookieArr[0] = cookies.get(this.state.cookieKey);
+        // if (tempCookieArr[0] != null) {
+        //     alert("here");
+        //     tempCookieArr = JSON.parse(tempCookieArr);
+        //     alert("here2");
+        //     tempCookieArr.push(orderNumber.orderID);
+        //     alert("here3");
+        // } else {
+        //     tempCookieArr[0] = [orderNumber.orderID]
+        // }
+        // alert(tempCookieArr);
+        // cookies.set(this.state.cookieKey, JSON.stringify(tempCookieArr), { path: '/' });
+        // alert("got here then good sign");
         var tempOrderArray = this.state.orderNumbers; // Adds an order number to the list
         tempOrderArray.push(orderNumber);
         this.setState({
             orderPlaced: true,
             orderNumbers : tempOrderArray
         });
-        
     }
 
     render() {
         return (
+             // We make a tab wrapper which creates the tabs on the screen and pass the list of dishes
             <div className="mainContainer">
+
                 <div className="login">
                     <Link to={{
                         pathname:"/login"
                     }}>
                     <Button className="loginButton">Staff Login</Button></Link>
                 </div> 
+
+                
+                <div style={{textAlign: "right"}}>
+                    <CallWaiter></CallWaiter><MenuFiltering defaultList={this.state.permDishList} dishList={this.state.dishList}
+                                    setDishList={this.setDishList}/></div>
+
                 <div className="basketAndMenuItems">
                 <div className="basketSide">
-                    <Basket setOrder={this.setOrder} onRemove={this.removeFromBasket} dishList={this.state.currentBasket}></Basket>
+                <Basket setOrder={this.setOrder} onRemove={this.removeFromBasket} dishList={this.state.currentBasket}></Basket>
                     <Link to={{
                         pathname:"/customerOrder", 
                         state:{orderNumber: this.state.orderNumbers}
                     }}>
                     <Button className="yourOrdersBtn">Your Orders</Button></Link>
-                    <CallWaiter></CallWaiter>
+                    
                     </div>
                 <div id="ListCards">
-                    <CardController basket={this.addToBasket}> {/*Basket is the event handler for a button*/}
-                    </CardController>
+                    <div className="TabWrapping">
+                        <TabWrapper basket={this.addToBasket} className="tabWrapper" dishList={this.state.dishList}/> 
+                        
+                    </div>
+                    
                 </div>
                 </div>
                 

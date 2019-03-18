@@ -4,7 +4,7 @@
 
 import React from 'react';
 import OrderController from '../Controllers/CustomerOrderController'
-import '../index.css';
+
 
 
 
@@ -21,6 +21,9 @@ export default class CustomerOrderPage extends React.Component {
         document.title = "Your Orders";
         return (
             <div className="orderContainer">
+                <div class="topnav">
+                    <img class="logo" src="oaxaca_logo.png" alt="Oaxaca Logo" height="150" width="150"/>
+                </div>
                 <OrderController customerOrders={orderDetails}></OrderController>
             </div>  
         )

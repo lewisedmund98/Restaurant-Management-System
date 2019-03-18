@@ -54,6 +54,18 @@ export function getOrderStatus(orderID) {
         .catch(error => console.log(error))
 }
 
+export function getCustomerDetailsFromOrder(orderID){
+    return fetch("https://flask.team-project.crablab.co/order/customer", {
+        headers: {
+            "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({order_id: orderID}),
+    })
+    .then(response => response.json())
+    .catch(error => console.log(error))
+}
+
 export function cancelOrder(orderID) {
      return fetch("https://flask.team-project.crablab.co/order/cancel", {
          method: "POST",

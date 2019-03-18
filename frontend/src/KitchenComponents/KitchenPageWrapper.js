@@ -25,13 +25,17 @@ export default class KitchenPageWrapper extends React.Component {
 
 
     mappedWaiterConfirm(waiterConfirmed){
+        var moment = require('moment');
+        var time;
         var mappedCards = waiterConfirmed.map((element) => {
             var mappedKitchenItems = this.mapKitchenItems(element.menuItems);
+            time = moment.unix(element.timeCreated).format("hh:mm a");
             return(
                 <Card className="kitchenCard">
                 <Card.Content>
                     <h5>{element.orderID}</h5>
                     {mappedKitchenItems}
+                    <h5>{time}</h5>
                 </Card.Content>
                 <Card.Content extra>
                     <div id="kitchenOrderButtons">
@@ -47,7 +51,7 @@ export default class KitchenPageWrapper extends React.Component {
                 </Card.Content>
             </Card>
             )
-        })
+        });
 
         return mappedCards;
     }
@@ -57,18 +61,22 @@ export default class KitchenPageWrapper extends React.Component {
             return(
               <KitchenItemsView itemImage={item.itemImage} itemName={item.itemName}></KitchenItemsView>  
             )
-        })
+        });
         return mappedItems;
     }
 
     mapKitchenToBeCompleted(toBeCompleted){
+        var moment = require('moment');
+        var time;
         var mappedCards = toBeCompleted.map((element) => {
             var mappedKitchenItems = this.mapKitchenItems(element.menuItems);
+            time = moment.unix(element.timeCreated).format("hh:mm a");
             return(
                 <Card className="kitchenCard" >
                 <Card.Content>
                     <h5>{element.orderID}</h5>
                     {mappedKitchenItems}
+                    <h5>{time}</h5>
                 </Card.Content>
                 <Card.Content extra>
                     <div id="kitchenOrderButtons">
@@ -79,7 +87,7 @@ export default class KitchenPageWrapper extends React.Component {
                 </Card.Content>
             </Card>
             )
-        })
+        });
         return mappedCards;
     }
 
