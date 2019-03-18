@@ -17,7 +17,7 @@ export default class LoginController extends React.Component {
      postData(loginBody) {
          console.log(loginBody);
         try{
-        fetch("https://flask.team-project.crablab.co/handle/login", {
+        fetch("https://flask.team-project.crablab.co/authentication/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -33,7 +33,7 @@ export default class LoginController extends React.Component {
      render() {
          return(
              <div className="LoginForm">
-                <LoginPageWrapper/>
+                <LoginPageWrapper postData={this.postData}/>
              </div>
 
          )

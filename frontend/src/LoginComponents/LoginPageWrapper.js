@@ -17,11 +17,11 @@ export default class LoginPageWrapper extends React.Component {
   }
 
   handleChange(event){
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
+    var target = event.target;
+    var value = target.value;
+    var name = target.name;
     this.setState({
-        [name] : value
+      [name] : value
     });
   }
 
@@ -31,10 +31,14 @@ export default class LoginPageWrapper extends React.Component {
   }
 
   createLogin() {
+    console.log(this.state.staffID);
+    console.log(this.state.password);
     try {
       var loginRequestBody = JSON.stringify({
-        "staffID" : this.state.staffID,
-        "password" : this.state.password
+        username : this.state.staffID,
+        password : this.state.password,
+        key: "abc123",
+        secret: "def456"
       });
       this.props.postData(loginRequestBody);
     } catch (error) {
@@ -63,7 +67,7 @@ export default class LoginPageWrapper extends React.Component {
                 <Link to={{
                         pathname:"/waiter"
                     }}>
-                <Button type='submit' onClick={this.createLogin}>Login</Button>
+                <Button type='submit' onClick={()=>{this.createLogin()}}>Login</Button>
                 </Link>
             </Form>
             
