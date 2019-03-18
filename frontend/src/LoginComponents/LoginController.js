@@ -23,7 +23,14 @@ export default class LoginController extends React.Component {
                 "Content-Type": "application/json"
             },
             body: loginBody,
-        }).then(res => res.json())
+        }).then(res => {
+            if(res.status === 500){
+                console.log("Bad Login");
+
+            } else {
+                res.json();
+            }
+        })
           .then(res => console.log(res))
         } catch (error) {
             console.log(error);
