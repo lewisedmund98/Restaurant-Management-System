@@ -41,3 +41,13 @@ class items():
         cursor.execute('SELECT itemID, itemEnabled FROM menuItems;')
         data = cursor.fetchall()
         return data
+    
+    def setItemsToggle(self, items):
+        for item in items:
+            self.__itemSetToggle(item['itemID'], item['enabled'])
+        return True
+            
+    def __itemSetToggle(self, itemID, value):
+        cursor = self.__db.cursor()
+        cursor.execute('UPDATE `menuItems` SET `itemEnabled` = %s WHERE `itemID` = %s;', (value, itemID))
+        return True

@@ -3,6 +3,7 @@ from .handler.handleMenu import handleMenu
 from .handler.handleMenuEnabled import handleMenuEnabled
 from .handler.handleMenuDisabled import handleMenuDisabled
 from .handler.handleItem import handleItem
+from. handler.handleMenuItemsToggle import handleMenuItemsToggle
 
 class menu:
 
@@ -15,6 +16,8 @@ class menu:
             self.responseObj = handleMenuEnabled()
         elif(request.path == "/menu/items/disabled"):
             self.responseObj = handleMenuDisabled()
+        elif(request.path == "/menu/items/update"):
+            self.responseObj = handleMenuItemsToggle(request)
         else:
             self.responseObj = self
 
