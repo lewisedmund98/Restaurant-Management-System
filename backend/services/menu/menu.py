@@ -3,7 +3,8 @@ from .handler.handleMenu import handleMenu
 from .handler.handleMenuEnabled import handleMenuEnabled
 from .handler.handleMenuDisabled import handleMenuDisabled
 from .handler.handleItem import handleItem
-from. handler.handleMenuItemsToggle import handleMenuItemsToggle
+from .handler.handleMenuItemsToggle import handleMenuItemsToggle
+from .handler.handleMenuUpdate import handleMenuUpdate
 from frameworks.authentication.auth import authentication
 
 class menu:
@@ -24,6 +25,9 @@ class menu:
         elif(request.path == "/menu/items/update"):
             if self.__checkPermish(0):
                 self.responseObj = handleMenuItemsToggle(request)
+        elif(request.path == "/menu/item/update"):
+            if self.__checkPermish(-1):
+                self.responseObj = handleMenuUpdate(request)
         else:
             self.responseObj = self
 
