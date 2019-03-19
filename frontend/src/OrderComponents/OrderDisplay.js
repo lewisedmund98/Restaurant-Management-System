@@ -5,15 +5,13 @@
 import React from 'react';
 import { Card, List , Image, Label, Breadcrumb} from 'semantic-ui-react';
 import TakeMoney from '../OrderComponents/Stripe.js';
+import OrderTimeline from '../OrderComponents/OrderTimeline.js'
 
 export default class OrderDisplay extends React.Component {
     constructor(props) {
         super(props);
         this.mapOrderDetails = this.mapOrderDetails.bind(this);
         this.mapMenuToLabels = this.mapMenuToLabels.bind(this);
-        this.state = {
-            orderProgress : [{ key: 'created', content: 'created', active: true }]
-        }
     }
 
 
@@ -30,32 +28,17 @@ export default class OrderDisplay extends React.Component {
                 </List.Item>
                 </List>
             )
-        })
-        return menuMap;
-    }
-
-    orderStage(newStage) {
-        const tempOrderArray = this.state.orderProgress;
-        if (tempOrderArray[tempOrderArray.length - 1]) {
-            tempOrderArray[tempOrderArray.length - 1].active = false;
-        }
-        const newElement = {key: newStage, content: newStage, active: true};
-        tempOrderArray.push(newElement);
-        this.setState({
-            orderProgress: tempOrderArray
         });
+        return menuMap;
     }
 
     mapOrderDetails(details) {
         if(details){
             var moment = require('moment');
             var time;
+            var s;
             var mappedDetails = details.map((orderDetail, key) => {
-                for (const s of this.state.orderProgress) {
-                    if (s.key === orderDetail.stage) {
-                        break;
-                    }
-                    alert("gets to here");
+                if (orderDetail.stage !== this.state.orderProgress[this.state.orderProgress.length-1].key) {
                     this.orderStage(orderDetail.stage);
                 }
                 time = moment.unix(orderDetail.timeCreated).format("hh:mm a");
@@ -74,7 +57,8 @@ export default class OrderDisplay extends React.Component {
                         Table Number: {orderDetail.table}
                     </Card.Meta>
                     <Label color={colour}>{orderDetail.stage}</Label>
-                    <Breadcrumb icon='right arrow' sections={this.state.orderProgress} />
+                    {/*<Breadcrumb icon='right arrow' sections={this.state.orderProgress} />*/}
+                    {/*<OrderTimeline stage={orderDetail.stage} />*/}
                 </Card.Content>
                 <Card.Content extra>
                     {menuMapped}
