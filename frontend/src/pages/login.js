@@ -25,7 +25,10 @@ import '../index.css';
          document.title = "Oaxaca Staff Login"
          return (
            <div className="loginpage">
-             <div className="loginContainer">
+             <div class="topnav">
+                    <img class="logo" src="oaxaca_logo.png" alt="Oaxaca Logo" height="150" width="150"/>
+              </div>
+             <div className="loginHomeContainer">
               <h1>Staff Login</h1> 
               <LoginController></LoginController>
              </div>

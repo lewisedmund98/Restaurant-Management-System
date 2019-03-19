@@ -397,17 +397,16 @@ body {
     margin-right: 1% !important; 
 }
 
-.loginContainer {
-    text-align: center;
-    border: 1px solid black;
-    width: 500px;
-    height: 250px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    display: inline-block;
-
+.loginHomeContainer{
+    text-align: center !important;
+    border: 1px solid black !important;
+    width: 500px !important;
+    height: 250px !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important; 
+    right: 0 !important;
+    bottom: 0 !important;
+    margin: auto !important;
+    display: inline-block !important;
 }

@@ -20,11 +20,12 @@ export default class OrderDisplayWrapper extends React.Component {
                 <Table.Row key={key}>
                     <Table.Cell>{order.customerID}</Table.Cell>
                     <Table.Cell>{order.orderID}</Table.Cell>
-                    <Table.Cell>{time}</Table.Cell>
+                    
                     <Table.Cell>Not yet</Table.Cell>
                     <Table.Cell>Not yet</Table.Cell>
                     <Table.Cell><Button>Confirm Order</Button></Table.Cell>
                 </Table.Row>
+                // <Table.Cell>{time}</Table.Cell> causing some kind of compilation error
             )
         }
         )

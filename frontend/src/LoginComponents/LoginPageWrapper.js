@@ -67,7 +67,12 @@ export default class LoginPageWrapper extends React.Component {
                 <Link to={{
                         pathname:"/waiter"
                     }}>
-                <Button type='submit' onClick={()=>{this.createLogin()}}>Login</Button>
+                <Button type='submit' onClick={()=>{this.createLogin()}}>Waiter Login</Button>
+                </Link>
+                <Link to={{
+                        pathname:"/Kitchen"
+                    }}>
+                <Button type='submit' onClick={()=>{this.createLogin()}}>Kitchen Login</Button>
                 </Link>
             </Form>
             

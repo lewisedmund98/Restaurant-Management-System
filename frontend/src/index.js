@@ -20,7 +20,8 @@ import Customer from './pages/customer.js';
 import Waiter from './pages/waiter.js';
 import CustomerOrderPage from './pages/customerOrders';
 import Kitchen from "./pages/kitchen.js";
-import login from "./pages/login.js";
+import Login from "./pages/login.js";
+import Staff from "./pages/staff.js"
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 /**
@@ -37,7 +38,8 @@ class App extends React.Component {
                         <Route path="/waiter" component={Waiter}/>
                         <Route path="/customerOrder" component={CustomerOrderPage}/>
                         <Route path="/kitchen" component={Kitchen}/>
-                        <Route path="/login" component={login}></Route>
+                        <Route path="/login" component={Login}></Route>
+                        <Route path="/staff" component={Staff}></Route>
                     </div>
                 </Router>
             </React.Fragment>
