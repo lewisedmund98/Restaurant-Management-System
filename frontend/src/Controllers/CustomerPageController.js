@@ -154,11 +154,11 @@ export default class CustomerPageController extends React.Component {
                 <div className="basketAndMenuItems">
                 <div className="basketSide">
                 <Basket setOrder={this.setOrder} onRemove={this.removeFromBasket} dishList={this.state.currentBasket}></Basket>
-                    <Link to={{
+                    <Link id='linkHereFromForm' to={{
                         pathname:"/customerOrder", 
                         state:{orderNumber: this.state.orderNumbers}
                     }}>
-                    <Button className="yourOrdersBtn">Your Orders</Button></Link>
+                    <Button id="yourOrdersBtn">Your Orders</Button></Link>
                     
                     </div>
                 <div id="ListCards">

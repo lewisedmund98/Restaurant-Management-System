@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Input, Label, Checkbox, Button, Dropdown, Select } from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
 
 
 /* This class will have the order form in it. The form submission will be handled in this class too.
@@ -47,6 +48,7 @@ export default class OrderForm extends React.Component {
             });
 
             this.props.makeOrder(orderRequestBody);
+            setTimeout(function(){document.getElementById('yourOrdersBtn').click()}, 1000); //Presses the your orders button, delay is to allow it to load smoothly
 
         } catch (error) {
             console.log("Something went wrong" + error);
@@ -70,6 +72,8 @@ export default class OrderForm extends React.Component {
             [name]: itemData
         });
     }
+
+    
 
     /**
      * Render shows the whole form. This form is used to create an order and takes the name, email, phone and table
@@ -105,7 +109,8 @@ export default class OrderForm extends React.Component {
                 <Form.Field>
                     <Checkbox required label='I agree to the Terms and Conditions' />
                 </Form.Field>
-                <Button type='submit' id="ConfirmButton">Confirm and pay</Button>
+                
+                <Button type='submit' id="ConfirmButton">Proceed to checkout</Button>
             </Form>
         )
     }
