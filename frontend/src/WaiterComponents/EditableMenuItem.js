@@ -11,7 +11,7 @@ export default class EditableMenuItem extends React.Component {
     }
 
     updateArray(itemID){
-        // If it's "to be enabled"
+        // If it's "currently enabled"
         if(this.props.enable === true){
             if(this.state.clicked === true){
                 this.props.addToArray(itemID, false);

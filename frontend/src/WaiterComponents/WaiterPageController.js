@@ -217,7 +217,7 @@ export default class WaiterPageController extends React.Component {
     render() {
         return (
             <div>
-                <EditMenu></EditMenu>
+                <EditMenu uID={this.props.uID} accessToken = {this.props.accessToken} updateToken={this.props.updateToken}></EditMenu>
                 <Notifications tables={this.props.selectedTables} notifications={this.state.notifications}></Notifications>
                 <WaiterPageWrapper
                     cancelOrder={this.cancelOrder}

@@ -65,11 +65,31 @@ export default class EditMenu extends React.Component {
 
     async updateItems(isEnable) { // If the menu item is "to be enabled" pass true
         console.log("updating Items");
-        if(isEnable){
-            console.log(this.state.toBeEnabled);
+        var jsonToggles = [];
+        jsonToggles = [];
+        var i = 0;
+        if (isEnable) {
+            for (i = 0; i < this.state.toBeEnabled.length; i++) {
+                jsonToggles.push({ itemID: parseInt(this.state.toBeEnabled[i]), enabled: true });
+            }
         } else {
-            console.log(this.state.toBeDisabled);
+            for (i = 0; i < this.state.toBeDisabled.length; i++) {
+                jsonToggles.push({ itemID: parseInt(this.state.toBeDisabled[i]), enabled: false });
+            }
         }
+        await fetch("https://flask.team-project.crablab.co/menu/items/update", {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify({ toggles: jsonToggles, id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.props.updateToken(data.new_access_token.access_token);
+            })
+            .then(() => {this.pullItems()})
     }
 
     mapEnabledItems(enabledItems) {
@@ -141,20 +161,20 @@ export default class EditMenu extends React.Component {
         }
         return (
             <div>
-                <Modal trigger={<Button>Enable Menu Items</Button>}>
+                <Modal trigger={<Button>Enable Menu Items</Button>} onClose={() => { this.setState({ toBeEnabled: [] }) }}>
                     <Modal.Content>
                         <List divided relaxed>
                             {disabledItemsMapped}
                         </List>
 
                     </Modal.Content>
-                    <Button onClick={()=> this.updateItems(true)}>Save</Button>
+                    <Button onClick={() => this.updateItems(true)}>Save</Button>
                 </Modal>
-                <Modal trigger={<Button>Diable Menu Items</Button>}>
+                <Modal trigger={<Button>Diable Menu Items</Button>} onClose={() => { this.setState({ toBeDisabled: [] }) }}>
                     <Modal.Content>
                         {enabledItemsMapped}
                     </Modal.Content>
-                    <Button onClick={()=> this.updateItems(false)}>Save</Button>
+                    <Button onClick={() => this.updateItems(false)}>Save</Button>
                 </Modal>
             </div>
         )
