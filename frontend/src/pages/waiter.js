@@ -40,7 +40,6 @@ export default class Customer extends React.Component {
             },
             method: "POST",
             body: JSON.stringify({username:"WillStaff", password:"abc", key: "abc123", secret: "def456"}), // pulls the order id from the order ID given
-
         })
             .then(result => result.json())
             .then(json => this.setState({
