@@ -38,20 +38,7 @@ export default class WaiterPageController extends React.Component {
         this.confirmOrder = this.confirmOrder.bind(this);
         this.cancelOrder = this.cancelOrder.bind(this);
     }
-
-    // componentDidMount() {
-    //     this.timerID = setInterval(
-    //         async () => {
-    //             try {
-    //                 await this.checkForUpdate()
-    //             } catch (error) {
-    //                 console.log(error);
-    //             }
-    //         },
-    //         5000
-    //     );
-    // }
-
+    
     componentDidMount() {
         this.startTimer(500);
     }

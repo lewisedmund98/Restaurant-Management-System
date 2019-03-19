@@ -8,8 +8,8 @@ export default class EditMenu extends React.Component {
         this.state = {
             enabledItems: [],
             disabledItems: [],
-            finalEnabled: [],
-            finalDisabled: []
+            toBeEnabled: [],
+            toBeDisabled: []
         }
         this.pullItems = this.pullItems.bind(this);
         this.pullDisabledItems = this.pullDisabledItems.bind(this);
@@ -63,8 +63,13 @@ export default class EditMenu extends React.Component {
             })
     }
 
-    async updateItems() {
+    async updateItems(isEnable) { // If the menu item is "to be enabled" pass true
         console.log("updating Items");
+        if(isEnable){
+            console.log(this.state.toBeEnabled);
+        } else {
+            console.log(this.state.toBeDisabled);
+        }
     }
 
     mapEnabledItems(enabledItems) {
@@ -93,34 +98,34 @@ export default class EditMenu extends React.Component {
 
     addToArray(itemID, isEnable) {
         if (isEnable) {
-            var enabledTemp = this.state.finalEnabled;
+            var enabledTemp = this.state.toBeEnabled;
             enabledTemp.push(itemID);
             this.setState({
-                finalEnabled: enabledTemp
+                toBeEnabled: enabledTemp
             })
         } else {
-            var disabledTemp = this.state.finalEnabled;
+            var disabledTemp = this.state.toBeDisabled;
             disabledTemp.push(itemID);
             this.setState({
-                finalDisabled: disabledTemp
+                toBeDisabled: disabledTemp
             })
         }
     }
 
-    removeFromArray(itemID, item, isEnable) {
+    removeFromArray(itemID, isEnable) {
         if (isEnable) {
-            var enabledTemp = this.state.finalEnabled;
+            var enabledTemp = this.state.toBeEnabled;
             var index = enabledTemp.indexOf(itemID);
             enabledTemp.splice(index, 1);
             this.setState({
-                finalEnabled: enabledTemp
+                toBeEnabled: enabledTemp
             })
         } else {
-            var disabledTemp = this.state.finalEnabled;
-            var index = disabledTemp.indexOf(itemID);
-            disabledTemp.splice(index, 1);
+            var disabledTemp = this.state.toBeDisabled;
+            var disableIndex = disabledTemp.indexOf(itemID);
+            disabledTemp.splice(disableIndex, 1);
             this.setState({
-                finalDisabled: disabledTemp
+                toBeDisabled: disabledTemp
             })
         }
     }
@@ -143,13 +148,13 @@ export default class EditMenu extends React.Component {
                         </List>
 
                     </Modal.Content>
-                    <Button onClick={()=> this.updateItems()}>Save</Button>
+                    <Button onClick={()=> this.updateItems(true)}>Save</Button>
                 </Modal>
                 <Modal trigger={<Button>Diable Menu Items</Button>}>
                     <Modal.Content>
                         {enabledItemsMapped}
                     </Modal.Content>
-                    <Button onClick={()=> this.updateItems()}>Save</Button>
+                    <Button onClick={()=> this.updateItems(false)}>Save</Button>
                 </Modal>
             </div>
         )
