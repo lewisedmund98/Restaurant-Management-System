@@ -56,7 +56,7 @@ export default class CustomerPageController extends React.Component {
     }
 
     componentDidMount() { // React component method, this method runs when the react component is initially rendered
-        fetch("https://flask.team-project.crablab.co/menu/items") 
+        fetch("https://flask.team-project.crablab.co/menu/items/enabled") 
             .then(res => res.json())
             .then(
                 (result) => {

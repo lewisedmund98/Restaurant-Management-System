@@ -112,6 +112,7 @@ CREATE TABLE `menuItems` (
   `itemType` mediumtext,
   `itemInformation` longtext,
   `itemImage` longtext,
+  `itemEnabled` int(11) NOT NULL,
   PRIMARY KEY (`itemID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -250,4 +251,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-19 11:33:41
+-- Dump completed on 2019-03-19 11:47:55
