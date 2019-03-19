@@ -51,3 +51,11 @@ class items():
         cursor = self.__db.cursor()
         cursor.execute('UPDATE `menuItems` SET `itemEnabled` = %s WHERE `itemID` = %s;', (value, itemID))
         return True
+
+    def updateItem(self, itemID, fields):
+        cursor = self.__db.cursor()
+        cursor.execute('UPDATE `menuItems` SET `itemName` = %s, `itemCalories` = %s, `itemPrice` = %s, `itemType` = %s, `itemInformation` = %s, `itemEnabled` = %s, `itemImage` = %s WHERE `itemID` = %s;', 
+            (fields['itemName'], fields['itemCalories'], fields['itemPrice'], fields['itemType'], fields['itemInformation'], fields['itemEnabled'], fields['itemImage'], itemID)
+        )
+
+        return True
