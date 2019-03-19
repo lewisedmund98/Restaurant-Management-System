@@ -19,13 +19,16 @@ export default class WaiterPageWrapper extends React.Component {
     mapToUnconfirmedOrders(unconfirmedOrders) {
         // Map the unconfirmed orders
         var mappedUnconfirmed = [];
-        mappedUnconfirmed = unconfirmedOrders.map((order, key) => { 
-            var mappedMenu = this.mapMenuItemsToList(order.menuItems);
-            return(
-                <OrderListView table={order.table} cancelOrder={this.props.cancelOrder} confirmOrder={this.props.confirmOrder} custID={order.customerID} custName={order.name} orderID={order.orderID}
-                    timeCreated = { order.timeCreated } menuList = {mappedMenu } unconfirmed = { true}
-                />
-            )
+        mappedUnconfirmed = unconfirmedOrders.map((order, key) => {
+            if (order) {
+
+                var mappedMenu = this.mapMenuItemsToList(order.menuItems);
+                return (
+                    <OrderListView table={order.table} order={order} remove={this.props.removeOrder} cancelOrder={this.props.cancelOrder} confirmOrder={this.props.confirmOrder} custID={order.customerID} custName={order.name} orderID={order.orderID}
+                        timeCreated={order.timeCreated} menuList={mappedMenu} unconfirmed={true}
+                    />
+                )
+            }
         })
         return mappedUnconfirmed;
     }
@@ -33,13 +36,16 @@ export default class WaiterPageWrapper extends React.Component {
     mapToBeDeliveredOrders(toBeDelivered) {
         // Map the unconfirmed orders
         var mappedToBeDelivered = [];
-        mappedToBeDelivered = toBeDelivered.map((order, key) => { 
-            var mappedMenu = this.mapMenuItemsToList(order.menuItems);
-            return(
-                <OrderListView table={order.table} cancelOrder={this.props.cancelOrder} deliver={this.props.deliverOrder} custID={order.customerID} custName={order.name} orderID={order.orderID}
-                    timeCreated = { order.timeCreated } menuList = {mappedMenu} delivered = { true}
-                />
-            )
+        mappedToBeDelivered = toBeDelivered.map((order, key) => {
+            if (order) {
+
+                var mappedMenu = this.mapMenuItemsToList(order.menuItems);
+                return (
+                    <OrderListView table={order.table} order={order} remove={this.props.removeOrder} cancelOrder={this.props.cancelOrder} deliver={this.props.deliverOrder} custID={order.customerID} custName={order.name} orderID={order.orderID}
+                        timeCreated={order.timeCreated} menuList={mappedMenu} delivered={true}
+                    />
+                )
+            }
         })
         return mappedToBeDelivered;
     }
@@ -47,66 +53,66 @@ export default class WaiterPageWrapper extends React.Component {
     mapMenuItemsToList(menuItems) {
         var menuItemsMap = [];
         menuItemsMap = menuItems.map((item) => {
-            return(<li>{item.itemName} <Image avatar src={item.itemImage}/></li>)
+            return (<li>{item.itemName} <Image avatar src={item.itemImage} /></li>)
         })
         return menuItemsMap;
     }
 
 
     render() {
-        if(this.props.unconfirmedOrders != undefined && this.props.unconfirmedOrders){
+        if (this.props.unconfirmedOrders != undefined && this.props.unconfirmedOrders) {
             var mappedOrderList = this.mapToUnconfirmedOrders(this.props.unconfirmedOrders);
         }
 
-        if(this.props.toBeDelivered){
+        if (this.props.toBeDelivered) {
             var mappedToBeDel = this.mapToBeDeliveredOrders(this.props.toBeDelivered);
         }
-       
+
         return (
             <React.Fragment>
-                <div style={{padding: "20px"}} className="unconfirmedOrderDiv">
-                <h1>New Orders</h1>
-                <div style={{height: "400px", overflowY: "scroll"}}>
-                <Table >
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell>Table</Table.HeaderCell>
-                            <Table.HeaderCell>Customer Name</Table.HeaderCell>
-                            <Table.HeaderCell>Order ID</Table.HeaderCell>
-                            <Table.HeaderCell>Order Time</Table.HeaderCell>
-                            <Table.HeaderCell>Order Items</Table.HeaderCell>
-                            <Table.HeaderCell>Action</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
+                <div style={{ padding: "20px" }} className="unconfirmedOrderDiv">
+                    <h1>New Orders</h1>
+                    <div style={{ height: "400px", overflowY: "scroll" }}>
+                        <Table >
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell>Table</Table.HeaderCell>
+                                    <Table.HeaderCell>Customer Name</Table.HeaderCell>
+                                    <Table.HeaderCell>Order ID</Table.HeaderCell>
+                                    <Table.HeaderCell>Order Time</Table.HeaderCell>
+                                    <Table.HeaderCell>Order Items</Table.HeaderCell>
+                                    <Table.HeaderCell>Action</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
 
-                    <Table.Body>
-                    
-                        {mappedOrderList} {/*<OrderListView unconfirmed={true}></OrderListView>*/}
-                    
-                    </Table.Body>
-                </Table>
-                </div>
+                            <Table.Body>
+
+                                {mappedOrderList} {/*<OrderListView unconfirmed={true}></OrderListView>*/}
+
+                            </Table.Body>
+                        </Table>
+                    </div>
                 </div>
 
-                <div  style={{padding: "20px"}} className="toBeDeliveredDiv">
+                <div style={{ padding: "20px" }} className="toBeDeliveredDiv">
                     <h1>To Be Delivered</h1>
-                    <div style={{height: "400px", overflowY: "scroll"}}>
-                    <Table>
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell>Table</Table.HeaderCell>
-                            <Table.HeaderCell>Customer Name</Table.HeaderCell>
-                            <Table.HeaderCell>Order ID</Table.HeaderCell>
-                            <Table.HeaderCell>Order Time</Table.HeaderCell>
-                            <Table.HeaderCell>Order Items</Table.HeaderCell>
-                            <Table.HeaderCell>Action</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                        {mappedToBeDel}
-                    </Table.Body>
-                    </Table>
-                </div>
+                    <div style={{ height: "400px", overflowY: "scroll" }}>
+                        <Table>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell>Table</Table.HeaderCell>
+                                    <Table.HeaderCell>Customer Name</Table.HeaderCell>
+                                    <Table.HeaderCell>Order ID</Table.HeaderCell>
+                                    <Table.HeaderCell>Order Time</Table.HeaderCell>
+                                    <Table.HeaderCell>Order Items</Table.HeaderCell>
+                                    <Table.HeaderCell>Action</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                {mappedToBeDel}
+                            </Table.Body>
+                        </Table>
+                    </div>
                 </div>
 
                 <div className="24hourdiv">

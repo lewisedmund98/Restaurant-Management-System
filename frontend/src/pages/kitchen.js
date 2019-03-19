@@ -31,7 +31,7 @@ export default class kitchen extends React.Component {
                 "Content-Type": "application/json",
             },
             method: "POST",
-            body: JSON.stringify({username:"kitchen", password:"s3kr3tp4ssw0rd", key: "abc123", secret: "def456"}), // pulls the order id from the order ID given
+            body: JSON.stringify({username:"harisKitchen", password:"s3kr3tp4ssw0rd", key: "abc123", secret: "def456"}), // pulls the order id from the order ID given
         })
             .then(result => result.json())
             .then(json => {

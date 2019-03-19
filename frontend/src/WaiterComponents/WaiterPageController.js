@@ -33,6 +33,7 @@ export default class WaiterPageController extends React.Component {
         this.toBeDeliveredArray = [];
         this.getUnconfirmedOrders = this.getUnconfirmedOrders.bind(this);
         this.getKitchenCompleted = this.getKitchenCompleted.bind(this);
+        this.removeOrderFromList = this.removeOrderFromList.bind(this);
         this.getNotifications = this.getNotifications.bind(this);
         this.confirmOrder = this.confirmOrder.bind(this);
         this.cancelOrder = this.cancelOrder.bind(this);
@@ -200,6 +201,17 @@ export default class WaiterPageController extends React.Component {
             .then(json => console.log(json))
     }
 
+    removeOrderFromList(order){
+        var tempArray = this.state.unconfirmedOrders.slice(0);
+        var index = tempArray.indexOf(order);
+        tempArray[index] = null;
+        console.log(index);
+        console.log(tempArray);
+         this.setState({
+            unconfirmedOrders: tempArray
+         }) 
+    }
+
     deliverOrder(orderID) {
         fetch("https://flask.team-project.crablab.co/order/waiterComplete", {
             method: "POST",
@@ -234,6 +246,7 @@ export default class WaiterPageController extends React.Component {
 
                 <Notifications tables={this.props.selectedTables} notifications={this.state.notifications}></Notifications>
                 <WaiterPageWrapper
+                    removeOrder={this.removeOrderFromList}
                     cancelOrder={this.cancelOrder}
                     deliverOrder={this.deliverOrder}
                     toBeDelivered={this.state.toBeDelivered}

@@ -22,10 +22,12 @@ export default class OrderListView extends React.Component {
         this.confirmOrderLoc = this.confirmOrderLoc.bind(this);
         this.deliverOrder = this.deliverOrder.bind(this);
         this.cancelOrder = this.cancelOrder.bind(this);
+        this.removeOrder = this.removeOrder.bind(this);
     }
 
     confirmOrderLoc() {
         this.props.confirmOrder(this.props.orderID);
+        this.removeOrder();
     }
 
     deliverOrder() {
@@ -34,6 +36,11 @@ export default class OrderListView extends React.Component {
 
     cancelOrder() {
         this.props.cancelOrder(this.props.orderID);
+        this.removeOrder();
+    }
+
+    removeOrder(){
+        this.props.remove(this.props.order);
     }
 
     getCorrectButton() {
