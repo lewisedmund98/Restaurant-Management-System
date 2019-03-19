@@ -9,6 +9,7 @@ from frameworks.authentication.auth import authentication
 class menu:
 
     def __init__(self, request):
+        self.__request = request
         self.__auth = authentication(request.get_json()['key'], request.get_json()['secret'])
         self.__newAccessToken = None
 
@@ -21,7 +22,8 @@ class menu:
         elif(request.path == "/menu/items/disabled"):
             self.responseObj = handleMenuDisabled()
         elif(request.path == "/menu/items/update"):
-            self.responseObj = handleMenuItemsToggle(request)
+            if self.__checkPermish(0):
+                self.responseObj = handleMenuItemsToggle(request)
         else:
             self.responseObj = self
 

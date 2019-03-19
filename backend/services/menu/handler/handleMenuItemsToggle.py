@@ -7,4 +7,4 @@ class handleMenuItemsToggle:
         self.__request = request.get_json()
 
     def getOutput(self):
-        return {"result": self.__items.setItemsToggle(self.__request)}
+        return {"result": self.__items.setItemsToggle(self.__request['toggles'])}
