@@ -1,7 +1,7 @@
 import pymysql, json
 from frameworks.items.items import items
 
-class handleMenu:
+class handleMenuDisabled:
     def __init__(self):
         self.__items = items()
 
@@ -9,5 +9,5 @@ class handleMenu:
         return {"result": self.printMenu()}
 
     def printMenu(self):
-        self.__items.load()
+        self.__items.loadDisabled()
         return self.__items.get()

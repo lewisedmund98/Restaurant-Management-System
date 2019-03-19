@@ -79,8 +79,10 @@ class MenuFiltering extends React.Component {
                     Menu Filter
                 </Button>
             }> {/*Set the trigger to the button*/}
+                <Modal.Header>
+                  Menu Filter:  
+                </Modal.Header>
                 <Modal.Content>
-                <h3>Menu Filter:</h3>
                 <Checkbox id="priceUnder20" label="Price under £20" onClick={this.menuFilter}
                           checked={this.state.checked}/>
                 <h5>Tick to remove items containing the following: </h5>
