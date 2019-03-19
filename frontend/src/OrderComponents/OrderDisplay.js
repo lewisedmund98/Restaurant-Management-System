@@ -3,7 +3,7 @@
  * This will take some order state in too.
  */
 import React from 'react';
-import { Card, List , Image, Label, Breadcrumb} from 'semantic-ui-react';
+import { Card, List , Image} from 'semantic-ui-react';
 import TakeMoney from '../OrderComponents/Stripe.js';
 import OrderTimeline from '../OrderComponents/OrderTimeline.js'
 
@@ -36,14 +36,9 @@ export default class OrderDisplay extends React.Component {
         if(details){
             var moment = require('moment');
             var time;
-            var s;
             var mappedDetails = details.map((orderDetail, key) => {
-                if (orderDetail.stage !== this.state.orderProgress[this.state.orderProgress.length-1].key) {
-                    this.orderStage(orderDetail.stage);
-                }
                 time = moment.unix(orderDetail.timeCreated).format("hh:mm a");
                 var menuMapped = this.mapMenuToLabels(orderDetail.menu);
-                var colour = "red";
                 if(orderDetail.stage === "paid"){colour="green"}
                 return (<Card key={key} style={{display: "block", marginLeft: "auto", marginRight: "auto",  width: "50%" }}>
                 <Card.Content>
@@ -56,15 +51,15 @@ export default class OrderDisplay extends React.Component {
                     <Card.Meta >
                         Table Number: {orderDetail.table}
                     </Card.Meta>
-                    <Label color={colour}>{orderDetail.stage}</Label>
+                    {/*<Label color={colour}>{orderDetail.stage}</Label>*/}
                     {/*<Breadcrumb icon='right arrow' sections={this.state.orderProgress} />*/}
-                    {/*<OrderTimeline stage={orderDetail.stage} />*/}
+                    <OrderTimeline stage={orderDetail.stage} />
                 </Card.Content>
                 <Card.Content extra>
                     {menuMapped}
                 </Card.Content>
                 <Card.Description>
-                    { (orderDetail.stage !== "paid" && orderDetail.stage !== "cancelled") &&
+                    { (orderDetail.stage === "created" || orderDetail.stage === "waiterConfirmed") &&
                     <TakeMoney orderID={orderDetail.orderID}></TakeMoney>
                     }
                 </Card.Description>

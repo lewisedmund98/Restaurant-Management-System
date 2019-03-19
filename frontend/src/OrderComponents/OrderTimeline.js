@@ -10,27 +10,23 @@ export default class OrderTimeline extends React.Component {
     }
 
     orderStage(newStage) {
-        if (this.props.stage === this.state.orderProgress[this.state.orderProgress.length-1].key) {
-            return this.props.orderProgress;
+        if (this.props.stage !== this.state.orderProgress[this.state.orderProgress.length-1].key) {
+            const tempOrderArray = this.state.orderProgress;
+            tempOrderArray[tempOrderArray.length - 1].active = false;
+
+            const newElement = {key: newStage, content: newStage, active: true};
+            tempOrderArray.push(newElement);
+
+            this.setState({
+                orderProgress: tempOrderArray
+            });
         }
-
-        const tempOrderArray = this.state.orderProgress;
-        tempOrderArray[tempOrderArray.length - 1].active = false;
-
-        const newElement = {key: newStage, content: newStage, active: true};
-        tempOrderArray.push(newElement);
-
-        this.setState({
-            orderProgress: tempOrderArray
-        });
-
-        return this.props.orderProgress;
     }
 
     render() {
-        const sections = this.orderStage(this.props.stage);
+        this.orderStage(this.props.stage);
         return (
-            <Breadcrumb icon='right arrow' sections={sections} />
+            <Breadcrumb icon='right arrow' sections={this.state.orderProgress} />
         )
     }
 }

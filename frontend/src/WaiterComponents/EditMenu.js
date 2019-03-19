@@ -12,8 +12,6 @@ export default class EditMenu extends React.Component{
         this.pullDisabledOrders = this.pullDisabledOrders.bind(this);
         this.pullEnabledOrders = this.pullEnabledOrders.bind(this);
         this.updateOrders = this.updateOrders.bind(this);
-        this.enabledOrders = this.enabledOrders.bind(this);
-        this.disabledOrders = this.disabledOrders.bind(this);
     }
 
     componentDidMount(){
