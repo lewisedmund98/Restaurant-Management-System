@@ -17,6 +17,7 @@
 import React from 'react';
 import WaiterPageWrapper from './WaiterPageWrapper.js';
 import Notifications from './Notifications.js';
+import EditMenu from './EditMenu.js';
 var request = require('../Requests');
 
 export default class WaiterPageController extends React.Component {
@@ -144,7 +145,6 @@ export default class WaiterPageController extends React.Component {
                 console.log(error);
 
             })
-
     }
 
     async getKitchenCompleted() {
@@ -166,8 +166,7 @@ export default class WaiterPageController extends React.Component {
                             for (var i = 0; i < menuItems.length; i++) {
                                 menuItemsArray.push(menuItems[i].result);
                             }
-                            var combinedResult = { ...{ menuItems: menuItemsArray }, ...order };
-
+                            var combinedResult = { ...{menuItems: menuItemsArray}, ...order };
                             this.toBeDeliveredArray[index] = combinedResult;
                             if (!this.toBeDeliveredArray.some(element => element.orderID === combinedResult.orderID)) {
                                 this.toBeDeliveredArray.push(combinedResult);
@@ -231,7 +230,7 @@ export default class WaiterPageController extends React.Component {
     render() {
         return (
             <div>
-
+                <EditMenu></EditMenu>
                 <Notifications tables={this.props.selectedTables} notifications={this.state.notifications}></Notifications>
                 <WaiterPageWrapper
                     cancelOrder={this.cancelOrder}
