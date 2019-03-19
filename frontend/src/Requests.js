@@ -27,7 +27,7 @@ export function getMenuItems(itemList) {
                         "Content-Type": "application/json",
                     },
                     method: "POST",
-                    body: JSON.stringify({ id: itemList[j] }), // pulls the order id from the order ID given
+                    body: JSON.stringify({ id: itemList[j] , key:"abc123", secret: "def456"}), // pulls the order id from the order ID given
                 })
                     .then(response => response.json())
                     .catch(() => { console.log("Issue") })
