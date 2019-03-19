@@ -139,15 +139,17 @@ export default class EditMenu extends React.Component {
                 <Modal trigger={<Button>Enable Menu Items</Button>}>
                     <Modal.Content>
                         <List divided relaxed>
-                            {enabledItemsMapped}
+                            {disabledItemsMapped}
                         </List>
 
                     </Modal.Content>
+                    <Button onClick={()=> this.updateItems()}>Save</Button>
                 </Modal>
                 <Modal trigger={<Button>Diable Menu Items</Button>}>
                     <Modal.Content>
-                        {disabledItemsMapped}
+                        {enabledItemsMapped}
                     </Modal.Content>
+                    <Button onClick={()=> this.updateItems()}>Save</Button>
                 </Modal>
             </div>
         )
