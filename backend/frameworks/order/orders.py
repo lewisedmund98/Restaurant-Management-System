@@ -1,15 +1,14 @@
 from frameworks.database.db import db
 from .order import order
-
-
 # This does not extend orders as none of the methods are shared
 # This class returns an array of order objects
+
 class orders():
     def __init__(self):
         # Instantiate Database
         self.__database = instance = db()
         self.__db = instance.getInstance()
-
+        
     def loadOrders(self, filter):
         if filter == "waiterUnconfirmed":
             ids = self.__getWaiterUnconfirmed()
