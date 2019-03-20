@@ -1,5 +1,7 @@
 from frameworks.database.db import db
 from .order import order
+from collections import OrderedDict
+
 
 # This does not extend orders as none of the methods are shared
 # This class returns an array of order objects
@@ -8,6 +10,7 @@ class orders():
         # Instantiate Database
         self.__database = instance = db()
         self.__db = instance.getInstance()
+        self.__dict = getAllOrderHistory()
 
     def loadOrders(self, filter):
         if filter == "waiterUnconfirmed":
@@ -54,36 +57,55 @@ class orders():
         return cursor.fetchall()
 
     def __getWaiterUnconfirmed(self):
+
+
+        #self.__finaldict = ()
+        #self.__finaldict.update({'': 3})
+        #
+        #self.__dict = getAllOrderHistory()
+        #for key, value in sorted(self.__dict.items(), key=lambda kv: kv[1]['insertion'], reverse=True):
+        #    do_something_with(key, value)
+        #    if value = "waiterUnconfirmed":
+
+
+
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM orderHistory WHERE stage = 'paid' AND stage != 'cancelled' AND stage != 'kitchenConfirmed' AND stage != 'waiterComplete' AND stage != 'kitchenComplete' GROUP BY orderID;")
+        cursor.execute(
+            "SELECT orderID FROM orderHistory WHERE stage = 'paid' AND stage != 'cancelled' AND stage != 'kitchenConfirmed' AND stage != 'waiterComplete' AND stage != 'kitchenComplete' GROUP BY orderID;")
         return cursor.fetchall()
 
     def __getWaiterConfirmed(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM orderHistory WHERE stage = 'waiterConfirmed' AND stage != 'cancelled' AND stage != 'kitchenConfirmed' AND stage != 'waiterComplete' AND stage != 'kitchenComplete' GROUP BY orderID;")
+        cursor.execute(
+            "SELECT orderID FROM orderHistory WHERE stage = 'waiterConfirmed' AND stage != 'cancelled' AND stage != 'kitchenConfirmed' AND stage != 'waiterComplete' AND stage != 'kitchenComplete' GROUP BY orderID;")
         return cursor.fetchall()
 
     def __getCancelledOrders(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID from orderHistory WHERE orderID NOT IN (SELECT orderID from orderHistory WHERE stage != 'cancelled');")
+        cursor.execute(
+            "SELECT orderID from orderHistory WHERE orderID NOT IN (SELECT orderID from orderHistory WHERE stage != 'cancelled');")
         return cursor.fetchall()
 
     def __getKitchenConfirmed(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM orderHistory WHERE stage = 'kitchenConfirmed' AND stage != 'cancelled' AND stage != 'waiterComplete' AND stage != 'kitchenComplete' GROUP BY orderID;")
+        cursor.execute(
+            "SELECT orderID FROM orderHistory WHERE stage = 'kitchenConfirmed' AND stage != 'cancelled' AND stage != 'waiterComplete' AND stage != 'kitchenComplete' GROUP BY orderID;")
         return cursor.fetchall()
 
     def __getWaiterComplete(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM orderHistory WHERE stage = 'waiterComplete'AND stage != 'cancelled' GROUP BY orderID;")
+        cursor.execute(
+            "SELECT orderID FROM orderHistory WHERE stage = 'waiterComplete'AND stage != 'cancelled' GROUP BY orderID;")
         return cursor.fetchall()
 
     def __getKitchenComplete(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM orderHistory WHERE stage = 'kitchenComplete' AND stage != 'cancelled' AND stage != 'waiterComplete' GROUP BY orderID;")
+        cursor.execute(
+            "SELECT orderID FROM orderHistory WHERE stage = 'kitchenComplete' AND stage != 'cancelled' AND stage != 'waiterComplete' GROUP BY orderID;")
         return cursor.fetchall()
 
     def __getPaid(self):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM orderHistory WHERE stage = 'paid' AND stage != 'cancelled' AND stage != 'kitchenConfirmed' AND stage != 'waiterComplete' AND stage != 'kitchenComplete' AND stage != 'waiterConfirmed'' GROUP BY orderID;")
+        cursor.execute(
+            "SELECT orderID FROM orderHistory WHERE stage = 'paid' AND stage != 'cancelled' AND stage != 'kitchenConfirmed' AND stage != 'waiterComplete' AND stage != 'kitchenComplete' AND stage != 'waiterConfirmed'' GROUP BY orderID;")
         return cursor.fetchall()
