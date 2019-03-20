@@ -1,14 +1,16 @@
 from frameworks.database.db import db
 from .order import order
+
+
 # This does not extend orders as none of the methods are shared
 # This class returns an array of order objects
 
-class orders():
+class orders:
     def __init__(self):
         # Instantiate Database
         self.__database = instance = db()
         self.__db = instance.getInstance()
-        
+
     def loadOrders(self, filter):
         if filter == "waiterUnconfirmed":
             ids = self.__getWaiterUnconfirmed()
@@ -23,9 +25,9 @@ class orders():
         elif filter == "waiterComplete":
             ids = self.__getWaiterComplete()
         elif filter == "awaitingDelivery":
-            pass;
+            pass
         elif filter == "completedRecent":
-            pass;
+            pass
         elif filter == "completed":
             ids = self.__getAllOrderIDs()
         else:
@@ -56,35 +58,56 @@ class orders():
     def __getCancelledOrders(self):
         cursor = self.__db.cursor()
         cursor.execute(
-            "SELECT orderID from orderHistory WHERE orderID NOT IN (SELECT orderID from orderHistory WHERE stage != 'cancelled');")
+            "SELECT orderID from orderHistory WHERE orderID NOT IN (SELECT orderID from orderHistory WHERE"
+            "stage != 'cancelled');")
         return cursor.fetchall()
 
-    def __getWaiterUnconfirmed(self): #get Paid
+    def __getWaiterUnconfirmed(self):  # get Paid
         cursor = self.__db.cursor()
         cursor.execute(
-            "CREATE TABLE T AS SELECT * FROM ( SELECT orderID, count(*) as 'rownumber' FROM orderHistory GROUP BY orderID) AS B JOIN ( SELECT orderID AS 'ignore', stage AS 'state' FROM orderHistory) AS A ON A.ignore=B.orderID; SELECT orderID FROM T WHERE state = 'paid' AND rownumber = 2; DROP TABLE T;")
+            "CREATE TABLE T AS SELECT * FROM"
+            "( SELECT orderID, count(*) as 'rownumber' FROM orderHistory GROUP BY orderID) AS B JOIN"
+            "( SELECT orderID AS 'ignore', stage AS 'state' FROM orderHistory) AS A ON A.ignore=B.orderID;"
+            "SELECT orderID FROM T WHERE state = 'paid' AND rownumber = 2; "
+            "DROP TABLE T;")
         return cursor.fetchall()
 
     def __getWaiterConfirmed(self):
         cursor = self.__db.cursor()
         cursor.execute(
-            "CREATE TABLE T AS SELECT * FROM ( SELECT orderID, count(*) as 'rownumber' FROM orderHistory GROUP BY orderID) AS B JOIN ( SELECT orderID AS 'ignore', stage AS 'state' FROM orderHistory) AS A ON A.ignore=B.orderID; SELECT orderID FROM T WHERE state = 'waiterConfirmed' AND rownumber = 3; DROP TABLE T;")
+            "CREATE TABLE T AS SELECT * FROM"
+            "( SELECT orderID, count(*) as 'rownumber' FROM orderHistory GROUP BY orderID) AS B JOIN"
+            "( SELECT orderID AS 'ignore', stage AS 'state' FROM orderHistory) AS A ON A.ignore=B.orderID;"
+            "SELECT orderID FROM T WHERE state = 'waiterConfirmed' AND rownumber = 3;"
+            "DROP TABLE T;")
         return cursor.fetchall()
 
     def __getKitchenConfirmed(self):
         cursor = self.__db.cursor()
         cursor.execute(
-            "CREATE TABLE T AS SELECT * FROM ( SELECT orderID, count(*) as 'rownumber' FROM orderHistory GROUP BY orderID) AS B JOIN ( SELECT orderID AS 'ignore', stage AS 'state' FROM orderHistory) AS A ON A.ignore=B.orderID; SELECT orderID FROM T WHERE state = 'kitchenConfirmed' AND rownumber = 4; DROP TABLE T;")
+            "CREATE TABLE T AS SELECT * FROM"
+            "( SELECT orderID, count(*) as 'rownumber' FROM orderHistory GROUP BY orderID) AS B JOIN"
+            "( SELECT orderID AS 'ignore', stage AS 'state' FROM orderHistory) AS A ON A.ignore=B.orderID;"
+            "SELECT orderID FROM T WHERE state = 'kitchenConfirmed' AND rownumber = 4;"
+            "DROP TABLE T;")
         return cursor.fetchall()
 
     def __getKitchenComplete(self):
         cursor = self.__db.cursor()
         cursor.execute(
-            "CREATE TABLE T AS SELECT * FROM ( SELECT orderID, count(*) as 'rownumber' FROM orderHistory GROUP BY orderID) AS B JOIN ( SELECT orderID AS 'ignore', stage AS 'state' FROM orderHistory) AS A ON A.ignore=B.orderID; SELECT orderID FROM T WHERE state = 'kitchenComplete' AND rownumber = 5; DROP TABLE T;")
+            "CREATE TABLE T AS SELECT * FROM"
+            "( SELECT orderID, count(*) as 'rownumber' FROM orderHistory GROUP BY orderID) AS B JOIN"
+            "( SELECT orderID AS 'ignore', stage AS 'state' FROM orderHistory) AS A ON A.ignore=B.orderID;"
+            "SELECT orderID FROM T WHERE state = 'kitchenComplete' AND rownumber = 5;"
+            "DROP TABLE T;")
         return cursor.fetchall()
 
-    def __getWaiterComplete(self): # get Order complete
+    def __getWaiterComplete(self):  # get Order complete
         cursor = self.__db.cursor()
         cursor.execute(
-            "CREATE TABLE T AS SELECT * FROM ( SELECT orderID, count(*) as 'rownumber' FROM orderHistory GROUP BY orderID) AS B JOIN ( SELECT orderID AS 'ignore', stage AS 'state' FROM orderHistory) AS A ON A.ignore=B.orderID; SELECT orderID FROM T WHERE state = 'waiterComplete' AND rownumber = 6; DROP TABLE T;")
+            "CREATE TABLE T AS SELECT * FROM"
+            "( SELECT orderID, count(*) as 'rownumber' FROM orderHistory GROUP BY orderID) AS B JOIN"
+            "( SELECT orderID AS 'ignore', stage AS 'state' FROM orderHistory) AS A ON A.ignore=B.orderID;"
+            "SELECT orderID FROM T WHERE state = 'waiterComplete' AND rownumber = 6;"
+            "DROP TABLE T;")
         return cursor.fetchall()

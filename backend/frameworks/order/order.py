@@ -3,13 +3,12 @@ from frameworks.idGenerator.id import id
 from datetime import datetime, timedelta
 import json
 
-
 # noinspection PyPep8Naming
 class order:
 
     # noinspection PyUnusedLocal
     def __init__(self):
-        # Instatiate Database
+        # Instantiate Database
         self.__database = instance = db()
         self.__db = instance.getInstance()
         # Instantiate ID
@@ -17,7 +16,6 @@ class order:
         # Private Fields  
         self.__orderinfo = None
         self.__orderhistory = None
-        self.__getallorderhistory = None
 
     def getOrderInfo(self):  # getter for private order information field
         return self.__orderinfo
@@ -29,7 +27,7 @@ class order:
         return self.__orderhistory
 
     def getCustomer(self):
-        if (self.__orderinfo == None):
+        if self.__orderinfo is None:
             return False
         print(self.__orderinfo['customerID'])
         cursor = self.__db.cursor()
@@ -49,7 +47,7 @@ class order:
         cursor = self.__db.cursor()
         cursor.execute(
             "SELECT orders.*, JSON_ARRAYAGG(orderItems.itemID) as items FROM orders LEFT JOIN orderItems ON orderItems.orderID = orders.orderID WHERE orders.orderID = %s GROUP BY orders.orderID;",
-            (orderID))
+            orderID)
         if cursor.rowcount == 1:
             self.__orderinfo = cursor.fetchone()
             self.__orderinfo['items'] = json.loads(self.__orderinfo['items'])
@@ -60,14 +58,13 @@ class order:
     def createOrder(self, name, email, table, items):
         customerID = self.__locateCustomer(email)
         # Create customer if not exist
-        if (customerID == False):
+        if not customerID:
             customerID = self.__createCustomer(name, email)
         # Create order
         orderID = self.__insertOrder(customerID, table)
         # Add items
         for item in items:
             self.__orderAddItem(orderID, item)
-
         return orderID
 
     def paymentComplete(self, id, chargeID):
@@ -122,11 +119,10 @@ class order:
 
     def __locateCustomer(self, email):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT * FROM `customers` WHERE `email` = %s;", (email))
-
-        if (cursor.rowcount == 1):
+        cursor.execute("SELECT * FROM `customers` WHERE `email` = %s;", email)
+        if cursor.rowcount == 1:
             return cursor.fetchone()['customerID']
-        elif (cursor.rowcount == 0):
+        elif cursor.rowcount == 0:
             return False
         else:
             raise Exception("Duplicate users")
