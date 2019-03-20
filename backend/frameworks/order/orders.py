@@ -10,7 +10,6 @@ class orders():
         # Instantiate Database
         self.__database = instance = db()
         self.__db = instance.getInstance()
-        self.__dict = getAllOrderHistory()
 
     def loadOrders(self, filter):
         if filter == "waiterUnconfirmed":
