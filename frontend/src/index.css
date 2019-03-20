@@ -2,10 +2,14 @@
     
 }
 .FilterModalButton{
-    float: right;
-    background-color: rgb(31, 112, 233) !important;
-    color: white !important;
-
+    background-color: white !important;
+    color: rgb(31, 112, 233)!important;
+    border: dashed orange !important;  
+}
+.callWaiterModalTrigger{
+    border: dashed orange !important;
+    background-color: white !important;
+    color: rgb(31, 112, 233) !important;
 }
 .cardWrapper{
     border: 0px !important;
@@ -22,7 +26,7 @@
     grid-template-columns: auto auto auto !important;
 }
 .basketSide{
-    padding-top: 7.8em;
+    margin-top: 7%;
     float: right;
     background-color: white;
     width: 20%; 
@@ -214,7 +218,7 @@
 }
 .ui.text.menu{
     font-size: 2em;
-    margin-top: 1% !important;
+    margin-top: 0 !important;
     margin-bottom: 1% !important;
 }
 
