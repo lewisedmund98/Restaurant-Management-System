@@ -36,11 +36,6 @@ class order:
         cursor.execute("SELECT * FROM `customers` WHERE `customerID` = %s", self.__orderinfo['customerID'])
         return cursor.fetchall()
 
-    def getAllOrderHistory(self):
-        cursor = self.__db.cursor()
-        cursor.execute("SELECT * FROM `orderHistory`")
-        return cursor.fetchall()
-
     def loadOrderHistory(self, orderID):
         cursor = self.__db.cursor()
         cursor.execute("SELECT * FROM `orderHistory` WHERE `orderID` = %s ORDER BY `inserted` DESC", orderID)

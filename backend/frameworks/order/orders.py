@@ -1,6 +1,5 @@
 from frameworks.database.db import db
 from .order import order
-from collections import OrderedDict
 
 
 # This does not extend orders as none of the methods are shared
