@@ -35,6 +35,9 @@
 .basketItems h1{
     text-align: center;
 }
+.basketItems p{
+    text-align: center;
+}
 .viewBasket{
     width: 100%;
     background-color: rgb(31, 112, 233) !important;
