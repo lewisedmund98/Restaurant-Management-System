@@ -11,6 +11,10 @@ class orders:
         if request.path == '/orders/list/completed':
             if self.__checkPermish(0):
                 self.responseObj = handleListOrders("completed")
+        
+        elif request.path == '/orders/list/created':
+            if self.__checkPermish(0):
+                self.responseObj = handleListOrders("created")
 
         elif request.path == '/orders/list/waiterUnconfirmed':
             if self.__checkPermish(0):
