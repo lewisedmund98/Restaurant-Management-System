@@ -30,9 +30,37 @@ export default class LoginPageWrapper extends React.Component {
     event.preventDefault();
   }
 
-  createLogin() {
+  handleClick(event) {
+    if(event) {
+      
+    }
+  }
+
+  waiterLogin() {
     console.log(this.state.staffID);
     console.log(this.state.password);
+    if (this.state.staffID == "test" && this.state.password == "s3kr3tp4ssw0rd") {
+    try {
+      var loginRequestBody = JSON.stringify({
+        username : this.state.staffID,
+        password : this.state.password,
+        key: "abc123",
+        secret: "def456"
+      });
+      this.props.postData(loginRequestBody);
+      return true;
+    } catch (error) {
+      console.log("Something went wrong!" + error);
+    }
+    } else {
+      // if details are not correct keep in login page and show error
+    }
+  }
+
+  kitchenLogin() {
+    console.log(this.state.staffID);
+    console.log(this.state.password);
+    if (this.state.staffID == "kitchen" && this.state.password == "s3kr3tp4ssw0rd") {
     try {
       var loginRequestBody = JSON.stringify({
         username : this.state.staffID,
@@ -43,6 +71,9 @@ export default class LoginPageWrapper extends React.Component {
       this.props.postData(loginRequestBody);
     } catch (error) {
       console.log("Something went wrong!" + error);
+    }
+    } else {
+      // if details are not correct keep in login page and show error
     }
   }
 
@@ -67,12 +98,12 @@ export default class LoginPageWrapper extends React.Component {
                 <Link to={{
                         pathname:"/waiter"
                     }}>
-                <Button type='submit' onClick={()=>{this.createLogin()}}>Waiter Login</Button>
+                <Button type='submit' onClick={()=>{this.waiterLogin()}}>Waiter Login</Button>
                 </Link>
                 <Link to={{
                         pathname:"/Kitchen"
                     }}>
-                <Button type='submit' onClick={()=>{this.createLogin()}}>Kitchen Login</Button>
+                <Button type='submit' onClick={()=>{this.kitchenLogin()}}>Kitchen Login</Button>
                 </Link>
             </Form>
             
