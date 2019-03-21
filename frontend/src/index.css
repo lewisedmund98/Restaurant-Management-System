@@ -192,6 +192,7 @@
 
 .call{
     width: 60% !important;
+    height: 50px !important;
     display: block !important; 
     margin-right: auto !important;
     margin-left: auto !important; 
@@ -199,6 +200,15 @@
     background-Color: green !important; 
     margin-bottom: 2% !important; 
     margin-top: 2% !important;
+}
+.tableNumberBtnCustomer{
+    width: 50px !important;
+    height: 50px !important;
+    margin: 10px !important;
+    border: dashed rgb(31, 112, 233) !important;
+    text-align: center !important;
+    padding: 0 !important;
+    
 }
 .selectTableWarning{
     text-align: center;
@@ -392,6 +402,7 @@ body {
     margin-right: 1% !important;
     border: dashed rgb(31, 112, 233) !important;  
 }
+
 .chooseTableActions{
     margin-left: 1% !important;
     margin-right: 1% !important; 
