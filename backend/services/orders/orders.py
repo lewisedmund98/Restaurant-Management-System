@@ -2,7 +2,6 @@ from flask import Request, abort
 import fnmatch
 from frameworks.authentication.auth import authentication
 from .handler.handleListOrders import handleListOrders
-
 class orders:
     def __init__(self, request):
         self.__request = request
@@ -41,7 +40,7 @@ class orders:
 
     def getResponse(self):
         output = self.responseObj.getOutput()
-        if(isinstance(self.__newAccessToken, dict)):
+        if isinstance(self.__newAccessToken, dict):
             output.update(self.__newAccessToken)
         return output
 
@@ -50,7 +49,7 @@ class orders:
 
     def __checkPermish(self, level):
         self.__newAccessToken = self.__auth.authenticateRequest(self.__request.get_json()['access_token'], self.__request.get_json()['id'], level)
-        if(isinstance(self.__newAccessToken, dict)):
+        if isinstance(self.__newAccessToken, dict):
             return True
         else:
             abort(403)
