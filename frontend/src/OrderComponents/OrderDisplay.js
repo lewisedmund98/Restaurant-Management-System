@@ -38,6 +38,7 @@ export default class OrderDisplay extends React.Component {
             var time;
             var mappedDetails = details.map((orderDetail, key) => {
                 time = moment.unix(orderDetail.timeCreated).format("hh:mm a");
+                var colour;
                 var menuMapped = this.mapMenuToLabels(orderDetail.menu);
                 if(orderDetail.stage === "paid"){colour="green"}
                 return (<Card key={key} style={{display: "block", marginLeft: "auto", marginRight: "auto",  width: "50%" }}>
