@@ -21,14 +21,45 @@ export default class Customer extends React.Component {
         this.updateAccessToken = this.updateAccessToken.bind(this);
         this.setTables = this.setTables.bind(this);
         this.relog = this.relog.bind(this);
+        this.addAsyncRequest = this.addAsyncRequest.bind(this);
+        this.runRequests = this.runRequests.bind(this);
         this.state = {
             accessToken: null,
             userID: null,
             tables: [1,2,3,4]
         }
         this.tempGetAccess();
+        this.running = false;
+        this.requests = [];
     }
 
+    addAsyncRequest(endpoint, data, promise){
+        this.requests.push([endpoint, data, promise]);
+        if(this.running === false){
+            this.runRequests();
+        }
+    }
+
+    async runRequests(){
+        this.running = true;
+        if(this.requests.length !== 0){
+            var newReq = this.requests.pop();
+            var url = "https://flask.team-project.crablab.co/" + newReq[0];
+            var body = newReq[1]===null ?
+             {id: this.state.userID, key: "abc123", secret: "def456", access_token: this.state.accessToken} :
+             {...newReq[1], ...{id: this.state.userID, key: "abc123", secret: "def456", access_token: this.state.accessToken}};
+            await fetch(url, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify(body)
+            })
+            
+        } else { // Empty stack -> No requests
+            this.running = false;
+        }
+    }
     relog() {
         console.log("Need to relog!!")
     }
