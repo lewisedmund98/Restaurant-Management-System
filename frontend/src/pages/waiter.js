@@ -34,9 +34,22 @@ export default class Customer extends React.Component {
     }
 
     addAsyncRequest(endpoint, data, callback) {
-        this.requests.push([endpoint, data, callback]);
-        console.log("ADDED : ");
-        console.log(endpoint);
+        var contains = false;
+        for (var i = 0; i < this.requests.length; i++) {
+            console.log("new");
+            console.log(this.requests[i][0]);
+            console.log(this.requests[i][1]); 
+            if ((this.requests[i][0] === endpoint) && (this.requests[i][1] === data)) {
+                console.log("CONTAINS");
+                contains = true;
+            }
+        }
+
+    
+        if (contains === false) {
+            this.requests.push([endpoint, data, callback]);
+
+        }
         if (this.running === false) {
             this.runRequests();
         }
@@ -59,9 +72,9 @@ export default class Customer extends React.Component {
                 body: JSON.stringify(body)
             })
                 .then(response => {
-
                     return response.json();
                 })
+                // eslint-disable-next-line no-loop-func
                 .then(async (json) => {
                     callBack(json);
                     await this.setState({
@@ -70,6 +83,7 @@ export default class Customer extends React.Component {
                 })
 
         }  // Empty stack -> No requests
+        console.log("here");
         this.running = false;
 
     }

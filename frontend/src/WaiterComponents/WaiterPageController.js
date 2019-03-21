@@ -46,16 +46,16 @@ export default class WaiterPageController extends React.Component {
     startTimer(interval) {
         setTimeout(() => {
             this.checkForUpdate();
-        }, interval);
+         }, interval);
     }
 
     async checkForUpdate() {
         if (this.props.accessToken) {
             this.getUnconfirmedOrders();
             // await this.getKitchenCompleted();
-            //this.getNotifications();
+            this.getNotifications();
         }
-        this.startTimer(1000);
+        this.startTimer(20000);
     }
 
 
@@ -119,15 +119,16 @@ export default class WaiterPageController extends React.Component {
                                     if (!this.arrayOfUnconfirmedOrders.some(element => element.orderID === combinedResult.orderID)) {
                                         this.arrayOfUnconfirmedOrders.push(combinedResult);
                                     }
-
+                                    
+                                    this.setState({
+                                        unconfirmedOrders: this.arrayOfUnconfirmedOrders
+                                    })
                                 })
-
                         })
                 })
-                this.setState({
-                    unconfirmedOrders: this.arrayOfUnconfirmedOrders
-                })
-                this.arrayOfUnconfirmedOrders = [];
+                console.log("Here");
+                console.log(this.arrayOfUnconfirmedOrders);
+                //this.arrayOfUnconfirmedOrders = [];
             })
             
     }
@@ -213,6 +214,7 @@ export default class WaiterPageController extends React.Component {
 
 
     render() {
+        console.log(this.state.unconfirmedOrders);
         return (
             <div>
                 <EditMenu uID={this.props.uID} accessToken = {this.props.accessToken} updateToken={this.props.updateToken}></EditMenu>
