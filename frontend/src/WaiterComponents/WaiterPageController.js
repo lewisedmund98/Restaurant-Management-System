@@ -55,7 +55,7 @@ export default class WaiterPageController extends React.Component {
             // await this.getKitchenCompleted();
             this.getNotifications();
         }
-        this.startTimer(20000);
+        this.startTimer(1000);
     }
 
 
@@ -82,7 +82,6 @@ export default class WaiterPageController extends React.Component {
                     if (json.results.length > 0) { // If there is a new notification
                         json.results.forEach((notification) => { // Add it to the current list which will be passed
                             tempArray.push(notification);
-
                         })
                     }
                     this.setState({
@@ -126,8 +125,6 @@ export default class WaiterPageController extends React.Component {
                                 })
                         })
                 })
-                console.log("Here");
-                console.log(this.arrayOfUnconfirmedOrders);
                 //this.arrayOfUnconfirmedOrders = [];
             })
             
