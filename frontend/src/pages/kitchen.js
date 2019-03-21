@@ -49,7 +49,7 @@ export default class kitchen extends React.Component {
                 </div>
                 
                     <h1>Kitchen Order</h1>
-                    <KitchenPageController uID = {this.state.userID} accessToken = {this.state.accessToken} updateToken = {this.updateAccessToken} />
+                    <KitchenPageController uID = {this.state.userID} accessToken = {this.state.accessToken} updateToken = {this.props.updateToken} />
                 
             </div>
         )

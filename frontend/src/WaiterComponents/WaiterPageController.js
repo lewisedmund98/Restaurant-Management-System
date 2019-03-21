@@ -38,20 +38,7 @@ export default class WaiterPageController extends React.Component {
         this.confirmOrder = this.confirmOrder.bind(this);
         this.cancelOrder = this.cancelOrder.bind(this);
     }
-
-    // componentDidMount() {
-    //     this.timerID = setInterval(
-    //         async () => {
-    //             try {
-    //                 await this.checkForUpdate()
-    //             } catch (error) {
-    //                 console.log(error);
-    //             }
-    //         },
-    //         5000
-    //     );
-    // }
-
+    
     componentDidMount() {
         this.startTimer(500);
     }
@@ -230,7 +217,7 @@ export default class WaiterPageController extends React.Component {
     render() {
         return (
             <div>
-                <EditMenu></EditMenu>
+                <EditMenu uID={this.props.uID} accessToken = {this.props.accessToken} updateToken={this.props.updateToken}></EditMenu>
                 <Notifications tables={this.props.selectedTables} notifications={this.state.notifications}></Notifications>
                 <WaiterPageWrapper
                     cancelOrder={this.cancelOrder}
