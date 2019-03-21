@@ -51,9 +51,9 @@ export default class WaiterPageController extends React.Component {
 
     async checkForUpdate() {
         if (this.props.accessToken) {
-            await this.getUnconfirmedOrders();
-            await this.getKitchenCompleted();
-            await this.getNotifications();
+            this.getUnconfirmedOrders();
+            // await this.getKitchenCompleted();
+            //this.getNotifications();
         }
         this.startTimer(1000);
     }
@@ -66,17 +66,18 @@ export default class WaiterPageController extends React.Component {
 
     async getNotifications() {
         for (var i = 0; i < this.props.selectedTables.length; i++) {
-            await fetch("https://flask.team-project.crablab.co/notifications/listTable", {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                method: "POST",
-                body: JSON.stringify({ table: this.props.selectedTables[i], id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
-            })
-                .then(response => response.json())
-                // eslint-disable-next-line no-loop-func
-                .then((json) => {
-                    this.props.updateToken(json.new_access_token.access_token);
+            // await fetch("https://flask.team-project.crablab.co/notifications/listTable", {
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     method: "POST",
+            //     body: JSON.stringify({ table: this.props.selectedTables[i], id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
+            // })
+            //     .then(response => response.json())
+            //     // eslint-disable-next-line no-loop-func
+            //     .then((json) => {
+            //         this.props.updateToken(json.new_access_token.access_token);
+                this.props.addRequest("notifications/listTable", {table: this.props.selectedTables[i]}, (json) => {
                     var tempArray = this.state.notifications;
                     if (json.results.length > 0) { // If there is a new notification
                         json.results.forEach((notification) => { // Add it to the current list which will be passed
@@ -92,16 +93,16 @@ export default class WaiterPageController extends React.Component {
     }
 
     async getUnconfirmedOrders() {
-        await fetch("https://flask.team-project.crablab.co/orders/list/waiterUnconfirmed", {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
-        })
-            .then(response => response.json())
-            .then(data => {
-                this.props.updateToken(data.new_access_token.access_token);
+        // await fetch("https://flask.team-project.crablab.co/orders/list/waiterUnconfirmed", {
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     method: "POST",
+        //     body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
+        // })
+        //     .then(response => response.json())
+        this.props.addRequest("orders/list/waiterUnconfirmed", null, (data) => {
+                console.log("Running");
                 data = data.orders;
                 data.forEach(async (order, index) => {
                     await request.getMenuItems(order.items) // Pass Items
@@ -128,10 +129,7 @@ export default class WaiterPageController extends React.Component {
                 })
                 this.arrayOfUnconfirmedOrders = [];
             })
-            .catch(error => {
-                console.log(error);
-
-            })
+            
     }
 
     async getKitchenCompleted() {
