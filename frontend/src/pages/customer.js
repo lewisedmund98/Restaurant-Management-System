@@ -6,7 +6,6 @@
 import React from 'react';
 import '../index.css';
 import CustomerPageController from '../Controllers/CustomerPageController';
-import { Button } from 'semantic-ui-react';
 
 export default class Customer extends React.Component {
     render() {

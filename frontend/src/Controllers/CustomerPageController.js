@@ -25,7 +25,6 @@ import TabWrapper from '../MenuComponents/TabWrapper.js';
 import MenuFiltering from '../MenuComponents/MenuFiltering.js'
 import {Button} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
-import Cookies from 'universal-cookie';
 
 /**
  * The customer page controller is the main controller for the page with url/customer.
@@ -118,23 +117,13 @@ export default class CustomerPageController extends React.Component {
     }
 
     setOrder(orderNumber){
-        const cookies = new Cookies();
-        // cookies.remove(this.state.cookieKey);
-        // alert(cookies.get(this.state.cookieKey));
-        // var tempCookieArr = [];
-        // tempCookieArr[0] = cookies.get(this.state.cookieKey);
-        // if (tempCookieArr[0] != null) {
-        //     alert("here");
-        //     tempCookieArr = JSON.parse(tempCookieArr);
-        //     alert("here2");
-        //     tempCookieArr.push(orderNumber.orderID);
-        //     alert("here3");
-        // } else {
-        //     tempCookieArr[0] = [orderNumber.orderID]
-        // }
-        // alert(tempCookieArr);
-        // cookies.set(this.state.cookieKey, JSON.stringify(tempCookieArr), { path: '/' });
-        // alert("got here then good sign");
+        // const cookies = new Cookies();
+        // var tempCookieArr = this.state.cookieArr;
+        // tempCookieArr.push(orderNumber.orderId);
+        // this.setState({
+        //     cookieArr: tempCookieArr
+        // });
+        // cookies.set(this.state.cookieKey, tempCookieArr, { path: '/' });
         var tempOrderArray = this.state.orderNumbers; // Adds an order number to the list
         tempOrderArray.push(orderNumber);
         this.setState({

@@ -9,11 +9,6 @@ import OrderController from '../Controllers/CustomerOrderController'
 
 
 export default class CustomerOrderPage extends React.Component {
-    constructor(props){
-        super(props);
-        // Because we used a <Link> We need to call the state passed like this:
-        
-    }
     render() {
         var orderDetails = this.props.location.state;
         console.log(orderDetails);
