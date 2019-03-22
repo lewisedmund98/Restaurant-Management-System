@@ -156,13 +156,8 @@ export default class EditMenu extends React.Component {
         if (this.state.enabledItems) {
             enabledItemsMapped = this.mapEnabledItems(this.state.enabledItems);
         }
-<<<<<<< HEAD
-        if(this.state.disabledOrders){
-            disabledOrdersMapped = this.mapDisabledOrders(this.state.disabledOrders);
-=======
         if (this.state.disabledItems) {
             disabledItemsMapped = this.mapDisabledItems(this.state.disabledItems);
->>>>>>> master
         }
         return (
             <div>
