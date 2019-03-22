@@ -13,7 +13,6 @@
 
 import React from 'react';
 import { Table, List, Button } from 'semantic-ui-react';
-var requests = require('../Requests');
 
 export default class OrderListView extends React.Component {
     constructor(props) {
