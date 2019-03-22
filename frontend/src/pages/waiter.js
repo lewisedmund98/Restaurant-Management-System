@@ -36,10 +36,7 @@ export default class Customer extends React.Component {
     addAsyncRequest(endpoint, data, callback) {
         var contains = false;
         for (var i = 0; i < this.requests.length; i++) {
-            console.log("NUMBER 1: " + (JSON.stringify(this.requests[i][1])));
-            console.log("NUMBER 2: " + (JSON.stringify(data)));
             if ((this.requests[i][0] === endpoint) && (JSON.stringify(this.requests[i][1]) === JSON.stringify(data))) {
-                console.log("CONTAINS");
                 contains = true;
             }
         }
@@ -81,9 +78,7 @@ export default class Customer extends React.Component {
                 })
 
         }  // Empty stack -> No requests
-        console.log("here");
-        this.running = false;
-
+        this.running = false; // If all the resquests are done, this runs
     }
 
     relog() {
@@ -116,11 +111,9 @@ export default class Customer extends React.Component {
     }
 
     setTables(tableList) {
-        console.log("!!!!!!!!!!!!!!!!! WHY THE HELL AM I RUNNING ");
         this.setState({
             tables: tableList
         });
-        console.log("WHAT AM I DOIONG HERE AND RUNNING");
     }
 
     render() {
