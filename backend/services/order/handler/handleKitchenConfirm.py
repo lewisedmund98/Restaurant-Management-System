@@ -12,5 +12,11 @@ class handleKitchenConfirm:
         return {"confirmed": self.__kitchenConfirmation()}
 
     def __kitchenConfirmation(self):
-        eta = datetime.now() + timedelta(minutes=int(self.__data['eta']))  
-        return self.__order.kitchenConfirm(self.__data['id'], eta.timestamp())
+        if "eta" in self.__data:
+            eta = datetime.now() + timedelta(minutes=int(self.__data['eta']))  
+            rval = self.__order.kitchenConfirm(self.__data['id'], eta.timestamp())
+        else: 
+            eta = None
+            rval = self.__order.kitchenConfirm(self.__data['id'])
+        
+        return rval
