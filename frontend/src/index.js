@@ -20,7 +20,7 @@ import Customer from './pages/customer.js';
 import Waiter from './pages/waiter.js';
 import CustomerOrderPage from './pages/customerOrders';
 import Kitchen from "./pages/kitchen.js";
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 
 /**
  * The router in this is what is making sure the react knows which page to render based on the current

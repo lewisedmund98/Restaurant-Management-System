@@ -1,7 +1,6 @@
 import React from 'react';
 import '../index.css';
 import KitchenPageController from "../KitchenComponents/KitchenPageController";
-import {normalizeUnits} from 'moment';
 
 export default class kitchen extends React.Component {
     constructor(props) {

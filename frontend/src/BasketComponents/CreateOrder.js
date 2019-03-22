@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, Form } from 'semantic-ui-react';
+import { Modal, Button } from 'semantic-ui-react';
 import BasketItem from './BasketItem';
 import OrderForm from './OrderForm.js';
 

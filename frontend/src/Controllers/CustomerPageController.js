@@ -25,7 +25,6 @@ import TabWrapper from '../MenuComponents/TabWrapper.js';
 import MenuFiltering from '../MenuComponents/MenuFiltering.js'
 import {Button} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
-import Cookies from 'universal-cookie';
 
 /**
  * The customer page controller is the main controller for the page with url/customer.

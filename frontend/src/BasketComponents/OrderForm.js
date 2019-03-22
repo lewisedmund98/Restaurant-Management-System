@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Label, Checkbox, Button, Dropdown, Select } from 'semantic-ui-react';
+import { Form, Input, Label, Checkbox, Button, Dropdown } from 'semantic-ui-react';
 
 
 /* This class will have the order form in it. The form submission will be handled in this class too.
