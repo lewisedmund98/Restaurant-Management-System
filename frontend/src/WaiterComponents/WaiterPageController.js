@@ -59,7 +59,7 @@ export default class WaiterPageController extends React.Component {
         }
         this.startTimer(10000);
     }
-    
+
     async getNotifications(table) {
         // for (var i = 0; i < this.props.selectedTables.length; i++) {
             // await fetch("https://flask.team-project.crablab.co/notifications/listTable", {
@@ -97,7 +97,6 @@ export default class WaiterPageController extends React.Component {
         // })
         //     .then(response => response.json())
         this.props.addRequest("orders/list/waiterUnconfirmed", null, async (data) => {
-                console.log("Running");
                 data = data.orders;
                 data.forEach(async (order, index) => {
                     await request.getMenuItems(order.items) // Pass Items
@@ -203,7 +202,6 @@ export default class WaiterPageController extends React.Component {
 
 
     render() {
-        console.log(this.state.unconfirmedOrders);
         return (
             <div>
                 <EditMenu uID={this.props.uID} accessToken = {this.props.accessToken} updateToken={this.props.updateToken}></EditMenu>
