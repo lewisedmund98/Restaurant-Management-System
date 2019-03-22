@@ -102,7 +102,7 @@ export default class WaiterPageController extends React.Component {
         //     body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
         // })
         //     .then(response => response.json())
-        this.props.addRequest("orders/list/waiterUnconfirmed", null, (data) => {
+        this.props.addRequest("orders/list/waiterUnconfirmed", null, async (data) => {
                 console.log("Running");
                 data = data.orders;
                 data.forEach(async (order, index) => {
@@ -121,13 +121,13 @@ export default class WaiterPageController extends React.Component {
                                     //     this.arrayOfUnconfirmedOrders.push(combinedResult);
 
                                     // }
+                                    this.setState({
+                                        unconfirmedOrders: this.arrayOfUnconfirmedOrders
+                                    })
                                     
                                     
                                 })
                         })
-                })
-                this.setState({
-                    unconfirmedOrders: this.arrayOfUnconfirmedOrders
                 })
                 this.arrayOfUnconfirmedOrders = [];
             })
