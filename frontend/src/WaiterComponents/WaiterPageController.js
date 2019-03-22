@@ -53,9 +53,11 @@ export default class WaiterPageController extends React.Component {
         if (this.props.accessToken) {
             this.getUnconfirmedOrders();
             // await this.getKitchenCompleted();
-            this.getNotifications();
+            for (var i = 0; i < this.props.selectedTables.length; i++) {
+            this.getNotifications(this.props.selectedTables[i]);
+            }
         }
-        this.startTimer(1000);
+        this.startTimer(10000);
     }
 
 
@@ -64,8 +66,8 @@ export default class WaiterPageController extends React.Component {
     }
 
 
-    async getNotifications() {
-        for (var i = 0; i < this.props.selectedTables.length; i++) {
+    async getNotifications(table) {
+        // for (var i = 0; i < this.props.selectedTables.length; i++) {
             // await fetch("https://flask.team-project.crablab.co/notifications/listTable", {
             //     headers: {
             //         "Content-Type": "application/json",
@@ -77,7 +79,7 @@ export default class WaiterPageController extends React.Component {
             //     // eslint-disable-next-line no-loop-func
             //     .then((json) => {
             //         this.props.updateToken(json.new_access_token.access_token);
-                this.props.addRequest("notifications/listTable", {table: this.props.selectedTables[i]}, (json) => {
+                this.props.addRequest("notifications/listTable", {table: table}, (json) => {
                     var tempArray = this.state.notifications;
                     if (json.results.length > 0) { // If there is a new notification
                         json.results.forEach((notification) => { // Add it to the current list which will be passed
@@ -88,7 +90,7 @@ export default class WaiterPageController extends React.Component {
                         notifications: tempArray
                     });
                 })
-        }
+        //}
     }
 
     async getUnconfirmedOrders() {
@@ -115,17 +117,19 @@ export default class WaiterPageController extends React.Component {
                                     customerDetails = customerDetails.result[0];
                                     var combinedResult = { ...{ menuItems: menuItemsArray }, ...order, ...customerDetails};
                                     this.arrayOfUnconfirmedOrders[index] = combinedResult;
-                                    if (!this.arrayOfUnconfirmedOrders.some(element => element.orderID === combinedResult.orderID)) {
-                                        this.arrayOfUnconfirmedOrders.push(combinedResult);
-                                    }
+                                    // if (!this.arrayOfUnconfirmedOrders.some(element => element.orderID === combinedResult.orderID)) {
+                                    //     this.arrayOfUnconfirmedOrders.push(combinedResult);
+
+                                    // }
                                     
-                                    this.setState({
-                                        unconfirmedOrders: this.arrayOfUnconfirmedOrders
-                                    })
+                                    
                                 })
                         })
                 })
-                //this.arrayOfUnconfirmedOrders = [];
+                this.setState({
+                    unconfirmedOrders: this.arrayOfUnconfirmedOrders
+                })
+                this.arrayOfUnconfirmedOrders = [];
             })
             
     }
