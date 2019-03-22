@@ -10,30 +10,32 @@ class orders:
         # Instantiate Database
         self.__database = instance = db()
         self.__db = instance.getInstance()
+        self.__mappings = {
+            "created": "created", 
+            "waiterUnconfirmed": "paid",
+            "waiterConfirmed": "waiterConfirmed", 
+            "kitchenConfirmed": "kitchenConfirmed", 
+            "kitchenComplete": "kitchenComplete", 
+            "completed": "waiterComplete",
+            "ordersCancelled": "cancelled"
+            }
 
     def loadOrders(self, filter):
-        if filter == "waiterUnconfirmed":
-            ids = self.__getWaiterUnconfirmed()
-        elif filter == "cancelledOrders":
-            ids = self.__getCancelledOrders()
-        elif filter == "waiterConfirmed":
-            ids = self.__getWaiterConfirmed()
-        elif filter == "kitchenConfirmed":
-            ids = self.__getKitchenConfirmed()
-        elif filter == "kitchenComplete":
-            ids = self.__getKitchenComplete()
-        elif filter == "waiterComplete":
-            ids = self.__getWaiterComplete()
-        elif filter == "awaitingDelivery":
-            pass
-        elif filter == "completedRecent":
-            pass
-        elif filter == "completed":
+        if filter == "completed":
             ids = self.__getAllOrderIDs()
         else:
-            raise Exception('Filter condition missing')
+            ids = self.__loadMappedOrders(filter)
         self.__loadItems(ids)
         return True
+
+    def __loadMappedOrders(self, filter):
+        matchedOrders = []
+
+        for order in self.__getAllOrderIDs():
+            if(self.__confirmLastStage(order['orderID'], self.__mappings[filter])):
+                matchedOrders.append(order)
+
+        return matchedOrders
 
     def getOrders(self):
         data = []
@@ -54,60 +56,17 @@ class orders:
         cursor = self.__db.cursor()
         cursor.execute("SELECT orderID FROM `orders`")
         return cursor.fetchall()
-
-    def __getCancelledOrders(self):
+    
+    def __confirmLastStage(self, orderID, stage):
         cursor = self.__db.cursor()
-        cursor.execute(
-            "SELECT orderID from orderHistory WHERE orderID NOT IN (SELECT orderID from orderHistory WHERE"
-            "stage != 'cancelled');")
-        return cursor.fetchall()
+        cursor.execute("SELECT `stage` FROM `orderHistory` WHERE `orderID` = %s ORDER BY `inserted` DESC LIMIT 1", (orderID));
 
-    def __getWaiterUnconfirmed(self):  # get Paid
-        cursor = self.__db.cursor()
-        cursor.execute(
-            "CREATE TABLE T AS SELECT * FROM"
-            "( SELECT orderID, count(*) as 'rownumber' FROM orderHistory GROUP BY orderID) AS B JOIN"
-            "( SELECT orderID AS 'ignore', stage AS 'state' FROM orderHistory) AS A ON A.ignore=B.orderID;"
-            "SELECT orderID FROM T WHERE state = 'paid' AND rownumber = 2; "
-            "DROP TABLE T;")
-        return cursor.fetchall()
+        if(cursor.rowcount != 1):
+            raise Exception("Order has no history")
+        else:
+            data = cursor.fetchone()
 
-    def __getWaiterConfirmed(self):
-        cursor = self.__db.cursor()
-        cursor.execute(
-            "CREATE TABLE T AS SELECT * FROM"
-            "( SELECT orderID, count(*) as 'rownumber' FROM orderHistory GROUP BY orderID) AS B JOIN"
-            "( SELECT orderID AS 'ignore', stage AS 'state' FROM orderHistory) AS A ON A.ignore=B.orderID;"
-            "SELECT orderID FROM T WHERE state = 'waiterConfirmed' AND rownumber = 3;"
-            "DROP TABLE T;")
-        return cursor.fetchall()
-
-    def __getKitchenConfirmed(self):
-        cursor = self.__db.cursor()
-        cursor.execute(
-            "CREATE TABLE T AS SELECT * FROM"
-            "( SELECT orderID, count(*) as 'rownumber' FROM orderHistory GROUP BY orderID) AS B JOIN"
-            "( SELECT orderID AS 'ignore', stage AS 'state' FROM orderHistory) AS A ON A.ignore=B.orderID;"
-            "SELECT orderID FROM T WHERE state = 'kitchenConfirmed' AND rownumber = 4;"
-            "DROP TABLE T;")
-        return cursor.fetchall()
-
-    def __getKitchenComplete(self):
-        cursor = self.__db.cursor()
-        cursor.execute(
-            "CREATE TABLE T AS SELECT * FROM"
-            "( SELECT orderID, count(*) as 'rownumber' FROM orderHistory GROUP BY orderID) AS B JOIN"
-            "( SELECT orderID AS 'ignore', stage AS 'state' FROM orderHistory) AS A ON A.ignore=B.orderID;"
-            "SELECT orderID FROM T WHERE state = 'kitchenComplete' AND rownumber = 5;"
-            "DROP TABLE T;")
-        return cursor.fetchall()
-
-    def __getWaiterComplete(self):  # get Order complete
-        cursor = self.__db.cursor()
-        cursor.execute(
-            "CREATE TABLE T AS SELECT * FROM"
-            "( SELECT orderID, count(*) as 'rownumber' FROM orderHistory GROUP BY orderID) AS B JOIN"
-            "( SELECT orderID AS 'ignore', stage AS 'state' FROM orderHistory) AS A ON A.ignore=B.orderID;"
-            "SELECT orderID FROM T WHERE state = 'waiterComplete' AND rownumber = 6;"
-            "DROP TABLE T;")
-        return cursor.fetchall()
+        if(data['stage'] == stage):
+            return True
+        else: 
+            return False
