@@ -21,12 +21,64 @@ export default class Customer extends React.Component {
         this.updateAccessToken = this.updateAccessToken.bind(this);
         this.setTables = this.setTables.bind(this);
         this.relog = this.relog.bind(this);
+        this.addAsyncRequest = this.addAsyncRequest.bind(this);
+        this.runRequests = this.runRequests.bind(this);
         this.state = {
             accessToken: null,
             userID: null,
-            tables: [1,2,3,4]
+            tables: [1, 2, 3, 4]
         }
         this.tempGetAccess();
+        this.running = false;
+        this.requests = [];
+    }
+
+    addAsyncRequest(endpoint, data, callback) {
+        var contains = false;
+        for (var i = 0; i < this.requests.length; i++) {
+            if ((this.requests[i][0] === endpoint) && (JSON.stringify(this.requests[i][1]) === JSON.stringify(data))) {
+                contains = true;
+            }
+        }
+
+        if (contains === false) {
+            this.requests.push([endpoint, data, callback]);
+        }
+
+        if (this.running === false) {
+            this.runRequests();
+        }
+    }
+
+    async runRequests() {
+        this.running = true;
+        while (this.requests.length !== 0) {
+            var newReq = this.requests.shift();
+            var callBack = newReq[2];
+            var url = "https://flask.team-project.crablab.co/" + newReq[0];
+            var body = newReq[1] === null ?
+                { id: this.state.userID, key: "abc123", secret: "def456", access_token: this.state.accessToken } :
+                { ...newReq[1], ...{ id: this.state.userID, key: "abc123", secret: "def456", access_token: this.state.accessToken } };
+            await fetch(url, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify(body)
+            })
+                .then(response => {
+                    return response.json();
+                })
+                // eslint-disable-next-line no-loop-func
+                .then(async (json) => {
+                    callBack(json);
+                    await this.setState({
+                        accessToken: json.new_access_token.access_token
+                    })
+                })
+
+        }  // Empty stack -> No requests
+        this.running = false; // If all the resquests are done, this runs
     }
 
     relog() {
@@ -39,30 +91,29 @@ export default class Customer extends React.Component {
                 "Content-Type": "application/json",
             },
             method: "POST",
+
             body: JSON.stringify({ username: "test", password: "s3kr3tp4ssw0rd", key: "abc123", secret: "def456" }), // pulls the order id from the order ID given
 
         })
             .then(result => result.json())
-            .then(json => this.setState({
+            .then(async (json) => await this.setState({
                 accessToken: json.login.access_token,
                 userID: json.login.userID
             }));
     }
 
     updateAccessToken(newAccessToken) {
-        console.log("Old access " + this.state.accessToken);
-        console.log("New Access " + newAccessToken);
+        //console.log("Old access " + this.state.accessToken);
+        //console.log("New Access " + newAccessToken);
         this.setState({
             accessToken: newAccessToken
         })
     }
 
     setTables(tableList) {
-        console.log("!!!!!!!!!!!!!!!!! WHY THE HELL AM I RUNNING ");
         this.setState({
             tables: tableList
         });
-        console.log("WHAT AM I DOIONG HERE AND RUNNING");
     }
 
     render() {
@@ -71,13 +122,13 @@ export default class Customer extends React.Component {
         return (
             <div>
                 <div class="topnav">
-                    <img class="logo" src="oaxaca_logo.png" alt="Oaxaca Logo" height="150" width="150"/>
+                    <img class="logo" src="oaxaca_logo.png" alt="Oaxaca Logo" height="150" width="150" />
                 </div>
-                <div className="loginContainer" style={{paddingTop: "1%", paddingBottom: "1%"}}>
+                <div className="loginContainer" style={{ paddingTop: "1%", paddingBottom: "1%" }}>
                     <ChooseTable setTable={this.setTables}></ChooseTable>
                 </div>
                 <div className="orderContainer">
-                    <WaiterPageController selectedTables={this.state.tables}
+                    <WaiterPageController addRequest={this.addAsyncRequest} selectedTables={this.state.tables}
                         uID={this.state.userID} updateToken={this.updateAccessToken} accessToken={this.state.accessToken}></WaiterPageController>
                 </div>
             </div>

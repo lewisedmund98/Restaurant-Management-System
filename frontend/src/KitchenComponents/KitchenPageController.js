@@ -18,43 +18,39 @@ export default class KitchenPageController extends React.Component {
         this.checkForUpdate = this.checkForUpdate.bind(this);
         this.getKitchenConfirmed = this.getKitchenConfirmed.bind(this);
         this.requestLock = true; // Variable to tell whether a request has finished
+        this.startTimer = this.startTimer.bind(this);
     }
 
     componentDidMount() {
-        this.timerID = setInterval(
-            async () => {
-                try {
-                    await this.checkForUpdate();
-                } catch (error) {
-                    console.log(error);
-                }
-            },
-            4000
-        );
+       this.startTimer(500);
+    }
+
+    startTimer(delay){
+        setTimeout(() => {
+            this.checkForUpdate();
+         }, delay);
     }
 
     async checkForUpdate() {
         if (this.props.accessToken) {
-            await this.getWaiterConfirmed();
-            await this.sleep(1000);
-            await this.getKitchenConfirmed();
+            this.getWaiterConfirmed();
+            this.getKitchenConfirmed();
         }
+        this.startTimer(5000);
     }
-    sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+   
 
     async getWaiterConfirmed() {
-        await fetch("https://flask.team-project.crablab.co/orders/list/waiterConfirmed", {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }) // pulls the order id from the order ID given
-        })
-            .then(response => response.json())
-            .then(result => {
-                this.props.updateToken(result.new_access_token.access_token);
+        // await fetch("https://flask.team-project.crablab.co/orders/list/waiterConfirmed", {
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     method: "POST",
+        //     body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }) // pulls the order id from the order ID given
+        // })
+        //     .then(response => response.json())
+        //     .then(result => {
+            this.props.addRequest("orders/list/waiterConfirmed", null, (result) => {
                 result = result.orders;
                 result.forEach(async (order, index) => {
                     await request.getMenuItems(order.items) // Pass Items
@@ -65,32 +61,26 @@ export default class KitchenPageController extends React.Component {
                             }
                             var combinedResult = { ...{ menuItems: menuItemsArray }, ...order };
                             this.waiterConfirmedArray[index] = combinedResult;
-                            if (!this.waiterConfirmedArray.some(element => element.orderID === combinedResult.orderID)) {
-                                this.waiterConfirmedArray.push(combinedResult);
-                            }
+                            this.setState({
+                                waiterConfirmed: this.waiterConfirmedArray
+                            })
                         })
                 })
-                this.setState({
-                    waiterConfirmed: this.waiterConfirmedArray
-                })
                 this.waiterConfirmedArray = [];
-            })
-            .catch(error => {
-                console.log(error);
             })
     }
 
     async getKitchenConfirmed() {
-        await fetch("https://flask.team-project.crablab.co/orders/list/kitchenConfirmed", {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }) // pulls the order id from the order ID given
-        })
-            .then(response => response.json())
-            .then(result => {
-                this.props.updateToken(result.new_access_token.access_token);
+        // await fetch("https://flask.team-project.crablab.co/orders/list/kitchenConfirmed", {
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     method: "POST",
+        //     body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }) // pulls the order id from the order ID given
+        // })
+        //     .then(response => response.json())
+        //     .then(result => {
+            this.props.addRequest("orders/list/kitchenConfirmed", null, (result) => {
                 result = result.orders;
                 result.forEach(async (order, index) => {
                     await request.getMenuItems(order.items) // Pass Items
@@ -101,26 +91,21 @@ export default class KitchenPageController extends React.Component {
                             }
                             var combinedResult = { ...{ menuItems: menuItemsArray }, ...order };
                             this.toBeCompletedArray[index] = combinedResult;
-                            if (!this.toBeCompletedArray.some(element => element.orderID === combinedResult.orderID)) {
-                                this.toBeCompletedArray.push(combinedResult);
-                            }
+                            this.setState({
+                                toBeCompleted: this.toBeCompletedArray
+                            })
                         })
-                })
-                this.setState({
-                    toBeCompleted: this.toBeCompletedArray
                 })
                 this.toBeCompletedArray = [];
 
             })
-            .catch(error => {
-                console.log(error);
-            })
+    
         }
 
 
 
     async kitchenConfirmOrder(orderID) {
-        await fetch("https://flask.team-project.crablab.co/order/waiterConfirm", {
+        await fetch("https://flask.team-project.crablab.co/order/kitchenConfirm", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
