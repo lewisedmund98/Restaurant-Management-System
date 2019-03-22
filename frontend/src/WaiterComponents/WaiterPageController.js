@@ -59,7 +59,7 @@ export default class WaiterPageController extends React.Component {
                 this.getNotifications(this.props.selectedTables[i]);
             }
         }
-        this.startTimer(10000);
+        this.startTimer(5000);
     }
 
     async getNotifications(table) {
@@ -120,8 +120,6 @@ export default class WaiterPageController extends React.Component {
                                     unconfirmedOrders: this.arrayOfUnconfirmedOrders,
                                     showDimmer: false
                                 })
-
-
                             })
                     })
             })
