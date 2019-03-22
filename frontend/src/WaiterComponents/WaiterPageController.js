@@ -59,13 +59,7 @@ export default class WaiterPageController extends React.Component {
         }
         this.startTimer(10000);
     }
-
-
-    sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-
+    
     async getNotifications(table) {
         // for (var i = 0; i < this.props.selectedTables.length; i++) {
             // await fetch("https://flask.team-project.crablab.co/notifications/listTable", {

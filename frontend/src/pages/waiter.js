@@ -35,15 +35,14 @@ export default class Customer extends React.Component {
 
     addAsyncRequest(endpoint, data, callback) {
         var contains = false;
-        
-            for (var i = 0; i < this.requests.length; i++) {
-                console.log("NUMBER 1: " + (JSON.stringify(this.requests[i][1])));
-                console.log("NUMBER 2: " + (JSON.stringify(data)));
-                if ((this.requests[i][0] === endpoint) && (JSON.stringify(this.requests[i][1]) === JSON.stringify(data))) {
-                    console.log("CONTAINS");
-                    contains = true;
-                }
+        for (var i = 0; i < this.requests.length; i++) {
+            console.log("NUMBER 1: " + (JSON.stringify(this.requests[i][1])));
+            console.log("NUMBER 2: " + (JSON.stringify(data)));
+            if ((this.requests[i][0] === endpoint) && (JSON.stringify(this.requests[i][1]) === JSON.stringify(data))) {
+                console.log("CONTAINS");
+                contains = true;
             }
+        }
 
         if (contains === false) {
             this.requests.push([endpoint, data, callback]);
@@ -58,8 +57,6 @@ export default class Customer extends React.Component {
         this.running = true;
         while (this.requests.length !== 0) {
             var newReq = this.requests.shift();
-            console.log("Current Req");
-            console.log(this.requests);
             var callBack = newReq[2];
             var url = "https://flask.team-project.crablab.co/" + newReq[0];
             var body = newReq[1] === null ?

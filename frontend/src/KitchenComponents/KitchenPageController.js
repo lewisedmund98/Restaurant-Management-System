@@ -18,31 +18,27 @@ export default class KitchenPageController extends React.Component {
         this.checkForUpdate = this.checkForUpdate.bind(this);
         this.getKitchenConfirmed = this.getKitchenConfirmed.bind(this);
         this.requestLock = true; // Variable to tell whether a request has finished
+        this.startTimer = this.startTimer.bind(this);
     }
 
     componentDidMount() {
-        this.timerID = setInterval(
-            async () => {
-                try {
-                    await this.checkForUpdate();
-                } catch (error) {
-                    console.log(error);
-                }
-            },
-            4000
-        );
+       this.startTimer(500);
+    }
+
+    startTimer(delay){
+        setTimeout(() => {
+            this.checkForUpdate();
+         }, delay);
     }
 
     async checkForUpdate() {
         if (this.props.accessToken) {
             await this.getWaiterConfirmed();
-            await this.sleep(1000);
             await this.getKitchenConfirmed();
         }
+        this.startTimer(5000);
     }
-    sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+   
 
     async getWaiterConfirmed() {
         await fetch("https://flask.team-project.crablab.co/orders/list/waiterConfirmed", {
