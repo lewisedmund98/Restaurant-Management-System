@@ -52,7 +52,7 @@ export default class WaiterPageController extends React.Component {
     async checkForUpdate() {
         if (this.props.accessToken) {
             this.getUnconfirmedOrders();
-            // await this.getKitchenCompleted();
+            this.getKitchenCompleted();
             for (var i = 0; i < this.props.selectedTables.length; i++) {
             this.getNotifications(this.props.selectedTables[i]);
             }
@@ -135,15 +135,15 @@ export default class WaiterPageController extends React.Component {
     }
 
     async getKitchenCompleted() {
-        await fetch("https://flask.team-project.crablab.co/orders/list/kitchenComplete", {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
-        })
-            .then(response => response.json())
-            .then(data => {
+        // await fetch("https://flask.team-project.crablab.co/orders/list/kitchenComplete", {
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     method: "POST",
+        //     body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
+        // })
+        //     .then(response => response.json())
+        this.props.addRequest("orders/list/kitchenComplete", null, async (data) => {
                 this.props.updateToken(data.new_access_token.access_token);
                 data = data.orders;
                 data.forEach(async (order, index) => {
@@ -155,23 +155,18 @@ export default class WaiterPageController extends React.Component {
                             }
                             var combinedResult = { ...{menuItems: menuItemsArray}, ...order };
                             this.toBeDeliveredArray[index] = combinedResult;
-                            if (!this.toBeDeliveredArray.some(element => element.orderID === combinedResult.orderID)) {
-                                this.toBeDeliveredArray.push(combinedResult);
-                            }
+                            // if (!this.toBeDeliveredArray.some(element => element.orderID === combinedResult.orderID)) {
+                            //     this.toBeDeliveredArray.push(combinedResult);
+                            // }
+                            this.setState({
+                                toBeDelivered: this.toBeDeliveredArray
+                            })
 
                         })
-                })
-                this.setState({
-                    toBeDelivered: this.toBeDeliveredArray
                 })
                 this.toBeDeliveredArray = [];
 
             })
-            .catch(error => {
-                console.log(error);
-
-            })
-
     }
 
     confirmOrder(orderID) {
