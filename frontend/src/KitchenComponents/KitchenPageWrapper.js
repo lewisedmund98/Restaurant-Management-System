@@ -1,7 +1,6 @@
 import React from 'react';
 import KitchenItemsView from "./KitchenItemsView";
 import {Card, Button} from 'semantic-ui-react';
-import { timingSafeEqual } from 'crypto';
 
 export default class KitchenPageWrapper extends React.Component {
 
@@ -17,7 +16,7 @@ export default class KitchenPageWrapper extends React.Component {
     }
 
     handleKitchenComplete(orderID){
-        this.props.kitchenConfirmOrder(orderID);
+        this.props.completeOrder(orderID);
     }
 
     mappedWaiterConfirm(waiterConfirmed){

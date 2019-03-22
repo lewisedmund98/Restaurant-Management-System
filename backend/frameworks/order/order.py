@@ -76,8 +76,12 @@ class order:
     def orderCancel(self, id, refund=""):
         return self.__insertOrderHistory(id, "cancelled", {"stripeRefundID": refund})
 
-    def kitchenConfirm(self, id, eta):
-        return self.__insertOrderHistory(id, "kitchenConfirmed", {"eta": eta})
+    def kitchenConfirm(self, id, eta=0):
+        if(eta == 0):
+            json = None
+        else: 
+            json = {"eta": eta}
+        return self.__insertOrderHistory(id, "kitchenConfirmed", json)
 
     def kitchenComplete(self, id):
         return self.__insertOrderHistory(id, "kitchenComplete", {})

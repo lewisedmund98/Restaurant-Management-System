@@ -1,12 +1,12 @@
 import React from 'react';
-import { Button, List, Image } from 'semantic-ui-react';
+import { List, Image } from 'semantic-ui-react';
 
 export default class EditableMenuItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             clicked: false
-        }
+        };
         this.updateArray = this.updateArray.bind(this);
     }
 
