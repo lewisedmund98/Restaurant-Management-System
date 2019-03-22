@@ -38,9 +38,7 @@ export default class OrderDisplay extends React.Component {
             var time;
             var mappedDetails = details.map((orderDetail, key) => {
                 time = moment.unix(orderDetail.timeCreated).format("hh:mm a");
-                var colour;
                 var menuMapped = this.mapMenuToLabels(orderDetail.menu);
-                if(orderDetail.stage === "paid"){colour="green"}
                 return (<Card key={key} style={{display: "block", marginLeft: "auto", marginRight: "auto",  width: "50%" }}>
                 <Card.Content>
                     <Card.Header>
@@ -52,8 +50,6 @@ export default class OrderDisplay extends React.Component {
                     <Card.Meta >
                         Table Number: {orderDetail.table}
                     </Card.Meta>
-                    {/*<Label color={colour}>{orderDetail.stage}</Label>*/}
-                    {/*<Breadcrumb icon='right arrow' sections={this.state.orderProgress} />*/}
                     <OrderTimeline stage={orderDetail.stage} />
                 </Card.Content>
                 <Card.Content extra>
