@@ -17,7 +17,7 @@ export default class KitchenPageWrapper extends React.Component {
     }
 
     handleKitchenComplete(orderID){
-        this.props.kitchenConfirmOrder(orderID);
+        this.props.completeOrder(orderID);
     }
 
     mappedWaiterConfirm(waiterConfirmed){
