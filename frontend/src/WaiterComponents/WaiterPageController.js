@@ -144,7 +144,6 @@ export default class WaiterPageController extends React.Component {
         // })
         //     .then(response => response.json())
         this.props.addRequest("orders/list/kitchenComplete", null, async (data) => {
-                this.props.updateToken(data.new_access_token.access_token);
                 data = data.orders;
                 data.forEach(async (order, index) => {
                     await request.getMenuItems(order.items) // Pass Items
