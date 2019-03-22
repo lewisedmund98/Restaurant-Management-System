@@ -59,7 +59,7 @@ export default class CallWaiter extends React.Component {
                 <Modal.Header style={{textAlign: "center"}}>
                     Which table are you sitting at?
                 </Modal.Header>
-                <Modal.Content className="tableNumberBtnCustomer">
+                <Modal.Content>
                     <div style={{textAlign: "center"}}>
                         <div style={{display: "block", marginRight: "auto", marginLeft: "auto"}}>
                             <Button className="tableNumberBtnCustomer" value="1" onClick={(e) => { this.handleSetTable(e) }}>1</Button>
