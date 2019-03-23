@@ -51,6 +51,13 @@
 	margin-left: auto !important;
     margin-right: auto !important;
 }
+#returnToMenuFromOrder{
+    background-color: rgb(31, 112, 233) !important;
+    color: white !important;
+    height: 50px !important;
+    padding: 0 !important;
+    width: 200px !important;
+}
 
 .singleBasketItem{
     width: 100%;

@@ -3,7 +3,8 @@
  * This will take some order state in too.
  */
 import React from 'react';
-import { Card, List , Image} from 'semantic-ui-react';
+import { Card, List , Image, Button} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
 import TakeMoney from '../OrderComponents/Stripe.js';
 import OrderTimeline from '../OrderComponents/OrderTimeline.js'
 
@@ -73,10 +74,17 @@ export default class OrderDisplay extends React.Component {
         console.log(this.props.orderDetails);
         var orders = this.mapOrderDetails(this.props.orderDetails);
         return (
+            <div>
             <div style={{ width: "100%" }} className="ordersDiv">
             <h1 style={{textAlign: "center"}}>Your orders</h1>
                 <ul>{orders}</ul>
             </div>
+            <div style={{textAlign: "center"}}>
+            <Link to={{
+                pathname: "/customer"
+            }}><Button id='returnToMenuFromOrder'>Return to menu</Button></Link>
+            </div></div>
+            
         )
     }
 }
