@@ -13,7 +13,6 @@ export default class KitchenPageWrapper extends React.Component {
     }
 
     handleKitchenConfirm(orderID){
-        console.log(this.eta);
         this.props.kitchenConfirmOrder(orderID, this.eta);
     }
 
