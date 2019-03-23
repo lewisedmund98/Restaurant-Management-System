@@ -40,7 +40,7 @@ export default class OrderDisplay extends React.Component {
             var mappedDetails = details.map((orderDetail, key) => {
                 time = moment.unix(orderDetail.timeCreated).format("hh:mm a");
                 var menuMapped = this.mapMenuToLabels(orderDetail.menu);
-                return (<Card key={key} style={{display: "block", marginLeft: "auto", marginRight: "auto",  width: "50%" }}>
+                return (<Card key={key} style={{display: "block", marginLeft: "auto", marginRight: "auto",  width: "50%", padding: "4px"}}>
                 <Card.Content>
                     <Card.Header>
                         Order Number: {orderDetail.orderID}
