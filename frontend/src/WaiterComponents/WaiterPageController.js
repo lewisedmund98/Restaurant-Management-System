@@ -45,6 +45,10 @@ export default class WaiterPageController extends React.Component {
         this.startTimer(500);
     }
 
+    componentWillUnmount(){
+        // Do some unmount logic, clearing network requests, clearing dom elements etc etc. 
+    }
+
     startTimer(interval) {
         setTimeout(() => {
             this.checkForUpdate();
@@ -63,18 +67,6 @@ export default class WaiterPageController extends React.Component {
     }
 
     async getNotifications(table) {
-        // for (var i = 0; i < this.props.selectedTables.length; i++) {
-        // await fetch("https://flask.team-project.crablab.co/notifications/listTable", {
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     method: "POST",
-        //     body: JSON.stringify({ table: this.props.selectedTables[i], id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
-        // })
-        //     .then(response => response.json())
-        //     // eslint-disable-next-line no-loop-func
-        //     .then((json) => {
-        //         this.props.updateToken(json.new_access_token.access_token);
         this.props.addRequest("notifications/listTable", { table: table }, (json) => {
             var tempArray = this.state.notifications;
             if (json.results.length > 0) { // If there is a new notification
@@ -90,14 +82,6 @@ export default class WaiterPageController extends React.Component {
     }
 
     async getUnconfirmedOrders() {
-        // await fetch("https://flask.team-project.crablab.co/orders/list/waiterUnconfirmed", {
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     method: "POST",
-        //     body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
-        // })
-        //     .then(response => response.json())
         this.props.addRequest("orders/list/waiterUnconfirmed", null, async (data) => {
             console.log("Running callback")
             data = data.orders;
@@ -113,13 +97,6 @@ export default class WaiterPageController extends React.Component {
                                 customerDetails = customerDetails.result[0];
                                 var combinedResult = { ...{ menuItems: menuItemsArray }, ...order, ...customerDetails };
                                 this.arrayOfUnconfirmedOrders.push(combinedResult);
-                                // if (!this.arrayOfUnconfirmedOrders.some(element => element.orderID === combinedResult.orderID)) {
-                                //     this.arrayOfUnconfirmedOrders.push(combinedResult);
-                                // }
-                                // this.setState({
-                                //     unconfirmedOrders: this.arrayOfUnconfirmedOrders,
-                                //     showDimmer: false
-                                // })
                             })
                     })
             }
@@ -132,14 +109,6 @@ export default class WaiterPageController extends React.Component {
     }
 
     async getKitchenCompleted() {
-        // await fetch("https://flask.team-project.crablab.co/orders/list/kitchenComplete", {
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     method: "POST",
-        //     body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
-        // })
-        //     .then(response => response.json())
         this.props.addRequest("orders/list/kitchenComplete", null, async (data) => {
             data = data.orders;
             for(const order of data) {
@@ -154,9 +123,6 @@ export default class WaiterPageController extends React.Component {
                                 customerDetails = customerDetails.result[0];
                                 var combinedResult = { ...{ menuItems: menuItemsArray }, ...order, ...customerDetails };
                                 this.toBeDeliveredArray.push(combinedResult);
-                                // if (!this.toBeDeliveredArray.some(element => element.orderID === combinedResult.orderID)) {
-                                //     this.toBeDeliveredArray.push(combinedResult);
-                                // }
                             })
 
                     })
