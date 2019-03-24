@@ -83,7 +83,6 @@ export default class KitchenPageController extends React.Component {
                 showDimmer : false
             })
             this.toBeCompletedArray = [];
-
         })
     }
 
