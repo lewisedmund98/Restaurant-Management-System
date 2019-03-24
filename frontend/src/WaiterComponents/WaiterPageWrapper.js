@@ -58,7 +58,7 @@ export default class WaiterPageWrapper extends React.Component {
             var mappedOrderList = this.mapToUnconfirmedOrders(this.props.unconfirmedOrders);
         }
 
-        if(this.props.toBeDelivered){
+        if(this.props.toBeDelivered !== undefined && this.props.toBeDelivered){
             var mappedToBeDel = this.mapToBeDeliveredOrders(this.props.toBeDelivered);
         }
        

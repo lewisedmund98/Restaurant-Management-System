@@ -99,8 +99,9 @@ export default class WaiterPageController extends React.Component {
         // })
         //     .then(response => response.json())
         this.props.addRequest("orders/list/waiterUnconfirmed", null, async (data) => {
+            console.log("Running callback")
             data = data.orders;
-            data.forEach(async (order, index) => {
+            for(const order of data) {
                 await request.getMenuItems(order.items) // Pass Items
                     .then(async (menuItems) => {
                         var menuItemsArray = [];
@@ -108,24 +109,26 @@ export default class WaiterPageController extends React.Component {
                             menuItemsArray.push(menuItems[i].result);
                         }
                         await request.getCustomerDetailsFromOrder(order.orderID)
-                            .then(customerDetails => {
+                            .then(async (customerDetails) => {
                                 customerDetails = customerDetails.result[0];
                                 var combinedResult = { ...{ menuItems: menuItemsArray }, ...order, ...customerDetails };
-                                this.arrayOfUnconfirmedOrders[index] = combinedResult;
+                                this.arrayOfUnconfirmedOrders.push(combinedResult);
                                 // if (!this.arrayOfUnconfirmedOrders.some(element => element.orderID === combinedResult.orderID)) {
                                 //     this.arrayOfUnconfirmedOrders.push(combinedResult);
-
                                 // }
-                                this.setState({
-                                    unconfirmedOrders: this.arrayOfUnconfirmedOrders,
-                                    showDimmer: false
-                                })
+                                // this.setState({
+                                //     unconfirmedOrders: this.arrayOfUnconfirmedOrders,
+                                //     showDimmer: false
+                                // })
                             })
                     })
+            }
+            this.setState({
+                unconfirmedOrders: this.arrayOfUnconfirmedOrders,
+                showDimmer: false
             })
             this.arrayOfUnconfirmedOrders = [];
         })
-
     }
 
     async getKitchenCompleted() {
@@ -139,7 +142,7 @@ export default class WaiterPageController extends React.Component {
         //     .then(response => response.json())
         this.props.addRequest("orders/list/kitchenComplete", null, async (data) => {
             data = data.orders;
-            data.forEach(async (order, index) => {
+            for(const order of data) {
                 await request.getMenuItems(order.items) // Pass Items
                     .then(async (menuItems) => {
                         var menuItemsArray = [];
@@ -150,17 +153,17 @@ export default class WaiterPageController extends React.Component {
                             .then(customerDetails => {
                                 customerDetails = customerDetails.result[0];
                                 var combinedResult = { ...{ menuItems: menuItemsArray }, ...order, ...customerDetails };
-                                this.toBeDeliveredArray[index] = combinedResult;
+                                this.toBeDeliveredArray.push(combinedResult);
                                 // if (!this.toBeDeliveredArray.some(element => element.orderID === combinedResult.orderID)) {
                                 //     this.toBeDeliveredArray.push(combinedResult);
                                 // }
-                                this.setState({
-                                    toBeDelivered: this.toBeDeliveredArray
-                                })
-
                             })
 
                     })
+            }
+            this.setState({
+                toBeDelivered: this.toBeDeliveredArray,
+                showDimmer : false
             })
             this.toBeDeliveredArray = [];
 
