@@ -27,16 +27,18 @@ export default class WaiterPageController extends React.Component {
         this.state = {
             unconfirmedOrders: [],
             toBeDelivered: [],
-            twentyFourHours: [],
+            unPaid: [],
             notifications: [],
             showDimmer: true,
             accessToken: this.props.accessToken
         };
         this.arrayOfUnconfirmedOrders = []; // This is needed as updating the state each request is unfeesible
         this.toBeDeliveredArray = [];
+        this.unpaidArray = [];
         this.getUnconfirmedOrders = this.getUnconfirmedOrders.bind(this);
         this.getKitchenCompleted = this.getKitchenCompleted.bind(this);
         this.getNotifications = this.getNotifications.bind(this);
+        this.getUnpaidOrders = this.getUnpaidOrders.bind(this);
         this.confirmOrder = this.confirmOrder.bind(this);
         this.cancelOrder = this.cancelOrder.bind(this);
     }
@@ -59,6 +61,7 @@ export default class WaiterPageController extends React.Component {
         if (this.props.accessToken) {
             this.getUnconfirmedOrders();
             this.getKitchenCompleted();
+            this.getUnpaidOrders();
             for (var i = 0; i < this.props.selectedTables.length; i++) {
                 this.getNotifications(this.props.selectedTables[i]);
             }
@@ -107,6 +110,35 @@ export default class WaiterPageController extends React.Component {
             this.arrayOfUnconfirmedOrders = [];
         })
     }
+
+    async getUnpaidOrders() {
+        this.props.addRequest("orders/list/created", null, async (data) => {
+            data = data.orders;
+            for(const order of data) {
+                await request.getMenuItems(order.items) // Pass Items
+                    .then(async (menuItems) => {
+                        var menuItemsArray = [];
+                        for (var i = 0; i < menuItems.length; i++) {
+                            menuItemsArray.push(menuItems[i].result);
+                        }
+                        await request.getCustomerDetailsFromOrder(order.orderID)
+                            .then(customerDetails => {
+                                customerDetails = customerDetails.result[0];
+                                var combinedResult = { ...{ menuItems: menuItemsArray }, ...order, ...customerDetails };
+                                this.unpaidArray.push(combinedResult);
+                            })
+
+                    })
+            }
+            this.setState({
+                unPaid: this.unpaidArray,
+                showDimmer : false
+            })
+            this.unpaidArray = [];
+
+        })
+    }
+    
 
     async getKitchenCompleted() {
         this.props.addRequest("orders/list/kitchenComplete", null, async (data) => {
@@ -185,6 +217,7 @@ export default class WaiterPageController extends React.Component {
                 <EditMenu uID={this.props.uID} accessToken={this.props.accessToken} updateToken={this.props.updateToken}></EditMenu>
                 <Notifications tables={this.props.selectedTables} notifications={this.state.notifications}></Notifications>
                 <WaiterPageWrapper
+                    unpaidOrders={this.state.unPaid}
                     cancelOrder={this.cancelOrder}
                     deliverOrder={this.deliverOrder}
                     toBeDelivered={this.state.toBeDelivered}
