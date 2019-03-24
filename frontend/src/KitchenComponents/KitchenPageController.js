@@ -1,5 +1,6 @@
 import React from 'react';
 import KitchenPageWrapper from "./KitchenPageWrapper";
+import {Dimmer, Icon} from 'semantic-ui-react';
 var request = require('../Requests');
 
 export default class KitchenPageController extends React.Component {
@@ -8,6 +9,7 @@ export default class KitchenPageController extends React.Component {
         this.state = {
             waiterConfirmed: [],
             toBeCompleted: [],
+            showDimmer : true,
             accessToken: this.props.accessToken
         };
         this.waiterConfirmedArray = [];
@@ -22,13 +24,13 @@ export default class KitchenPageController extends React.Component {
     }
 
     componentDidMount() {
-       this.startTimer(500);
+        this.startTimer(500);
     }
 
-    startTimer(delay){
+    startTimer(delay) {
         setTimeout(() => {
             this.checkForUpdate();
-         }, delay);
+        }, delay);
     }
 
     async checkForUpdate() {
@@ -38,79 +40,65 @@ export default class KitchenPageController extends React.Component {
         }
         this.startTimer(5000);
     }
-   
+
 
     async getWaiterConfirmed() {
-        // await fetch("https://flask.team-project.crablab.co/orders/list/waiterConfirmed", {
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     method: "POST",
-        //     body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }) // pulls the order id from the order ID given
-        // })
-        //     .then(response => response.json())
-        //     .then(result => {
-            this.props.addRequest("orders/list/waiterConfirmed", null, (result) => {
-                result = result.orders;
-                result.forEach(async (order, index) => {
-                    await request.getMenuItems(order.items) // Pass Items
-                        .then((menuItems) => {
-                            var menuItemsArray = [];
-                            for (var i = 0; i < menuItems.length; i++) {
-                                menuItemsArray.push(menuItems[i].result);
-                            }
-                            var combinedResult = { ...{ menuItems: menuItemsArray }, ...order };
-                            this.waiterConfirmedArray[index] = combinedResult;
-                            this.setState({
-                                waiterConfirmed: this.waiterConfirmedArray
-                            })
-                        })
-                })
-                this.waiterConfirmedArray = [];
+        this.props.addRequest("orders/list/waiterConfirmed", null, async (result) => {
+            result = result.orders;
+            for (const order of result) {
+                await request.getMenuItems(order.items) // Pass Items
+                    .then((menuItems) => {
+                        var menuItemsArray = [];
+                        for (var i = 0; i < menuItems.length; i++) {
+                            menuItemsArray.push(menuItems[i].result);
+                        }
+                        var combinedResult = { ...{ menuItems: menuItemsArray }, ...order };
+                        this.waiterConfirmedArray.push(combinedResult);
+                    })
+            }
+            this.setState({
+                waiterConfirmed: this.waiterConfirmedArray,
+                showDimmer : false
             })
+            this.waiterConfirmedArray = [];
+        })
     }
 
     async getKitchenConfirmed() {
-        // await fetch("https://flask.team-project.crablab.co/orders/list/kitchenConfirmed", {
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     method: "POST",
-        //     body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }) // pulls the order id from the order ID given
-        // })
-        //     .then(response => response.json())
-        //     .then(result => {
-            this.props.addRequest("orders/list/kitchenConfirmed", null, (result) => {
-                result = result.orders;
-                result.forEach(async (order, index) => {
-                    await request.getMenuItems(order.items) // Pass Items
-                        .then((menuItems) => {
-                            var menuItemsArray = [];
-                            for (var i = 0; i < menuItems.length; i++) {
-                                menuItemsArray.push(menuItems[i].result);
-                            }
-                            var combinedResult = { ...{ menuItems: menuItemsArray }, ...order };
-                            this.toBeCompletedArray[index] = combinedResult;
-                            this.setState({
-                                toBeCompleted: this.toBeCompletedArray
-                            })
-                        })
-                })
-                this.toBeCompletedArray = [];
-
+        this.props.addRequest("orders/list/kitchenConfirmed", null, async (result) => {
+            result = result.orders;
+            for (const order of result) {
+                await request.getMenuItems(order.items) // Pass Items
+                    .then((menuItems) => {
+                        var menuItemsArray = [];
+                        for (var i = 0; i < menuItems.length; i++) {
+                            menuItemsArray.push(menuItems[i].result);
+                        }
+                        var combinedResult = { ...{ menuItems: menuItemsArray }, ...order };
+                        this.toBeCompletedArray.push(combinedResult);
+                    })
+            }
+            this.setState({
+                toBeCompleted: this.toBeCompletedArray,
+                showDimmer : false
             })
-    
+            this.toBeCompletedArray = [];
+        })
+    }
+
+    async kitchenConfirmOrder(orderID, eta) {
+        var reqBody;
+        if (eta !== null) {
+            reqBody = { id: orderID, eta: eta };
+        } else {
+            reqBody = { id: orderID }
         }
-
-
-
-    async kitchenConfirmOrder(orderID) {
         await fetch("https://flask.team-project.crablab.co/order/kitchenConfirm", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ id: orderID })
+            body: JSON.stringify(reqBody)
         })
             .then(response => response.json())
             .then(json => console.log(json))
@@ -130,7 +118,13 @@ export default class KitchenPageController extends React.Component {
 
     render() {
         return (
-            <KitchenPageWrapper completeOrder={this.kitchenCompleteOrder} toBeCompleted={this.state.toBeCompleted} kitchenConfirmOrder={this.kitchenConfirmOrder} waiterConfirmed={this.state.waiterConfirmed}/>
+            <div>
+
+                <Dimmer active={this.state.showDimmer}>
+                    <Icon loading name='spinner' size='huge' />
+                </Dimmer>
+                <KitchenPageWrapper completeOrder={this.kitchenCompleteOrder} toBeCompleted={this.state.toBeCompleted} kitchenConfirmOrder={this.kitchenConfirmOrder} waiterConfirmed={this.state.waiterConfirmed} />
+            </div>
         )
     }
 }

@@ -27,22 +27,28 @@ export default class WaiterPageController extends React.Component {
         this.state = {
             unconfirmedOrders: [],
             toBeDelivered: [],
-            twentyFourHours: [],
+            unPaid: [],
             notifications: [],
             showDimmer: true,
             accessToken: this.props.accessToken
         };
         this.arrayOfUnconfirmedOrders = []; // This is needed as updating the state each request is unfeesible
         this.toBeDeliveredArray = [];
+        this.unpaidArray = [];
         this.getUnconfirmedOrders = this.getUnconfirmedOrders.bind(this);
         this.getKitchenCompleted = this.getKitchenCompleted.bind(this);
         this.getNotifications = this.getNotifications.bind(this);
+        this.getUnpaidOrders = this.getUnpaidOrders.bind(this);
         this.confirmOrder = this.confirmOrder.bind(this);
         this.cancelOrder = this.cancelOrder.bind(this);
     }
 
     componentDidMount() {
         this.startTimer(500);
+    }
+
+    componentWillUnmount(){
+        // Do some unmount logic, clearing network requests, clearing dom elements etc etc. 
     }
 
     startTimer(interval) {
@@ -55,6 +61,7 @@ export default class WaiterPageController extends React.Component {
         if (this.props.accessToken) {
             this.getUnconfirmedOrders();
             this.getKitchenCompleted();
+            this.getUnpaidOrders();
             for (var i = 0; i < this.props.selectedTables.length; i++) {
                 this.getNotifications(this.props.selectedTables[i]);
             }
@@ -63,18 +70,6 @@ export default class WaiterPageController extends React.Component {
     }
 
     async getNotifications(table) {
-        // for (var i = 0; i < this.props.selectedTables.length; i++) {
-        // await fetch("https://flask.team-project.crablab.co/notifications/listTable", {
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     method: "POST",
-        //     body: JSON.stringify({ table: this.props.selectedTables[i], id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
-        // })
-        //     .then(response => response.json())
-        //     // eslint-disable-next-line no-loop-func
-        //     .then((json) => {
-        //         this.props.updateToken(json.new_access_token.access_token);
         this.props.addRequest("notifications/listTable", { table: table }, (json) => {
             var tempArray = this.state.notifications;
             if (json.results.length > 0) { // If there is a new notification
@@ -90,17 +85,10 @@ export default class WaiterPageController extends React.Component {
     }
 
     async getUnconfirmedOrders() {
-        // await fetch("https://flask.team-project.crablab.co/orders/list/waiterUnconfirmed", {
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     method: "POST",
-        //     body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
-        // })
-        //     .then(response => response.json())
         this.props.addRequest("orders/list/waiterUnconfirmed", null, async (data) => {
+            console.log("Running callback")
             data = data.orders;
-            data.forEach(async (order, index) => {
+            for(const order of data) {
                 await request.getMenuItems(order.items) // Pass Items
                     .then(async (menuItems) => {
                         var menuItemsArray = [];
@@ -108,38 +96,25 @@ export default class WaiterPageController extends React.Component {
                             menuItemsArray.push(menuItems[i].result);
                         }
                         await request.getCustomerDetailsFromOrder(order.orderID)
-                            .then(customerDetails => {
+                            .then(async (customerDetails) => {
                                 customerDetails = customerDetails.result[0];
                                 var combinedResult = { ...{ menuItems: menuItemsArray }, ...order, ...customerDetails };
-                                this.arrayOfUnconfirmedOrders[index] = combinedResult;
-                                // if (!this.arrayOfUnconfirmedOrders.some(element => element.orderID === combinedResult.orderID)) {
-                                //     this.arrayOfUnconfirmedOrders.push(combinedResult);
-
-                                // }
-                                this.setState({
-                                    unconfirmedOrders: this.arrayOfUnconfirmedOrders,
-                                    showDimmer: false
-                                })
+                                this.arrayOfUnconfirmedOrders.push(combinedResult);
                             })
                     })
+            }
+            this.setState({
+                unconfirmedOrders: this.arrayOfUnconfirmedOrders,
+                showDimmer: false
             })
             this.arrayOfUnconfirmedOrders = [];
         })
-
     }
 
-    async getKitchenCompleted() {
-        // await fetch("https://flask.team-project.crablab.co/orders/list/kitchenComplete", {
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     method: "POST",
-        //     body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
-        // })
-        //     .then(response => response.json())
-        this.props.addRequest("orders/list/kitchenComplete", null, async (data) => {
+    async getUnpaidOrders() {
+        this.props.addRequest("orders/list/created", null, async (data) => {
             data = data.orders;
-            data.forEach(async (order, index) => {
+            for(const order of data) {
                 await request.getMenuItems(order.items) // Pass Items
                     .then(async (menuItems) => {
                         var menuItemsArray = [];
@@ -150,17 +125,43 @@ export default class WaiterPageController extends React.Component {
                             .then(customerDetails => {
                                 customerDetails = customerDetails.result[0];
                                 var combinedResult = { ...{ menuItems: menuItemsArray }, ...order, ...customerDetails };
-                                this.toBeDeliveredArray[index] = combinedResult;
-                                // if (!this.toBeDeliveredArray.some(element => element.orderID === combinedResult.orderID)) {
-                                //     this.toBeDeliveredArray.push(combinedResult);
-                                // }
-                                this.setState({
-                                    toBeDelivered: this.toBeDeliveredArray
-                                })
-
+                                this.unpaidArray.push(combinedResult);
                             })
 
                     })
+            }
+            this.setState({
+                unPaid: this.unpaidArray,
+                showDimmer : false
+            })
+            this.unpaidArray = [];
+
+        })
+    }
+    
+
+    async getKitchenCompleted() {
+        this.props.addRequest("orders/list/kitchenComplete", null, async (data) => {
+            data = data.orders;
+            for(const order of data) {
+                await request.getMenuItems(order.items) // Pass Items
+                    .then(async (menuItems) => {
+                        var menuItemsArray = [];
+                        for (var i = 0; i < menuItems.length; i++) {
+                            menuItemsArray.push(menuItems[i].result);
+                        }
+                        await request.getCustomerDetailsFromOrder(order.orderID)
+                            .then(customerDetails => {
+                                customerDetails = customerDetails.result[0];
+                                var combinedResult = { ...{ menuItems: menuItemsArray }, ...order, ...customerDetails };
+                                this.toBeDeliveredArray.push(combinedResult);
+                            })
+
+                    })
+            }
+            this.setState({
+                toBeDelivered: this.toBeDeliveredArray,
+                showDimmer : false
             })
             this.toBeDeliveredArray = [];
 
@@ -216,6 +217,7 @@ export default class WaiterPageController extends React.Component {
                 <EditMenu uID={this.props.uID} accessToken={this.props.accessToken} updateToken={this.props.updateToken}></EditMenu>
                 <Notifications tables={this.props.selectedTables} notifications={this.state.notifications}></Notifications>
                 <WaiterPageWrapper
+                    unpaidOrders={this.state.unPaid}
                     cancelOrder={this.cancelOrder}
                     deliverOrder={this.deliverOrder}
                     toBeDelivered={this.state.toBeDelivered}
