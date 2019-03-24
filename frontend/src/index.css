@@ -6,11 +6,29 @@
     color: rgb(31, 112, 233)!important;
     border: dashed orange !important;  
 }
+.FilterModalButton:active{
+    border: dashed rgb(31, 112, 233) !important;
+    color: black !important;
+}
+.FilterModalButton:hover{
+    border: dashed rgb(31, 112, 233) !important;
+    color: black !important;
+}
+
 .callWaiterModalTrigger{
     border: dashed orange !important;
     background-color: white !important;
     color: rgb(31, 112, 233) !important;
 }
+.callWaiterModalTrigger:active{
+    border: dashed rgb(31, 112, 233) !important;
+    color: black !important;
+}
+.callWaiterModalTrigger:hover{
+    border: dashed rgb(31, 112, 233) !important;
+    color: black !important;
+}
+
 .cardWrapper{
     border: 0px !important;
     outline: 0px !important;
