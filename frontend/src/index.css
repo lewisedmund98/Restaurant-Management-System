@@ -58,6 +58,15 @@
     padding: 0 !important;
     width: 200px !important;
 }
+#returnToMenuFromOrder:hover{
+    background-color: rgb(31, 112, 233) !important;
+    color: black !important;
+}
+#returnToMenuFromOrder:active{
+    background-color: white !important;
+    color: black !important;
+    border: solid rgb(31, 112, 233) !important;
+}
 
 .singleBasketItem{
     width: 100%;
