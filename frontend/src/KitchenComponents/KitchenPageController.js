@@ -50,9 +50,9 @@ export default class KitchenPageController extends React.Component {
         // })
         //     .then(response => response.json())
         //     .then(result => {
-            this.props.addRequest("orders/list/waiterConfirmed", null, (result) => {
+            this.props.addRequest("orders/list/waiterConfirmed", null, async (result) => {
                 result = result.orders;
-                result.forEach(async (order, index) => {
+               for(const order of result){
                     await request.getMenuItems(order.items) // Pass Items
                         .then((menuItems) => {
                             var menuItemsArray = [];
@@ -60,11 +60,11 @@ export default class KitchenPageController extends React.Component {
                                 menuItemsArray.push(menuItems[i].result);
                             }
                             var combinedResult = { ...{ menuItems: menuItemsArray }, ...order };
-                            this.waiterConfirmedArray[index] = combinedResult;
-                            this.setState({
-                                waiterConfirmed: this.waiterConfirmedArray
-                            })
+                            this.waiterConfirmedArray.push(combinedResult);
                         })
+                }
+                this.setState({
+                    waiterConfirmed: this.waiterConfirmedArray
                 })
                 this.waiterConfirmedArray = [];
             })
@@ -80,9 +80,9 @@ export default class KitchenPageController extends React.Component {
         // })
         //     .then(response => response.json())
         //     .then(result => {
-            this.props.addRequest("orders/list/kitchenConfirmed", null, (result) => {
+            this.props.addRequest("orders/list/kitchenConfirmed", null, async (result) => {
                 result = result.orders;
-                result.forEach(async (order, index) => {
+                for(const order of result) {
                     await request.getMenuItems(order.items) // Pass Items
                         .then((menuItems) => {
                             var menuItemsArray = [];
@@ -90,11 +90,11 @@ export default class KitchenPageController extends React.Component {
                                 menuItemsArray.push(menuItems[i].result);
                             }
                             var combinedResult = { ...{ menuItems: menuItemsArray }, ...order };
-                            this.toBeCompletedArray[index] = combinedResult;
-                            this.setState({
-                                toBeCompleted: this.toBeCompletedArray
-                            })
+                            this.toBeCompletedArray.push(combinedResult);
                         })
+                }
+                this.setState({
+                    toBeCompleted: this.toBeCompletedArray
                 })
                 this.toBeCompletedArray = [];
 
