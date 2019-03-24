@@ -4,7 +4,8 @@
 .FilterModalButton{
     background-color: white !important;
     color: rgb(31, 112, 233)!important;
-    border: dashed orange !important;  
+    border: dashed orange !important;
+    margin-left: 5px !important;
 }
 .FilterModalButton:active{
     border: dashed rgb(31, 112, 233) !important;
