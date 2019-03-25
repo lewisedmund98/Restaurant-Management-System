@@ -14,12 +14,9 @@ export default class ChooseTable extends React.Component {
     }
 
     selectchosenTables() {
-        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         if (this.state.chosenTables.length === 0) {
-            console.log("Please choose a table");
         } else {
             this.props.setTable(this.state.chosenTables);
-            console.log(this.state.chosenTables);
         }
 
     }

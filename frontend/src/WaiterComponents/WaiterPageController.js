@@ -158,6 +158,7 @@ export default class WaiterPageController extends React.Component {
      * to the "getWaiterUnconfirmed()" method.
      * 
      */
+    
     async getUnpaidOrders() {
         this.props.addRequest("orders/list/created", null, async (data) => { // Add request
             data = data.orders;
