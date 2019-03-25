@@ -3,8 +3,9 @@
  * This will take some order state in too.
  */
 import React from 'react';
-import { Card, List , Image, Label} from 'semantic-ui-react';
+import { Card, List , Image} from 'semantic-ui-react';
 import TakeMoney from '../OrderComponents/Stripe.js';
+import OrderTimeline from '../OrderComponents/OrderTimeline.js'
 
 export default class OrderDisplay extends React.Component {
     constructor(props) {
@@ -27,7 +28,7 @@ export default class OrderDisplay extends React.Component {
                 </List.Item>
                 </List>
             )
-        })
+        });
         return menuMap;
     }
 
@@ -38,8 +39,6 @@ export default class OrderDisplay extends React.Component {
             var mappedDetails = details.map((orderDetail, key) => {
                 time = moment.unix(orderDetail.timeCreated).format("hh:mm a");
                 var menuMapped = this.mapMenuToLabels(orderDetail.menu);
-                var colour = "red";
-                if(orderDetail.stage === "paid"){colour="green"}
                 return (<Card key={key} style={{display: "block", marginLeft: "auto", marginRight: "auto",  width: "50%" }}>
                 <Card.Content>
                     <Card.Header>
@@ -51,13 +50,13 @@ export default class OrderDisplay extends React.Component {
                     <Card.Meta >
                         Table Number: {orderDetail.table}
                     </Card.Meta>
-                    <Label color={colour}>{orderDetail.stage}</Label>
+                    <OrderTimeline stage={orderDetail.stage} />
                 </Card.Content>
                 <Card.Content extra>
                     {menuMapped}
                 </Card.Content>
                 <Card.Description>
-                    { (orderDetail.stage !== "paid" && orderDetail.stage !== "cancelled") &&
+                    { (orderDetail.stage === "created" || orderDetail.stage === "waiterConfirmed") &&
                     <TakeMoney orderID={orderDetail.orderID}></TakeMoney>
                     }
                 </Card.Description>

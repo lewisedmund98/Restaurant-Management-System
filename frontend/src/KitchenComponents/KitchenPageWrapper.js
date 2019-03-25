@@ -1,7 +1,6 @@
 import React from 'react';
 import KitchenItemsView from "./KitchenItemsView";
 import {Card, Button} from 'semantic-ui-react';
-import { timingSafeEqual } from 'crypto';
 
 export default class KitchenPageWrapper extends React.Component {
 
@@ -11,14 +10,15 @@ export default class KitchenPageWrapper extends React.Component {
         this.mapKitchenItems = this.mapKitchenItems.bind(this);
         this.mapKitchenToBeCompleted = this.mapKitchenToBeCompleted.bind(this);
         this.mapToBeDelivered = this.mapToBeDelivered.bind(this);
+        this.eta = null;
     }
 
     handleKitchenConfirm(orderID){
-        this.props.kitchenConfirmOrder(orderID);
+        this.props.kitchenConfirmOrder(orderID, this.eta);
     }
 
     handleKitchenComplete(orderID){
-        this.props.kitchenConfirmOrder(orderID);
+        this.props.completeOrder(orderID);
     }
 
     // handleKitchenNotify(orderID) {}
@@ -40,10 +40,10 @@ export default class KitchenPageWrapper extends React.Component {
                 <Card.Content extra>
                     <div id="kitchenOrderButtons">
                         <div id="kitchenTimeButtons">
-                            <Button className="kitchenTimeButton">05</Button>
-                            <Button className="kitchenTimeButton">10</Button>
-                            <Button className="kitchenTimeButton">20</Button>
-                            <Button className="kitchenTimeButton">30</Button>
+                            <Button className="kitchenTimeButton" onClick={()=>{this.eta = 5}}>05</Button>
+                            <Button className="kitchenTimeButton" onClick={()=>{this.eta = 10}}>10</Button>
+                            <Button className="kitchenTimeButton" onClick={()=>{this.eta = 20}}>20</Button>
+                            <Button className="kitchenTimeButton" onClick={()=>{this.eta = 30}}>30</Button>
                             <Button onClick={() => {this.handleKitchenConfirm(element.orderID)}}
                             id="kitchenConfirmButton">Confirm</Button>
                         </div>

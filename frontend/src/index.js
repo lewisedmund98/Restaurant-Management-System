@@ -21,7 +21,6 @@ import Waiter from './pages/waiter.js';
 import CustomerOrderPage from './pages/customerOrders';
 import Kitchen from "./pages/kitchen.js";
 import Login from "./pages/login.js";
-import Staff from "./pages/staff.js"
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 /**
@@ -39,7 +38,6 @@ class App extends React.Component {
                         <Route path="/customerOrder" component={CustomerOrderPage}/>
                         <Route path="/kitchen" component={Kitchen}/>
                         <Route path="/login" component={Login}></Route>
-                        <Route path="/staff" component={Staff}></Route>
                     </div>
                 </Router>
             </React.Fragment>

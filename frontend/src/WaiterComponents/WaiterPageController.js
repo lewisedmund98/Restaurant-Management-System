@@ -15,6 +15,7 @@
  */
 
 import React from 'react';
+import { Dimmer, Icon } from 'semantic-ui-react';
 import WaiterPageWrapper from './WaiterPageWrapper.js';
 import Notifications from './Notifications.js';
 import EditMenu from './EditMenu.js';
@@ -26,21 +27,28 @@ export default class WaiterPageController extends React.Component {
         this.state = {
             unconfirmedOrders: [],
             toBeDelivered: [],
-            twentyFourHours: [],
+            unPaid: [],
             notifications: [],
+            showDimmer: true,
             accessToken: this.props.accessToken
         };
         this.arrayOfUnconfirmedOrders = []; // This is needed as updating the state each request is unfeesible
         this.toBeDeliveredArray = [];
+        this.unpaidArray = [];
         this.getUnconfirmedOrders = this.getUnconfirmedOrders.bind(this);
         this.getKitchenCompleted = this.getKitchenCompleted.bind(this);
         this.getNotifications = this.getNotifications.bind(this);
+        this.getUnpaidOrders = this.getUnpaidOrders.bind(this);
         this.confirmOrder = this.confirmOrder.bind(this);
         this.cancelOrder = this.cancelOrder.bind(this);
     }
-    
+
     componentDidMount() {
         this.startTimer(500);
+    }
+
+    componentWillUnmount(){
+        // Do some unmount logic, clearing network requests, clearing dom elements etc etc. 
     }
 
     startTimer(interval) {
@@ -51,127 +59,113 @@ export default class WaiterPageController extends React.Component {
 
     async checkForUpdate() {
         if (this.props.accessToken) {
-            await this.getUnconfirmedOrders();
-            await this.getKitchenCompleted();
-            await this.getNotifications();
+            this.getUnconfirmedOrders();
+            this.getKitchenCompleted();
+            this.getUnpaidOrders();
+            for (var i = 0; i < this.props.selectedTables.length; i++) {
+                this.getNotifications(this.props.selectedTables[i]);
+            }
         }
-        this.startTimer(1000);
+        this.startTimer(5000);
     }
 
-
-    sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-
-    async getNotifications() {
-        for (var i = 0; i < this.props.selectedTables.length; i++) {
-            await fetch("https://flask.team-project.crablab.co/notifications/listTable", {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                method: "POST",
-                body: JSON.stringify({ table: this.props.selectedTables[i], id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
-            })
-                .then(response => response.json())
-                // eslint-disable-next-line no-loop-func
-                .then((json) => {
-                    this.props.updateToken(json.new_access_token.access_token);
-                    var tempArray = this.state.notifications;
-                    if (json.results.length > 0) { // If there is a new notification
-                        json.results.forEach((notification) => { // Add it to the current list which will be passed
-                            tempArray.push(notification);
-
-                        })
-                    }
-                    this.setState({
-                        notifications: tempArray
-                    });
+    async getNotifications(table) {
+        this.props.addRequest("notifications/listTable", { table: table }, (json) => {
+            var tempArray = this.state.notifications;
+            if (json.results.length > 0) { // If there is a new notification
+                json.results.forEach((notification) => { // Add it to the current list which will be passed
+                    tempArray.push(notification);
                 })
-        }
+            }
+            this.setState({
+                notifications: tempArray
+            });
+        })
+        //}
     }
 
     async getUnconfirmedOrders() {
-        await fetch("https://flask.team-project.crablab.co/orders/list/waiterUnconfirmed", {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
+        this.props.addRequest("orders/list/waiterUnconfirmed", null, async (data) => {
+            console.log("Running callback")
+            data = data.orders;
+            for(const order of data) {
+                await request.getMenuItems(order.items) // Pass Items
+                    .then(async (menuItems) => {
+                        var menuItemsArray = [];
+                        for (var i = 0; i < menuItems.length; i++) {
+                            menuItemsArray.push(menuItems[i].result);
+                        }
+                        await request.getCustomerDetailsFromOrder(order.orderID)
+                            .then(async (customerDetails) => {
+                                customerDetails = customerDetails.result[0];
+                                var combinedResult = { ...{ menuItems: menuItemsArray }, ...order, ...customerDetails };
+                                this.arrayOfUnconfirmedOrders.push(combinedResult);
+                            })
+                    })
+            }
+            this.setState({
+                unconfirmedOrders: this.arrayOfUnconfirmedOrders,
+                showDimmer: false
+            })
+            this.arrayOfUnconfirmedOrders = [];
         })
-            .then(response => response.json())
-            .then(data => {
-                this.props.updateToken(data.new_access_token.access_token);
-                data = data.orders;
-                data.forEach(async (order, index) => {
-                    await request.getMenuItems(order.items) // Pass Items
-                        .then(async (menuItems) => {
-                            var menuItemsArray = [];
-                            for (var i = 0; i < menuItems.length; i++) {
-                                menuItemsArray.push(menuItems[i].result);
-                            }
-                            await request.getCustomerDetailsFromOrder(order.orderID)
-                                .then(customerDetails => {
-                                    customerDetails = customerDetails.result[0];
-                                    var combinedResult = { ...{ menuItems: menuItemsArray }, ...order, ...customerDetails};
-                                    this.arrayOfUnconfirmedOrders[index] = combinedResult;
-                                    if (!this.arrayOfUnconfirmedOrders.some(element => element.orderID === combinedResult.orderID)) {
-                                        this.arrayOfUnconfirmedOrders.push(combinedResult);
-                                    }
-
-                                })
-
-                        })
-                })
-                this.setState({
-                    unconfirmedOrders: this.arrayOfUnconfirmedOrders
-                })
-                this.arrayOfUnconfirmedOrders = [];
-            })
-            .catch(error => {
-                console.log(error);
-
-            })
     }
 
-    async getKitchenCompleted() {
-        await fetch("https://flask.team-project.crablab.co/orders/list/kitchenComplete", {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify({ id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
+    async getUnpaidOrders() {
+        this.props.addRequest("orders/list/created", null, async (data) => {
+            data = data.orders;
+            for(const order of data) {
+                await request.getMenuItems(order.items) // Pass Items
+                    .then(async (menuItems) => {
+                        var menuItemsArray = [];
+                        for (var i = 0; i < menuItems.length; i++) {
+                            menuItemsArray.push(menuItems[i].result);
+                        }
+                        await request.getCustomerDetailsFromOrder(order.orderID)
+                            .then(customerDetails => {
+                                customerDetails = customerDetails.result[0];
+                                var combinedResult = { ...{ menuItems: menuItemsArray }, ...order, ...customerDetails };
+                                this.unpaidArray.push(combinedResult);
+                            })
+
+                    })
+            }
+            this.setState({
+                unPaid: this.unpaidArray,
+                showDimmer : false
+            })
+            this.unpaidArray = [];
+
         })
-            .then(response => response.json())
-            .then(data => {
-                this.props.updateToken(data.new_access_token.access_token);
-                data = data.orders;
-                data.forEach(async (order, index) => {
-                    await request.getMenuItems(order.items) // Pass Items
-                        .then((menuItems) => {
-                            var menuItemsArray = [];
-                            for (var i = 0; i < menuItems.length; i++) {
-                                menuItemsArray.push(menuItems[i].result);
-                            }
-                            var combinedResult = { ...{menuItems: menuItemsArray}, ...order };
-                            this.toBeDeliveredArray[index] = combinedResult;
-                            if (!this.toBeDeliveredArray.some(element => element.orderID === combinedResult.orderID)) {
+    }
+    
+
+    async getKitchenCompleted() {
+        this.props.addRequest("orders/list/kitchenComplete", null, async (data) => {
+            data = data.orders;
+            for(const order of data) {
+                await request.getMenuItems(order.items) // Pass Items
+                    .then(async (menuItems) => {
+                        var menuItemsArray = [];
+                        for (var i = 0; i < menuItems.length; i++) {
+                            menuItemsArray.push(menuItems[i].result);
+                        }
+                        await request.getCustomerDetailsFromOrder(order.orderID)
+                            .then(customerDetails => {
+                                customerDetails = customerDetails.result[0];
+                                var combinedResult = { ...{ menuItems: menuItemsArray }, ...order, ...customerDetails };
                                 this.toBeDeliveredArray.push(combinedResult);
-                            }
+                            })
 
-                        })
-                })
-                this.setState({
-                    toBeDelivered: this.toBeDeliveredArray
-                })
-                this.toBeDeliveredArray = [];
-
+                    })
+            }
+            this.setState({
+                toBeDelivered: this.toBeDeliveredArray,
+                showDimmer : false
             })
-            .catch(error => {
-                console.log(error);
+            this.toBeDeliveredArray = [];
 
-            })
-
+        })
     }
 
     confirmOrder(orderID) {
@@ -217,9 +211,13 @@ export default class WaiterPageController extends React.Component {
     render() {
         return (
             <div>
-                <EditMenu uID={this.props.uID} accessToken = {this.props.accessToken} updateToken={this.props.updateToken}></EditMenu>
+                <Dimmer active={this.state.showDimmer}>
+                    <Icon loading name='spinner' size='huge' />
+                </Dimmer>
+                <EditMenu uID={this.props.uID} accessToken={this.props.accessToken} updateToken={this.props.updateToken}></EditMenu>
                 <Notifications tables={this.props.selectedTables} notifications={this.state.notifications}></Notifications>
                 <WaiterPageWrapper
+                    unpaidOrders={this.state.unPaid}
                     cancelOrder={this.cancelOrder}
                     deliverOrder={this.deliverOrder}
                     toBeDelivered={this.state.toBeDelivered}

@@ -25,14 +25,29 @@ export default class Basket extends React.Component{
         }
         return total;
     }
+    calculateNumberOfItems(){
+        let numberOfItems = 0;
+        try{
+            Object.values(this.props.dishList).forEach(dish => {
+                numberOfItems += 1;
+            });
+        } catch (error){
+            console.log(error);
+        }
+        return numberOfItems;
+    }
 
     
     render(){
         var total = this.calculateTotal();
+        var numberOfItems = this.calculateNumberOfItems();
                 return(
             <div className="basketItems">
+                
                 <BasketItem onRemove={this.props.onRemove} currentBasket={this.props.dishList}/>
+                
                 <h1> Total Price: £{total} </h1>
+                <p> Number of Items: {numberOfItems}  </p>
                 <CreateOrder setOrder={this.props.setOrder} onRemove={this.props.onRemove} currentBasket={this.props.dishList}></CreateOrder>
             </div>
         )

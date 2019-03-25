@@ -13,6 +13,7 @@ export default class WaiterPageWrapper extends React.Component {
         super(props);
         this.mapToUnconfirmedOrders = this.mapToUnconfirmedOrders.bind(this);
         this.mapMenuItemsToList = this.mapMenuItemsToList.bind(this);
+        this.mapUnpaid = this.mapUnpaid.bind(this);
 
     }
 
@@ -44,6 +45,20 @@ export default class WaiterPageWrapper extends React.Component {
         return mappedToBeDelivered;
     }
 
+    mapUnpaid(unpaidOrders) {
+        // Map the unconfirmed orders
+        var mappedUnpaid = [];
+        mappedUnpaid = unpaidOrders.map((order, key) => { 
+            var mappedMenu = this.mapMenuItemsToList(order.menuItems);
+            return(
+                <OrderListView table={order.table} cancelOrder={this.props.cancelOrder} deliver={this.props.deliverOrder} custID={order.customerID} custName={order.name} orderID={order.orderID}
+                    timeCreated = { order.timeCreated } menuList = {mappedMenu} unpaid = { true}
+                />
+            )
+        })
+        return mappedUnpaid;
+    }
+
     mapMenuItemsToList(menuItems) {
         var menuItemsMap = [];
         menuItemsMap = menuItems.map((item) => {
@@ -54,12 +69,16 @@ export default class WaiterPageWrapper extends React.Component {
 
 
     render() {
-        if(this.props.unconfirmedOrders != undefined && this.props.unconfirmedOrders){
+        if(this.props.unconfirmedOrders !== undefined && this.props.unconfirmedOrders){
             var mappedOrderList = this.mapToUnconfirmedOrders(this.props.unconfirmedOrders);
         }
 
-        if(this.props.toBeDelivered){
+        if(this.props.toBeDelivered !== undefined && this.props.toBeDelivered){
             var mappedToBeDel = this.mapToBeDeliveredOrders(this.props.toBeDelivered);
+        }
+
+        if(this.props.unpaidOrders !== undefined && this.props.unpaidOrders){
+            var mappedUnpaid = this.mapUnpaid(this.props.unpaidOrders);
         }
        
         return (
@@ -109,8 +128,25 @@ export default class WaiterPageWrapper extends React.Component {
                 </div>
                 </div>
 
-                <div className="24hourdiv">
-                    <h1>24 hours orders</h1>
+                <div  style={{padding: "20px"}} className="toBeDeliveredDiv">
+                    <h1>Created and Unpaid</h1>
+                    <div style={{height: "400px", overflowY: "scroll"}}>
+                    <Table>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>Table</Table.HeaderCell>
+                            <Table.HeaderCell>Customer Name</Table.HeaderCell>
+                            <Table.HeaderCell>Order ID</Table.HeaderCell>
+                            <Table.HeaderCell>Order Time</Table.HeaderCell>
+                            <Table.HeaderCell>Order Items</Table.HeaderCell>
+                            <Table.HeaderCell>Action</Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                        {mappedUnpaid}
+                    </Table.Body>
+                    </Table>
+                </div>
                 </div>
             </React.Fragment>
         )
