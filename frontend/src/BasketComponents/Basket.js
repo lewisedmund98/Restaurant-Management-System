@@ -50,9 +50,7 @@ export default class Basket extends React.Component {
         var numberOfItems = this.calculateNumberOfItems(); // On each update re calculate the number of items
         return (
             <div className="basketItems">
-
                 <BasketItem onRemove={this.props.onRemove} currentBasket={this.props.dishList} />
-
                 <h1> Total Price: £{total} </h1>
                 <p> Number of Items: {numberOfItems}  </p>
                 <CreateOrder setOrder={this.props.setOrder} onRemove={this.props.onRemove} currentBasket={this.props.dishList}></CreateOrder>
