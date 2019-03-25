@@ -1,7 +1,12 @@
 import React from 'react';
 import '../index.css';
 import KitchenPageController from "../KitchenComponents/KitchenPageController";
-
+/**
+ * Kitchen page landing, has methods to abstract the reqeuests which require authentication
+ * and thus is the only page handling access tokens. 
+ * 
+ * This class handles updating access tokens you just pass it requests which require the access tokens
+ */
 export default class kitchen extends React.Component {
     constructor(props) {
         super(props);
@@ -13,34 +18,59 @@ export default class kitchen extends React.Component {
         this.updateAccessToken = this.updateAccessToken.bind(this);
         this.addAsyncRequest = this.addAsyncRequest.bind(this);
         this.runRequests = this.runRequests.bind(this);
-        this.running = false;
-        this.requests = [];
+        this.running = false; // If there are requests runnnig this becomes true
+        this.requests = []; // The list of requests
     }
+
+    /**
+     * This method is important to prevent the 403 issues.
+     * This method handles a list of requests made by it's child classes, each request is added
+     * as a [endpoint, data, callback] triplet as an array. This represents one request.
+     * 
+     * The structure is a FIFO structure for the requests so the requests are added to a queue
+     * 
+     * An example endpoint is without the base of the URL : /endpoint/subEndpoint
+     * The data is extra data that is needed for the endpoint to fulfill it's request
+     * The callback is a method to which the JSON from the response is passed back. 
+     * 
+     * request data is accessed by "this.request[1] or [2] or [0]"
+     * 
+     * @param {endpoint to be called} endpoint 
+     * @param {extra data to be passed to the endpoint} data 
+     * @param {callback method when the fetch call returns} callback 
+     */
 
     addAsyncRequest(endpoint, data, callback) {
         var contains = false;
-        for (var i = 0; i < this.requests.length; i++) {
+        for (var i = 0; i < this.requests.length; i++) { // For each request in the current list
+            // Check if the request exists by matching data + endpoint
             if ((this.requests[i][0] === endpoint) && (JSON.stringify(this.requests[i][1]) === JSON.stringify(data))) {
-                contains = true;
+                contains = true; // Sets contains to true so it won't add the request
             }
         }
 
         if (contains === false) {
-            this.requests.push([endpoint, data, callback]);
+            this.requests.push([endpoint, data, callback]); // If it doesn't exist add it to the array
         }
 
         if (this.running === false) {
-            this.runRequests();
+            this.runRequests(); // If the requests aren't running, call the run reequests.
         }
     }
+
+    /**
+     * Run requests takes the beginning of the queue "this.requests" 
+     * It then makes a fetch call for this and does this until the requests array is empty (all done)
+     * It takes the information out of each of the requests and then implements it into the fetch call
+     */
 
     async runRequests() {
         this.running = true;
         while (this.requests.length !== 0) {
-            var newReq = this.requests.shift();
-            var callBack = newReq[2];
-            var url = "https://flask.team-project.crablab.co/" + newReq[0];
-            var body = newReq[1] === null ?
+            var newReq = this.requests.shift(); // Take the beginning of array
+            var callBack = newReq[2];           // Take the call back from the request's 3rd element
+            var url = "https://flask.team-project.crablab.co/" + newReq[0]; // Take the URL and add it to base
+            var body = newReq[1] === null ? // Make the request body checking if passed body is null
                 { id: this.state.userID, key: "abc123", secret: "def456", access_token: this.state.accessToken } :
                 { ...newReq[1], ...{ id: this.state.userID, key: "abc123", secret: "def456", access_token: this.state.accessToken } };
             await fetch(url, {
@@ -48,16 +78,16 @@ export default class kitchen extends React.Component {
                     "Content-Type": "application/json",
                 },
                 method: "POST",
-                body: JSON.stringify(body)
+                body: JSON.stringify(body) // new body
             })
                 .then(response => {
                     return response.json();
                 })
                 // eslint-disable-next-line no-loop-func
                 .then(async (json) => {
-                    callBack(json);
+                    callBack(json); // Run the call back passed in from the request
                     await this.setState({
-                        accessToken: json.new_access_token.access_token
+                        accessToken: json.new_access_token.access_token // Update the access token
                     })
                 })
 
