@@ -62,7 +62,7 @@ export default class kitchen extends React.Component {
                 })
 
         }  // Empty stack -> No requests
-        this.running = false;
+        this.running = false; // It's no longer running, can make the call again from addRequests
     }
 
     updateAccessToken(newAccessToken) {
@@ -73,9 +73,13 @@ export default class kitchen extends React.Component {
         })
     }
 
-    async componentDidMount() {
+    async componentDidMount() { // Temp method needs to be replaced by staff login
         await this.tempGetAccess();
     }
+
+    /**
+     * Temporary method will be replaced by the staff login
+     */
 
     async tempGetAccess() {
         await fetch("https://flask.team-project.crablab.co/authentication/login", {
@@ -103,8 +107,8 @@ export default class kitchen extends React.Component {
                 <div className="loginContainer">
                     <h1>Staff ID is logged in</h1>
                 </div>
-                
                     <h1>Kitchen Order</h1>
+                    {/*Render the kitchen page controller with the required props and methods from this class*/}
                     <KitchenPageController uID = {this.state.userID} accessToken = {this.state.accessToken} 
                     addRequest={this.addAsyncRequest} 
                     updateToken = {this.updateAccessToken} />
