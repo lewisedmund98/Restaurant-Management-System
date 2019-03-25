@@ -2,15 +2,28 @@ import React from 'react';
 import { Button, Modal, List } from 'semantic-ui-react';
 import EditableMenuItem from './EditableMenuItem';
 
+/**
+ * This is the edit menu class where the logic for editing the menu is held. 
+ * This class deals with both the disabled and enabled menu items and thus has logic for either in almost all of
+ * the methods. 
+ * 
+ * The class also pulls the details of the menu's disabled / enabled menu items
+ * 
+ * This is all then sent into the editable menu item view component. 
+ */
+
 export default class EditMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            enabledItems: [],
-            disabledItems: [],
-            toBeEnabled: [],
-            toBeDisabled: []
+            enabledItems: [], // The enabled items list (full)
+            disabledItems: [], // The disabled items list (full)
+            toBeEnabled: [], // The items which are going to be enabled (currently disabled) (subset)
+            toBeDisabled: [] // The items which are doging to be disabled (currently enabled) (subset)
         }
+        /*
+        method binding
+        */
         this.pullItems = this.pullItems.bind(this);
         this.pullDisabledItems = this.pullDisabledItems.bind(this);
         this.pullEnabledItems = this.pullEnabledItems.bind(this);
@@ -22,13 +35,24 @@ export default class EditMenu extends React.Component {
     }
 
     componentDidMount() {
-        this.pullItems();
+        this.pullItems(); // As soon as the component was mounted, pull the items
     }
+
+    /**
+     * Makes the requests to pull both the disabled and enabled items.
+     */
 
     async pullItems() {
         await this.pullDisabledItems();
         await this.pullEnabledItems();
     }
+
+    /**
+     * Makes the fetch call to pull all of the disabled items. The disabled items are then stored in the
+     * state array "disabledItems"
+     * 
+     * The further methods will interact with this. 
+     */
 
     async pullDisabledItems() {
         await fetch("https://flask.team-project.crablab.co/menu/items/disabled", {
@@ -46,6 +70,11 @@ export default class EditMenu extends React.Component {
             })
     }
 
+    /**
+     * This method pulls all of the enabled items in the current menu and then stores
+     * the JSON result as "enabledItems" in the state
+     */
+
     async pullEnabledItems() {
         await fetch("https://flask.team-project.crablab.co/menu/items/enabled", {
             headers: {
@@ -56,25 +85,32 @@ export default class EditMenu extends React.Component {
         })
             .then(response => response.json())
             .then(enabledItems => {
-                console.log(enabledItems)
                 this.setState({
                     enabledItems: enabledItems.result
                 })
             })
     }
 
+    /**
+     * updateItems is the method which is called when the users clicks on the save button.
+     * This method runs some checks on the boolean passed and then builds a JSON object
+     * for the data to makes a fetch request to the backend. 
+     * 
+     * toggles is the JSON object it will make and the boolean value changes depending on which
+     * element made the call
+     * 
+     * @param {a boolean value to indicate whether the button is to enable or not} isEnable 
+     */
     async updateItems(isEnable) { // If the menu item is "to be enabled" pass true
-        console.log("updating Items");
         var jsonToggles = [];
-        jsonToggles = [];
         var i = 0;
-        if (isEnable) {
+        if (isEnable) { // Check if enabled
             for (i = 0; i < this.state.toBeEnabled.length; i++) {
-                jsonToggles.push({ itemID: parseInt(this.state.toBeEnabled[i]), enabled: true });
+                jsonToggles.push({ itemID: parseInt(this.state.toBeEnabled[i]), enabled: true }); // Set enabled to true
             }
         } else {
             for (i = 0; i < this.state.toBeDisabled.length; i++) {
-                jsonToggles.push({ itemID: parseInt(this.state.toBeDisabled[i]), enabled: false });
+                jsonToggles.push({ itemID: parseInt(this.state.toBeDisabled[i]), enabled: false }); // Set enabled to false
             }
         }
         await fetch("https://flask.team-project.crablab.co/menu/items/update", {
@@ -82,18 +118,26 @@ export default class EditMenu extends React.Component {
                 "Content-Type": "application/json",
             },
             method: "POST",
+            // Creates the request with the jsonToggles made in this class.
             body: JSON.stringify({ toggles: jsonToggles, id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                this.props.updateToken(data.new_access_token.access_token);
+                this.props.updateToken(data.new_access_token.access_token); // Need to update the access token
             })
-            .then(() => {this.pullItems()})
+            .then(() => {
+                this.pullItems(); // Pull the items again as it has changed
+            })
     }
 
+    /**
+     * Maps the currently enabled items to some Editable menu item view.
+     * 
+     * @param {list of currently enabled items to display} enabledItems 
+     */
+
     mapEnabledItems(enabledItems) {
-        var mappedEnabled = enabledItems.map((item) => {
+        var mappedEnabled = enabledItems.map((item) => { // Maps for each item in enabledItems
             return (
                 <EditableMenuItem
                     item={item}
@@ -103,6 +147,12 @@ export default class EditMenu extends React.Component {
         })
         return mappedEnabled;
     }
+
+    /**
+     * Maps the currently disabled items to menu items view to be enabled
+     * 
+     * @param {list of currently disabled items to display} disabledItems 
+     */
 
     mapDisabledItems(disabledItems) {
         var mappedDisabled = disabledItems.map((item) => {
@@ -116,34 +166,54 @@ export default class EditMenu extends React.Component {
         return mappedDisabled;
     }
 
+    /**
+     * Method runs on click of any of the editable menu items. The click is handled in the
+     * "editableMenuItem" class and is then propogating up to this class. 
+     * 
+     * That method passes whether it is to be Enabled or to be disabled and then it is handled
+     * and added to the correct array here.
+     * 
+     * @param {the item ID to be passed to the update method} itemID 
+     * @param {boolean to represent the state of the button being clicked} isEnable 
+     * 
+     */
+
     addToArray(itemID, isEnable) {
         if (isEnable) {
             var enabledTemp = this.state.toBeEnabled;
-            enabledTemp.push(itemID);
+            enabledTemp.push(itemID); // Push to the to be enabled state
             this.setState({
-                toBeEnabled: enabledTemp
+                toBeEnabled: enabledTemp // Set the state
             })
-        } else {
+        } else { // If it is "to be disabled"
             var disabledTemp = this.state.toBeDisabled;
-            disabledTemp.push(itemID);
+            disabledTemp.push(itemID); // Push to the other to be disabled array
             this.setState({
-                toBeDisabled: disabledTemp
+                toBeDisabled: disabledTemp // Reset the state
             })
         }
     }
 
+    /**
+     * Method removes an item ID from either one of the 2 arrays, toBeEnabled or toBeDisabled respecitvely.
+     * This is because the user can click off of an item. 
+     * 
+     * @param {the itemID to be removed from the array, will be used to check existance} itemID 
+     * @param {boolean to determine which array to be removed from} isEnable 
+     */
+
     removeFromArray(itemID, isEnable) {
         if (isEnable) {
             var enabledTemp = this.state.toBeEnabled;
-            var index = enabledTemp.indexOf(itemID);
-            enabledTemp.splice(index, 1);
+            var index = enabledTemp.indexOf(itemID); // Gets the position of the item ID in the array
+            enabledTemp.splice(index, 1); // Removes the element at the given array position
             this.setState({
                 toBeEnabled: enabledTemp
             })
         } else {
             var disabledTemp = this.state.toBeDisabled;
-            var disableIndex = disabledTemp.indexOf(itemID);
-            disabledTemp.splice(disableIndex, 1);
+            var disableIndex = disabledTemp.indexOf(itemID); // Get the position of the item ID In the array
+            disabledTemp.splice(disableIndex, 1); // Remvoes the element at the given index
             this.setState({
                 toBeDisabled: disabledTemp
             })
@@ -153,7 +223,7 @@ export default class EditMenu extends React.Component {
     render() {
         var enabledItemsMapped;
         var disabledItemsMapped;
-        if (this.state.enabledItems) {
+        if (this.state.enabledItems) { // Checks whether the list is empty and once it isn't empty map the array
             enabledItemsMapped = this.mapEnabledItems(this.state.enabledItems);
         }
         if (this.state.disabledItems) {
@@ -161,6 +231,7 @@ export default class EditMenu extends React.Component {
         }
         return (
             <div>
+                {/*Set the arrays back to empty if the user closes the page*/}
                 <Modal trigger={<Button>Enable Menu Items</Button>} onClose={() => { this.setState({ toBeEnabled: [] }) }}>
                     <Modal.Content>
                         <List divided relaxed>
@@ -168,13 +239,14 @@ export default class EditMenu extends React.Component {
                         </List>
 
                     </Modal.Content>
-                    <Button onClick={() => this.updateItems(true)}>Save</Button>
+                    <Button onClick={() => this.updateItems(true)}>Save</Button> {/*Passes true to indicate its to be enabled*/}
                 </Modal>
+                {/*Set the arrays back to empty if the user closes the page*/}
                 <Modal trigger={<Button>Diable Menu Items</Button>} onClose={() => { this.setState({ toBeDisabled: [] }) }}>
                     <Modal.Content>
                         {enabledItemsMapped}
                     </Modal.Content>
-                    <Button onClick={() => this.updateItems(false)}>Save</Button>
+                    <Button onClick={() => this.updateItems(false)}>Save</Button> {/*Passes false to indicate its to be disabled*/}
                 </Modal>
             </div>
         )

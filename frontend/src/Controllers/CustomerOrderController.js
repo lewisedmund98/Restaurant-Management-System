@@ -71,8 +71,6 @@ export default class OrderController extends React.Component {
         this.arrayOfOrderDetails = [];
     }
 
-
-
     render() {
         return (
             <OrderDisplay orderDetails={this.state.combinedResult}></OrderDisplay>
