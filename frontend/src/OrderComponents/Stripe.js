@@ -11,6 +11,8 @@ export default class TakeMoney extends React.Component {
     super(props);
     this.payForOrder = this.payForOrder.bind(this);
   }
+
+  
   onToken(token) {
     token = { ...token, ...{ order_id: this.props.orderID } };
     var newToken = JSON.stringify(token);
