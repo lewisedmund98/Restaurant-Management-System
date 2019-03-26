@@ -7,7 +7,8 @@
  * There is logic in this class to deal with the payment component "Stripe"
  */
 import React from 'react';
-import { Card, List, Image } from 'semantic-ui-react';
+import { Card, List , Image, Button} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
 import TakeMoney from '../OrderComponents/Stripe.js';
 import OrderTimeline from '../OrderComponents/OrderTimeline.js'
 
@@ -59,7 +60,7 @@ export default class OrderDisplay extends React.Component {
             var mappedDetails = details.map((orderDetail, key) => {
                 time = moment.unix(orderDetail.timeCreated).format("hh:mm a"); // Convert unix time to normal time
                 var menuMapped = this.mapMenuToLabels(orderDetail.menu); // Map the menu items to be shown here
-                return (<Card key={key} style={{ display: "block", marginLeft: "auto", marginRight: "auto", width: "50%" }}>
+                return (<Card key={key} style={{ display: "block", marginLeft: "auto", marginRight: "auto",  width: "50%", padding: "4px" }}>
                     <Card.Content>
                         <Card.Header>
                             Order Number: {orderDetail.orderID}
@@ -92,10 +93,17 @@ export default class OrderDisplay extends React.Component {
             var orders = this.mapOrderDetails(this.props.orderDetails);
         }
         return (
+            <div>
             <div style={{ width: "100%" }} className="ordersDiv">
                 <h1 style={{ textAlign: "center" }}>Your orders</h1>
                 <ul>{orders}</ul>
             </div>
+            <div style={{textAlign: "center"}}>
+            <Link to={{
+                pathname: "/customer"
+            }}><Button id='returnToMenuFromOrder'>Return to menu</Button></Link>
+            </div></div>
+            
         )
     }
 }
