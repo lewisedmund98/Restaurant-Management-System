@@ -44,13 +44,6 @@ export default class KitchenPageWrapper extends React.Component {
         this.props.completeOrder(orderID);
     }
 
-<<<<<<< HEAD
-    // handleKitchenNotify(orderID) {}
-
-
-    mappedWaiterConfirm(waiterConfirmed){
-        var moment = require('moment');
-=======
     /**
      * Takes a list of waiter confirmed orders and then chooses how to display
      * each one into a react component.
@@ -62,7 +55,6 @@ export default class KitchenPageWrapper extends React.Component {
 
     mappedWaiterConfirm(waiterConfirmed) {
         var moment = require('moment'); // Time library
->>>>>>> master
         var time;
         var mappedCards = waiterConfirmed.map((element) => { // For each of the waiter confirmed orders
             var mappedKitchenItems = this.mapKitchenItems(element.menuItems);  // Take the menu items and map it
@@ -145,7 +137,6 @@ export default class KitchenPageWrapper extends React.Component {
         return mappedCards;
     }
 
-<<<<<<< HEAD
     mapToBeDelivered(toBeDelivered) {
         var moment = require('moment');
         var time;
@@ -170,8 +161,6 @@ export default class KitchenPageWrapper extends React.Component {
         })
         return mappedCards;
     }
-=======
->>>>>>> master
 
     render() {
         // Check if the arrays are empty and if they aren't then map them
@@ -191,7 +180,6 @@ export default class KitchenPageWrapper extends React.Component {
 
             <React.Fragment>
                 <div className="waiterConfirmedSide" >
-<<<<<<< HEAD
                 <h1>Waiter Confirmed</h1>
             <Card.Group>
                 
@@ -210,18 +198,6 @@ export default class KitchenPageWrapper extends React.Component {
                 {mapOrderReady}
             </Card.Group>
             </div>
-=======
-                    <h1>Waiter Confirmed</h1>
-                    <Card.Group>
-                        {mappedWaiter}
-                    </Card.Group></div>
-                <div className="toBeCompletedSide" >
-                    <h1>To be Completed</h1>
-                    <Card.Group>
-                        {mappedToBeCompleted}
-                    </Card.Group>
-                </div>
->>>>>>> master
             </React.Fragment>
         )
     }
