@@ -19,6 +19,21 @@ When making a request, you need to include structure your main JSON object thus:
 }
 ```
 
+Some endpoints also require logging in (staff endpoints) and a certain privilage. In order to obtain a one time access token a call to the login endpoint needs to be made. A further request would look thus:
+
+```json
+{
+    "key": "<application_key>", 
+    "secret": "<application_secret>",
+    "auth_token": "<authentication_token",
+    "id": "<id>",
+    "other_value": "test",
+    "other_obj" {}
+}
+```
+
+We really should be sending auth parameters in headers as it causes no end of trouble with attribute name clashes. 
+
 ## ping
 
 ### /ping 
@@ -51,7 +66,7 @@ Returns `database` object containing `VERSION()` equivilant to the database vers
 
 ### /menu/items
 `GET` 
-Returns an object containing all the known items. No filtering currently available. 
+Returns an object containing all the known items. 
 
 ```json
 {
@@ -72,6 +87,44 @@ Returns an object containing all the known items. No filtering currently availab
     ]
 }
 ```
+
+#### Filtering options available
+
+- `/menu/items/enabled` 
+    - Menu items enabled by the waiter 
+- `/menu/items/disabled` 
+    - Menu items disabled by the waiter
+
+### /menu/items/update* 
+`POST`
+
+```json
+"toggles": [
+    {"itemID": 1, "enabled": true}, 
+    {"itemID": 2, "enabled": false}
+]
+```
+
+Toggles the supplied items to the supplied values. 
+
+### /menu/item/update*
+`POST`
+
+```json
+"itemID": "1", 
+"fields": {
+    "itemName": "RandomDish", 
+    "itemCalories": 1, 
+    "itemPrice": 11.01, 
+    "itemType": "Main", 
+    "itemInformation": "a random dish", 
+    "itemImage": "https://i.kym-cdn.com/entries/icons/mobile/000/013/564/doge.jpg", 
+    "itemEnabled": true
+    }
+```
+
+Updates an item with the supplied data. You must supply all fields.
+
 ### /menu/item
 `POST` 
 
