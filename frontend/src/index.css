@@ -375,7 +375,7 @@ body {
     margin-bottom: 10% !important;
 }
 .waiterConfirmedSide{
-    width: 45%;
+    width: 30%;
     margin: 0;
     float: left;
 
@@ -383,11 +383,18 @@ body {
 }
 
 .toBeCompletedSide{
-    width: 45%;
+    width: 30%;
     float: right;
     margin: 0;
     
 }
+
+.toBeDeliveredSide {
+    width: 30%;
+    margin-left: 35%;
+    margin-right: 35%;
+}
+
 .kitchenOrderCardsContainer{
     width: 100%;
     background-color: black;
@@ -411,6 +418,10 @@ body {
 .chooseTableActions{
     margin-left: 1% !important;
     margin-right: 1% !important; 
+    margin-bottom: 1% !important; 
+    width: 200px !important;
+    height: 50px !important;
+    padding: 0 !important;
 }
 
 .loginHomeContainer{
@@ -425,9 +436,4 @@ body {
     bottom: 0 !important;
     margin: auto !important;
     display: inline-block !important;
-    margin-right: 1% !important;
-    margin-bottom: 1% !important; 
-    width: 200px !important;
-    height: 50px !important;
-    padding: 0 !important;
 }

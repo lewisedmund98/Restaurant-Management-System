@@ -30,12 +30,6 @@ export default class LoginPageWrapper extends React.Component {
     event.preventDefault();
   }
 
-  handleClick(event) {
-    if(event) {
-      
-    }
-  }
-
   waiterLogin() {
     console.log(this.state.staffID);
     console.log(this.state.password);

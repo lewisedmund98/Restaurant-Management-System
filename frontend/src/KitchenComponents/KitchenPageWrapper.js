@@ -92,13 +92,17 @@ export default class KitchenPageWrapper extends React.Component {
     }
 
     mapToBeDelivered(toBeDelivered) {
+        var moment = require('moment');
+        var time;
         var mappedCards = toBeDelivered.map((element) => {
             var mappedKitchenItems = this.mapKitchenItems(element.menuItems);
+            time = moment.unix(element.timeCreated).format("hh:mm a");
             return(
                 <Card className="kitchenCard">
                     <Card.Content>
                         <h5>{element.orderID}</h5>
                         {mappedKitchenItems}
+                        <h5>{time}</h5>
                     </Card.Content>
                     <Card.Content extra>
                         <div id="kitchenOrderButtons">
@@ -140,7 +144,7 @@ export default class KitchenPageWrapper extends React.Component {
                 {mappedToBeCompleted}
             </Card.Group>
             </div>
-            <div className="toBeDelivered">
+            <div className="toBeDeliveredSide">
             <h1>To be Delivered</h1>
             <Card.Group>
                 {mapOrderReady}
