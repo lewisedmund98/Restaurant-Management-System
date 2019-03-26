@@ -287,10 +287,10 @@ Returns customer data for an order.
 ```
 
 ## `orders`
-### /orders/list
-`GET` 
+### /orders/list/<filter> * 
+`POST` 
 
-Returns list of all orders. This endpoint is likely to be deprecated soon in favour of a more controlled and filtered endpoint. 
+Returns list of orders according to filter.
 
 ```json
 {
@@ -317,6 +317,17 @@ Returns list of all orders. This endpoint is likely to be deprecated soon in fav
     ]
 }
 ```
+
+Filters available:
+- completed
+- created
+- waiterUnconfirmed
+- ordersCancelled
+- waiterConfirmed
+- kitchenConfirmed
+- kitchenComplete
+- waiterComplete
+
 ## `authentication`
 ### /handle/login *
 `POST`
