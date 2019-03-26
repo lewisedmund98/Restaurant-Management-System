@@ -30,6 +30,16 @@
     color: black !important;
 }
 
+#closeTableAssistanceNoticeBtn{
+    width: 150px !important;
+    color: white !important;
+    background-color: rgb(31, 112, 233) !important;
+    height: 40px !important;
+    padding: 0px !important;
+    margin-top: 10px !important;
+
+}
+
 .cardWrapper{
     border: 0px !important;
     outline: 0px !important;
@@ -95,7 +105,7 @@
 }
 .removeBasketItemBtn{
     float: right;
-    background-color: #D04236!important;
+    background-color: #D04236 !important;
     color: white !important;
     padding-bottom: 1px !important;
     padding-top: 1px !important;
