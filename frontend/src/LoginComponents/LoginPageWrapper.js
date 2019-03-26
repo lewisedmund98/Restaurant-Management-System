@@ -60,21 +60,6 @@ export default class LoginPageWrapper extends React.Component {
     }
   }
 
-  kitchenLogin() { // Not needed 
-    try {
-      var loginRequestBody = JSON.stringify({
-        username: this.state.staffID,
-        password: this.state.password,
-        key: "abc123",
-        secret: "def456"
-      });
-      this.props.postData(loginRequestBody);
-    } catch (error) {
-      console.log("Something went wrong!" + error);
-    }
-  }
-
-
   render() {
     // var accessToken = "accessToken="+ this.state.accessToken;
     // var userID = "userID=" + this.state.userID;

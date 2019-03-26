@@ -420,7 +420,7 @@ body {
     margin-bottom: 10% !important;
 }
 .waiterConfirmedSide{
-    width: 30%;
+    width: 45%;
     margin: 0;
     float: left;
 
@@ -428,16 +428,10 @@ body {
 }
 
 .toBeCompletedSide{
-    width: 30%;
+    width: 45%;
     float: right;
     margin: 0;
     
-}
-
-.toBeDeliveredSide {
-    width: 30%;
-    margin-left: 35%;
-    margin-right: 35%;
 }
 
 .kitchenOrderCardsContainer{

@@ -17,7 +17,6 @@ export default class KitchenPageWrapper extends React.Component {
         this.mappedWaiterConfirm = this.mappedWaiterConfirm.bind(this);
         this.mapKitchenItems = this.mapKitchenItems.bind(this);
         this.mapKitchenToBeCompleted = this.mapKitchenToBeCompleted.bind(this);
-        this.mapToBeDelivered = this.mapToBeDelivered.bind(this);
         this.eta = null; // Eta is an integer which can stay null
     }
 
@@ -137,31 +136,6 @@ export default class KitchenPageWrapper extends React.Component {
         return mappedCards;
     }
 
-    mapToBeDelivered(toBeDelivered) {
-        var moment = require('moment');
-        var time;
-        var mappedCards = toBeDelivered.map((element) => {
-            var mappedKitchenItems = this.mapKitchenItems(element.menuItems);
-            time = moment.unix(element.timeCreated).format("hh:mm a");
-            return(
-                <Card className="kitchenCard">
-                    <Card.Content>
-                        <h5>{element.orderID}</h5>
-                        {mappedKitchenItems}
-                        <h5>{time}</h5>
-                    </Card.Content>
-                    <Card.Content extra>
-                        <div id="kitchenOrderButtons">
-                            <Button onClick={() => {this.handleKitchenNotify(element.orderID)}}
-                            id="KitchenNotifyButton">Notify Waiter</Button>
-                        </div>
-                    </Card.Content>
-                </Card>
-            )
-        })
-        return mappedCards;
-    }
-
     render() {
         // Check if the arrays are empty and if they aren't then map them
         // Otherwise there would be an undefined error
@@ -173,9 +147,6 @@ export default class KitchenPageWrapper extends React.Component {
             var mappedToBeCompleted = this.mapKitchenToBeCompleted(this.props.toBeCompleted);
         }
 
-        if(this.props.toBeDelivered) {
-            var mapOrderReady = this.mapToBeDelivered(this.props.toBeDelivered)
-        }
         return (
 
             <React.Fragment>
@@ -190,12 +161,6 @@ export default class KitchenPageWrapper extends React.Component {
             <Card.Group>
                 
                 {mappedToBeCompleted}
-            </Card.Group>
-            </div>
-            <div className="toBeDeliveredSide">
-            <h1>To be Delivered</h1>
-            <Card.Group>
-                {mapOrderReady}
             </Card.Group>
             </div>
             </React.Fragment>
