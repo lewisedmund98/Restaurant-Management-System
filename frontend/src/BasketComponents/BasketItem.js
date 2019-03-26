@@ -3,6 +3,8 @@ import { List, Image, Button } from 'semantic-ui-react';
 /**
  * Wrapper for a basket item. This will show the image for the item, the name, the quantity and the price.
  * 
+ * To use this class you must instantuiate it with <BasketItem> passing it properties
+ * 
  * The basket is ready to 'POST' itself and its items to the server. 
  */
 
@@ -26,10 +28,9 @@ export default class BasketItem extends React.Component {
     mapBasketToUI(currentBasket) {
         var mappedBasket = currentBasket.map((currentDish, key) =>
         <div className="singleBasketItem">
-
             <List celled key={key}>
                 <List.Item>
-                
+                    {/*Image to represent the item image */}
                     <Image className="basketItemIcon" avatar={true} src={currentDish.itemImage}></Image>
                     <List.Content className="singleBasketListHeadAndDes" >
                         <List.Header id="orderDishName">
@@ -40,21 +41,22 @@ export default class BasketItem extends React.Component {
                                 £{currentDish.itemPrice}
                             </b>
                         </List.Description>
-                        
                     </List.Content>
+                    {/*Makes a call to remove the item from parent class*/}
                     <Button className="removeBasketItemBtn" onClick={()=>this.props.onRemove(currentDish)}><b>-</b></Button>
                 </List.Item>
             </List>
         </div>
         )
-
         return mappedBasket;
     }
 
     render() {
-        var mappedBasket = this.mapBasketToUI(this.props.currentBasket);
+        var mappedBasket = this.mapBasketToUI(this.props.currentBasket); // Map the basket to UI components
         return (
-            <div className="listOfItems" style={{ textAlign: "center" }}>{mappedBasket}</div>
+            <div className="listOfItems" style={{ textAlign: "center" }}>
+            {mappedBasket}
+            </div>
         )
     }
 }

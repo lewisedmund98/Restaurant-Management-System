@@ -4,13 +4,42 @@
 .FilterModalButton{
     background-color: white !important;
     color: rgb(31, 112, 233)!important;
-    border: dashed orange !important;  
+    border: dashed orange !important;
+    margin-left: 5px !important;
 }
+.FilterModalButton:active{
+    border: dashed rgb(31, 112, 233) !important;
+    color: black !important;
+}
+.FilterModalButton:hover{
+    border: dashed rgb(31, 112, 233) !important;
+    color: black !important;
+}
+
 .callWaiterModalTrigger{
     border: dashed orange !important;
     background-color: white !important;
     color: rgb(31, 112, 233) !important;
 }
+.callWaiterModalTrigger:active{
+    border: dashed rgb(31, 112, 233) !important;
+    color: black !important;
+}
+.callWaiterModalTrigger:hover{
+    border: dashed rgb(31, 112, 233) !important;
+    color: black !important;
+}
+
+#closeTableAssistanceNoticeBtn{
+    width: 150px !important;
+    color: white !important;
+    background-color: rgb(31, 112, 233) !important;
+    height: 40px !important;
+    padding: 0px !important;
+    margin-top: 10px !important;
+
+}
+
 .cardWrapper{
     border: 0px !important;
     outline: 0px !important;
@@ -51,6 +80,22 @@
 	margin-left: auto !important;
     margin-right: auto !important;
 }
+#returnToMenuFromOrder{
+    background-color: rgb(31, 112, 233) !important;
+    color: white !important;
+    height: 50px !important;
+    padding: 0 !important;
+    width: 200px !important;
+}
+#returnToMenuFromOrder:hover{
+    background-color: rgb(31, 112, 233) !important;
+    color: black !important;
+}
+#returnToMenuFromOrder:active{
+    background-color: white !important;
+    color: black !important;
+    border: solid rgb(31, 112, 233) !important;
+}
 
 .singleBasketItem{
     width: 100%;
@@ -60,7 +105,7 @@
 }
 .removeBasketItemBtn{
     float: right;
-    background-color: #D04236!important;
+    background-color: #D04236 !important;
     color: white !important;
     padding-bottom: 1px !important;
     padding-top: 1px !important;
