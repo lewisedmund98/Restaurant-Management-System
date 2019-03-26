@@ -36,7 +36,7 @@ export default class CallWaiter extends React.Component {
             })
         }
     }
-
+    
     handleSetTable(event) {
         if (this.state.table === event.target.value) {
             this.setState({
@@ -75,6 +75,9 @@ export default class CallWaiter extends React.Component {
                             <h3 style={{textAlign: "center"}}><b>Your table: {table}</b></h3>
                             {this.state.selected === false && this.state.called === true &&
                                 <h3 className="selectTableWarning"> Please select a table! </h3>
+                            }
+                            {this.state.selected === true && this.state.called === true && 
+                                <h2 style={{textAlign: "center"}}> A waiter will be with you shortly </h2>
                             }
                         </div>
                         <div>
