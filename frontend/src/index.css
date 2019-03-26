@@ -461,3 +461,22 @@ body {
     height: 50px !important;
     padding: 0 !important;
 }
+
+.unconfirmedOrderDiv{
+    background-color: red !important;
+}
+
+.toBeDeliveredDiv{
+    animation-name: flashingColour !important;
+    animation-duration: 2s !important;
+    animation-iteration-count: infinite !important;
+}
+
+.unpaidDiv{
+    background-color: yellow !important;
+}
+
+@keyframes flashingColour{
+    from {background-color: unset;}
+    to {background-color: green;}
+}
