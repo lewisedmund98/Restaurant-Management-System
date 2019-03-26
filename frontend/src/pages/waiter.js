@@ -24,14 +24,19 @@ export default class Customer extends React.Component {
         this.addAsyncRequest = this.addAsyncRequest.bind(this);
         this.runRequests = this.runRequests.bind(this);
         this.state = {
-            accessToken: this.props.location.state.accessToken, // Should be set by staff login
-            userID: this.props.location.state.userID, // Should be set by Staff login
+            // REGEX FROM: https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie
+            accessToken: document.cookie.replace(/(?:(?:^|.*;\s*)accessToken\s*\=\s*([^;]*).*$)|^.*$/, "$1"), // Should be set by staff login
+            userID: document.cookie.replace(/(?:(?:^|.*;\s*)userID\s*\=\s*([^;]*).*$)|^.*$/, "$1"), // Should be set by Staff login
             tables: [1, 2, 3, 4]
         }
         //this.tempGetAccess();
         this.running = false; // If the requests are running 
         this.requests = []; // The list of requests
+        this.firstUpdate = true;
     }
+
+
+
 
     /**
      * This method is important to prevent the 403 issues.
@@ -52,7 +57,7 @@ export default class Customer extends React.Component {
     addAsyncRequest(endpoint, data, callback) {
         var contains = false;
         for (var i = 0; i < this.requests.length; i++) { // For each request in the current list
-             // Check if the request exists by matching data + endpoint
+            // Check if the request exists by matching data + endpoint
             if ((this.requests[i][0] === endpoint) && (JSON.stringify(this.requests[i][1]) === JSON.stringify(data))) {
                 contains = true;
             }
@@ -67,7 +72,7 @@ export default class Customer extends React.Component {
         }
     }
 
-    
+
     /**
      * Run requests takes the beginning of the queue "this.requests" 
      * It then makes a fetch call for this and does this until the requests array is empty (all done)
@@ -99,6 +104,7 @@ export default class Customer extends React.Component {
                     await this.setState({
                         accessToken: json.new_access_token.access_token // update the access token
                     })
+                    document.cookie = "accessToken=" + json.new_access_token.access_token;
                 })
 
         }  // Empty stack -> No requests
@@ -132,7 +138,7 @@ export default class Customer extends React.Component {
     //             await this.setState({
     //             accessToken: json.login.access_token,
     //             userID: json.login.userID
-            
+
     //         })
     //     });
     // }

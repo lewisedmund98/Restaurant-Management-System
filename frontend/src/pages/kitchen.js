@@ -13,8 +13,8 @@ export default class kitchen extends React.Component {
         super(props);
         //this.tempGetAccess = this.tempGetAccess.bind(this);
         this.state = {
-            accessToken: this.props.location.state.accessToken,
-            userID: this.props.location.state.userID
+            accessToken: document.cookie.replace(/(?:(?:^|.*;\s*)accessToken\s*\=\s*([^;]*).*$)|^.*$/, "$1"), // Should be set by staff login
+            userID: document.cookie.replace(/(?:(?:^|.*;\s*)userID\s*\=\s*([^;]*).*$)|^.*$/, "$1"), // Should be set by Staff login
         }
         //this.updateAccessToken = this.updateAccessToken.bind(this);
         this.addAsyncRequest = this.addAsyncRequest.bind(this);
@@ -90,6 +90,7 @@ export default class kitchen extends React.Component {
                     await this.setState({
                         accessToken: json.new_access_token.access_token // Update the access token
                     })
+                    document.cookie = "accessToken=" + json.new_access_token.access_token;
                 })
 
         }  // Empty stack -> No requests
