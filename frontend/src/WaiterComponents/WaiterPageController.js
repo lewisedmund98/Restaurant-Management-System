@@ -91,7 +91,7 @@ export default class WaiterPageController extends React.Component {
                 this.getNotifications(this.props.selectedTables[i]); // Runs this request for i tables
             }
         }
-        this.startTimer(15000); // Once the code has run this makes sure the code is run again 5 seconds later, polling.
+        this.startTimer(5000); // Once the code has run this makes sure the code is run again 5 seconds later, polling.
     }
 
     /**
