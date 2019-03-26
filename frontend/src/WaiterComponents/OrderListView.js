@@ -9,50 +9,73 @@
  * The second of which is representing the to be delivered in which case a button to set the state to "delivered"
  * these will both send different api POST calls to the backend where they handle the removal. All We need to do
  * is display
+ * 
+ * The entire order is passed in to this class as paraneters and it can be used for removal purposes. 
  */
 
 import React from 'react';
 import { Table, List, Button } from 'semantic-ui-react';
-var requests = require('../Requests');
 
 export default class OrderListView extends React.Component {
     constructor(props) {
         super(props);
         this.getCorrectButton = this.getCorrectButton.bind(this);
-        this.confirmOrderLoc = this.confirmOrderLoc.bind(this);
+        this.confirmOrder = this.confirmOrder.bind(this);
         this.deliverOrder = this.deliverOrder.bind(this);
         this.cancelOrder = this.cancelOrder.bind(this);
     }
 
-    confirmOrderLoc() {
+    /**
+     * Confirm order local to this class.
+     * 
+     * This method makes a call to the function "confirmOrder" passed to this component from parent and passed it the orderID
+     * Based on the boolean value which determines the type of the button to display.
+     */
+
+    confirmOrder() {
         this.props.confirmOrder(this.props.orderID);
     }
+
+    /**
+     * deliverOrder is the method to be called when the order needs to be delivered, passes the orderID to parent method. 
+     * Note: This method is only called by a button which is determined on the boolean value depending on what type of view it is
+     */
 
     deliverOrder() {
         this.props.deliver(this.props.orderID);
     }
 
+    /**
+     * Method to make a cancel request to the parent method. Passes that method the orderID as argument. 
+     * This is universal to all types of orders to be viewed by the waiter. 
+     * 
+     */
+
     cancelOrder() {
         this.props.cancelOrder(this.props.orderID);
     }
 
+    /**
+     * Method to determine which button to render. It checks if "unconfirmed" or "delivered" is true and uses JSX
+     * to return the correct button type to be rendered. Used in conjunction with render method.
+     * 
+     * This is to determined the specialised behavior of the components.
+     * 
+     */
+
     getCorrectButton() {
-        var buttonState = "";
         if (this.props.unconfirmed) {
-            buttonState = "Confirm";
             return (
-                
-                    <Button className="waiterConfirmBtn" content={buttonState} onClick={(event, data) => {
-                        this.confirmOrderLoc();
+                    <Button className="waiterConfirmBtn" content={"Confirm"} onClick={() => {
+                        this.confirmOrder(); // Implicit function to handle button click
                     }}></Button>
-                
             )
         }
 
         if (this.props.delivered) {
             return (
                 <Button className="waiterConfirmBtn" content={"Confirm Delivery"} onClick={(event, data) => {
-                    this.deliverOrder();
+                    this.deliverOrder(); // Handle on click of this button
                 }}></Button>
             )
         }
@@ -60,9 +83,8 @@ export default class OrderListView extends React.Component {
     }
 
     render() {
-        // In the render we will have the table logic using the props. Like menuCard.js
-        var moment = require('moment');
-        var time = moment.unix(this.props.timeCreated).format("DD MMM YYYY hh:mm a");
+        var moment = require('moment'); // Moment is a time library
+        var time = moment.unix(this.props.timeCreated).format("DD MMM YYYY hh:mm a"); // Convert unix time to readable time
         return (
             <Table.Row key={"this.props.key"}>
                 <Table.Cell>{this.props.table}</Table.Cell>
@@ -72,8 +94,9 @@ export default class OrderListView extends React.Component {
                 <Table.Cell><List>{this.props.menuList}</List></Table.Cell>
                 <Table.Cell>
 
-                    {this.getCorrectButton()}
+                    {this.getCorrectButton()} {/*Makes a call to the button to render the right one */}
                     <Button className="waiterCancelBtn" onClick={() => { this.cancelOrder() }}>Cancel</Button>
+                    {/**Cancel an order button which is always rendered and always passes the current value. */}
 
                 </Table.Cell>
             </Table.Row>

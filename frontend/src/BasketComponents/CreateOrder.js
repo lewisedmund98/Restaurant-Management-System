@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, Form } from 'semantic-ui-react';
+import { Modal, Button } from 'semantic-ui-react';
 import BasketItem from './BasketItem';
 import OrderForm from './OrderForm.js';
 
@@ -18,8 +18,14 @@ export default class CreateOrder extends React.Component {
         this.makeOrder = this.makeOrder.bind(this);    
     }
 
+    /**
+     * Taking the order body HTTP data it makes a request to the backend
+     * to complete an order. This is based off the form which takes the user data.
+     * 
+     * @param {the order body to be sent to the backend} orderBody 
+     */
+
     makeOrder(orderBody){
-        console.log(orderBody);
         try{
             fetch("https://flask.team-project.crablab.co/order/create", {
                 method:"POST",
@@ -28,7 +34,7 @@ export default class CreateOrder extends React.Component {
                 },
                 body:orderBody,
             }).then(response => response.json())
-            .then(json => this.props.setOrder(json));
+            .then(json => this.props.setOrder(json)); // Calls the parent class to set a new order in the order list
         } catch (error){
             console.log(error);
         }
@@ -42,10 +48,12 @@ export default class CreateOrder extends React.Component {
                 <Modal.Content>
                     <div style={{ float: "left", width: "30%"}} className="orderBasket">
                         <h1 id="orderFormTitle"> Your Basket </h1>
+                        {/*Show the basket*/}
                         <BasketItem onRemove={this.props.onRemove} currentBasket={this.props.currentBasket}></BasketItem>
                     </div>
 
                     <div style={{ float: "right", width:"70%" }} className="orderForm">
+                    {/*Show the order form*/}
                         <OrderForm makeOrder={this.makeOrder} currentBasket={this.props.currentBasket}>
 
                         </OrderForm>

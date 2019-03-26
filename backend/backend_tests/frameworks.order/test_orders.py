@@ -2,7 +2,6 @@ import pytest
 # noinspection PyUnresolvedReferences
 from frameworks.order.orders import orders
 
-
 @pytest.fixture
 def ordersClass():  
     return orders()

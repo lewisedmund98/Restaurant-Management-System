@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Label, Checkbox, Button, Dropdown, Select } from 'semantic-ui-react';
+import { Form, Input, Label, Checkbox, Button, Dropdown } from 'semantic-ui-react';
 
 
 /* This class will have the order form in it. The form submission will be handled in this class too.
@@ -47,6 +47,7 @@ export default class OrderForm extends React.Component {
             });
 
             this.props.makeOrder(orderRequestBody);
+            setTimeout(function(){document.getElementById('yourOrdersBtn').click()}, 1000); //Presses the your orders button, delay is to allow it to load smoothly
 
         } catch (error) {
             console.log("Something went wrong" + error);
@@ -71,6 +72,8 @@ export default class OrderForm extends React.Component {
         });
     }
 
+    
+
     /**
      * Render shows the whole form. This form is used to create an order and takes the name, email, phone and table
      * number of the customer. Currently there are no checks, but the form will force the user to fill every entry.
@@ -92,20 +95,18 @@ export default class OrderForm extends React.Component {
                     <Label class="basketLabel">Email Address</Label>
                     <Input required onChange={this.handleInputChange} name="email" placeholder='Email Address...' />
                 </Form.Field>
-                {/* <Form.Field>
-                    <Label class="basketLabel">Phone Number</Label>
-                    <Input required onChange={this.handleInputChange} name="phone" placeholder='Phone Number...' />
-                </Form.Field> */}
+
                 <Form.Field>
                     <Label class="basketLabel">Table Number</Label>
                     <Dropdown required onChange={this.handleInputChange} name="tableNumber"
                         placeholder='Select a table...' search selection options={this.tables} />
-
                 </Form.Field>
+                
                 <Form.Field>
                     <Checkbox required label='I agree to the Terms and Conditions' />
                 </Form.Field>
-                <Button type='submit' id="ConfirmButton">Confirm and pay</Button>
+                
+                <Button type='submit' id="ConfirmButton">Proceed to checkout</Button>
             </Form>
         )
     }

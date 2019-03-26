@@ -1,37 +1,41 @@
 from frameworks.database.db import db
 from .order import order
 
+
 # This does not extend orders as none of the methods are shared
 # This class returns an array of order objects
-class orders():
+
+class orders:
     def __init__(self):
         # Instantiate Database
         self.__database = instance = db()
         self.__db = instance.getInstance()
+        self.__mappings = {
+            "created": "created", 
+            "waiterUnconfirmed": "paid",
+            "waiterConfirmed": "waiterConfirmed", 
+            "kitchenConfirmed": "kitchenConfirmed", 
+            "kitchenComplete": "kitchenComplete", 
+            "completed": "waiterComplete",
+            "ordersCancelled": "cancelled"
+            }
 
     def loadOrders(self, filter):
-        if filter == "waiterUnconfirmed":
-            ids = self.__getWaiterUnconfirmed()
-        elif filter == "cancelledOrders":
-            ids = self.__getCancelledOrders()
-        elif filter == "waiterConfirmed":
-            ids = self.__getWaiterConfirmed()
-        elif filter == "kitchenConfirmed":
-            ids = self.__getKitchenConfirmed()
-        elif filter == "kitchenComplete":
-            ids = self.__getKitchenComplete()
-        elif filter == "waiterComplete":
-            ids = self.__getWaiterComplete()
-        elif filter == "awaitingDelivery":
-            pass;
-        elif filter == "completedRecent":
-            pass;
-        elif filter == "completed":
+        if filter == "completed":
             ids = self.__getAllOrderIDs()
         else:
-            raise Exception('Filter condition missing')
+            ids = self.__loadMappedOrders(filter)
         self.__loadItems(ids)
         return True
+
+    def __loadMappedOrders(self, filter):
+        matchedOrders = []
+
+        for order in self.__getAllOrderIDs():
+            if(self.__confirmLastStage(order['orderID'], self.__mappings[filter])):
+                matchedOrders.append(order)
+
+        return matchedOrders
 
     def getOrders(self):
         data = []
@@ -52,38 +56,17 @@ class orders():
         cursor = self.__db.cursor()
         cursor.execute("SELECT orderID FROM `orders`")
         return cursor.fetchall()
-
-    def __getWaiterUnconfirmed(self):
+    
+    def __confirmLastStage(self, orderID, stage):
         cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM orderHistory WHERE stage = 'paid' AND stage != 'cancelled' AND stage != 'kitchenConfirmed' AND stage != 'waiterComplete' AND stage != 'kitchenComplete' GROUP BY orderID;")
-        return cursor.fetchall()
+        cursor.execute("SELECT `stage` FROM `orderHistory` WHERE `orderID` = %s ORDER BY `inserted` DESC LIMIT 1", (orderID));
 
-    def __getWaiterConfirmed(self):
-        cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM orderHistory WHERE stage = 'waiterConfirmed' AND stage != 'cancelled' AND stage != 'kitchenConfirmed' AND stage != 'waiterComplete' AND stage != 'kitchenComplete' GROUP BY orderID;")
-        return cursor.fetchall()
+        if(cursor.rowcount != 1):
+            raise Exception("Order has no history")
+        else:
+            data = cursor.fetchone()
 
-    def __getCancelledOrders(self):
-        cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID from orderHistory WHERE orderID NOT IN (SELECT orderID from orderHistory WHERE stage != 'cancelled');")
-        return cursor.fetchall()
-
-    def __getKitchenConfirmed(self):
-        cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM orderHistory WHERE stage = 'kitchenConfirmed' AND stage != 'cancelled' AND stage != 'waiterComplete' AND stage != 'kitchenComplete' GROUP BY orderID;")
-        return cursor.fetchall()
-
-    def __getWaiterComplete(self):
-        cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM orderHistory WHERE stage = 'waiterComplete'AND stage != 'cancelled' GROUP BY orderID;")
-        return cursor.fetchall()
-
-    def __getKitchenComplete(self):
-        cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM orderHistory WHERE stage = 'kitchenComplete' AND stage != 'cancelled' AND stage != 'waiterComplete' GROUP BY orderID;")
-        return cursor.fetchall()
-
-    def __getPaid(self):
-        cursor = self.__db.cursor()
-        cursor.execute("SELECT orderID FROM orderHistory WHERE stage = 'paid' AND stage != 'cancelled' AND stage != 'kitchenConfirmed' AND stage != 'waiterComplete' AND stage != 'kitchenComplete' AND stage != 'waiterConfirmed'' GROUP BY orderID;")
-        return cursor.fetchall()
+        if(data['stage'] == stage):
+            return True
+        else: 
+            return False
