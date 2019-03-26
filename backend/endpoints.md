@@ -328,6 +328,49 @@ Filters available:
 - kitchenComplete
 - waiterComplete
 
+## `notifications`
+
+### /callWaiter
+
+`POST` 
+
+`table=<table_num>`
+
+```json
+{
+    "notification":"notification_cjtp4ezjt00002rax99l48tw0"
+}
+```
+
+### /listTable *
+
+`POST`
+
+`table=<table_num>`
+
+```json
+"results":[
+    {"id":"notification_cjtp4dks000004wp87tnuqjnk","inserted":1553560000.0,"meta":"{}","retrieved":null,"table":1,"type":"call"},{"id":"notification_cjtp4dl0e00004wp8v00tpddt","inserted":1553560000.0,"meta":"{}","retrieved":null,"table":1,"type":"call"},{"id":"notification_cjtp4ebab0000jiq2n10v07qv","inserted":1553560000.0,"meta":"{}","retrieved":null,"table":1,"type":"call"},{"id":"notification_cjtp4ezjt00002rax99l48tw0","inserted":1553560000.0,"meta":"{}","retrieved":null,"table":1,"type":"call"}
+]
+```
+
+### /listNotification * 
+
+`POST`
+
+`id=<notifcation_id>`
+
+```json
+{
+    "id":"notification_cjtp4dks000004wp87tnuqjnk",
+    "inserted":1553560000.0,
+    "meta":"{}",
+    "retrieved":null,
+    "table":1,
+    "type":"call"
+}
+```
+
 ## `authentication`
 ### /handle/login *
 `POST`
