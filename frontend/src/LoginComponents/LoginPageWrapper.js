@@ -50,7 +50,7 @@ export default class LoginPageWrapper extends React.Component {
           console.log("Am running");
           await this.setState({
             loginPath : "/"+type,
-            accessToken : login.acces_token,
+            accessToken : login.access_token,
             userID : login.userID
           })
         }
@@ -96,7 +96,11 @@ export default class LoginPageWrapper extends React.Component {
         </Form.Field>
         {(this.props.loggedIn === true && this.state.loginPath !== null) &&
          <Redirect to={{
-          pathname: this.state.loginPath
+          pathname: this.state.loginPath,
+          state: {
+            accessToken: this.state.accessToken,
+            userID : this.state.userID
+          }
         }}>
         </Redirect>
         }

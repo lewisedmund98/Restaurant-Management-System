@@ -17,18 +17,18 @@ import ChooseTable from '../WaiterComponents/ChooseTable';
 export default class Customer extends React.Component {
     constructor(props) {
         super(props);
-        this.tempGetAccess = this.tempGetAccess.bind(this);
+        //this.tempGetAccess = this.tempGetAccess.bind(this);
         this.updateAccessToken = this.updateAccessToken.bind(this);
         this.setTables = this.setTables.bind(this);
         this.relog = this.relog.bind(this);
         this.addAsyncRequest = this.addAsyncRequest.bind(this);
         this.runRequests = this.runRequests.bind(this);
         this.state = {
-            accessToken: null, // Should be set by staff login
-            userID: null, // Should be set by Staff login
+            accessToken: this.props.location.state.accessToken, // Should be set by staff login
+            userID: this.props.location.state.userID, // Should be set by Staff login
             tables: [1, 2, 3, 4]
         }
-        this.tempGetAccess();
+        //this.tempGetAccess();
         this.running = false; // If the requests are running 
         this.requests = []; // The list of requests
     }
@@ -118,24 +118,24 @@ export default class Customer extends React.Component {
      * Temp method will be replaced with staff logins
      */
 
-    tempGetAccess() {
-        fetch("https://flask.team-project.crablab.co/authentication/login", {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify({ username: "test", password: "s3kr3tp4ssw0rd", key: "abc123", secret: "def456" }), // pulls the order id from the order ID given
-        })
-            .then(result => result.json())
-            .then(async (json) => 
-            {
-                await this.setState({
-                accessToken: json.login.access_token,
-                userID: json.login.userID
+    // tempGetAccess() {
+    //     fetch("https://flask.team-project.crablab.co/authentication/login", {
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         method: "POST",
+    //         body: JSON.stringify({ username: "test", password: "s3kr3tp4ssw0rd", key: "abc123", secret: "def456" }), // pulls the order id from the order ID given
+    //     })
+    //         .then(result => result.json())
+    //         .then(async (json) => 
+    //         {
+    //             await this.setState({
+    //             accessToken: json.login.access_token,
+    //             userID: json.login.userID
             
-            })
-        });
-    }
+    //         })
+    //     });
+    // }
 
     /**
      * update the access token - deprecated

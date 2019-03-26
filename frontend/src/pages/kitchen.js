@@ -1,4 +1,5 @@
 import React from 'react';
+import {Redirect} from 'react-router-dom';
 import '../index.css';
 import KitchenPageController from "../KitchenComponents/KitchenPageController";
 /**
@@ -10,12 +11,12 @@ import KitchenPageController from "../KitchenComponents/KitchenPageController";
 export default class kitchen extends React.Component {
     constructor(props) {
         super(props);
-        this.tempGetAccess = this.tempGetAccess.bind(this);
+        //this.tempGetAccess = this.tempGetAccess.bind(this);
         this.state = {
-            accessToken: null,
-            userID: null
+            accessToken: this.props.location.state.accessToken,
+            userID: this.props.location.state.userID
         }
-        this.updateAccessToken = this.updateAccessToken.bind(this);
+        //this.updateAccessToken = this.updateAccessToken.bind(this);
         this.addAsyncRequest = this.addAsyncRequest.bind(this);
         this.runRequests = this.runRequests.bind(this);
         this.running = false; // If there are requests runnnig this becomes true
@@ -95,41 +96,42 @@ export default class kitchen extends React.Component {
         this.running = false; // It's no longer running, can make the call again from addRequests
     }
 
-    updateAccessToken(newAccessToken) {
-        console.log("Old: " + this.state.accessToken);
-        console.log("New: " + newAccessToken);
-        this.setState({
-            accessToken: newAccessToken
-        })
-    }
+    // updateAccessToken(newAccessToken) {
+    //     console.log("Old: " + this.state.accessToken);
+    //     console.log("New: " + newAccessToken);
+    //     this.setState({
+    //         accessToken: newAccessToken
+    //     })
+    // }
 
-    async componentDidMount() { // Temp method needs to be replaced by staff login
-        await this.tempGetAccess();
-    }
+    // async componentDidMount() { // Temp method needs to be replaced by staff login
+    //     await this.tempGetAccess();
+    // }
 
     /**
      * Temporary method will be replaced by the staff login
      */
 
-    async tempGetAccess() {
-        await fetch("https://flask.team-project.crablab.co/authentication/login", {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "POST",
+    // async tempGetAccess() {
+    //     await fetch("https://flask.team-project.crablab.co/authentication/login", {
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         method: "POST",
 
-            body: JSON.stringify({username:"kitchen", password:"s3kr3tp4ssw0rd", key: "abc123", secret: "def456"}), // pulls the order id from the order ID given
+    //         body: JSON.stringify({username:"kitchen", password:"s3kr3tp4ssw0rd", key: "abc123", secret: "def456"}), // pulls the order id from the order ID given
 
-        })
-            .then(result => result.json())
-            .then(async (json) => {
-                await this.setState({
-                    accessToken: json.login.access_token,
-                    userID: json.login.userID
-                })
-            });
-    }
+    //     })
+    //         .then(result => result.json())
+    //         .then(async (json) => {
+    //             await this.setState({
+    //                 accessToken: json.login.access_token,
+    //                 userID: json.login.userID
+    //             })
+    //         });
+    // }
 
+   
     render() {
         document.title = "Oaxaca Kitchen";
         return (
@@ -140,9 +142,7 @@ export default class kitchen extends React.Component {
                     <h1>Kitchen Order</h1>
                     {/*Render the kitchen page controller with the required props and methods from this class*/}
                     <KitchenPageController uID = {this.state.userID} accessToken = {this.state.accessToken} 
-                    addRequest={this.addAsyncRequest} 
-                    updateToken = {this.updateAccessToken} />
-                
+                    addRequest={this.addAsyncRequest} />
             </div>
         )
     }
