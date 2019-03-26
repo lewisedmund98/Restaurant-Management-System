@@ -209,6 +209,32 @@ Returns object of item history for associated ID. `metafield` contains object of
 }
 ```
 
+### /order/<staffAction>
+`POST`
+
+`id=<order_id>`
+
+Performs the staff action
+
+```json
+{
+    "order":{
+        "inserted":1549977460,
+        "insertionID":"orderhistcjs1sk6zr0001adaxjsm7jxjj",
+        "metafield":"{}",
+        "orderID":"ordercjs1sk6zd0000adaxgzznu4dh",
+        "stage":"<staffAction>"
+    }
+}
+```
+
+Actions available are:
+- cancel
+- waiterConfirm
+- kitchenConfirm
+- kitchenComplete
+- waiterComplete
+
 ### /order/status
 `POST`
 
@@ -227,6 +253,39 @@ Returns object of current status for a given order ID.
     }
 }
 ```
+
+### /order/payment
+`POST` 
+
+Takes a Stripe blob and Order ID and processess an authorisation for the order. 
+
+```json
+{
+    "order_id": "order...",
+    "token_id": "stripe_token..."
+}
+```
+
+### /order/customer
+
+`POST`
+
+`id=<order_id>`
+
+Returns customer data for an order.
+
+```json
+{
+    "result":[
+        {
+            "customerID":"customercjtjakspy0000ztq2v9qek97k",
+            "email":"ZEAC122@live.rhul.ac.uk",
+            "name":"Haris Rabbani"
+        }
+    ]
+}
+```
+
 ## `orders`
 ### /orders/list
 `GET` 
