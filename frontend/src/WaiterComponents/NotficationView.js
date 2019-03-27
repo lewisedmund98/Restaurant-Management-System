@@ -22,12 +22,12 @@ export default class NotificationModal extends React.Component {
         return (
             <div>
                 {this.state.toDisplay === true &&
-                    <Modal open={this.state.toDisplay}> {/*Only display if its true to displaay*/}
+                    <Modal open={this.state.toDisplay} style={{textAlign: "center"}}> {/*Only display if its true to displaay*/}
                     <Modal.Content>
-                        <h3>Table : {this.props.tableNumber} Needs Assistance!!</h3>
+                        <h1>Table : {this.props.tableNumber} Needs Assistance!!</h1>
                         <h3>{time}</h3>
 
-                        <Button onClick={()=>{this.setState({toDisplay: false})}}>Close</Button>
+                        <Button id='closeTableAssistanceNoticeBtn' onClick={()=>{this.setState({toDisplay: false})}}>Close</Button>
                     </Modal.Content>
                     </Modal>
                 }

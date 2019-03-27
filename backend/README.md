@@ -16,7 +16,9 @@ You can find documentation on the endpoints available [here](endpoints.md)
 
 #### Running Development Service
 
-In `/backend` execute `python app.py` to start the development server
+In `/backend` execute `python app.py` to start the development server. 
+
+(Python should be Python 3 and you will need to install the requisite packages)
 
 #### Deployment 
 
