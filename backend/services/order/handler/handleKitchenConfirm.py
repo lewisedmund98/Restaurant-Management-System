@@ -14,9 +14,9 @@ class handleKitchenConfirm:
     def __kitchenConfirmation(self):
         if "eta" in self.__data:
             eta = datetime.now() + timedelta(minutes=int(self.__data['eta']))  
-            rval = self.__order.kitchenConfirm(self.__data['id'], eta.timestamp())
+            rval = self.__order.kitchenConfirm(self.__data['order_id'], eta.timestamp())
         else: 
             eta = None
-            rval = self.__order.kitchenConfirm(self.__data['id'])
+            rval = self.__order.kitchenConfirm(self.__data['order_id'])
         
         return rval

@@ -44,6 +44,8 @@ export default class OrderForm extends React.Component {
                 "phone" : this.state.phone,
                 "table" : this.state.tableNumber,
                 "items" : this.menuids,
+                "key" : "abc123",
+                "secret" : "def456"
             });
 
             this.props.makeOrder(orderRequestBody);

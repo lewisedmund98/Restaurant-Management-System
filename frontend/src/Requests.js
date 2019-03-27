@@ -17,7 +17,7 @@ export function pullDetails(orderID) {
             "Content-Type": "application/json",
         },
         method: "POST",
-        body: JSON.stringify({ "id": orderID }), // pulls the order id from the order ID given
+        body: JSON.stringify({ "order_id": orderID, key : "abc123", secret: "def456"}), // pulls the order id from the order ID given
     }).then(response => response.json()) // turns response into json
         .catch(error => console.log(error));
 }
@@ -71,7 +71,7 @@ export function getOrderStatus(orderID) {
             "Content-Type": "application/json",
         },
         method: "POST",
-        body: JSON.stringify({ id: orderID }), // pulls the order id from the order ID given
+        body: JSON.stringify({ order_id: orderID, key : "abc123", secret: "def456" }), // pulls the order id from the order ID given
     })
         .then(response => response.json())
         .catch(error => console.log(error))
