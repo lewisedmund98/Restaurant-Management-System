@@ -10,4 +10,4 @@ class handleKitchenComplete:
         return {"confirmed": self.__kitchenComplete()}
 
     def __kitchenComplete(self):
-        return self.__order.kitchenComplete(self.__data['id'])
+        return self.__order.kitchenComplete(self.__data['order_id'])

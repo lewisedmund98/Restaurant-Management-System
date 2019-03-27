@@ -10,5 +10,5 @@ class handleOrderHistory:
         return {"order": self.__getOrder()}
 
     def __getOrder(self):
-        self.__order.loadOrderHistory(self.__data['id'])
+        self.__order.loadOrderHistory(self.__data['order_id'])
         return self.__order.getOrderHistory()

@@ -10,4 +10,4 @@ class handleWaiterComplete:
         return {"confirmed": self.__waiterComplete()}
 
     def __waiterComplete(self):
-        return self.__order.waiterComplete(self.__data['id'])
+        return self.__order.waiterComplete(self.__data['order_id'])
