@@ -12,5 +12,5 @@ class handleCancelOrder:
         return {"cancelled": self.__cancelOrder()}
 
     def __cancelOrder(self):
-        refund = self.__payment.cancelCharge(self.__data['id'])
-        return self.__order.orderCancel(self.__data['id'], refund)
+        refund = self.__payment.cancelCharge(self.__data['order_id'])
+        return self.__order.orderCancel(self.__data['order_id'], refund)
