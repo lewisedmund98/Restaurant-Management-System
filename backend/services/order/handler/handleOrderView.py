@@ -10,5 +10,5 @@ class handleOrderView:
         return {"order": self.__getOrder()}
 
     def __getOrder(self):
-        self.__order.loadOrderInfo(self.__data['id'])
+        self.__order.loadOrderInfo(self.__data['order_id'])
         return self.__order.getOrderInfo()
