@@ -136,8 +136,6 @@ export default class CustomerPageController extends React.Component {
         }
 
         document.cookie = "orders=" + tempCookie;
-
-        alert(document.cookie);
     }
 
     render() {
