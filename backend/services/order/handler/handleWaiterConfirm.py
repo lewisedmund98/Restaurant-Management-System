@@ -13,6 +13,6 @@ class handleWaiterConfirm:
 
     def __waiterConfirmation(self):
         # Try to present 
-        self.__payment.submitPresentment(self.__data['id'])
+        self.__payment.submitPresentment(self.__data['order_id'])
         # Then add the waiter confirmation
-        return self.__order.waiterConfirm(self.__data['id'])
+        return self.__order.waiterConfirm(self.__data['order_id'])
