@@ -83,7 +83,7 @@ export default class Customer extends React.Component {
             var body = newReq[1] === null ? // Make the request body checking if passed body is null
                 { id: this.state.userID, key: "abc123", secret: "def456", access_token: this.state.accessToken } :
                 { ...newReq[1], ...{ id: this.state.userID, key: "abc123", secret: "def456", access_token: this.state.accessToken } };
-            await fetch(url, {
+                await fetch(url, {
                 headers: {
                     "Content-Type": "application/json",
                 },

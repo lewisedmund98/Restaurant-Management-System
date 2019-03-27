@@ -146,15 +146,18 @@ export default class KitchenPageController extends React.Component {
         } else { 
             reqBody = { id: orderID } // Body data without ETA
          }
-        await fetch("https://flask.team-project.crablab.co/order/kitchenConfirm", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(reqBody)
+        // await fetch("https://flask.team-project.crablab.co/order/kitchenConfirm", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify(reqBody)
+        // })
+        //     .then(response => response.json())
+        //     .then(json => console.log(json))
+        this.props.addRequest("order/kitchenConfirm", reqBody, (json) => {
+            console.log(json);
         })
-            .then(response => response.json())
-            .then(json => console.log(json))
     }
 
     /**
@@ -169,15 +172,18 @@ export default class KitchenPageController extends React.Component {
      */
 
     async kitchenCompleteOrder(orderID) {
-        await fetch("https://flask.team-project.crablab.co/order/kitchenComplete", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ id: orderID })
+        // await fetch("https://flask.team-project.crablab.co/order/kitchenComplete", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify({ id: orderID })
+        // })
+        //     .then(response => response.json())
+        //     .then(json => console.log(json))
+        this.props.addRequest("order/kitchenComplete", {order_id: orderID}, (json) => {
+            console.log(json);
         })
-            .then(response => response.json())
-            .then(json => console.log(json))
     }
 
     render() {
