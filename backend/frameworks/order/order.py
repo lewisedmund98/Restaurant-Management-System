@@ -51,7 +51,12 @@ class order:
             orderID)
         if cursor.rowcount == 1:
             self.__orderinfo = cursor.fetchone()
+            # Unjsonify the order items
             self.__orderinfo['items'] = json.loads(self.__orderinfo['items'])
+            # Grab the customer data
+            self.__orderinfo['customer'] = self.__customer.getCustomer(self.__orderinfo['customerID'])
+            del self.__orderinfo['customerID']
+
             return True
         else:
             raise Exception("Error: OrderID not found.")
