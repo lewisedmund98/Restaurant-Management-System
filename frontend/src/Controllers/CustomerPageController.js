@@ -186,6 +186,12 @@ export default class CustomerPageController extends React.Component {
     setOrder(orderNumber) {
         var tempOrderArray = this.state.orderNumbers; // Adds an order number to the list
         tempOrderArray.push(orderNumber);
+
+        this.setState({
+            orderPlaced: true,
+            orderNumbers: tempOrderArray
+        });
+
         const orders = document.cookie.replace(/(?:(?:^|.*;\s*)orders\s*\=\s*([^;]*).*$)|^.*$/, "$1");
         var tempCookie = "";
         if (orders !== "") {
@@ -194,10 +200,6 @@ export default class CustomerPageController extends React.Component {
             tempCookie = orderNumber.orderID;
         }
 
-        this.setState({
-            orderPlaced: true,
-            orderNumbers: tempOrderArray
-        });
         document.cookie = "orders=" + tempCookie;
 
         var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)orders\s*\=\s*([^;]*).*$)|^.*$/, "$1");
