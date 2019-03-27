@@ -201,10 +201,6 @@ export default class CustomerPageController extends React.Component {
         }
 
         document.cookie = "orders=" + tempCookie;
-
-        var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)orders\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-
-        alert(cookieValue);
     }
 
     render() {
