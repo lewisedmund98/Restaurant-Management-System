@@ -96,6 +96,15 @@
     color: black !important;
     border: solid rgb(31, 112, 233) !important;
 }
+.timelineBreadcrumb{
+    font-size: 1.5em !important;
+}
+.timelineCustomerOrder{
+    text-align: center;
+    padding: 10px;
+    border: dashed rgb(31, 112, 233);
+
+}
 
 .singleBasketItem{
     width: 100%;

@@ -22,7 +22,7 @@ export default class OrderTimeline extends React.Component {
     render() {
         this.orderStage(this.props.stage);
         return (
-            <Breadcrumb icon='right arrow' sections={this.progress} />
+            <Breadcrumb className="timelineBreadcrumb" icon='right arrow' sections={this.progress} />
         )
     }
 }
