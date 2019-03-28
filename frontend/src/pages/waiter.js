@@ -17,7 +17,6 @@ import {Redirect} from 'react-router-dom';
 export default class Customer extends React.Component {
     constructor(props) {
         super(props);
-        //this.tempGetAccess = this.tempGetAccess.bind(this);
         this.updateAccessToken = this.updateAccessToken.bind(this);
         this.setTables = this.setTables.bind(this);
         this.relog = this.relog.bind(this);
@@ -30,7 +29,6 @@ export default class Customer extends React.Component {
             badAccessToken : false,
             tables: [1, 2, 3, 4]
         }
-        //this.tempGetAccess();
         this.running = false; // If the requests are running 
         this.requests = []; // The list of requests
         this.firstUpdate = true;
@@ -135,29 +133,6 @@ export default class Customer extends React.Component {
     }
 
     /**
-     * Temp method will be replaced with staff logins
-     */
-
-    // tempGetAccess() {
-    //     fetch("https://flask.team-project.crablab.co/authentication/login", {
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         method: "POST",
-    //         body: JSON.stringify({ username: "test", password: "s3kr3tp4ssw0rd", key: "abc123", secret: "def456" }), // pulls the order id from the order ID given
-    //     })
-    //         .then(result => result.json())
-    //         .then(async (json) => 
-    //         {
-    //             await this.setState({
-    //             accessToken: json.login.access_token,
-    //             userID: json.login.userID
-
-    //         })
-    //     });
-    // }
-
-    /**
      * update the access token - deprecated
      * @param {new acces token} newAccessToken 
      */
@@ -185,7 +160,6 @@ export default class Customer extends React.Component {
 
     render() {
         document.title = "Oaxaca Waiters";
-        console.log(this.state.accessToken);
         console.log(this.state.tables);
         if(this.state.badAccessToken){
             return(
