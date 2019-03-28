@@ -14,7 +14,7 @@
  */
 
 import React from 'react';
-import { Table, List, Button, Message} from 'semantic-ui-react';
+import { Table, List, Button, Message, Transition} from 'semantic-ui-react';
 
 export default class OrderListView extends React.Component {
     constructor(props) {
@@ -85,9 +85,11 @@ export default class OrderListView extends React.Component {
     getCorrectNotif() {
         if (this.props.unconfirmed) {
             return (
-                <Message>
+                <Transition animation="pulse" duration={Infinity}>
+                <Message className="deliveryNotifs" color="red">
                     <Message.Header>Order Unconfirmed</Message.Header>
                 </Message>
+                </Transition>
             )
         }
 
