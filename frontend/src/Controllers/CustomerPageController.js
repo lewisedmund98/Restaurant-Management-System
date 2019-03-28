@@ -143,6 +143,17 @@ export default class CustomerPageController extends React.Component {
             // We make a tab wrapper which creates the tabs on the screen and pass the list of dishes
             <div className="mainContainer">
 
+
+                <div className="login">
+                    <Link to={{
+                        pathname:"/login"
+                    }}>
+                    <Button className="loginButton">Staff Login</Button></Link>
+                </div> 
+
+          
+
+
                 <div style={{textAlign: "right"}}>
                     <CallWaiter></CallWaiter><MenuFiltering defaultList={this.state.permDishList}
                                                             dishList={this.state.dishList}

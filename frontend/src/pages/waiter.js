@@ -12,25 +12,33 @@ import React from 'react';
 import '../index.css';
 import WaiterPageController from '../WaiterComponents/WaiterPageController.js';
 import ChooseTable from '../WaiterComponents/ChooseTable';
-
-
+import {Redirect} from 'react-router-dom';
+ 
 export default class Customer extends React.Component {
     constructor(props) {
         super(props);
-        this.tempGetAccess = this.tempGetAccess.bind(this);
+        //this.tempGetAccess = this.tempGetAccess.bind(this);
         this.updateAccessToken = this.updateAccessToken.bind(this);
         this.setTables = this.setTables.bind(this);
         this.relog = this.relog.bind(this);
         this.addAsyncRequest = this.addAsyncRequest.bind(this);
         this.runRequests = this.runRequests.bind(this);
         this.state = {
-            accessToken: null, // Should be set by staff login
-            userID: null, // Should be set by Staff login
+            // REGEX FROM: https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie
+            accessToken: document.cookie.replace(/(?:(?:^|.*;\s*)accessToken\s*\=\s*([^;]*).*$)|^.*$/, "$1"), // Should be set by staff login
+            userID: document.cookie.replace(/(?:(?:^|.*;\s*)userID\s*\=\s*([^;]*).*$)|^.*$/, "$1"), // Should be set by Staff login
+            badAccessToken : false,
             tables: [1, 2, 3, 4]
         }
-        this.tempGetAccess();
+        //this.tempGetAccess();
         this.running = false; // If the requests are running 
         this.requests = []; // The list of requests
+        this.firstUpdate = true;
+    }
+
+
+    componentWillUnmount(){
+        this.requests = [];
     }
 
     /**
@@ -52,7 +60,7 @@ export default class Customer extends React.Component {
     addAsyncRequest(endpoint, data, callback) {
         var contains = false;
         for (var i = 0; i < this.requests.length; i++) { // For each request in the current list
-             // Check if the request exists by matching data + endpoint
+            // Check if the request exists by matching data + endpoint
             if ((this.requests[i][0] === endpoint) && (JSON.stringify(this.requests[i][1]) === JSON.stringify(data))) {
                 contains = true;
             }
@@ -67,7 +75,7 @@ export default class Customer extends React.Component {
         }
     }
 
-    
+
     /**
      * Run requests takes the beginning of the queue "this.requests" 
      * It then makes a fetch call for this and does this until the requests array is empty (all done)
@@ -90,8 +98,16 @@ export default class Customer extends React.Component {
                 method: "POST",
                 body: JSON.stringify(body)
             })
-                .then(response => {
-                    return response.json();
+                .then(async response => {
+                    if(response.status === 403){
+                        this.requests = [];
+                        await this.setState({
+                            badAccessToken : true
+                        })
+                        throw Error("Bad Access Token");
+                    } else {
+                        return response.json();
+                    }
                 })
                 // eslint-disable-next-line no-loop-func
                 .then(async (json) => {
@@ -99,6 +115,10 @@ export default class Customer extends React.Component {
                     await this.setState({
                         accessToken: json.new_access_token.access_token // update the access token
                     })
+                    document.cookie = "accessToken=" + json.new_access_token.access_token;
+                })
+                .catch((error) => {
+                    console.log("An error occured" + error);
                 })
 
         }  // Empty stack -> No requests
@@ -118,24 +138,24 @@ export default class Customer extends React.Component {
      * Temp method will be replaced with staff logins
      */
 
-    tempGetAccess() {
-        fetch("https://flask.team-project.crablab.co/authentication/login", {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify({ username: "test", password: "s3kr3tp4ssw0rd", key: "abc123", secret: "def456" }), // pulls the order id from the order ID given
-        })
-            .then(result => result.json())
-            .then(async (json) => 
-            {
-                await this.setState({
-                accessToken: json.login.access_token,
-                userID: json.login.userID
-            
-            })
-        });
-    }
+    // tempGetAccess() {
+    //     fetch("https://flask.team-project.crablab.co/authentication/login", {
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         method: "POST",
+    //         body: JSON.stringify({ username: "test", password: "s3kr3tp4ssw0rd", key: "abc123", secret: "def456" }), // pulls the order id from the order ID given
+    //     })
+    //         .then(result => result.json())
+    //         .then(async (json) => 
+    //         {
+    //             await this.setState({
+    //             accessToken: json.login.access_token,
+    //             userID: json.login.userID
+
+    //         })
+    //     });
+    // }
 
     /**
      * update the access token - deprecated
@@ -165,7 +185,15 @@ export default class Customer extends React.Component {
 
     render() {
         document.title = "Oaxaca Waiters";
+        console.log(this.state.accessToken);
         console.log(this.state.tables);
+        if(this.state.badAccessToken){
+            return(
+                <Redirect to={{
+                    pathname : "/login"
+                }}/>
+            )
+        }
         return (
             <div>
                 <div class="topnav">

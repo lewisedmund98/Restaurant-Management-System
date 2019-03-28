@@ -433,6 +433,7 @@ body {
     margin: 0;
     
 }
+
 .kitchenOrderCardsContainer{
     width: 100%;
     background-color: black;
@@ -455,9 +456,23 @@ body {
 
 .chooseTableActions{
     margin-left: 1% !important;
-    margin-right: 1% !important;
+    margin-right: 1% !important; 
     margin-bottom: 1% !important; 
     width: 200px !important;
     height: 50px !important;
     padding: 0 !important;
+}
+
+.loginHomeContainer{
+    text-align: center !important;
+    border: 1px solid black !important;
+    width: 500px !important;
+    height: 250px !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important; 
+    right: 0 !important;
+    bottom: 0 !important;
+    margin: auto !important;
+    display: inline-block !important;
 }

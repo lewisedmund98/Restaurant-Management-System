@@ -136,7 +136,6 @@ export default class KitchenPageWrapper extends React.Component {
         return mappedCards;
     }
 
-
     render() {
         // Check if the arrays are empty and if they aren't then map them
         // Otherwise there would be an undefined error
@@ -147,20 +146,23 @@ export default class KitchenPageWrapper extends React.Component {
         if (this.props.toBeCompleted) {
             var mappedToBeCompleted = this.mapKitchenToBeCompleted(this.props.toBeCompleted);
         }
+
         return (
 
             <React.Fragment>
                 <div className="waiterConfirmedSide" >
-                    <h1>Waiter Confirmed</h1>
-                    <Card.Group>
-                        {mappedWaiter}
-                    </Card.Group></div>
-                <div className="toBeCompletedSide" >
-                    <h1>To be Completed</h1>
-                    <Card.Group>
-                        {mappedToBeCompleted}
-                    </Card.Group>
-                </div>
+                <h1>Waiter Confirmed</h1>
+            <Card.Group>
+                
+                {mappedWaiter}
+            </Card.Group></div>
+            <div className="toBeCompletedSide" >
+            <h1>To be Completed</h1>    
+            <Card.Group>
+                
+                {mappedToBeCompleted}
+            </Card.Group>
+            </div>
             </React.Fragment>
         )
     }
