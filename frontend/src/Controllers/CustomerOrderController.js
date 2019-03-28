@@ -4,6 +4,7 @@
  */
 import React from 'react';
 import OrderDisplay from '../OrderComponents/OrderDisplay.js';
+
 let requests = require('../Requests');
 
 
@@ -37,10 +38,11 @@ export default class OrderController extends React.Component {
 
     async pullOrderDetails() {
         var tempArr = document.cookie.replace(/(?:(?:^|.*;\s*)orders\s*\=\s*([^;]*).*$)|^.*$/, "$1").split(",");
+        var noOrders = false;
         console.log("Test \\/")
         console.log(tempArr);
         console.log(tempArr.length);
-    
+
         if (tempArr.length !== 0 && tempArr[0] !== "") {
             for (const index of tempArr) {
                 await requests.pullDetails(index) // Pass order ID's
@@ -68,6 +70,8 @@ export default class OrderController extends React.Component {
                     })
 
             }
+        } else {
+            this.noOrders = true;
         }
         // Object.values(this.props.customerOrders.orderNumber).forEach((orderID, index) => {
         // });
@@ -79,7 +83,10 @@ export default class OrderController extends React.Component {
 
     render() {
         return (
-            <OrderDisplay orderDetails={this.state.combinedResult}></OrderDisplay>
+            <div>
+                <OrderDisplay orderDetails={this.state.combinedResult}/>
+                {this.noOrders && <h2 style={{ textAlign: "center" }}>No orders</h2>}
+            </div>
         )
     }
 
