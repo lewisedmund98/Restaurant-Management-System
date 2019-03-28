@@ -113,21 +113,10 @@ export default class EditMenu extends React.Component {
                 jsonToggles.push({ itemID: parseInt(this.state.toBeDisabled[i]), enabled: false }); // Set enabled to false
             }
         }
-        await fetch("https://flask.team-project.crablab.co/menu/items/update", {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "POST",
-            // Creates the request with the jsonToggles made in this class.
-            body: JSON.stringify({ toggles: jsonToggles, id: this.props.uID, key: "abc123", secret: "def456", access_token: this.props.accessToken }), // pulls the order id from the order ID given
+        this.props.addRequest("menu/items/update", { toggles: jsonToggles } , () => {
+            this.pullItems(); // Pull the items again as it has changed
         })
-            .then(response => response.json())
-            .then(data => {
-                this.props.updateToken(data.new_access_token.access_token); // Need to update the access token
-            })
-            .then(() => {
-                this.pullItems(); // Pull the items again as it has changed
-            })
+        
     }
 
     /**

@@ -40,7 +40,8 @@ export default class WaiterPageWrapper extends React.Component {
         mappedUnconfirmed = unconfirmedOrders.map((order, key) => {
             var mappedMenu = this.mapMenuItemsToList(order.menuItems); // Makes a call to map each menu item to a list
             return ( // JSX return for the new component with a order view. 
-                <OrderListView table={order.table} cancelOrder={this.props.cancelOrder} confirmOrder={this.props.confirmOrder} custID={order.customerID} custName={order.name} orderID={order.orderID}
+                <OrderListView table={order.table} cancelOrder={this.props.cancelOrder} confirmOrder={this.props.confirmOrder} custID={order.customerID} 
+                custName={order.customer[0].name} orderID={order.orderID}
                     timeCreated={order.timeCreated} menuList={mappedMenu} unconfirmed={true}
                 />
             )
@@ -61,7 +62,8 @@ export default class WaiterPageWrapper extends React.Component {
         mappedToBeDelivered = toBeDelivered.map((order, key) => {
             var mappedMenu = this.mapMenuItemsToList(order.menuItems); // Call to map the menu items
             return (
-                <OrderListView table={order.table} cancelOrder={this.props.cancelOrder} deliver={this.props.deliverOrder} custID={order.customerID} custName={order.name} orderID={order.orderID}
+                <OrderListView table={order.table} cancelOrder={this.props.cancelOrder} deliver={this.props.deliverOrder} 
+                custID={order.customerID} custName={order.customer[0].name} orderID={order.orderID}
                     timeCreated={order.timeCreated} menuList={mappedMenu} delivered={true}
                 />
             )
@@ -83,7 +85,8 @@ export default class WaiterPageWrapper extends React.Component {
         mappedUnpaid = unpaidOrders.map((order, key) => {
             var mappedMenu = this.mapMenuItemsToList(order.menuItems); // Maps the menu items to an array.
             return (
-                <OrderListView table={order.table} cancelOrder={this.props.cancelOrder} deliver={this.props.deliverOrder} custID={order.customerID} custName={order.name} orderID={order.orderID}
+                <OrderListView table={order.table} cancelOrder={this.props.cancelOrder} deliver={this.props.deliverOrder}
+                 custID={order.customerID} custName={order.customer[0].name} orderID={order.orderID}
                     timeCreated={order.timeCreated} menuList={mappedMenu} unpaid={true}
                 />
             )
