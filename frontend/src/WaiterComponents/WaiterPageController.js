@@ -51,6 +51,7 @@ export default class WaiterPageController extends React.Component {
         this.getNotifications = this.getNotifications.bind(this);
         this.getUnpaidOrders = this.getUnpaidOrders.bind(this);
         this.confirmOrder = this.confirmOrder.bind(this);
+        this.deliverOrder = this.deliverOrder.bind(this);
         this.cancelOrder = this.cancelOrder.bind(this);
     }
 
@@ -239,11 +240,10 @@ export default class WaiterPageController extends React.Component {
      */
 
     deliverOrder(orderID) {
-
-        this.props.addRequest("order/waiterComplete", { order_id: orderID }, (json) => {
-            console.log(json);
+        console.log("Deliver" + orderID);
+        this.props.addRequest("order/waiterComplete", { order_id: orderID }, (res) => {
+            console.log(res);
         })
-
     }
 
     /**
