@@ -12,8 +12,8 @@ import React from 'react';
 import '../index.css';
 import WaiterPageController from '../WaiterComponents/WaiterPageController.js';
 import ChooseTable from '../WaiterComponents/ChooseTable';
-
-
+import {Redirect} from 'react-router-dom';
+ 
 export default class Customer extends React.Component {
     constructor(props) {
         super(props);
@@ -27,6 +27,7 @@ export default class Customer extends React.Component {
             // REGEX FROM: https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie
             accessToken: document.cookie.replace(/(?:(?:^|.*;\s*)accessToken\s*\=\s*([^;]*).*$)|^.*$/, "$1"), // Should be set by staff login
             userID: document.cookie.replace(/(?:(?:^|.*;\s*)userID\s*\=\s*([^;]*).*$)|^.*$/, "$1"), // Should be set by Staff login
+            badAccessToken : false,
             tables: [1, 2, 3, 4]
         }
         //this.tempGetAccess();
@@ -36,7 +37,9 @@ export default class Customer extends React.Component {
     }
 
 
-
+    componentWillUnmount(){
+        this.requests = [];
+    }
 
     /**
      * This method is important to prevent the 403 issues.
@@ -95,8 +98,16 @@ export default class Customer extends React.Component {
                 method: "POST",
                 body: JSON.stringify(body)
             })
-                .then(response => {
-                    return response.json();
+                .then(async response => {
+                    if(response.status === 403){
+                        this.requests = [];
+                        await this.setState({
+                            badAccessToken : true
+                        })
+                        throw Error("Bad Access Token");
+                    } else {
+                        return response.json();
+                    }
                 })
                 // eslint-disable-next-line no-loop-func
                 .then(async (json) => {
@@ -105,6 +116,9 @@ export default class Customer extends React.Component {
                         accessToken: json.new_access_token.access_token // update the access token
                     })
                     document.cookie = "accessToken=" + json.new_access_token.access_token;
+                })
+                .catch((error) => {
+                    console.log("An error occured" + error);
                 })
 
         }  // Empty stack -> No requests
@@ -171,7 +185,15 @@ export default class Customer extends React.Component {
 
     render() {
         document.title = "Oaxaca Waiters";
+        console.log(this.state.accessToken);
         console.log(this.state.tables);
+        if(this.state.badAccessToken){
+            return(
+                <Redirect to={{
+                    pathname : "/login"
+                }}/>
+            )
+        }
         return (
             <div>
                 <div class="topnav">

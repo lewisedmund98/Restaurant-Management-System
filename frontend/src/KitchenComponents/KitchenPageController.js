@@ -22,7 +22,6 @@ export default class KitchenPageController extends React.Component {
             waiterConfirmed: [],
             toBeCompleted: [],
             showDimmer : true,
-            accessToken: this.props.accessToken
         };
         this.waiterConfirmedArray = [];
         this.toBeCompletedArray = [];
@@ -32,10 +31,17 @@ export default class KitchenPageController extends React.Component {
         this.checkForUpdate = this.checkForUpdate.bind(this);
         this.getKitchenConfirmed = this.getKitchenConfirmed.bind(this);
         this.startTimer = this.startTimer.bind(this);
+        this.unmounted = false;
     }
 
     componentDidMount() { // When the component is loaded start running requests
+        this.unmounted = false;
         this.startTimer(500);
+    }
+
+    componentWillUnmount() {
+        // Do some unmount logic, clearing network requests, clearing dom elements etc etc.
+        this.unmounted =true; 
     }
 
     /**
@@ -59,7 +65,7 @@ export default class KitchenPageController extends React.Component {
      */
 
     async checkForUpdate() {
-        if (this.props.accessToken) {
+        if (this.props.accessToken && this.unmounted===false) {
             this.getWaiterConfirmed(); // Getting the waiter confirmed list (fetch call)
             this.getKitchenConfirmed(); // Getting the orders confirmed by the kitchen page (this page)
         }

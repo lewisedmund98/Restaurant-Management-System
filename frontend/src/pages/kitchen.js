@@ -15,12 +15,17 @@ export default class kitchen extends React.Component {
         this.state = {
             accessToken: document.cookie.replace(/(?:(?:^|.*;\s*)accessToken\s*\=\s*([^;]*).*$)|^.*$/, "$1"), // Should be set by staff login
             userID: document.cookie.replace(/(?:(?:^|.*;\s*)userID\s*\=\s*([^;]*).*$)|^.*$/, "$1"), // Should be set by Staff login
+            badAccessToken : false
         }
         //this.updateAccessToken = this.updateAccessToken.bind(this);
         this.addAsyncRequest = this.addAsyncRequest.bind(this);
         this.runRequests = this.runRequests.bind(this);
         this.running = false; // If there are requests runnnig this becomes true
         this.requests = []; // The list of requests
+    }
+
+    componentWillUnmount(){
+        this.requests = [];
     }
 
     /**
@@ -81,8 +86,16 @@ export default class kitchen extends React.Component {
                 method: "POST",
                 body: JSON.stringify(body) // new body
             })
-                .then(response => {
-                    return response.json();
+                .then(async response => {
+                    if(response.status === 403){
+                        this.requests = [];
+                        await this.setState({
+                            badAccessToken : true
+                        })
+                        throw Error("Bad Access Token");
+                    } else {
+                        return response.json();
+                    }
                 })
                 // eslint-disable-next-line no-loop-func
                 .then(async (json) => {
@@ -91,6 +104,9 @@ export default class kitchen extends React.Component {
                         accessToken: json.new_access_token.access_token // Update the access token
                     })
                     document.cookie = "accessToken=" + json.new_access_token.access_token;
+                })
+                .catch((error) => {
+                    console.log("An error occured" + error);
                 })
 
         }  // Empty stack -> No requests
@@ -135,6 +151,13 @@ export default class kitchen extends React.Component {
    
     render() {
         document.title = "Oaxaca Kitchen";
+        if(this.state.badAccessToken){
+            return(
+                <Redirect to={{
+                    pathname : "/login"
+                }}/>
+            )
+        }
         return (
             <div className="kitchenPage">
                 <div className="loginContainer">

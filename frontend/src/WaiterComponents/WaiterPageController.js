@@ -53,14 +53,18 @@ export default class WaiterPageController extends React.Component {
         this.confirmOrder = this.confirmOrder.bind(this);
         this.deliverOrder = this.deliverOrder.bind(this);
         this.cancelOrder = this.cancelOrder.bind(this);
+        this.unmounted = false;
     }
 
     componentDidMount() { // Runs when the component is mounted
+        this.unmounted = false;
         this.startTimer(500); // Starts the request "timer" to go off which loops. Starts it at a small time period
+    
     }
 
     componentWillUnmount() {
-        // Do some unmount logic, clearing network requests, clearing dom elements etc etc. 
+        // Do some unmount logic, clearing network requests, clearing dom elements etc etc.
+        this.unmounted =true; 
     }
 
     /**
@@ -84,7 +88,7 @@ export default class WaiterPageController extends React.Component {
      */
 
     async checkForUpdate() {
-        if (this.props.accessToken) { // Checks if the access token has been set
+        if (this.props.accessToken && this.unmounted===false) { // Checks if the access token has been set
             this.getUnconfirmedOrders();
             this.getKitchenCompleted();
             this.getUnpaidOrders();
