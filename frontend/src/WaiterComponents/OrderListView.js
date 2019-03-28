@@ -85,7 +85,7 @@ export default class OrderListView extends React.Component {
     getCorrectMessage() {
         if (this.props.unconfirmed) {
             return (
-                <Message color="red">
+                <Message size={'small'} color="red">
                     <Message.Header>Order Unconfirmed</Message.Header>
                 </Message>
             )
@@ -93,7 +93,7 @@ export default class OrderListView extends React.Component {
 
         if (this.props.delivered) {
             return (
-                <Message color="red">
+                <Message size={'small'} color="red">
                     <Message.Header>Order Ready For Delivery</Message.Header>
                 </Message>
             )
