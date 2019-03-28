@@ -51,6 +51,7 @@ export default class WaiterPageController extends React.Component {
         this.getNotifications = this.getNotifications.bind(this);
         this.getUnpaidOrders = this.getUnpaidOrders.bind(this);
         this.confirmOrder = this.confirmOrder.bind(this);
+        this.deliverOrder = this.deliverOrder.bind(this);
         this.cancelOrder = this.cancelOrder.bind(this);
     }
 
@@ -135,14 +136,11 @@ export default class WaiterPageController extends React.Component {
                         for (var i = 0; i < menuItems.length; i++) { // For each RETURNED menu item, push it's result to array
                             menuItemsArray.push(menuItems[i].result); // Each result is a JSON object in itself.
                         }
-                        await request.getCustomerDetailsFromOrder(order.orderID) // FETCH CUSTOMER DETAILS PER EACH ORDER
-                            .then(async (customerDetails) => {
-                                customerDetails = customerDetails.result[0]; // Get the result for the customer
-                                // Combines the: order data, the customer data, and the menu items into 1 JSON object
-                                var combinedResult = { ...{ menuItems: menuItemsArray }, ...order, ...customerDetails };
-                                this.arrayOfUnconfirmedOrders.push(combinedResult); // Push the combined object to the array
-                            })
+                        // Combines the: order data, the customer data, and the menu items into 1 JSON object
+                        var combinedResult = { ...{ menuItems: menuItemsArray }, ...order };
+                        this.arrayOfUnconfirmedOrders.push(combinedResult); // Push the combined object to the array
                     })
+
             }
             this.setState({
                 unconfirmedOrders: this.arrayOfUnconfirmedOrders, // Set the state which updates react and it gets rendered
@@ -158,26 +156,25 @@ export default class WaiterPageController extends React.Component {
      * to the "getWaiterUnconfirmed()" method.
      * 
      */
-    
+
     async getUnpaidOrders() {
         this.props.addRequest("orders/list/created", null, async (data) => { // Add request
             data = data.orders;
             for (const order of data) {
                 await request.getMenuItems(order.items) // Get menu items
+                    // eslint-disable-next-line no-loop-func
                     .then(async (menuItems) => {
                         var menuItemsArray = [];
                         for (var i = 0; i < menuItems.length; i++) {
                             menuItemsArray.push(menuItems[i].result);
                         }
-                        await request.getCustomerDetailsFromOrder(order.orderID) // Get customer details
-                            .then(customerDetails => {
-                                customerDetails = customerDetails.result[0];
-                                // Combine into 1 JSON blob
-                                var combinedResult = { ...{ menuItems: menuItemsArray }, ...order, ...customerDetails };
-                                this.unpaidArray.push(combinedResult);
-                            })
 
+                        // Combine into 1 JSON blob
+                        var combinedResult = { ...{ menuItems: menuItemsArray }, ...order };
+                        this.unpaidArray.push(combinedResult);
                     })
+
+
             }
             this.setState({
                 unPaid: this.unpaidArray, // Set the state with the current array of unpaid orders
@@ -204,12 +201,9 @@ export default class WaiterPageController extends React.Component {
                         for (var i = 0; i < menuItems.length; i++) {
                             menuItemsArray.push(menuItems[i].result);
                         }
-                        await request.getCustomerDetailsFromOrder(order.orderID) // Get customer details for each otder
-                            .then(customerDetails => {
-                                customerDetails = customerDetails.result[0];
-                                var combinedResult = { ...{ menuItems: menuItemsArray }, ...order, ...customerDetails };
-                                this.toBeDeliveredArray.push(combinedResult);
-                            })
+
+                        var combinedResult = { ...{ menuItems: menuItemsArray }, ...order };
+                        this.toBeDeliveredArray.push(combinedResult);
                     })
             }
             this.setState({
@@ -219,7 +213,7 @@ export default class WaiterPageController extends React.Component {
             this.toBeDeliveredArray = []; // Reset the array.
 
         })
-    }   
+    }
 
     /**
      * Confirm order takes an order ID and then pakes a HTTP POST request to the backend point to confirm that order.
@@ -230,15 +224,10 @@ export default class WaiterPageController extends React.Component {
      */
 
     confirmOrder(orderID) {
-        fetch("https://flask.team-project.crablab.co/order/waiterConfirm", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ id: orderID })
+
+        this.props.addRequest("order/waiterConfirm", { order_id: orderID }, (json) => {
+            console.log(json);
         })
-            .then(response => response.json())
-            .then(json => console.log(json))
     }
 
     /**
@@ -251,15 +240,10 @@ export default class WaiterPageController extends React.Component {
      */
 
     deliverOrder(orderID) {
-        fetch("https://flask.team-project.crablab.co/order/waiterComplete", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ id: orderID })
+        console.log("Deliver" + orderID);
+        this.props.addRequest("order/waiterComplete", { order_id: orderID }, (res) => {
+            console.log(res);
         })
-            .then(response => response.json())
-            .then(json => console.log(json))
     }
 
     /**
@@ -269,18 +253,10 @@ export default class WaiterPageController extends React.Component {
      */
 
     cancelOrder(orderID) {
-        fetch("https://flask.team-project.crablab.co/order/cancel", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ id: orderID })
+        this.props.addRequest("order/cancel", { order_id: orderID }, (json) => {
+            console.log(json);
+            console.log("Cancelling Order : " + orderID + json);
         })
-            .then(response => response.json())
-            .then(json => {
-                console.log(json);
-                console.log("Cancelling Order : " + orderID + json);
-            })
     }
 
 
@@ -291,7 +267,8 @@ export default class WaiterPageController extends React.Component {
                     <Icon loading name='spinner' size='huge' />
                 </Dimmer>
                 {/*Edit menu is displayed here which goes and shows 2 buttons and the logic for editing the menu*/}
-                <EditMenu uID={this.props.uID} accessToken={this.props.accessToken} updateToken={this.props.updateToken}></EditMenu>
+                <EditMenu uID={this.props.uID} accessToken={this.props.accessToken}
+                    updateToken={this.props.updateToken} addRequest={this.props.addRequest}></EditMenu>
                 {/*Although not active, the notification component is added here. That deals with the rendering of each notificatoin*/}
                 <Notifications tables={this.props.selectedTables} notifications={this.state.notifications}></Notifications>
                 {/*Renders the waiter page wrapper passing in all the data as properties*/}

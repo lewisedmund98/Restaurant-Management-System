@@ -19,6 +19,21 @@ When making a request, you need to include structure your main JSON object thus:
 }
 ```
 
+Some endpoints also require logging in (staff endpoints) and a certain privilage. In order to obtain a one time access token a call to the login endpoint needs to be made. A further request would look thus:
+
+```json
+{
+    "key": "<application_key>", 
+    "secret": "<application_secret>",
+    "auth_token": "<authentication_token",
+    "id": "<id>",
+    "other_value": "test",
+    "other_obj" {}
+}
+```
+
+We really should be sending auth parameters in headers as it causes no end of trouble with attribute name clashes. 
+
 ## ping
 
 ### /ping 
@@ -51,7 +66,7 @@ Returns `database` object containing `VERSION()` equivilant to the database vers
 
 ### /menu/items
 `GET` 
-Returns an object containing all the known items. No filtering currently available. 
+Returns an object containing all the known items. 
 
 ```json
 {
@@ -72,6 +87,44 @@ Returns an object containing all the known items. No filtering currently availab
     ]
 }
 ```
+
+#### Filtering options available
+
+- `/menu/items/enabled` 
+    - Menu items enabled by the waiter 
+- `/menu/items/disabled` 
+    - Menu items disabled by the waiter
+
+### /menu/items/update* 
+`POST`
+
+```json
+"toggles": [
+    {"itemID": 1, "enabled": true}, 
+    {"itemID": 2, "enabled": false}
+]
+```
+
+Toggles the supplied items to the supplied values. 
+
+### /menu/item/update*
+`POST`
+
+```json
+"itemID": "1", 
+"fields": {
+    "itemName": "RandomDish", 
+    "itemCalories": 1, 
+    "itemPrice": 11.01, 
+    "itemType": "Main", 
+    "itemInformation": "a random dish", 
+    "itemImage": "https://i.kym-cdn.com/entries/icons/mobile/000/013/564/doge.jpg", 
+    "itemEnabled": true
+    }
+```
+
+Updates an item with the supplied data. You must supply all fields.
+
 ### /menu/item
 `POST` 
 
@@ -156,6 +209,32 @@ Returns object of item history for associated ID. `metafield` contains object of
 }
 ```
 
+### /order/<staffAction>
+`POST`
+
+`id=<order_id>`
+
+Performs the staff action
+
+```json
+{
+    "order":{
+        "inserted":1549977460,
+        "insertionID":"orderhistcjs1sk6zr0001adaxjsm7jxjj",
+        "metafield":"{}",
+        "orderID":"ordercjs1sk6zd0000adaxgzznu4dh",
+        "stage":"<staffAction>"
+    }
+}
+```
+
+Actions available are:
+- cancel
+- waiterConfirm
+- kitchenConfirm
+- kitchenComplete
+- waiterComplete
+
 ### /order/status
 `POST`
 
@@ -174,11 +253,47 @@ Returns object of current status for a given order ID.
     }
 }
 ```
-## `orders`
-### /orders/list
-`GET` 
 
-Returns list of all orders. This endpoint is likely to be deprecated soon in favour of a more controlled and filtered endpoint. 
+### /order/payment
+`POST` 
+
+Takes a Stripe blob and Order ID and processess an authorisation for the order. 
+
+```json
+{
+    "order_id": "order...",
+    "token_id": "stripe_token..."
+}
+```
+
+### /order/customer
+
+#### Deprecated in `ced25ed`
+This endpoint has now been removed in favour of returning customer details in all order information endpoints. 
+
+`POST`
+
+`id=<order_id>`
+
+Returns customer data for an order.
+
+```json
+{
+    "result":[
+        {
+            "customerID":"customercjtjakspy0000ztq2v9qek97k",
+            "email":"ZEAC122@live.rhul.ac.uk",
+            "name":"Haris Rabbani"
+        }
+    ]
+}
+```
+
+## `orders`
+### /orders/list/<filter> * 
+`POST` 
+
+Returns list of orders according to filter.
 
 ```json
 {
@@ -205,6 +320,60 @@ Returns list of all orders. This endpoint is likely to be deprecated soon in fav
     ]
 }
 ```
+
+Filters available:
+- completed
+- created
+- waiterUnconfirmed
+- ordersCancelled
+- waiterConfirmed
+- kitchenConfirmed
+- kitchenComplete
+- waiterComplete
+
+## `notifications`
+
+### /callWaiter
+
+`POST` 
+
+`table=<table_num>`
+
+```json
+{
+    "notification":"notification_cjtp4ezjt00002rax99l48tw0"
+}
+```
+
+### /listTable *
+
+`POST`
+
+`table=<table_num>`
+
+```json
+"results":[
+    {"id":"notification_cjtp4dks000004wp87tnuqjnk","inserted":1553560000.0,"meta":"{}","retrieved":null,"table":1,"type":"call"},{"id":"notification_cjtp4dl0e00004wp8v00tpddt","inserted":1553560000.0,"meta":"{}","retrieved":null,"table":1,"type":"call"},{"id":"notification_cjtp4ebab0000jiq2n10v07qv","inserted":1553560000.0,"meta":"{}","retrieved":null,"table":1,"type":"call"},{"id":"notification_cjtp4ezjt00002rax99l48tw0","inserted":1553560000.0,"meta":"{}","retrieved":null,"table":1,"type":"call"}
+]
+```
+
+### /listNotification * 
+
+`POST`
+
+`id=<notifcation_id>`
+
+```json
+{
+    "id":"notification_cjtp4dks000004wp87tnuqjnk",
+    "inserted":1553560000.0,
+    "meta":"{}",
+    "retrieved":null,
+    "table":1,
+    "type":"call"
+}
+```
+
 ## `authentication`
 ### /handle/login *
 `POST`

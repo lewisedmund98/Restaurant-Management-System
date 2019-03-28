@@ -9,11 +9,14 @@ from .handler.handleOrderView import handleOrderView
 from .handler.handleWaiterComplete import handleWaiterComplete
 from .handler.handleWaiterConfirm import handleWaiterConfirm
 from .handler.handlePayment import handlePayment
-from .handler.handleCustomer import handleCustomer
+from frameworks.authentication.auth import authentication
 
 class order:
     def __init__(self, request):
-        #self.__auth = authentication()
+        self.__request = request
+        self.__auth = authentication(request.get_json()['key'], request.get_json()['secret'])
+        self.__newAccessToken = None
+
         if request.path == "/order/create":
             self.responseObj = handleCreateOrder(request)
         elif request.path == "/order/view":
@@ -21,26 +24,39 @@ class order:
         elif request.path == "/order/history":
             self.responseObj = handleOrderHistory(request)
         elif request.path == '/order/cancel':
-            self.responseObj = handleCancelOrder(request)
+            if self.__checkPermish(0):
+                self.responseObj = handleCancelOrder(request)
         elif request.path == "/order/status":
             self.responseObj = handleOrderStatus(request)
         elif request.path == "/order/waiterConfirm":
-            self.responseObj = handleWaiterConfirm(request)
+            if self.__checkPermish(0):
+                self.responseObj = handleWaiterConfirm(request)
         elif request.path == "/order/kitchenConfirm":
-            self.responseObj = handleKitchenConfirm(request)
+            if self.__checkPermish(1):
+                self.responseObj = handleKitchenConfirm(request)
         elif request.path == "/order/kitchenComplete":
-            self.responseObj = handleKitchenComplete(request)
+            if self.__checkPermish(1):
+                self.responseObj = handleKitchenComplete(request)
         elif request.path == "/order/waiterComplete":
-            self.responseObj = handleWaiterComplete(request)
+            if self.__checkPermish(0):
+                self.responseObj = handleWaiterComplete(request)
         elif(request.path == "/order/payment"):
             self.responseObj = handlePayment(request)
-        elif(request.path == "/order/customer"):
-            self.responseObj = handleCustomer(request)
         else:
             self.responseObj = self
 
     def getResponse(self):
-        return self.responseObj.getOutput()
+        output = self.responseObj.getOutput()
+        if(isinstance(self.__newAccessToken, dict)):
+            output.update(self.__newAccessToken)
+        return output
 
     def getOutput(self):
         abort(404)
+    
+    def __checkPermish(self, level):
+        self.__newAccessToken = self.__auth.authenticateRequest(self.__request.get_json()['access_token'], self.__request.get_json()['id'], level)
+        if(isinstance(self.__newAccessToken, dict)):
+            return True
+        else:
+            abort(403)

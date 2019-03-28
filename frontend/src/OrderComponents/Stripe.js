@@ -33,7 +33,7 @@ export default class TakeMoney extends React.Component {
    */
 
   onToken(token) {
-    token = { ...token, ...{ order_id: this.props.orderID } }; // Adds the order id to the request body to be sent
+    token = { ...token, ...{ order_id: this.props.orderID, key:"abc123", secret:"def456" } }; // Adds the order id to the request body to be sent
     var newToken = JSON.stringify(token); // Turn into string to make it easier to handle
     var newTokenIdReplaced = newToken.replace(/"id"/, "\"token_id\""); // Regex for ID and replace it
     this.payForOrder(newTokenIdReplaced); // Pays for order
