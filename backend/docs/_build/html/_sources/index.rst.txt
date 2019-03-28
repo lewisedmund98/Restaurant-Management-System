@@ -25,6 +25,10 @@ Customer Class
 .. automodule:: frameworks.customer.customer
    :members:
 
+Database Class
+====================
+.. automodule:: frameworks.database.db
+   :members:
 
 Indices and tables
 ==================
