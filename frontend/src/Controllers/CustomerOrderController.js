@@ -35,18 +35,18 @@ export default class OrderController extends React.Component {
         this.startTimer(2500);
     }
 
-
-    pullOrderDetails() {
-        Object.values(this.props.customerOrders.orderNumber).forEach((orderID, index) => {
-            requests.pullDetails(orderID.orderID) // Pass order ID's
-                .then(orderReturn => {
-                    requests.getMenuItems(orderReturn.order.items) // Pass Items
-                        .then((menuItems) => {
+    async pullOrderDetails() {
+        var tempArr = document.cookie.replace(/(?:(?:^|.*;\s*)orders\s*\=\s*([^;]*).*$)|^.*$/, "$1").split(",");
+        for(const index of tempArr){
+            await requests.pullDetails(index) // Pass order ID's
+                .then(async (orderReturn) => {
+                    await requests.getMenuItems(orderReturn.order.items) // Pass Items
+                        .then(async (menuItems) => {
                             var menuItemsArray = [];
                             for (var i = 0; i < menuItems.length; i++) {
                                 menuItemsArray.push(menuItems[i].result);
                             }
-                            requests.getOrderStatus(orderID.orderID)
+                            await requests.getOrderStatus(index)
                                 .then((orderStatus) => {
                                     var menuResponse = { menu: menuItemsArray };
                                     var combinedResult = { ...orderReturn.order, ...menuResponse, ...orderStatus.order };
@@ -61,13 +61,13 @@ export default class OrderController extends React.Component {
 
                         })
                 })
-                .catch(error => {
-                    console.log("An error has occured " + error);
-                })
-        })
+               
+        }
+        // Object.values(this.props.customerOrders.orderNumber).forEach((orderID, index) => {
+        // });
         this.setState({
             combinedResult: this.arrayOfOrderDetails
-        })
+        });
         this.arrayOfOrderDetails = [];
     }
 
