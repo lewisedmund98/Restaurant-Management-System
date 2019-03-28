@@ -135,6 +135,7 @@ export default class WaiterPageWrapper extends React.Component {
                         <Table >
                             <Table.Header>
                                 <Table.Row>
+                                    <Table.HeaderCell></Table.HeaderCell>
                                     <Table.HeaderCell>Table</Table.HeaderCell>
                                     <Table.HeaderCell>Customer Name</Table.HeaderCell>
                                     <Table.HeaderCell>Order ID</Table.HeaderCell>
@@ -156,6 +157,7 @@ export default class WaiterPageWrapper extends React.Component {
                         <Table>
                             <Table.Header>
                                 <Table.Row>
+                                    <Table.HeaderCell></Table.HeaderCell>
                                     <Table.HeaderCell>Table</Table.HeaderCell>
                                     <Table.HeaderCell>Customer Name</Table.HeaderCell>
                                     <Table.HeaderCell>Order ID</Table.HeaderCell>
@@ -171,12 +173,13 @@ export default class WaiterPageWrapper extends React.Component {
                     </div>
                 </div>
 
-                <div style={{ padding: "20px" }} className="toBeDeliveredDiv">
+                <div style={{ padding: "20px" }} className="unpaidDiv">
                     <h1>Created and Unpaid</h1>
                     <div style={{ height: "400px", overflowY: "scroll" }}>
                         <Table>
                             <Table.Header>
                                 <Table.Row>
+                                    <Table.HeaderCell></Table.HeaderCell>
                                     <Table.HeaderCell>Table</Table.HeaderCell>
                                     <Table.HeaderCell>Customer Name</Table.HeaderCell>
                                     <Table.HeaderCell>Order ID</Table.HeaderCell>
