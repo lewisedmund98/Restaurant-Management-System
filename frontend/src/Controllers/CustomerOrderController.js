@@ -37,7 +37,11 @@ export default class OrderController extends React.Component {
 
     async pullOrderDetails() {
         var tempArr = document.cookie.replace(/(?:(?:^|.*;\s*)orders\s*\=\s*([^;]*).*$)|^.*$/, "$1").split(",");
-        if (tempArr.length !== 0) {
+        console.log("Test \\/")
+        console.log(tempArr);
+        console.log(tempArr.length);
+    
+        if (tempArr.length !== 0 && tempArr[0] !== "") {
             for (const index of tempArr) {
                 await requests.pullDetails(index) // Pass order ID's
                     .then(async (orderReturn) => {
