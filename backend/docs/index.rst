@@ -30,6 +30,11 @@ Database Class
 .. automodule:: frameworks.database.db
    :members:
 
+ID Class
+====================
+.. automodule:: frameworks.idGenerator.id
+   :members:
+
 Indices and tables
 ==================
 
