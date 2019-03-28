@@ -14,6 +14,6 @@ def testLoadStatusOfOrder(orderClass, createOrder):  # does the loadStatusOfOrde
     assert orderClass.loadOrderHistory(createOrder) == True
     assert isinstance(orderClass.getOrderStatus(), dict)
 
-def loadOrderInfo(orderClass, createOrder):  # does the loadInformationOfOrder method exist?
-    assert orderClass.loadInformationOfOrder(createOrder) == True
+def testloadOrderInfo(orderClass, createOrder):  # does the loadInformationOfOrder method exist?
+    assert orderClass.loadOrderInfo(createOrder) == True
     assert isinstance(orderClass.getOrderInfo(), dict)

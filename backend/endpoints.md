@@ -268,6 +268,9 @@ Takes a Stripe blob and Order ID and processess an authorisation for the order.
 
 ### /order/customer
 
+#### Deprecated in `ced25ed`
+This endpoint has now been removed in favour of returning customer details in all order information endpoints. 
+
 `POST`
 
 `id=<order_id>`
