@@ -38,6 +38,7 @@ export default class WaiterPageController extends React.Component {
             toBeDelivered: [], // List of final deliverable orders each poll
             unPaid: [], // list of all unpaid orders each poll
             notifications: [], // list of notifications from endpoint
+            history : [],
             showDimmer: true, // dimmer is the loader component
         };
         this.arrayOfUnconfirmedOrders = []; // This is needed as updating the state each request is unfeesible
@@ -206,9 +207,15 @@ export default class WaiterPageController extends React.Component {
                         this.toBeDeliveredArray.push(combinedResult);
                     })
             }
+            if(this.state.history.toString() !== this.toBeDeliveredArray.toString()) {
+                if(this.state.history.length < this.toBeDeliveredArray.length) {
+                    alert("New Task To Be Completed");
+                }
+            }
             this.setState({
                 toBeDelivered: this.toBeDeliveredArray, // Add to the state, trigger a re-render
-                showDimmer: false
+                showDimmer: false,
+                history : this.toBeDeliveredArray
             })
             this.toBeDeliveredArray = []; // Reset the array.
 

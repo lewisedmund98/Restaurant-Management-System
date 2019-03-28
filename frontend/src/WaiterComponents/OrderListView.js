@@ -14,7 +14,7 @@
  */
 
 import React from 'react';
-import { Table, List, Button } from 'semantic-ui-react';
+import { Table, List, Button, Message} from 'semantic-ui-react';
 
 export default class OrderListView extends React.Component {
     constructor(props) {
@@ -82,11 +82,32 @@ export default class OrderListView extends React.Component {
 
     }
 
+    getCorrectNotif() {
+        if (this.props.unconfirmed) {
+            return (
+                <Message>
+                    <Message.Header>Order Unconfirmed</Message.Header>
+                </Message>
+            )
+        }
+
+        if (this.props.delivered) {
+            return (
+                <Message>
+                    <Message.Header>Order Ready For Delivery</Message.Header>
+                </Message>
+            )
+        }
+    }
+
     render() {
         var moment = require('moment'); // Moment is a time library
         var time = moment.unix(this.props.timeCreated).format("DD MMM YYYY hh:mm a"); // Convert unix time to readable time
         return (
             <Table.Row key={"this.props.key"}>
+                <Table.Cell>
+                    {this.getCorrectNotif()}
+                </Table.Cell>
                 <Table.Cell>{this.props.table}</Table.Cell>
                 <Table.Cell>{this.props.custName}</Table.Cell>
                 <Table.Cell>{this.props.orderID}</Table.Cell>
