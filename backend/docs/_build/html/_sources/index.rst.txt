@@ -45,6 +45,12 @@ Items Class
 .. automodule:: frameworks.items.items
    :members:
 
+Notifications Class
+====================
+.. automodule:: frameworks.notifications.notifications
+   :members:
+
+
 
 Indices and tables
 ==================

@@ -366,6 +366,70 @@ Whilst you&#8217;re unlikely to need to access the class more than once you need
 </dd></dl>
 
 </div>
+<div class="section" id="module-frameworks.notifications.notifications">
+<span id="notifications-class"></span><h1>Notifications Class<a class="headerlink" href="#module-frameworks.notifications.notifications" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frameworks.notifications.notifications.notifications">
+<em class="property">class </em><code class="descclassname">frameworks.notifications.notifications.</code><code class="descname">notifications</code><a class="headerlink" href="#frameworks.notifications.notifications.notifications" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notifications class to support sending arbitory notifications to and from the customer and resturant staff.</p>
+<dl class="method">
+<dt id="frameworks.notifications.notifications.notifications.createNotification">
+<code class="descname">createNotification</code><span class="sig-paren">(</span><em>table</em>, <em>type</em>, <em>meta</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.notifications.notifications.notifications.createNotification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a notification for a customer to the waiter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>table</strong> &#8211; table number that has created the notification</li>
+<li><strong>type</strong> &#8211; type of notification that has been made</li>
+<li><strong>meta</strong> &#8211; metadata JSON</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">notification ID</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.notifications.notifications.notifications.getNotification">
+<code class="descname">getNotification</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.notifications.notifications.notifications.getNotification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get&#8217;s the notifiation data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> &#8211; valid notification ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dict of notification data</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.notifications.notifications.notifications.getUnreadByTable">
+<code class="descname">getUnreadByTable</code><span class="sig-paren">(</span><em>table</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.notifications.notifications.notifications.getUnreadByTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get&#8217;s unread notifications by the table that created them.</p>
+<p>Also marks all of these notifications read.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>table</strong> &#8211; table number to filter by</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dict of notification data</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
@@ -391,6 +455,7 @@ Whilst you&#8217;re unlikely to need to access the class more than once you need
 <li><a class="reference internal" href="#module-frameworks.idGenerator.id">ID Class</a></li>
 <li><a class="reference internal" href="#module-frameworks.item.item">Item Class</a></li>
 <li><a class="reference internal" href="#module-frameworks.items.items">Items Class</a></li>
+<li><a class="reference internal" href="#module-frameworks.notifications.notifications">Notifications Class</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 <div class="relations">
