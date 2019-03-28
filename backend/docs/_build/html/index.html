@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Welcome to Team Project’s documentation! &#8212; Team Project 2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-team-project-s-documentation">
+<h1>Welcome to Team Project&#8217;s documentation!<a class="headerlink" href="#welcome-to-team-project-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="module-app">
+<span id="flask-application"></span><h1>Flask Application<a class="headerlink" href="#module-app" title="Permalink to this headline">¶</a></h1>
+<p>The backend Flask app for the Resturant Management System.</p>
+</div>
+<div class="section" id="module-frameworks.authentication.auth">
+<span id="authentication-class"></span><h1>Authentication Class<a class="headerlink" href="#module-frameworks.authentication.auth" title="Permalink to this headline">¶</a></h1>
+<p>The main authentication class used for API token validation, logging in and auth token exchanges.</p>
+<p>Important to note that there aren&#8217;t inherent security features built into
+this class as it is designed to be called by API handlers. Python also doesn&#8217;t have
+private methods so there isn&#8217;t much point designing code to prevent access tokens
+being generate out of sequence as the method can be called anyway</p>
+<dl class="class">
+<dt id="frameworks.authentication.auth.authentication">
+<em class="property">class </em><code class="descclassname">frameworks.authentication.auth.</code><code class="descname">authentication</code><span class="sig-paren">(</span><em>token</em>, <em>secret</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.authentication.auth.authentication" title="Permalink to this definition">¶</a></dt>
+<dd><p>The constructor for the authentication class.</p>
+<p>A valid API <cite>key</cite> and <cite>secret</cite> (here named <cite>token</cite> instead of key) need to be provided. 
+These are used to authenticate API requests from a client.</p>
+<dl class="method">
+<dt id="frameworks.authentication.auth.authentication.authenticateRequest">
+<code class="descname">authenticateRequest</code><span class="sig-paren">(</span><em>access_tok</em>, <em>uid</em>, <em>level</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.authentication.auth.authentication.authenticateRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes provided API creds and ensures the user has been previously authenticated.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_tok</strong> &#8211; should have been previously issued at a valid login</li>
+<li><strong>uid</strong> &#8211; the user ID we are expecting to log in</li>
+<li><strong>level</strong> &#8211; the permissions level of the resource (int)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int with HTTP status code</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><cite>401</cite> - authentication not completed/expired</p>
+<p><cite>403</cite> - not permitted for given level</p>
+<p><cite>404</cite> - something is not correct (couldn&#8217;t find the user)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.authentication.auth.authentication.authenticateUser">
+<code class="descname">authenticateUser</code><span class="sig-paren">(</span><em>username</em>, <em>password</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.authentication.auth.authentication.authenticateUser" title="Permalink to this definition">¶</a></dt>
+<dd><p>User authentication for waiter, kitchen staff or manager.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>username</strong> &#8211; Valid username</li>
+<li><strong>password</strong> &#8211; Valid password</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><cite>False</cite> on error or <cite>userID</cite> on success.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.authentication.auth.authentication.generateAccessToken">
+<code class="descname">generateAccessToken</code><span class="sig-paren">(</span><em>uid</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.authentication.auth.authentication.generateAccessToken" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates an access token that can be used to authenticate API requests.
+Needs to be provided to <cite>authenticateRequest</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uid</strong> &#8211; a valid user ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Access token</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to Team Project&#8217;s documentation!</a></li>
+<li><a class="reference internal" href="#module-app">Flask Application</a></li>
+<li><a class="reference internal" href="#module-frameworks.authentication.auth">Authentication Class</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Team 2.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
