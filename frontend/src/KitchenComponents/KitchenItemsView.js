@@ -22,12 +22,9 @@ export default class KitchenItemsView extends React.Component{
         return(
             <Feed>
                 <Feed.Event>
-                    <Feed.Label>
-                        <Image avatar={true} src={this.props.itemImage} />
-                    </Feed.Label>
                     <Feed.Content>
                         <Feed.Summary>
-                            {this.props.itemName}
+                            <h2>{this.props.itemName}</h2>
                         </Feed.Summary>
                     </Feed.Content>
                 </Feed.Event>

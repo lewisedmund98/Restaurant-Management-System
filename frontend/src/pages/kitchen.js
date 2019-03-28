@@ -160,10 +160,6 @@ export default class kitchen extends React.Component {
         }
         return (
             <div className="kitchenPage">
-                <div className="loginContainer">
-                    <h1>Staff ID is logged in</h1>
-                </div>
-                    <h1>Kitchen Order</h1>
                     {/*Render the kitchen page controller with the required props and methods from this class*/}
                     <KitchenPageController uID = {this.state.userID} accessToken = {this.state.accessToken} 
                     addRequest={this.addAsyncRequest} />

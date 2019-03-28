@@ -50,12 +50,23 @@ export default class CallWaiter extends React.Component {
             });
         }
     }
+    resetCalledSelected(){
+        this.setState({
+            selected: false,
+            called: false,
+            table: null
+        });
+        console.log("selected and called: ");
+        console.log(this.state.selected);
+        console.log(this.state.called);
+            
+    }
 
     render() {
         var table = this.state.table === null ? "None" : this.state.table;
         console.log(table)
         return (
-            <Modal trigger={<Button className="callWaiterModalTrigger" >Call Waiter</Button>}>
+            <Modal trigger={<Button onClick={() => {this.resetCalledSelected()}} className="callWaiterModalTrigger" >Call Waiter</Button>}>
                 <Modal.Header style={{textAlign: "center"}}>
                     Which table are you sitting at?
                 </Modal.Header>

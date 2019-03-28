@@ -60,22 +60,22 @@ export default class OrderDisplay extends React.Component {
             var mappedDetails = details.map((orderDetail, key) => {
                 time = moment.unix(orderDetail.timeCreated).format("hh:mm a"); // Convert unix time to normal time
                 var menuMapped = this.mapMenuToLabels(orderDetail.menu); // Map the menu items to be shown here
-                return (<Card key={key} style={{ display: "block", marginLeft: "auto", marginRight: "auto",  width: "50%", padding: "4px" }}>
+                return (<Card key={key} style={{ display: "block", marginLeft: "auto", marginRight: "auto",  width: "50%", padding: "4px"}}>
                     <Card.Content>
-                        <Card.Header>
-                            Order Number: {orderDetail.orderID}
-                        </Card.Header>
-                        <Card.Description>
-                            Order Time: {time}
-                        </Card.Description>
-                        <Card.Meta >
-                            Table Number: {orderDetail.table}
-                        </Card.Meta>
-                        <OrderTimeline stage={orderDetail.stage} />
+                        
+                        <div className="timelineCustomerOrder">
+                        <OrderTimeline stage={orderDetail.stage} /></div>
+                        
+                            <h3 style={{marginBottom: "2px", marginTop: "4px"}}>Order Number: {orderDetail.orderID}</h3>
+                            <h3 style={{marginBottom: "2px", marginTop: "0"}}>Order Placed at: {time}</h3>
+                            <h3 style={{margin: "0"}}>Table Number: {orderDetail.table}</h3>
+                        
+                        
                     </Card.Content>
                     <Card.Content extra>
                     {/*Display the mapped menu items*/}
                         {menuMapped}
+                        
                     </Card.Content>
                     <Card.Description>
                         {/*Check the stage of the order, only paid button will show if it needs to be paid for*/}
