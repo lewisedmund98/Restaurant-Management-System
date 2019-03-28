@@ -35,6 +35,17 @@ ID Class
 .. automodule:: frameworks.idGenerator.id
    :members:
 
+Item Class
+====================
+.. automodule:: frameworks.item.item
+   :members:
+
+Items Class
+====================
+.. automodule:: frameworks.items.items
+   :members:
+
+
 Indices and tables
 ==================
 

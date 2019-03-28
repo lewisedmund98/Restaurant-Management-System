@@ -250,6 +250,122 @@ Whilst you&#8217;re unlikely to need to access the class more than once you need
 </dd></dl>
 
 </div>
+<div class="section" id="module-frameworks.item.item">
+<span id="item-class"></span><h1>Item Class<a class="headerlink" href="#module-frameworks.item.item" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frameworks.item.item.item">
+<em class="property">class </em><code class="descclassname">frameworks.item.item.</code><code class="descname">item</code><a class="headerlink" href="#frameworks.item.item.item" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object representation of an Item with various helper methods.</p>
+<dl class="method">
+<dt id="frameworks.item.item.item.get">
+<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.item.item.item.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter for loaded data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>dict</cite> with item data or null if it hasn&#8217;t been loaded.load</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.item.item.item.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.item.item.item.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an ID, loads the relevant data from the database into the object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> &#8211; valid item ID</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.item.item.item.save">
+<code class="descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.item.item.item.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>NOP. Hasn&#8217;t been implemented yet.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-frameworks.items.items">
+<span id="items-class"></span><h1>Items Class<a class="headerlink" href="#module-frameworks.items.items" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frameworks.items.items.items">
+<em class="property">class </em><code class="descclassname">frameworks.items.items.</code><code class="descname">items</code><a class="headerlink" href="#frameworks.items.items.items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Items class which uses <cite>item</cite> class. Includes various helper methods.</p>
+<dl class="method">
+<dt id="frameworks.items.items.items.get">
+<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.items.items.items.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter for the loaded items.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">List of Item objects.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.items.items.items.load">
+<code class="descname">load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.items.items.items.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load all items.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.items.items.items.loadDisabled">
+<code class="descname">loadDisabled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.items.items.items.loadDisabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load disabled items.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.items.items.items.loadEnabled">
+<code class="descname">loadEnabled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.items.items.items.loadEnabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load enabled items.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.items.items.items.setItemsToggle">
+<code class="descname">setItemsToggle</code><span class="sig-paren">(</span><em>items</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.items.items.items.setItemsToggle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the toggle for supplied item and toggle pairs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>items</strong> &#8211; dict of <cite>itemID</cite> and <cite>enabled</cite> pairs, where <cite>enabled</cite> is <cite>True</cite> or <cite>False</cite> depending.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.items.items.items.updateItem">
+<code class="descname">updateItem</code><span class="sig-paren">(</span><em>itemID</em>, <em>fields</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.items.items.items.updateItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates an item with the supplied fields.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>itemID</strong> &#8211; the item ID to update</li>
+<li><strong>fields</strong> &#8211; dict of fields with attributes for the item and value pairs.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
@@ -273,6 +389,8 @@ Whilst you&#8217;re unlikely to need to access the class more than once you need
 <li><a class="reference internal" href="#module-frameworks.customer.customer">Customer Class</a></li>
 <li><a class="reference internal" href="#module-frameworks.database.db">Database Class</a></li>
 <li><a class="reference internal" href="#module-frameworks.idGenerator.id">ID Class</a></li>
+<li><a class="reference internal" href="#module-frameworks.item.item">Item Class</a></li>
+<li><a class="reference internal" href="#module-frameworks.items.items">Items Class</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 <div class="relations">
