@@ -47,6 +47,16 @@ CREATE TABLE `allergies` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `allergies`
+--
+
+LOCK TABLES `allergies` WRITE;
+/*!40000 ALTER TABLE `allergies` DISABLE KEYS */;
+INSERT INTO `allergies` VALUES ('0','No Allergy','This food product contains no items that are common allergens.'),('1','Egg','Warning: This food product contains egg.'),('2','Fish','Warning: This food product contains fish.'),('3','Garlic','Warning: This food product contains garlic.'),('4','Peanut','Warning: This food product contains peanuts.'),('5','Rice','Warning: This food product contains rice.'),('6','Milk','Warning: This food product contains milk.'),('7','Soy','Warning: This food product contains soy.'),('8','Nuts','Warning: This food product contains nuts.');
+/*!40000 ALTER TABLE `allergies` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `credsAPI`
 --
 
@@ -63,6 +73,16 @@ CREATE TABLE `credsAPI` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `credsAPI`
+--
+
+LOCK TABLES `credsAPI` WRITE;
+/*!40000 ALTER TABLE `credsAPI` DISABLE KEYS */;
+INSERT INTO `credsAPI` VALUES ('abc123','def456',0);
+/*!40000 ALTER TABLE `credsAPI` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `customers`
 --
 
@@ -77,6 +97,15 @@ CREATE TABLE `customers` (
   UNIQUE KEY `customerID_UNIQUE` (`customerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customers`
+--
+
+LOCK TABLES `customers` WRITE;
+/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `itemAllergies`
@@ -96,6 +125,16 @@ CREATE TABLE `itemAllergies` (
   CONSTRAINT `fk_itemAllergies_2` FOREIGN KEY (`itemID`) REFERENCES `menuItems` (`itemID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `itemAllergies`
+--
+
+LOCK TABLES `itemAllergies` WRITE;
+/*!40000 ALTER TABLE `itemAllergies` DISABLE KEYS */;
+INSERT INTO `itemAllergies` VALUES ('1','1','1'),('2','2','1'),('0','3','2'),('0','4','3'),('0','5','4'),('0','6','5'),('0','7','6'),('0','8','7'),('8','9','8');
+/*!40000 ALTER TABLE `itemAllergies` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `menuItems`
@@ -118,6 +157,16 @@ CREATE TABLE `menuItems` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `menuItems`
+--
+
+LOCK TABLES `menuItems` WRITE;
+/*!40000 ALTER TABLE `menuItems` DISABLE KEYS */;
+INSERT INTO `menuItems` VALUES ('1','RandomDish',1,11.01,'Main','a random dish','https://i.kym-cdn.com/entries/icons/mobile/000/013/564/doge.jpg',1),('2','Birria',100,21,'Starter','Birria is a Mexican dish from the state of Jalisco. The dish is a spicy stew, traditionally made from goat meat or mutton, but occasionally from beef or chicken.','https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Plato_de_birria.jpg/250px-Plato_de_birria.jpg',0),('3','Coca Cola',100,2,'Drink','Fizzy Drink','https://upload.wikimedia.org/wikipedia/commons/8/87/CocaColaBottle_background_free.jpg',0),('4','Pepsi',500,3,'Drink','Fizzy Drink','https://content.etilize.com/Original/1029886380.jpg',1),('5','Caldo de pollo ',300,10,'Starter','Caldo de pollo is a common Latin American soup that consists of chicken and vegetables. ','https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Caldo_de_Pollo_%282411932823%29.jpg/220px-Caldo_de_Pollo_%282411932823%29.jpg',1),('6','Caldo de siete mares',300,23,'Starter','Caldo de siete mares (in English, \"seven seas soup\"), also known as caldo de mariscos (\"seafood soup\") is a Mexican version of fish stew, popular in coastal regions in Mexico. It is typically made with chicken, tomato, fish, or seafood broth with local fresh seafood ingredients and, like other Mexican soups, cooked quickly in a thin broth.','https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Caldo_de_mariscos.jpg/250px-Caldo_de_mariscos.jpg',1),('7','Huevos a la mexicana',200,15,'Main','Huevos a la mexicana is a popular breakfast dish in Mexican cuisine. Finely chopped tomato, green chili pepper and onion is lightly fried in a hot skillet. Eggs are added and stirred until set. The heat is turned off and the coriander leaves are mixed in the eggs, adding salt.','https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Huevos_%C3%A0_la_Mexicana._%286571912625%29.jpg/220px-Huevos_%C3%A0_la_Mexicana._%286571912625%29.jpg',1),('8','Bionico',100,12,'Dessert','Bionico is a popular Mexican dessert that originated in the city of Guadalajara in Jalisco, Mexico, in the early 1990s. It is essentially a fruit salad consisting of a variety of fruits chopped up into small cubes, drenched with crema and topped off with granola, shredded coconut, raisins and sometimes honey. Any kind of fruit can be used, but it is most commonly made with papaya, cantaloupe, honeydew, strawberries, apples and banana. ','https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Bionico_Close_Up.jpg/250px-Bionico_Close_Up.jpg',1);
+/*!40000 ALTER TABLE `menuItems` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `notifications`
 --
 
@@ -137,6 +186,15 @@ CREATE TABLE `notifications` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `notifications`
+--
+
+LOCK TABLES `notifications` WRITE;
+/*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `orderHistory`
 --
 
@@ -154,6 +212,15 @@ CREATE TABLE `orderHistory` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `orderHistory`
+--
+
+LOCK TABLES `orderHistory` WRITE;
+/*!40000 ALTER TABLE `orderHistory` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orderHistory` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `orderItems`
 --
 
@@ -167,6 +234,15 @@ CREATE TABLE `orderItems` (
   PRIMARY KEY (`insertionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orderItems`
+--
+
+LOCK TABLES `orderItems` WRITE;
+/*!40000 ALTER TABLE `orderItems` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orderItems` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `orders`
@@ -184,6 +260,15 @@ CREATE TABLE `orders` (
   KEY `orderID` (`orderID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orders`
+--
+
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `userAccess`
@@ -207,6 +292,15 @@ CREATE TABLE `userAccess` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `userAccess`
+--
+
+LOCK TABLES `userAccess` WRITE;
+/*!40000 ALTER TABLE `userAccess` DISABLE KEYS */;
+/*!40000 ALTER TABLE `userAccess` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -223,6 +317,16 @@ CREATE TABLE `users` (
   UNIQUE KEY `username_UNIQUE` (`userUsername`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES ('2098sdfkh','manager','$argon2id$v=19$m=102400,t=2,p=8$KCeURZHXn443eVvdUHQgzQ$4Q3ksdTF61VZA932CyHDVA',-1,NULL),('aaaa123','WillKitchen','$argon2id$v=19$m=102400,t=2,p=8$DPx/dMAdn8XKHD+vxJY8/g$NKZAq8SC15Y64G4XU5w4hw',1,NULL),('asdasd123123','test','$argon2id$v=19$m=102400,t=2,p=8$KCeURZHXn443eVvdUHQgzQ$4Q3ksdTF61VZA932CyHDVA',0,NULL),('asdsa389','harisKitchen','$argon2id$v=19$m=102400,t=2,p=8$KCeURZHXn443eVvdUHQgzQ$4Q3ksdTF61VZA932CyHDVA',1,NULL),('bbb123','WillStaff','$argon2id$v=19$m=102400,t=2,p=8$DPx/dMAdn8XKHD+vxJY8/g$NKZAq8SC15Y64G4XU5w4hw',0,NULL),('ljklkjlkj9890','harisWaiter','$argon2id$v=19$m=102400,t=2,p=8$KCeURZHXn443eVvdUHQgzQ$4Q3ksdTF61VZA932CyHDVA',0,NULL),('sakjahkjh23989','kitchen','$argon2id$v=19$m=102400,t=2,p=8$KCeURZHXn443eVvdUHQgzQ$4Q3ksdTF61VZA932CyHDVA',1,NULL);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Final view structure for view `Customer_Table`
@@ -251,4 +355,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-28  0:20:40
+-- Dump completed on 2019-03-28  0:23:39

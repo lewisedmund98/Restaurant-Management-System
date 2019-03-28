@@ -6,7 +6,6 @@ from frameworks.order.order import order
 def orderClass():  # does class exist?
     return order()
 
-
 def testNullOrder(orderClass):
     with pytest.raises(Exception) as exc:
             orderClass.__createOrder("Test Order", 12345678911, "test@test.com", 1, [])
