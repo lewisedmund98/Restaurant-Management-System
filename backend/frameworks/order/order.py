@@ -1,5 +1,6 @@
 from frameworks.database.db import db
 from frameworks.idGenerator.id import id
+from frameworks.customer.customer import customer
 from datetime import datetime, timedelta
 import json
 
@@ -13,6 +14,8 @@ class order:
         self.__db = instance.getInstance()
         # Instantiate ID
         self.__id = id()
+        # Instantiate Customer
+        self.__customer = customer()
         # Private Fields  
         self.__orderinfo = None
         self.__orderhistory = None
@@ -29,10 +32,8 @@ class order:
     def getCustomer(self):
         if self.__orderinfo is None:
             return False
-        print(self.__orderinfo['customerID'])
-        cursor = self.__db.cursor()
-        cursor.execute("SELECT * FROM `customers` WHERE `customerID` = %s", self.__orderinfo['customerID'])
-        return cursor.fetchall()
+        else:
+            self.__customer.getCustomer(self.__orderinfo['customerID'])
 
     def loadOrderHistory(self, orderID):
         cursor = self.__db.cursor()
@@ -50,16 +51,21 @@ class order:
             orderID)
         if cursor.rowcount == 1:
             self.__orderinfo = cursor.fetchone()
+            # Unjsonify the order items
             self.__orderinfo['items'] = json.loads(self.__orderinfo['items'])
+            # Grab the customer data
+            self.__orderinfo['customer'] = self.__customer.getCustomer(self.__orderinfo['customerID'])
+            del self.__orderinfo['customerID']
+
             return True
         else:
             raise Exception("Error: OrderID not found.")
 
     def createOrder(self, name, email, table, items):
-        customerID = self.__locateCustomer(email)
+        customerID = self.__customer.locateCustomer(email)
         # Create customer if not exist
         if not customerID:
-            customerID = self.__createCustomer(name, email)
+            customerID = self.__customer.createCustomer(name, email)
         # Create order
         orderID = self.__insertOrder(customerID, table)
         # Add items
@@ -113,20 +119,3 @@ class order:
             "INSERT INTO `orderHistory` (`insertionID`, `orderID`, `stage`, `inserted`, `metafield`) VALUES (%s, %s, %s, %s, %s);",
             (iID, order, stage, int(datetime.now().timestamp()), json.dumps(meta)))
         return iID
-
-    def __createCustomer(self, name, email):
-        cursor = self.__db.cursor()
-        cID = self.__id.getID("customer")
-        cursor.execute("INSERT INTO `customers` (`customerID`, `name`, `email`) VALUES (%s, %s, %s);",
-                       (cID, name, email))
-        return cID
-
-    def __locateCustomer(self, email):
-        cursor = self.__db.cursor()
-        cursor.execute("SELECT * FROM `customers` WHERE `email` = %s;", email)
-        if cursor.rowcount == 1:
-            return cursor.fetchone()['customerID']
-        elif cursor.rowcount == 0:
-            return False
-        else:
-            raise Exception("Duplicate users")
