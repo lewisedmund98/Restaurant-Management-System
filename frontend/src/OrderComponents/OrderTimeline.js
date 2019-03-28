@@ -5,18 +5,25 @@ export default class OrderTimeline extends React.Component {
     constructor(props) {
         super(props);
         this.progress = [{ key: 'created', content: 'created', active: true }];
+        this.duplicate = false;
     }
 
     orderStage(newStage) {
-        if (this.props.stage !== this.progress[this.progress.length-1].key) {
+        const newElement = {key: newStage, content: newStage, active: true};
+        for (const index of this.progress) {
+            if (index.key === newElement.key) {
+                this.duplicate = true;
+            }
+        }
+        if (this.duplicate === false) {
             const tempOrderArray = this.progress;
             tempOrderArray[tempOrderArray.length - 1].active = false;
 
-            const newElement = {key: newStage, content: newStage, active: true};
             tempOrderArray.push(newElement);
 
             this.progress = tempOrderArray;
         }
+        this.duplicate = false;
     }
 
     render() {

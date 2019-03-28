@@ -24,7 +24,7 @@
  */
 
 import React from 'react';
-import { Dimmer, Icon } from 'semantic-ui-react';
+import { Dimmer, Icon, Modal, Button } from 'semantic-ui-react';
 import WaiterPageWrapper from './WaiterPageWrapper.js';
 import Notifications from './Notifications.js'; // Imports the notification components
 import EditMenu from './EditMenu.js'; // Imports the edit menu compoentns
@@ -38,7 +38,9 @@ export default class WaiterPageController extends React.Component {
             toBeDelivered: [], // List of final deliverable orders each poll
             unPaid: [], // list of all unpaid orders each poll
             notifications: [], // list of notifications from endpoint
+            history: [],
             showDimmer: true, // dimmer is the loader component
+            toDisplay: false,
         };
         this.arrayOfUnconfirmedOrders = []; // This is needed as updating the state each request is unfeesible
         this.toBeDeliveredArray = []; // Used to properly update the state
@@ -53,14 +55,18 @@ export default class WaiterPageController extends React.Component {
         this.confirmOrder = this.confirmOrder.bind(this);
         this.deliverOrder = this.deliverOrder.bind(this);
         this.cancelOrder = this.cancelOrder.bind(this);
+        this.unmounted = false;
     }
 
     componentDidMount() { // Runs when the component is mounted
+        this.unmounted = false;
         this.startTimer(500); // Starts the request "timer" to go off which loops. Starts it at a small time period
+
     }
 
     componentWillUnmount() {
-        // Do some unmount logic, clearing network requests, clearing dom elements etc etc. 
+        // Do some unmount logic, clearing network requests, clearing dom elements etc etc.
+        this.unmounted = true;
     }
 
     /**
@@ -84,7 +90,7 @@ export default class WaiterPageController extends React.Component {
      */
 
     async checkForUpdate() {
-        if (this.props.accessToken) { // Checks if the access token has been set
+        if (this.props.accessToken && this.unmounted === false) { // Checks if the access token has been set
             this.getUnconfirmedOrders();
             this.getKitchenCompleted();
             this.getUnpaidOrders();
@@ -206,9 +212,18 @@ export default class WaiterPageController extends React.Component {
                         this.toBeDeliveredArray.push(combinedResult);
                     })
             }
+            if (this.state.history.toString() !== this.toBeDeliveredArray.toString()) {
+                if (this.state.history.length < this.toBeDeliveredArray.length) {
+                    //alert("New Task To Be Completed");
+                    this.setState({
+                        toDisplay: true
+                    })
+                }
+            }
             this.setState({
                 toBeDelivered: this.toBeDeliveredArray, // Add to the state, trigger a re-render
-                showDimmer: false
+                showDimmer: false,
+                history: this.toBeDeliveredArray
             })
             this.toBeDeliveredArray = []; // Reset the array.
 
@@ -263,6 +278,14 @@ export default class WaiterPageController extends React.Component {
     render() {
         return (
             <div>
+                {this.state.toDisplay &&
+                <Modal open={this.state.toDisplay} style={{ textAlign: "center" }}> {/*Only display if its true to displaay*/}
+                    <Modal.Content>
+                        <h1>Orders Ready For Delivery!!</h1>
+                        <Button id='closeNotifBtn' onClick={() => { this.setState({ toDisplay: false }) }}>Close</Button>
+                    </Modal.Content>
+                </Modal>
+                }
                 <Dimmer active={this.state.showDimmer}> {/*If there is no data, show the dimmer to simulate loading*/}
                     <Icon loading name='spinner' size='huge' />
                 </Dimmer>
