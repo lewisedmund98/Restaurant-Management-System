@@ -24,7 +24,7 @@
  */
 
 import React from 'react';
-import { Dimmer, Icon } from 'semantic-ui-react';
+import { Dimmer, Icon, Modal, Button } from 'semantic-ui-react';
 import WaiterPageWrapper from './WaiterPageWrapper.js';
 import Notifications from './Notifications.js'; // Imports the notification components
 import EditMenu from './EditMenu.js'; // Imports the edit menu compoentns
@@ -40,6 +40,7 @@ export default class WaiterPageController extends React.Component {
             notifications: [], // list of notifications from endpoint
             history : [],
             showDimmer: true, // dimmer is the loader component
+            toDisplay : false,
         };
         this.arrayOfUnconfirmedOrders = []; // This is needed as updating the state each request is unfeesible
         this.toBeDeliveredArray = []; // Used to properly update the state
@@ -213,7 +214,20 @@ export default class WaiterPageController extends React.Component {
             }
             if(this.state.history.toString() !== this.toBeDeliveredArray.toString()) {
                 if(this.state.history.length < this.toBeDeliveredArray.length) {
-                    alert("New Task To Be Completed");
+                    //alert("New Task To Be Completed");
+                    this.setState({
+                        toDisplay : true
+                    })
+                    return (
+                        <div>
+                                <Modal open={this.state.toDisplay} style={{textAlign: "center"}}> {/*Only display if its true to displaay*/}
+                                <Modal.Content>
+                                    <h1>Orders Ready For Delivery!!</h1>
+                                    <Button id='closeNotifBtn' onClick={()=>{this.setState({toDisplay: false})}}>Close</Button>
+                                </Modal.Content>
+                                </Modal>
+                        </div>
+                    )
                 }
             }
             this.setState({

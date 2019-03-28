@@ -82,20 +82,18 @@ export default class OrderListView extends React.Component {
 
     }
 
-    getCorrectNotif() {
+    getCorrectMessage() {
         if (this.props.unconfirmed) {
             return (
-                <Transition animation="pulse" duration={Infinity}>
-                <Message className="deliveryNotifs" color="red">
+                <Message color="red">
                     <Message.Header>Order Unconfirmed</Message.Header>
                 </Message>
-                </Transition>
             )
         }
 
         if (this.props.delivered) {
             return (
-                <Message>
+                <Message color="red">
                     <Message.Header>Order Ready For Delivery</Message.Header>
                 </Message>
             )
@@ -108,7 +106,7 @@ export default class OrderListView extends React.Component {
         return (
             <Table.Row key={"this.props.key"}>
                 <Table.Cell>
-                    {this.getCorrectNotif()}
+                    {this.getCorrectMessage()}
                 </Table.Cell>
                 <Table.Cell>{this.props.table}</Table.Cell>
                 <Table.Cell>{this.props.custName}</Table.Cell>
