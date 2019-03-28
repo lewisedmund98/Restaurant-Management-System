@@ -4,6 +4,7 @@
  */
 import React from 'react';
 import OrderDisplay from '../OrderComponents/OrderDisplay.js';
+
 let requests = require('../Requests');
 
 
@@ -37,31 +38,40 @@ export default class OrderController extends React.Component {
 
     async pullOrderDetails() {
         var tempArr = document.cookie.replace(/(?:(?:^|.*;\s*)orders\s*\=\s*([^;]*).*$)|^.*$/, "$1").split(",");
-        for(const index of tempArr){
-            await requests.pullDetails(index) // Pass order ID's
-                .then(async (orderReturn) => {
-                    await requests.getMenuItems(orderReturn.order.items) // Pass Items
-                        .then(async (menuItems) => {
-                            var menuItemsArray = [];
-                            for (var i = 0; i < menuItems.length; i++) {
-                                menuItemsArray.push(menuItems[i].result);
-                            }
-                            await requests.getOrderStatus(index)
-                                .then((orderStatus) => {
-                                    var menuResponse = { menu: menuItemsArray };
-                                    var combinedResult = { ...orderReturn.order, ...menuResponse, ...orderStatus.order };
-                                    //var tempResultArr = this.state.combinedResults;
-                                    //tempResultArr.push(combinedResult);
+        var noOrders = false;
+        console.log("Test \\/")
+        console.log(tempArr);
+        console.log(tempArr.length);
 
-                                    this.arrayOfOrderDetails[index] = combinedResult;
-                                    if (!this.arrayOfOrderDetails.some(element => element.orderID === combinedResult.orderID)) {
-                                        this.arrayOfOrderDetails.push(combinedResult);
-                                    }
-                                })
+        if (tempArr.length !== 0 && tempArr[0] !== "") {
+            for (const index of tempArr) {
+                await requests.pullDetails(index) // Pass order ID's
+                    .then(async (orderReturn) => {
+                        await requests.getMenuItems(orderReturn.order.items) // Pass Items
+                            .then(async (menuItems) => {
+                                var menuItemsArray = [];
+                                for (var i = 0; i < menuItems.length; i++) {
+                                    menuItemsArray.push(menuItems[i].result);
+                                }
+                                await requests.getOrderStatus(index)
+                                    .then((orderStatus) => {
+                                        var menuResponse = {menu: menuItemsArray};
+                                        var combinedResult = {...orderReturn.order, ...menuResponse, ...orderStatus.order};
+                                        //var tempResultArr = this.state.combinedResults;
+                                        //tempResultArr.push(combinedResult);
 
-                        })
-                })
-               
+                                        this.arrayOfOrderDetails[index] = combinedResult;
+                                        if (!this.arrayOfOrderDetails.some(element => element.orderID === combinedResult.orderID)) {
+                                            this.arrayOfOrderDetails.push(combinedResult);
+                                        }
+                                    })
+
+                            })
+                    })
+
+            }
+        } else {
+            this.noOrders = true;
         }
         // Object.values(this.props.customerOrders.orderNumber).forEach((orderID, index) => {
         // });
@@ -73,7 +83,10 @@ export default class OrderController extends React.Component {
 
     render() {
         return (
-            <OrderDisplay orderDetails={this.state.combinedResult}></OrderDisplay>
+            <div>
+                <OrderDisplay orderDetails={this.state.combinedResult}/>
+                {this.noOrders && <h2 style={{ textAlign: "center" }}>No orders</h2>}
+            </div>
         )
     }
 
