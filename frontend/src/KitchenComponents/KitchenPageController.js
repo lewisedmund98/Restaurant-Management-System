@@ -142,9 +142,9 @@ export default class KitchenPageController extends React.Component {
     async kitchenConfirmOrder(orderID, eta) {
         var reqBody;
         if (eta !== null) { // Check if eta has been passed
-            reqBody = { id: orderID, eta: eta }; // Construct body data with ETA
+            reqBody = { order_id: orderID, eta: eta }; // Construct body data with ETA
         } else { 
-            reqBody = { id: orderID } // Body data without ETA
+            reqBody = { order_id: orderID } // Body data without ETA
          }
         // await fetch("https://flask.team-project.crablab.co/order/kitchenConfirm", {
         //     method: "POST",
