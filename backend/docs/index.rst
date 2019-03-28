@@ -20,6 +20,11 @@ Authentication Class
 .. automodule:: frameworks.authentication.auth
    :members:
 
+Customer Class
+====================
+.. automodule:: frameworks.customer.customer
+   :members:
+
 
 Indices and tables
 ==================

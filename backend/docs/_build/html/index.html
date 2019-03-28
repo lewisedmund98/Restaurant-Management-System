@@ -128,6 +128,73 @@ Needs to be provided to <cite>authenticateRequest</cite></p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-frameworks.customer.customer">
+<span id="customer-class"></span><h1>Customer Class<a class="headerlink" href="#module-frameworks.customer.customer" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frameworks.customer.customer.customer">
+<em class="property">class </em><code class="descclassname">frameworks.customer.customer.</code><code class="descname">customer</code><a class="headerlink" href="#frameworks.customer.customer.customer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object representation of a customer.</p>
+<p>Provides various helper methods. Exclusivly used in order class.</p>
+<dl class="method">
+<dt id="frameworks.customer.customer.customer.createCustomer">
+<code class="descname">createCustomer</code><span class="sig-paren">(</span><em>name</em>, <em>email</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.customer.customer.customer.createCustomer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows creation of a new customer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; Customer&#8217;s name</li>
+<li><strong>email</strong> &#8211; Customer&#8217; email</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Customer&#8217;s ID</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.customer.customer.customer.getCustomer">
+<code class="descname">getCustomer</code><span class="sig-paren">(</span><em>customerID</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.customer.customer.customer.getCustomer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets customer data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>customerID</strong> &#8211; Customer&#8217;s ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>dict</cite> of customer data</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.customer.customer.customer.locateCustomer">
+<code class="descname">locateCustomer</code><span class="sig-paren">(</span><em>email</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.customer.customer.customer.locateCustomer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether a customer already exists for supplied parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>email</strong> &#8211; Email to check for existing customer&#8217;s with.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Customer ID for existing customer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">False if no customer found</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body">Error on duplicate customers</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
@@ -148,6 +215,7 @@ Needs to be provided to <cite>authenticateRequest</cite></p>
 <li><a class="reference internal" href="#">Welcome to Team Project&#8217;s documentation!</a></li>
 <li><a class="reference internal" href="#module-app">Flask Application</a></li>
 <li><a class="reference internal" href="#module-frameworks.authentication.auth">Authentication Class</a></li>
+<li><a class="reference internal" href="#module-frameworks.customer.customer">Customer Class</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 <div class="relations">
