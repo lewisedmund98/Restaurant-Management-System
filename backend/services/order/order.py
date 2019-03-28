@@ -9,7 +9,6 @@ from .handler.handleOrderView import handleOrderView
 from .handler.handleWaiterComplete import handleWaiterComplete
 from .handler.handleWaiterConfirm import handleWaiterConfirm
 from .handler.handlePayment import handlePayment
-from .handler.handleCustomer import handleCustomer
 from frameworks.authentication.auth import authentication
 
 class order:
@@ -43,9 +42,6 @@ class order:
                 self.responseObj = handleWaiterComplete(request)
         elif(request.path == "/order/payment"):
             self.responseObj = handlePayment(request)
-        elif(request.path == "/order/customer"):
-            if self.__checkPermish(0):
-                self.responseObj = handleCustomer(request)
         else:
             self.responseObj = self
 
