@@ -20,7 +20,8 @@ import Customer from './pages/customer.js';
 import Waiter from './pages/waiter.js';
 import CustomerOrderPage from './pages/customerOrders';
 import Kitchen from "./pages/kitchen.js";
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import Login from "./pages/login.js";
+import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 /**
  * The router in this is what is making sure the react knows which page to render based on the current
@@ -36,6 +37,7 @@ class App extends React.Component {
                         <Route path="/waiter" component={Waiter}/>
                         <Route path="/customerOrder" component={CustomerOrderPage}/>
                         <Route path="/kitchen" component={Kitchen}/>
+                        <Route path="/login" component={Login}></Route>
                     </div>
                 </Router>
             </React.Fragment>
