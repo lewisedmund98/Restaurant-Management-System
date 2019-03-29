@@ -48,6 +48,7 @@
 <div class="section" id="module-app">
 <span id="flask-application"></span><h1>Flask Application<a class="headerlink" href="#module-app" title="Permalink to this headline">¶</a></h1>
 <p>The backend Flask app for the Resturant Management System.</p>
+<p>This handles all of the routing and calling of downstream services to indivudally handle requests. There is no logic in this file.</p>
 </div>
 <div class="section" id="module-frameworks.authentication.auth">
 <span id="authentication-class"></span><h1>Authentication Class<a class="headerlink" href="#module-frameworks.authentication.auth" title="Permalink to this headline">¶</a></h1>
@@ -691,6 +692,64 @@ Whilst you&#8217;re unlikely to need to access the class more than once you need
 </dd></dl>
 
 </div>
+<div class="section" id="module-frameworks.payment.payment">
+<span id="payment-class"></span><h1>Payment Class<a class="headerlink" href="#module-frameworks.payment.payment" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frameworks.payment.payment.payment">
+<em class="property">class </em><code class="descclassname">frameworks.payment.payment.</code><code class="descname">payment</code><a class="headerlink" href="#frameworks.payment.payment.payment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to handle payment interactions with Stripe on the backend.</p>
+<dl class="method">
+<dt id="frameworks.payment.payment.payment.cancelCharge">
+<code class="descname">cancelCharge</code><span class="sig-paren">(</span><em>orderID</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.payment.payment.payment.cancelCharge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cancels authorised or presented charges on an order ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>orderID</strong> &#8211; order ID to cancel charges for</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True on success</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">False on failure</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.payment.payment.payment.submitAuthorisation">
+<code class="descname">submitAuthorisation</code><span class="sig-paren">(</span><em>orderID</em>, <em>tokenID</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.payment.payment.payment.submitAuthorisation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submits an authorisation to Stripe based on tokenised information from form.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>orderID</strong> &#8211; order ID for which the payment is being submitted</li>
+<li><strong>tokenID</strong> &#8211; Stripe token from the frontend payment form</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Dict with success or failure message</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.payment.payment.payment.submitPresentment">
+<code class="descname">submitPresentment</code><span class="sig-paren">(</span><em>orderID</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.payment.payment.payment.submitPresentment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submits a presentment for an order with Stripe charge ID
+:param orderID: order ID to submit the presentment for
+:returns: True on success
+:raises: exception for order that is not authorised or has already presented
+:raises: exception when presentment failed</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
@@ -719,6 +778,7 @@ Whilst you&#8217;re unlikely to need to access the class more than once you need
 <li><a class="reference internal" href="#module-frameworks.notifications.notifications">Notifications Class</a></li>
 <li><a class="reference internal" href="#module-frameworks.order.order">Order Class</a></li>
 <li><a class="reference internal" href="#module-frameworks.order.orders">Orders Class</a></li>
+<li><a class="reference internal" href="#module-frameworks.payment.payment">Payment Class</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 <div class="relations">

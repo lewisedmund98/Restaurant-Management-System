@@ -4,13 +4,22 @@ from frameworks.item.item import item
 import stripe, json
 
 class payment:
-
+    """
+    Class to handle payment interactions with Stripe on the backend.
+    """
     def __init__(self):
         stripe.api_key = "sk_test_keZYXG2kFfc2GeQOEDA6gSyI"
         self.__order = order()
         self.__itemClass = item()
     
     def submitAuthorisation(self, orderID, tokenID):
+        """
+        Submits an authorisation to Stripe based on tokenised information from form. 
+
+        :param orderID: order ID for which the payment is being submitted
+        :param tokenID: Stripe token from the frontend payment form 
+        :returns: Dict with success or failure message
+        """
         # Get order info and history 
         self.__order.loadOrderInfo(orderID)
         self.__order.loadOrderHistory(orderID)
@@ -45,6 +54,13 @@ class payment:
 
 
     def submitPresentment(self, orderID):
+        """
+        Submits a presentment for an order with Stripe charge ID
+        :param orderID: order ID to submit the presentment for
+        :returns: True on success
+        :raises: exception for order that is not authorised or has already presented
+        :raises: exception when presentment failed
+        """
         # Get order information from orderID including chargeID
         self.__order.loadOrderHistory(orderID)
         orderInfo = self.__order.getOrderStatus()
@@ -61,6 +77,13 @@ class payment:
             raise Exception("Charge could not be presented")
 
     def cancelCharge(self, orderID):
+        """
+        Cancels authorised or presented charges on an order ID.
+        
+        :param orderID: order ID to cancel charges for
+        :returns: True on success
+        :returns: False on failure 
+        """
         # Get order information from orderID including chargeID
         self.__order.loadOrderHistory(orderID)
         chargeID = None
@@ -82,6 +105,11 @@ class payment:
 
 
     def __calculatePrice(self, orderInfo):
+        """
+        Calculates price of an order based on items for the order.
+        :param orderInfo: dict of orderInfo for the order to calculate price for
+        :returns: the calculated price
+        """
         total = float(0.00)
         for item in orderInfo['items']:
             self.__itemClass.load(item)

@@ -60,6 +60,11 @@ Orders Class
 .. automodule:: frameworks.order.orders
    :members:
 
+Payment Class
+====================
+.. automodule:: frameworks.payment.payment
+   :members:
+
 
 Indices and tables
 ==================

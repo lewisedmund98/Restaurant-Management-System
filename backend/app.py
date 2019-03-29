@@ -1,5 +1,7 @@
 """
 The backend Flask app for the Resturant Management System.
+
+This handles all of the routing and calling of downstream services to indivudally handle requests. There is no logic in this file.
 """
 from flask import Flask, request, jsonify
 from flask_cors import CORS
