@@ -61,8 +61,6 @@ export default class LoginPageWrapper extends React.Component {
   }
 
   render() {
-    // var accessToken = "accessToken="+ this.state.accessToken;
-    // var userID = "userID=" + this.state.userID;
     document.cookie = "accessToken=" + this.state.accessToken;
     document.cookie = "userID=" + this.state.userID;
     return (

@@ -468,7 +468,6 @@ body {
 
 .loginHomeContainer{
     text-align: center !important;
-    border: 1px solid black !important;
     width: 500px !important;
     height: 250px !important;
     position: fixed !important;
