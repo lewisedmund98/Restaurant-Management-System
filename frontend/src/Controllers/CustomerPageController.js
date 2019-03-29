@@ -142,13 +142,18 @@ export default class CustomerPageController extends React.Component {
         return (
             // We make a tab wrapper which creates the tabs on the screen and pass the list of dishes
             <div className="mainContainer">
-
-                <div style={{textAlign: "right"}}>
-                    <CallWaiter></CallWaiter><MenuFiltering defaultList={this.state.permDishList}
-                                                            dishList={this.state.dishList}
-                                                            setDishList={this.setDishList}/></div>
                 <div className="basketAndMenuItems">
                     <div className="basketSide">
+                        <div className="custActions">
+                            <CallWaiter className="callWaiterBtn"></CallWaiter>
+                            <MenuFiltering 
+                                className="menuFilterBtn"
+                                defaultList={this.state.permDishList}
+                                dishList={this.state.dishList}
+                                setDishList={this.setDishList}
+                            />
+                            <hr className="custActionsHR" />
+                        </div>
                         <Basket setOrder={this.setOrder} onRemove={this.removeFromBasket}
                                 dishList={this.state.currentBasket}></Basket>
                         <Link id='linkHereFromForm' to={{

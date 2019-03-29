@@ -55,7 +55,6 @@
     grid-template-columns: auto auto auto !important;
 }
 .basketSide{
-    margin-top: 7%;
     float: right;
     background-color: white;
     width: 20%; 
@@ -489,8 +488,23 @@ body {
 .login {
     margin-top: 20px;
 }
-.loginButton{
+
+.custActionsHR {
+    margin-bottom: -1px;
+}
+
+.custActions {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+}
+
+.loginButton {
     display: block !important;
 	margin-left: auto !important;
     margin-right: auto !important;
+}
+
+.mainContainer {
+    margin: 10px;
 }
