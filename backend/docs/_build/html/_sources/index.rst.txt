@@ -55,6 +55,11 @@ Order Class
 .. automodule:: frameworks.order.order
    :members:
 
+Orders Class
+====================
+.. automodule:: frameworks.order.orders
+   :members:
+
 
 Indices and tables
 ==================
