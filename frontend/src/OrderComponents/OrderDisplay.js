@@ -57,6 +57,7 @@ export default class OrderDisplay extends React.Component {
         if (details) {
             var moment = require('moment');
             var time;
+            var eta;
             var mappedDetails = details.map((orderDetail, key) => {
                 time = moment.unix(orderDetail.timeCreated).format("hh:mm a"); // Convert unix time to normal time
                 var menuMapped = this.mapMenuToLabels(orderDetail.menu); // Map the menu items to be shown here
@@ -66,10 +67,14 @@ export default class OrderDisplay extends React.Component {
                         <div className="timelineCustomerOrder">
                             <OrderTimeline stage={orderDetail.stage} />
                         </div>
-                            
-                            
-                        
-                        
+                    </Card.Content>
+                    <Card.Content>
+                        {/* Check if there is an ETA, if there is then display it */}
+
+                        {(JSON.parse(orderDetail.metafield)['eta'] != null) && 
+                                (eta = moment.unix(JSON.parse(orderDetail.metafield)['eta']).format("hh:mm a")) &&
+                                <h4 className="etaText">ETA: {eta}</h4>
+                        }
                     </Card.Content>
                     <Card.Content extra>
                     {/*Display the mapped menu items*/}
