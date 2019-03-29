@@ -101,8 +101,7 @@
 .timelineCustomerOrder{
     text-align: center;
     padding: 10px;
-    border: dashed rgb(31, 112, 233);
-
+    border-bottom: solid rgb(31, 112, 233);
 }
 
 .singleBasketItem{
@@ -143,6 +142,8 @@
     height: 3.5em !important;
     display: inline-block !important;
     flex: 1 !important;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
 }
 
 #kitchenConfirmButton {
