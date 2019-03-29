@@ -1,6 +1,15 @@
 import React from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 
+/**
+ * The call waiter class is a class which handles the users callng the waiters. It includes the
+ * view for the user to use, whih is the modal view to which the user clicks on their table and then can select the
+ * call waiter buttons
+ * 
+ * To use this class use : <CallWaiter>
+ * 
+ */
+
 export default class CallWaiter extends React.Component {
     constructor(props) {
         super(props);
@@ -14,6 +23,13 @@ export default class CallWaiter extends React.Component {
         this.called = false;
     }
 
+    /**
+     * Make call to waiter is a method which interacts with the backend. It makes a call by using
+     * the call waiter endpoint. 
+     * 
+     * It passes, to this call the client key secret and the table number to call which then 
+     * gets polled on the waiter page and the notificaiton pops up.
+     */
     makeCallToWaiter() {
         this.setState({
             called: true
@@ -36,6 +52,13 @@ export default class CallWaiter extends React.Component {
             })
         }
     }
+
+    /**
+     * Handle set table is an event driven method, when the button is clicked 
+     * assigns the table to the current table that needs to be used. 
+     * 
+     * @param {onclick event by setting table button} event 
+     */
     
     handleSetTable(event) {
         if (this.state.table === event.target.value) {
@@ -51,11 +74,22 @@ export default class CallWaiter extends React.Component {
         }
     }
 
+    /**
+     * Resets the tables for the user if they want to select something, or nothing.
+     */
+    resetCalledSelected(){
+        this.setState({
+            selected: false,
+            called: false,
+            table: null
+        }); 
+    }
+
     render() {
-        var table = this.state.table === null ? "None" : this.state.table;
+        var table = this.state.table === null ? "None" : this.state.table; // Check if stable is null, then none.
         console.log(table)
         return (
-            <Modal trigger={<Button className="callWaiterModalTrigger" >Call Waiter</Button>}>
+            <Modal trigger={<Button onClick={() => {this.resetCalledSelected()}} className="callWaiterModalTrigger" >Call Waiter</Button>}>
                 <Modal.Header style={{textAlign: "center"}}>
                     Which table are you sitting at?
                 </Modal.Header>
@@ -73,6 +107,7 @@ export default class CallWaiter extends React.Component {
                     <div>
                         <div>
                             <h3 style={{textAlign: "center"}}><b>Your table: {table}</b></h3>
+                            {/**Conditional rendering based on the truth value on whether its selected*/}
                             {this.state.selected === false && this.state.called === true &&
                                 <h3 className="selectTableWarning"> Please select a table! </h3>
                             }
