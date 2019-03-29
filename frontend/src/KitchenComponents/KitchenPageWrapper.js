@@ -159,18 +159,21 @@ export default class KitchenPageWrapper extends React.Component {
 
             <React.Fragment>
                 <div className="waiterConfirmedSide" >
-                <h1>Waiter Confirmed</h1>
-            <Card.Group>
-                
-                {mappedWaiter}
-            </Card.Group></div>
-            <div className="toBeCompletedSide" >
-            <h1>To be Completed</h1>    
-            <Card.Group>
-                
-                {mappedToBeCompleted}
-            </Card.Group>
-            </div>
+                    <center>
+                        <h1 className="waiterConfirmedSideTitle">Waiter Confirmed</h1>
+                    </center>
+                    <Card.Group>
+                        {mappedWaiter}
+                    </Card.Group>
+                </div>
+                <div className="toBeCompletedSide" >
+                    <center>
+                        <h1 className="toBeCompletedSideTitle">In Progress</h1>
+                    </center>
+                    <Card.Group>
+                        {mappedToBeCompleted}
+                    </Card.Group>
+                </div>
             </React.Fragment>
         )
     }
