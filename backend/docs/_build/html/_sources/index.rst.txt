@@ -50,6 +50,10 @@ Notifications Class
 .. automodule:: frameworks.notifications.notifications
    :members:
 
+Order Class
+====================
+.. automodule:: frameworks.order.order
+   :members:
 
 
 Indices and tables

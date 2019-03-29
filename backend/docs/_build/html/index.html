@@ -430,6 +430,226 @@ Whilst you&#8217;re unlikely to need to access the class more than once you need
 </dd></dl>
 
 </div>
+<div class="section" id="module-frameworks.order.order">
+<span id="order-class"></span><h1>Order Class<a class="headerlink" href="#module-frameworks.order.order" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frameworks.order.order.order">
+<em class="property">class </em><code class="descclassname">frameworks.order.order.</code><code class="descname">order</code><a class="headerlink" href="#frameworks.order.order.order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Order class to handle the representation of an order. Includes various helper methods.</p>
+<dl class="method">
+<dt id="frameworks.order.order.order.createOrder">
+<code class="descname">createOrder</code><span class="sig-paren">(</span><em>name</em>, <em>email</em>, <em>table</em>, <em>items</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.createOrder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an order for a customer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; customer&#8217;s name</li>
+<li><strong>email</strong> &#8211; customer&#8217;s email</li>
+<li><strong>table</strong> &#8211; customer&#8217;s table</li>
+<li><strong>items</strong> &#8211; dict of items the customer has selected</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">order ID on success</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.getCustomer">
+<code class="descname">getCustomer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.getCustomer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter for customer associated with loaded order</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Loaded order status information</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.getOrderHistory">
+<code class="descname">getOrderHistory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.getOrderHistory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter for private order history field</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Loaded order history information</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.getOrderInfo">
+<code class="descname">getOrderInfo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.getOrderInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter for private order information field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Loaded order information</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.getOrderStatus">
+<code class="descname">getOrderStatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.getOrderStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter for private order status field</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Loaded order status information</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.kitchenComplete">
+<code class="descname">kitchenComplete</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.kitchenComplete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marks an item as completed by the kitchen</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> &#8211; order ID to mark</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.kitchenConfirm">
+<code class="descname">kitchenConfirm</code><span class="sig-paren">(</span><em>id</em>, <em>eta=0</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.kitchenConfirm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marks an item as confirmed by the kitchen</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> &#8211; order ID to mark as confirmed</li>
+<li><strong>eta</strong> &#8211; optional parameter for the expected time taken to complete the order</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.loadOrderHistory">
+<code class="descname">loadOrderHistory</code><span class="sig-paren">(</span><em>orderID</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.loadOrderHistory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads order history into class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>orderID</strong> &#8211; order ID to load history for</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True on success</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">order not found exception</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.loadOrderInfo">
+<code class="descname">loadOrderInfo</code><span class="sig-paren">(</span><em>orderID</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.loadOrderInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads order information into class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>orderID</strong> &#8211; order ID to load order information for</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">true on success</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">exception on order ID not found</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.orderCancel">
+<code class="descname">orderCancel</code><span class="sig-paren">(</span><em>id</em>, <em>refund=''</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.orderCancel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marks an item as cancelled.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> &#8211; order ID to mark as canclled</li>
+<li><strong>refund</strong> &#8211; Stripe refund ID, if the order was in a stage that required issuing a refund</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.paymentComplete">
+<code class="descname">paymentComplete</code><span class="sig-paren">(</span><em>id</em>, <em>chargeID</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.paymentComplete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marks a payment as complete.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> &#8211; order ID to mark as paid</li>
+<li><strong>chargeID</strong> &#8211; the associated Stripe Charge ID</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.waiterComplete">
+<code class="descname">waiterComplete</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.waiterComplete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marks an item as completed by the waiter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> &#8211; order ID to mark</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.waiterConfirm">
+<code class="descname">waiterConfirm</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.waiterConfirm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marks an item as confirmed by the waiter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> &#8211; order ID to mark</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
@@ -456,6 +676,7 @@ Whilst you&#8217;re unlikely to need to access the class more than once you need
 <li><a class="reference internal" href="#module-frameworks.item.item">Item Class</a></li>
 <li><a class="reference internal" href="#module-frameworks.items.items">Items Class</a></li>
 <li><a class="reference internal" href="#module-frameworks.notifications.notifications">Notifications Class</a></li>
+<li><a class="reference internal" href="#module-frameworks.order.order">Order Class</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 <div class="relations">
