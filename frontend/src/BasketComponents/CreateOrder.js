@@ -44,7 +44,7 @@ export default class CreateOrder extends React.Component {
 
     render() {
         return (
-            <Modal trigger={<Button className="viewBasket">View Basket</Button>}>
+            <Modal trigger={<Button className="viewBasket">Proceed to checkout</Button>}>
                 <Modal.Content>
                     <div style={{ float: "left", width: "30%"}} className="orderBasket">
                         <h1 id="orderFormTitle"> Your Basket </h1>

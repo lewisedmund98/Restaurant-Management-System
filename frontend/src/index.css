@@ -68,7 +68,7 @@
 }
 .viewBasket{
     width: 100%;
-    background-color: rgb(31, 112, 233) !important;
+    background-color: #27ae60 !important;
     color: white !important;
 }
 #yourOrdersBtn{
@@ -148,7 +148,7 @@
 #kitchenConfirmButton {
     margin-top: 4px !important;
     margin-bottom: 10px !important;
-    background-color: green !important;
+    background-color: #27ae60 !important;
     color: white !important;
     width: 100% !important;
     display: table-cell !important;
@@ -237,7 +237,7 @@
 }
 
 .addToBasket{
-    background-color: green !important;
+    background-color: #27ae60 !important;
     color: white !important;
     
 }
@@ -253,7 +253,7 @@
     margin-right: auto !important;
     margin-left: auto !important; 
     color: white !important;
-    background-Color: green !important; 
+    background-Color: #27ae60 !important; 
     margin-bottom: 2% !important; 
     margin-top: 2% !important;
 }
@@ -278,7 +278,7 @@
 }
 
 .ui.fluid.vertical.tabular.menu a.active {
-    background-color: green !important;
+    background-color: #27ae60 !important;
 
     color: white !important;
 }
@@ -302,11 +302,6 @@
 
 .ui.scrolling.modal.transition.visible.active {
     font-family: 'Segoe UI', Georgia, Times, serif !important;
-}
-
-.basketLabel {
-    color: black !important;
-    background-color: lawngreen !important;
 }
 
 #orderFormTitle {
@@ -346,7 +341,7 @@
 
 #ConfirmButton {
     margin-bottom: 10px !important;
-    background-color: green !important;
+    background-color: #27ae60 !important;
     color: white !important;
 
     /*Gradient*/
@@ -447,7 +442,7 @@ body {
     background-color: black;
 }
 .waiterConfirmBtn{
-    background-color: green !important;
+    background-color: #27ae60 !important;
     color: white !important;
 }
 .waiterCancelBtn{
@@ -507,4 +502,8 @@ body {
 
 .mainContainer {
     margin: 10px;
+}
+
+.basketLabel {
+    margin-bottom: 5px !important;
 }
