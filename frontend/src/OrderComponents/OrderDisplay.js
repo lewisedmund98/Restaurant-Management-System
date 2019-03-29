@@ -11,7 +11,6 @@ import { Card, List , Image, Button} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import TakeMoney from '../OrderComponents/Stripe.js';
 import OrderTimeline from '../OrderComponents/OrderTimeline.js';
-import tableImage from '../OrderComponents/tableImage.jpg'
 
 export default class OrderDisplay extends React.Component {
     constructor(props) {
@@ -63,12 +62,12 @@ export default class OrderDisplay extends React.Component {
                 var menuMapped = this.mapMenuToLabels(orderDetail.menu); // Map the menu items to be shown here
                 return (<Card key={key} style={{ display: "block", marginLeft: "auto", marginRight: "auto",  width: "50%", padding: "4px"}}>
                     <Card.Content>
-                        <h3 style={{marginBottom: "2px", marginTop: "0"}}>{time}</h3>
+                        <div style={{width: "100%", fontWeight: "bold", fontSize: "1.3em", marginBottom: "10px"}}><div style={{width: "50%", float: "left"}}>{time}</div><div style={{width: "50%", float: "right", textAlign: "right"}}>Table: {orderDetail.table}</div></div>
                         <div className="timelineCustomerOrder">
                             <OrderTimeline stage={orderDetail.stage} />
                         </div>
                             
-                            <div style={{fontSize: "2em", marginTop: "20px", marginBottom: "20px", textAlign: "center"}}><Image avatar src={tableImage} />: {orderDetail.table}</div>
+                            
                         
                         
                     </Card.Content>
