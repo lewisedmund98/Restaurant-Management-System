@@ -102,7 +102,8 @@
 .timelineCustomerOrder{
     text-align: center;
     padding: 10px;
-    border: dashed rgb(31, 112, 233);
+    border-bottom: solid rgb(31, 112, 233);
+    
 
 }
 
