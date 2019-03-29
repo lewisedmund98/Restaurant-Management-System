@@ -425,16 +425,14 @@ body {
 .waiterConfirmedSide{
     width: 45%;
     margin: 0;
+    margin-left: 10px;
     float: left;
-
-
 }
 
 .toBeCompletedSide{
     width: 45%;
     float: right;
     margin: 0;
-    
 }
 
 .kitchenOrderCardsContainer{
@@ -505,4 +503,8 @@ body {
 
 .basketLabel {
     margin-bottom: 5px !important;
+}
+
+.kitchenCardOrderID {
+    color: #7f8c8d;
 }

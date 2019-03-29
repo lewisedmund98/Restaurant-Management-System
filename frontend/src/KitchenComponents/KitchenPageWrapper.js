@@ -61,9 +61,13 @@ export default class KitchenPageWrapper extends React.Component {
             return (
                 <Card className="kitchenCard">
                     <Card.Content>
-                        <h5>{element.orderID}</h5>
+                        <center>
+                            <h1>{time} | Table: {element.table}</h1>
+                            <h5 className="kitchenCardOrderID">{element.orderID}</h5>
+                        </center>
+                    </Card.Content>
+                    <Card.Content extra>
                         {mappedKitchenItems}
-                        <h5>{time}</h5>
                     </Card.Content>
                     <Card.Content extra>
                         <div id="kitchenOrderButtons">
@@ -119,9 +123,13 @@ export default class KitchenPageWrapper extends React.Component {
             return (
                 <Card className="kitchenCard" >
                     <Card.Content>
-                        <h5>{element.orderID}</h5>
+                        <center>
+                            <h1>{time} | Table: {element.table}</h1>
+                            <h5 className="kitchenCardOrderID">{element.orderID}</h5>
+                        </center>
+                    </Card.Content>
+                    <Card.Content extra>
                         {mappedKitchenItems}
-                        <h5>{time}</h5>
                     </Card.Content>
                     <Card.Content extra>
                         <div id="kitchenOrderButtons">
