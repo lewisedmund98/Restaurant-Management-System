@@ -11,13 +11,11 @@ import KitchenPageController from "../KitchenComponents/KitchenPageController";
 export default class kitchen extends React.Component {
     constructor(props) {
         super(props);
-        //this.tempGetAccess = this.tempGetAccess.bind(this);
         this.state = {
             accessToken: document.cookie.replace(/(?:(?:^|.*;\s*)accessToken\s*\=\s*([^;]*).*$)|^.*$/, "$1"), // Should be set by staff login
             userID: document.cookie.replace(/(?:(?:^|.*;\s*)userID\s*\=\s*([^;]*).*$)|^.*$/, "$1"), // Should be set by Staff login
             badAccessToken : false
         }
-        //this.updateAccessToken = this.updateAccessToken.bind(this);
         this.addAsyncRequest = this.addAsyncRequest.bind(this);
         this.runRequests = this.runRequests.bind(this);
         this.running = false; // If there are requests runnnig this becomes true
@@ -113,42 +111,6 @@ export default class kitchen extends React.Component {
         this.running = false; // It's no longer running, can make the call again from addRequests
     }
 
-    // updateAccessToken(newAccessToken) {
-    //     console.log("Old: " + this.state.accessToken);
-    //     console.log("New: " + newAccessToken);
-    //     this.setState({
-    //         accessToken: newAccessToken
-    //     })
-    // }
-
-    // async componentDidMount() { // Temp method needs to be replaced by staff login
-    //     await this.tempGetAccess();
-    // }
-
-    /**
-     * Temporary method will be replaced by the staff login
-     */
-
-    // async tempGetAccess() {
-    //     await fetch("https://flask.team-project.crablab.co/authentication/login", {
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         method: "POST",
-
-    //         body: JSON.stringify({username:"kitchen", password:"s3kr3tp4ssw0rd", key: "abc123", secret: "def456"}), // pulls the order id from the order ID given
-
-    //     })
-    //         .then(result => result.json())
-    //         .then(async (json) => {
-    //             await this.setState({
-    //                 accessToken: json.login.access_token,
-    //                 userID: json.login.userID
-    //             })
-    //         });
-    // }
-
-   
     render() {
         document.title = "Oaxaca Kitchen";
         if(this.state.badAccessToken){

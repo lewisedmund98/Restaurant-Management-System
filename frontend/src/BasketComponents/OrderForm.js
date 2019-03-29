@@ -89,26 +89,22 @@ export default class OrderForm extends React.Component {
         return (
             <Form onSubmit={this.createOrder}>
                 <Form.Field>
-                    <Label class="basketLabel">Full Name</Label>
-                    <Input required onChange={this.handleInputChange} name="name" placeholder='Full Name...' />
+                    <Label className="basketLabel">Full Name</Label>
+                    <Input required onChange={this.handleInputChange} name="name" placeholder='Full Name...' required />
                 </Form.Field>
                 
                 <Form.Field>
-                    <Label class="basketLabel">Email Address</Label>
-                    <Input required onChange={this.handleInputChange} name="email" placeholder='Email Address...' />
+                    <Label className="basketLabel">Email Address</Label>
+                    <Input required onChange={this.handleInputChange} name="email" typer="email" placeholder='Email Address...' required />
                 </Form.Field>
 
                 <Form.Field>
-                    <Label class="basketLabel">Table Number</Label>
+                    <Label className="basketLabel">Table Number</Label>
                     <Dropdown required onChange={this.handleInputChange} name="tableNumber"
-                        placeholder='Select a table...' search selection options={this.tables} />
+                        placeholder='Select a table...' search selection options={this.tables} required />
                 </Form.Field>
                 
-                <Form.Field>
-                    <Checkbox required label='I agree to the Terms and Conditions' />
-                </Form.Field>
-                
-                <Button type='submit' id="ConfirmButton">Proceed to checkout</Button>
+                <Button type='submit' id="ConfirmButton">Confirm Order</Button>
             </Form>
         )
     }

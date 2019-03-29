@@ -55,7 +55,6 @@
     grid-template-columns: auto auto auto !important;
 }
 .basketSide{
-    margin-top: 7%;
     float: right;
     background-color: white;
     width: 20%; 
@@ -69,7 +68,7 @@
 }
 .viewBasket{
     width: 100%;
-    background-color: rgb(31, 112, 233) !important;
+    background-color: #27ae60 !important;
     color: white !important;
 }
 #yourOrdersBtn{
@@ -148,7 +147,7 @@
 #kitchenConfirmButton {
     margin-top: 4px !important;
     margin-bottom: 10px !important;
-    background-color: green !important;
+    background-color: #27ae60 !important;
     color: white !important;
     width: 100% !important;
     display: table-cell !important;
@@ -237,7 +236,7 @@
 }
 
 .addToBasket{
-    background-color: green !important;
+    background-color: #27ae60 !important;
     color: white !important;
     
 }
@@ -253,7 +252,7 @@
     margin-right: auto !important;
     margin-left: auto !important; 
     color: white !important;
-    background-Color: green !important; 
+    background-Color: #27ae60 !important; 
     margin-bottom: 2% !important; 
     margin-top: 2% !important;
 }
@@ -278,7 +277,7 @@
 }
 
 .ui.fluid.vertical.tabular.menu a.active {
-    background-color: green !important;
+    background-color: #27ae60 !important;
 
     color: white !important;
 }
@@ -302,11 +301,6 @@
 
 .ui.scrolling.modal.transition.visible.active {
     font-family: 'Segoe UI', Georgia, Times, serif !important;
-}
-
-.basketLabel {
-    color: black !important;
-    background-color: lawngreen !important;
 }
 
 #orderFormTitle {
@@ -346,7 +340,7 @@
 
 #ConfirmButton {
     margin-bottom: 10px !important;
-    background-color: green !important;
+    background-color: #27ae60 !important;
     color: white !important;
 
     /*Gradient*/
@@ -430,16 +424,14 @@ body {
 .waiterConfirmedSide{
     width: 45%;
     margin: 0;
+    margin-left: 10px;
     float: left;
-
-
 }
 
 .toBeCompletedSide{
     width: 45%;
     float: right;
     margin: 0;
-    
 }
 
 .kitchenOrderCardsContainer{
@@ -447,7 +439,7 @@ body {
     background-color: black;
 }
 .waiterConfirmBtn{
-    background-color: green !important;
+    background-color: #27ae60 !important;
     color: white !important;
 }
 .waiterCancelBtn{
@@ -473,7 +465,6 @@ body {
 
 .loginHomeContainer{
     text-align: center !important;
-    border: 1px solid black !important;
     width: 500px !important;
     height: 250px !important;
     position: fixed !important;
@@ -483,4 +474,85 @@ body {
     bottom: 0 !important;
     margin: auto !important;
     display: inline-block !important;
+}
+
+.login {
+    margin-top: 20px;
+}
+
+.custActionsHR {
+    margin-bottom: -1px;
+}
+
+.custActions, .menuEditDiv {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+}
+
+.loginButton {
+    display: block !important;
+	margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.mainContainer {
+    margin: 10px;
+}
+
+.basketLabel {
+    margin-bottom: 5px !important;
+}
+
+.kitchenCardOrderID {
+    color: #7f8c8d;
+}
+
+.waiterConfirmedSideTitle, .toBeCompletedSideTitle {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important; 
+}
+
+.enableMenuItems {
+    background-color: #27ae60 !important;
+    color: white !important;
+}
+
+.disableMenuItems {
+    background-color: #c0392b !important;
+    color: white !important;
+}
+
+.enableMenuItems:hover {
+    background-color: darkgreen !important;
+}
+
+.disableMenuItems:hover {
+    background-color: darkred !important;
+}
+
+.MenuItemsSave {
+    display: block !important;
+	margin-left: auto !important;
+    margin-right: auto !important;
+    margin-bottom: 10px !important;
+    background-color: #27ae60 !important;
+    color: white !important;
+}
+
+.ListItemActive {
+    background-color: #a7e5c1;
+}
+
+.listItemContent {
+    padding: 10px;
+}
+
+.ListItem {
+    text-align: center;
+    border: 2px solid #bdc3c7;
+    border-radius: 10px;
+    margin: 5px;
+    margin-right: 35%;
+    margin-left: 35%;
 }

@@ -1,0 +1,828 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Welcome to Team Project’s documentation! &#8212; Team Project 2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-team-project-s-documentation">
+<h1>Welcome to Team Project&#8217;s documentation!<a class="headerlink" href="#welcome-to-team-project-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="module-app">
+<span id="flask-application"></span><h1>Flask Application<a class="headerlink" href="#module-app" title="Permalink to this headline">¶</a></h1>
+<p>The backend Flask app for the Resturant Management System.</p>
+<p>This handles all of the routing and calling of downstream services to indivudally handle requests. There is no logic in this file.</p>
+</div>
+<div class="section" id="module-frameworks.authentication.auth">
+<span id="authentication-class"></span><h1>Authentication Class<a class="headerlink" href="#module-frameworks.authentication.auth" title="Permalink to this headline">¶</a></h1>
+<p>The main authentication class used for API token validation, logging in and auth token exchanges.</p>
+<p>Important to note that there aren&#8217;t inherent security features built into
+this class as it is designed to be called by API handlers. Python also doesn&#8217;t have
+private methods so there isn&#8217;t much point designing code to prevent access tokens
+being generate out of sequence as the method can be called anyway</p>
+<dl class="class">
+<dt id="frameworks.authentication.auth.authentication">
+<em class="property">class </em><code class="descclassname">frameworks.authentication.auth.</code><code class="descname">authentication</code><span class="sig-paren">(</span><em>token</em>, <em>secret</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.authentication.auth.authentication" title="Permalink to this definition">¶</a></dt>
+<dd><p>The constructor for the authentication class.</p>
+<p>A valid API <cite>key</cite> and <cite>secret</cite> (here named <cite>token</cite> instead of key) need to be provided. 
+These are used to authenticate API requests from a client.</p>
+<dl class="method">
+<dt id="frameworks.authentication.auth.authentication.authenticateRequest">
+<code class="descname">authenticateRequest</code><span class="sig-paren">(</span><em>access_tok</em>, <em>uid</em>, <em>level</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.authentication.auth.authentication.authenticateRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes provided API creds and ensures the user has been previously authenticated.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_tok</strong> &#8211; should have been previously issued at a valid login</li>
+<li><strong>uid</strong> &#8211; the user ID we are expecting to log in</li>
+<li><strong>level</strong> &#8211; the permissions level of the resource (int)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int with HTTP status code</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><cite>401</cite> - authentication not completed/expired</p>
+<p><cite>403</cite> - not permitted for given level</p>
+<p><cite>404</cite> - something is not correct (couldn&#8217;t find the user)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.authentication.auth.authentication.authenticateUser">
+<code class="descname">authenticateUser</code><span class="sig-paren">(</span><em>username</em>, <em>password</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.authentication.auth.authentication.authenticateUser" title="Permalink to this definition">¶</a></dt>
+<dd><p>User authentication for waiter, kitchen staff or manager.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>username</strong> &#8211; Valid username</li>
+<li><strong>password</strong> &#8211; Valid password</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><cite>False</cite> on error or <cite>userID</cite> on success.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.authentication.auth.authentication.generateAccessToken">
+<code class="descname">generateAccessToken</code><span class="sig-paren">(</span><em>uid</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.authentication.auth.authentication.generateAccessToken" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates an access token that can be used to authenticate API requests.
+Needs to be provided to <cite>authenticateRequest</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uid</strong> &#8211; a valid user ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Access token</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-frameworks.customer.customer">
+<span id="customer-class"></span><h1>Customer Class<a class="headerlink" href="#module-frameworks.customer.customer" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frameworks.customer.customer.customer">
+<em class="property">class </em><code class="descclassname">frameworks.customer.customer.</code><code class="descname">customer</code><a class="headerlink" href="#frameworks.customer.customer.customer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object representation of a customer.</p>
+<p>Provides various helper methods. Exclusivly used in order class.</p>
+<dl class="method">
+<dt id="frameworks.customer.customer.customer.createCustomer">
+<code class="descname">createCustomer</code><span class="sig-paren">(</span><em>name</em>, <em>email</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.customer.customer.customer.createCustomer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows creation of a new customer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; Customer&#8217;s name</li>
+<li><strong>email</strong> &#8211; Customer&#8217; email</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Customer&#8217;s ID</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.customer.customer.customer.getCustomer">
+<code class="descname">getCustomer</code><span class="sig-paren">(</span><em>customerID</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.customer.customer.customer.getCustomer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets customer data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>customerID</strong> &#8211; Customer&#8217;s ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>dict</cite> of customer data</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.customer.customer.customer.locateCustomer">
+<code class="descname">locateCustomer</code><span class="sig-paren">(</span><em>email</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.customer.customer.customer.locateCustomer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether a customer already exists for supplied parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>email</strong> &#8211; Email to check for existing customer&#8217;s with.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Customer ID for existing customer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">False if no customer found</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body">Error on duplicate customers</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-frameworks.database.db">
+<span id="database-class"></span><h1>Database Class<a class="headerlink" href="#module-frameworks.database.db" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frameworks.database.db.db">
+<em class="property">class </em><code class="descclassname">frameworks.database.db.</code><code class="descname">db</code><a class="headerlink" href="#frameworks.database.db.db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encapsulation of database connection.</p>
+<p>Creates a new connection upon instantiation and closes the connection upon destruction. 
+Whilst you&#8217;re unlikely to need to access the class more than once you need to keep it in scope otherwise it will be auto-destructed by Python.</p>
+<p>Example useage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">__databaseClass</span> <span class="o">=</span> <span class="n">db</span><span class="p">()</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">__connectionObject</span> <span class="o">=</span> <span class="n">databaseClass</span><span class="o">.</span><span class="n">getInstance</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="frameworks.database.db.db.getInstance">
+<code class="descname">getInstance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.database.db.db.getInstance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter for connection instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">PyMySQL connection object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-frameworks.idGenerator.id">
+<span id="id-class"></span><h1>ID Class<a class="headerlink" href="#module-frameworks.idGenerator.id" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frameworks.idGenerator.id.id">
+<em class="property">class </em><code class="descclassname">frameworks.idGenerator.id.</code><code class="descname">id</code><a class="headerlink" href="#frameworks.idGenerator.id.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for <cite>cuid</cite>.</p>
+<dl class="method">
+<dt id="frameworks.idGenerator.id.id.getID">
+<code class="descname">getID</code><span class="sig-paren">(</span><em>prefix</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.idGenerator.id.id.getID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for <cite>cuid</cite> with custom prefix.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>prefix</strong> &#8211; Prefix to append CUID ID with</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">unique ID string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-frameworks.item.item">
+<span id="item-class"></span><h1>Item Class<a class="headerlink" href="#module-frameworks.item.item" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frameworks.item.item.item">
+<em class="property">class </em><code class="descclassname">frameworks.item.item.</code><code class="descname">item</code><a class="headerlink" href="#frameworks.item.item.item" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object representation of an Item with various helper methods.</p>
+<dl class="method">
+<dt id="frameworks.item.item.item.get">
+<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.item.item.item.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter for loaded data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>dict</cite> with item data or null if it hasn&#8217;t been loaded.load</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.item.item.item.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.item.item.item.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an ID, loads the relevant data from the database into the object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> &#8211; valid item ID</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.item.item.item.save">
+<code class="descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.item.item.item.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>NOP. Hasn&#8217;t been implemented yet.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-frameworks.items.items">
+<span id="items-class"></span><h1>Items Class<a class="headerlink" href="#module-frameworks.items.items" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frameworks.items.items.items">
+<em class="property">class </em><code class="descclassname">frameworks.items.items.</code><code class="descname">items</code><a class="headerlink" href="#frameworks.items.items.items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Items class which uses <cite>item</cite> class. Includes various helper methods.</p>
+<dl class="method">
+<dt id="frameworks.items.items.items.get">
+<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.items.items.items.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter for the loaded items.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">List of Item objects.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.items.items.items.load">
+<code class="descname">load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.items.items.items.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load all items.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.items.items.items.loadDisabled">
+<code class="descname">loadDisabled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.items.items.items.loadDisabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load disabled items.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.items.items.items.loadEnabled">
+<code class="descname">loadEnabled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.items.items.items.loadEnabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load enabled items.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.items.items.items.setItemsToggle">
+<code class="descname">setItemsToggle</code><span class="sig-paren">(</span><em>items</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.items.items.items.setItemsToggle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the toggle for supplied item and toggle pairs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>items</strong> &#8211; dict of <cite>itemID</cite> and <cite>enabled</cite> pairs, where <cite>enabled</cite> is <cite>True</cite> or <cite>False</cite> depending.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.items.items.items.updateItem">
+<code class="descname">updateItem</code><span class="sig-paren">(</span><em>itemID</em>, <em>fields</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.items.items.items.updateItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates an item with the supplied fields.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>itemID</strong> &#8211; the item ID to update</li>
+<li><strong>fields</strong> &#8211; dict of fields with attributes for the item and value pairs.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-frameworks.notifications.notifications">
+<span id="notifications-class"></span><h1>Notifications Class<a class="headerlink" href="#module-frameworks.notifications.notifications" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frameworks.notifications.notifications.notifications">
+<em class="property">class </em><code class="descclassname">frameworks.notifications.notifications.</code><code class="descname">notifications</code><a class="headerlink" href="#frameworks.notifications.notifications.notifications" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notifications class to support sending arbitory notifications to and from the customer and resturant staff.</p>
+<dl class="method">
+<dt id="frameworks.notifications.notifications.notifications.createNotification">
+<code class="descname">createNotification</code><span class="sig-paren">(</span><em>table</em>, <em>type</em>, <em>meta</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.notifications.notifications.notifications.createNotification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a notification for a customer to the waiter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>table</strong> &#8211; table number that has created the notification</li>
+<li><strong>type</strong> &#8211; type of notification that has been made</li>
+<li><strong>meta</strong> &#8211; metadata JSON</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">notification ID</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.notifications.notifications.notifications.getNotification">
+<code class="descname">getNotification</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.notifications.notifications.notifications.getNotification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get&#8217;s the notifiation data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> &#8211; valid notification ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dict of notification data</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.notifications.notifications.notifications.getUnreadByTable">
+<code class="descname">getUnreadByTable</code><span class="sig-paren">(</span><em>table</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.notifications.notifications.notifications.getUnreadByTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get&#8217;s unread notifications by the table that created them.</p>
+<p>Also marks all of these notifications read.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>table</strong> &#8211; table number to filter by</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dict of notification data</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-frameworks.order.order">
+<span id="order-class"></span><h1>Order Class<a class="headerlink" href="#module-frameworks.order.order" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frameworks.order.order.order">
+<em class="property">class </em><code class="descclassname">frameworks.order.order.</code><code class="descname">order</code><a class="headerlink" href="#frameworks.order.order.order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Order class to handle the representation of an order. Includes various helper methods.</p>
+<dl class="method">
+<dt id="frameworks.order.order.order.createOrder">
+<code class="descname">createOrder</code><span class="sig-paren">(</span><em>name</em>, <em>email</em>, <em>table</em>, <em>items</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.createOrder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an order for a customer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; customer&#8217;s name</li>
+<li><strong>email</strong> &#8211; customer&#8217;s email</li>
+<li><strong>table</strong> &#8211; customer&#8217;s table</li>
+<li><strong>items</strong> &#8211; dict of items the customer has selected</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">order ID on success</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.getCustomer">
+<code class="descname">getCustomer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.getCustomer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter for customer associated with loaded order</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Loaded order status information</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.getOrderHistory">
+<code class="descname">getOrderHistory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.getOrderHistory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter for private order history field</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Loaded order history information</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.getOrderInfo">
+<code class="descname">getOrderInfo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.getOrderInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter for private order information field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Loaded order information</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.getOrderStatus">
+<code class="descname">getOrderStatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.getOrderStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter for private order status field</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Loaded order status information</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.kitchenComplete">
+<code class="descname">kitchenComplete</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.kitchenComplete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marks an item as completed by the kitchen</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> &#8211; order ID to mark</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.kitchenConfirm">
+<code class="descname">kitchenConfirm</code><span class="sig-paren">(</span><em>id</em>, <em>eta=0</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.kitchenConfirm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marks an item as confirmed by the kitchen</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> &#8211; order ID to mark as confirmed</li>
+<li><strong>eta</strong> &#8211; optional parameter for the expected time taken to complete the order</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.loadOrderHistory">
+<code class="descname">loadOrderHistory</code><span class="sig-paren">(</span><em>orderID</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.loadOrderHistory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads order history into class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>orderID</strong> &#8211; order ID to load history for</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True on success</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">order not found exception</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.loadOrderInfo">
+<code class="descname">loadOrderInfo</code><span class="sig-paren">(</span><em>orderID</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.loadOrderInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads order information into class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>orderID</strong> &#8211; order ID to load order information for</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">true on success</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">exception on order ID not found</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.orderCancel">
+<code class="descname">orderCancel</code><span class="sig-paren">(</span><em>id</em>, <em>refund=''</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.orderCancel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marks an item as cancelled.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> &#8211; order ID to mark as canclled</li>
+<li><strong>refund</strong> &#8211; Stripe refund ID, if the order was in a stage that required issuing a refund</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.paymentComplete">
+<code class="descname">paymentComplete</code><span class="sig-paren">(</span><em>id</em>, <em>chargeID</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.paymentComplete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marks a payment as complete.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> &#8211; order ID to mark as paid</li>
+<li><strong>chargeID</strong> &#8211; the associated Stripe Charge ID</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.waiterComplete">
+<code class="descname">waiterComplete</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.waiterComplete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marks an item as completed by the waiter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> &#8211; order ID to mark</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.order.order.waiterConfirm">
+<code class="descname">waiterConfirm</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.order.order.waiterConfirm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marks an item as confirmed by the waiter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> &#8211; order ID to mark</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-frameworks.order.orders">
+<span id="orders-class"></span><h1>Orders Class<a class="headerlink" href="#module-frameworks.order.orders" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frameworks.order.orders.orders">
+<em class="property">class </em><code class="descclassname">frameworks.order.orders.</code><code class="descname">orders</code><a class="headerlink" href="#frameworks.order.orders.orders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for orders with helper methods. This does not extend orders as none of the methods are shared.</p>
+<dl class="method">
+<dt id="frameworks.order.orders.orders.getOrders">
+<code class="descname">getOrders</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.orders.orders.getOrders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter for loaded orders</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict of loaded orders</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.order.orders.orders.loadOrders">
+<code class="descname">loadOrders</code><span class="sig-paren">(</span><em>filter</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.order.orders.orders.loadOrders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads orders according the filter provided and mappings stored by the class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filter</strong> &#8211; filter (endpoint name)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True on success</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">exception if mapping does not exist</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-frameworks.payment.payment">
+<span id="payment-class"></span><h1>Payment Class<a class="headerlink" href="#module-frameworks.payment.payment" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frameworks.payment.payment.payment">
+<em class="property">class </em><code class="descclassname">frameworks.payment.payment.</code><code class="descname">payment</code><a class="headerlink" href="#frameworks.payment.payment.payment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to handle payment interactions with Stripe on the backend.</p>
+<dl class="method">
+<dt id="frameworks.payment.payment.payment.cancelCharge">
+<code class="descname">cancelCharge</code><span class="sig-paren">(</span><em>orderID</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.payment.payment.payment.cancelCharge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cancels authorised or presented charges on an order ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>orderID</strong> &#8211; order ID to cancel charges for</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True on success</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">False on failure</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.payment.payment.payment.submitAuthorisation">
+<code class="descname">submitAuthorisation</code><span class="sig-paren">(</span><em>orderID</em>, <em>tokenID</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.payment.payment.payment.submitAuthorisation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submits an authorisation to Stripe based on tokenised information from form.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>orderID</strong> &#8211; order ID for which the payment is being submitted</li>
+<li><strong>tokenID</strong> &#8211; Stripe token from the frontend payment form</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Dict with success or failure message</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="frameworks.payment.payment.payment.submitPresentment">
+<code class="descname">submitPresentment</code><span class="sig-paren">(</span><em>orderID</em><span class="sig-paren">)</span><a class="headerlink" href="#frameworks.payment.payment.payment.submitPresentment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submits a presentment for an order with Stripe charge ID
+:param orderID: order ID to submit the presentment for
+:returns: True on success
+:raises: exception for order that is not authorised or has already presented
+:raises: exception when presentment failed</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to Team Project&#8217;s documentation!</a></li>
+<li><a class="reference internal" href="#module-app">Flask Application</a></li>
+<li><a class="reference internal" href="#module-frameworks.authentication.auth">Authentication Class</a></li>
+<li><a class="reference internal" href="#module-frameworks.customer.customer">Customer Class</a></li>
+<li><a class="reference internal" href="#module-frameworks.database.db">Database Class</a></li>
+<li><a class="reference internal" href="#module-frameworks.idGenerator.id">ID Class</a></li>
+<li><a class="reference internal" href="#module-frameworks.item.item">Item Class</a></li>
+<li><a class="reference internal" href="#module-frameworks.items.items">Items Class</a></li>
+<li><a class="reference internal" href="#module-frameworks.notifications.notifications">Notifications Class</a></li>
+<li><a class="reference internal" href="#module-frameworks.order.order">Order Class</a></li>
+<li><a class="reference internal" href="#module-frameworks.order.orders">Orders Class</a></li>
+<li><a class="reference internal" href="#module-frameworks.payment.payment">Payment Class</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Team 2.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
