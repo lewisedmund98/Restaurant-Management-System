@@ -485,7 +485,7 @@ body {
     margin-bottom: -1px;
 }
 
-.custActions {
+.custActions, .menuEditDiv {
     margin: 0 auto;
     text-align: center;
     width: 100%;
@@ -512,4 +512,48 @@ body {
 .waiterConfirmedSideTitle, .toBeCompletedSideTitle {
     margin-top: 20px !important;
     margin-bottom: 20px !important; 
+}
+
+.enableMenuItems {
+    background-color: #27ae60 !important;
+    color: white !important;
+}
+
+.disableMenuItems {
+    background-color: #c0392b !important;
+    color: white !important;
+}
+
+.enableMenuItems:hover {
+    background-color: darkgreen !important;
+}
+
+.disableMenuItems:hover {
+    background-color: darkred !important;
+}
+
+.MenuItemsSave {
+    display: block !important;
+	margin-left: auto !important;
+    margin-right: auto !important;
+    margin-bottom: 10px !important;
+    background-color: #27ae60 !important;
+    color: white !important;
+}
+
+.ListItemActive {
+    background-color: #a7e5c1;
+}
+
+.listItemContent {
+    padding: 10px;
+}
+
+.ListItem {
+    text-align: center;
+    border: 2px solid #bdc3c7;
+    border-radius: 10px;
+    margin: 5px;
+    margin-right: 35%;
+    margin-left: 35%;
 }
