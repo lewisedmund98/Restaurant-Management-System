@@ -143,17 +143,6 @@ export default class CustomerPageController extends React.Component {
             // We make a tab wrapper which creates the tabs on the screen and pass the list of dishes
             <div className="mainContainer">
 
-
-                <div className="login">
-                    <Link to={{
-                        pathname:"/login"
-                    }}>
-                    <Button className="loginButton">Staff Login</Button></Link>
-                </div> 
-
-          
-
-
                 <div style={{textAlign: "right"}}>
                     <CallWaiter></CallWaiter><MenuFiltering defaultList={this.state.permDishList}
                                                             dishList={this.state.dishList}
@@ -166,8 +155,13 @@ export default class CustomerPageController extends React.Component {
                             pathname: "/customerOrder",
                             state: {orderNumber: this.state.orderNumbers}
                         }}>
-                            <Button id="yourOrdersBtn">Your Orders</Button></Link>
-
+                        <Button id="yourOrdersBtn">Your Orders</Button></Link>
+                        <div className="login">
+                            <Link to={{
+                                pathname:"/login"
+                            }}>
+                            <Button className="loginButton">Staff Login</Button></Link>
+                        </div> 
                     </div>
                     <div id="ListCards">
                         <div className="TabWrapping">
@@ -175,10 +169,8 @@ export default class CustomerPageController extends React.Component {
                                         dishList={this.state.dishList}/>
 
                         </div>
-
                     </div>
                 </div>
-
             </div>
         )
     }

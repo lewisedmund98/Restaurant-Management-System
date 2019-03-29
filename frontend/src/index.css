@@ -485,3 +485,12 @@ body {
     margin: auto !important;
     display: inline-block !important;
 }
+
+.login {
+    margin-top: 20px;
+}
+.loginButton{
+    display: block !important;
+	margin-left: auto !important;
+    margin-right: auto !important;
+}
