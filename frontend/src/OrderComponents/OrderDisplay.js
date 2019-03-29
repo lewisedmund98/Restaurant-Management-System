@@ -10,7 +10,8 @@ import React from 'react';
 import { Card, List , Image, Button} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import TakeMoney from '../OrderComponents/Stripe.js';
-import OrderTimeline from '../OrderComponents/OrderTimeline.js'
+import OrderTimeline from '../OrderComponents/OrderTimeline.js';
+import tableImage from '../OrderComponents/tableImage.jpg'
 
 export default class OrderDisplay extends React.Component {
     constructor(props) {
@@ -62,19 +63,18 @@ export default class OrderDisplay extends React.Component {
                 var menuMapped = this.mapMenuToLabels(orderDetail.menu); // Map the menu items to be shown here
                 return (<Card key={key} style={{ display: "block", marginLeft: "auto", marginRight: "auto",  width: "50%", padding: "4px"}}>
                     <Card.Content>
-                        
+                        <h3 style={{marginBottom: "2px", marginTop: "0"}}>{time}</h3>
                         <div className="timelineCustomerOrder">
-                        <OrderTimeline stage={orderDetail.stage} /></div>
-                        
-                            <h3 style={{marginBottom: "2px", marginTop: "4px"}}>Order Number: {orderDetail.orderID}</h3>
-                            <h3 style={{marginBottom: "2px", marginTop: "0"}}>Order Placed at: {time}</h3>
-                            <h3 style={{margin: "0"}}>Table Number: {orderDetail.table}</h3>
+                            <OrderTimeline stage={orderDetail.stage} />
+                        </div>
+                            
+                            <div style={{fontSize: "2em", marginTop: "20px", marginBottom: "20px", textAlign: "center"}}><Image avatar src={tableImage} />: {orderDetail.table}</div>
                         
                         
                     </Card.Content>
                     <Card.Content extra>
                     {/*Display the mapped menu items*/}
-                        {menuMapped}
+                        <div style={{fontSize: "1.1em"}}>{menuMapped}</div>
                         
                     </Card.Content>
                     <Card.Description>
@@ -82,6 +82,9 @@ export default class OrderDisplay extends React.Component {
                         {(orderDetail.stage === "created") &&
                             <TakeMoney orderID={orderDetail.orderID}></TakeMoney>
                         }
+                    </Card.Description>
+                    <Card.Description style={{padding: "4px", textAlign: "center"}}>
+                        Order ID: {orderDetail.orderID}
                     </Card.Description>
                 </Card>
                 )})}
@@ -93,6 +96,7 @@ export default class OrderDisplay extends React.Component {
             var orders = this.mapOrderDetails(this.props.orderDetails);
         }
         return (
+            
             <div>
             <div style={{ width: "100%" }} className="ordersDiv">
                 <h1 style={{ textAlign: "center" }}>Your orders</h1>
