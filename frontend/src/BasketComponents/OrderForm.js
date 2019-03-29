@@ -101,7 +101,7 @@ export default class OrderForm extends React.Component {
                 <Form.Field>
                     <Label className="basketLabel">Table Number</Label>
                     <Dropdown required onChange={this.handleInputChange} name="tableNumber"
-                        placeholder='Select a table...' value="" search selection options={this.tables} required />
+                        placeholder='Select a table...' search selection options={this.tables} required />
                 </Form.Field>
                 
                 <Button type='submit' id="ConfirmButton">Confirm Order</Button>
