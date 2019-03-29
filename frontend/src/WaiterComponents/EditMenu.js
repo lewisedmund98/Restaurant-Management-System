@@ -131,7 +131,8 @@ export default class EditMenu extends React.Component {
                 <EditableMenuItem
                     item={item}
                     addToArray={this.addToArray} removeFromArray={this.removeFromArray}
-                    enable={true} itemID={item.itemID} dishName={item.itemName} itemImage={item.itemImage}></EditableMenuItem>
+                    enable={true} itemID={item.itemID} dishName={item.itemName} itemImage={item.itemImage}>
+                </EditableMenuItem>
             )
         })
         return mappedEnabled;
@@ -149,7 +150,8 @@ export default class EditMenu extends React.Component {
                 <EditableMenuItem
                     item={item}
                     addToArray={this.addToArray} removeFromArray={this.removeFromArray}
-                    disable={true} itemID={item.itemID} dishName={item.itemName} itemImage={item.itemImage}></EditableMenuItem>
+                    disable={true} itemID={item.itemID} dishName={item.itemName} itemImage={item.itemImage}>
+                </EditableMenuItem>
             )
         })
         return mappedDisabled;
@@ -219,23 +221,23 @@ export default class EditMenu extends React.Component {
             disabledItemsMapped = this.mapDisabledItems(this.state.disabledItems);
         }
         return (
-            <div>
+            <div className="menuEditDiv">
                 {/*Set the arrays back to empty if the user closes the page*/}
-                <Modal trigger={<Button>Enable Menu Items</Button>} onClose={() => { this.setState({ toBeEnabled: [] }) }}>
+                <Modal trigger={<Button className="enableMenuItems">Enable Menu Items</Button>} onClose={() => { this.setState({ toBeEnabled: [] }) }}>
                     <Modal.Content>
                         <List divided relaxed>
                             {disabledItemsMapped}
                         </List>
 
                     </Modal.Content>
-                    <Button onClick={() => this.updateItems(true)}>Save</Button> {/*Passes true to indicate its to be enabled*/}
+                    <Button className="MenuItemsSave" onClick={() => this.updateItems(true)}>Save</Button> {/*Passes true to indicate its to be enabled*/}
                 </Modal>
                 {/*Set the arrays back to empty if the user closes the page*/}
-                <Modal trigger={<Button>Diable Menu Items</Button>} onClose={() => { this.setState({ toBeDisabled: [] }) }}>
+                <Modal trigger={<Button className="disableMenuItems">Disable Menu Items</Button>} onClose={() => { this.setState({ toBeDisabled: [] }) }}>
                     <Modal.Content>
                         {enabledItemsMapped}
                     </Modal.Content>
-                    <Button onClick={() => this.updateItems(false)}>Save</Button> {/*Passes false to indicate its to be disabled*/}
+                    <Button className="MenuItemsSave" onClick={() => this.updateItems(false)}>Save</Button> {/*Passes false to indicate its to be disabled*/}
                 </Modal>
             </div>
         )

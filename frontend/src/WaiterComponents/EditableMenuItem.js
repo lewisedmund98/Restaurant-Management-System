@@ -49,9 +49,11 @@ export default class EditableMenuItem extends React.Component {
                 this.updateArray(this.props.itemID); // Update the array after the click has been occured
             }}>
             {/*When the button is clicked, the state updates and this sohws the colour of the item when clicked*/}
-                <List.Content style={{ backgroundColor: this.state.clicked ? "lime" : "transparent", padding: "20px" }}>
-                    <Image avatar src={this.props.itemImage}></Image>
-                    <h4>{this.props.dishName}</h4> {/*Display the dishName*/}
+                <List.Content className={this.state.clicked ? "ListItem ListItemActive" : "ListItem ListItemInactive"}>
+                    <div className="listItemContent">
+                        <Image avatar src={this.props.itemImage}></Image>
+                        <h4>{this.props.dishName}</h4> {/*Display the dishName*/}
+                    </div>
                 </List.Content>
             </List.Item>
         )

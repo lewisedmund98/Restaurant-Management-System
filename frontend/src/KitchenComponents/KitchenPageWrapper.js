@@ -61,9 +61,13 @@ export default class KitchenPageWrapper extends React.Component {
             return (
                 <Card className="kitchenCard">
                     <Card.Content>
-                        <h5>{element.orderID}</h5>
+                        <center>
+                            <h1>{time} | Table: {element.table}</h1>
+                            <h5 className="kitchenCardOrderID">{element.orderID}</h5>
+                        </center>
+                    </Card.Content>
+                    <Card.Content extra>
                         {mappedKitchenItems}
-                        <h5>{time}</h5>
                     </Card.Content>
                     <Card.Content extra>
                         <div id="kitchenOrderButtons">
@@ -119,9 +123,13 @@ export default class KitchenPageWrapper extends React.Component {
             return (
                 <Card className="kitchenCard" >
                     <Card.Content>
-                        <h5>{element.orderID}</h5>
+                        <center>
+                            <h1>{time} | Table: {element.table}</h1>
+                            <h5 className="kitchenCardOrderID">{element.orderID}</h5>
+                        </center>
+                    </Card.Content>
+                    <Card.Content extra>
                         {mappedKitchenItems}
-                        <h5>{time}</h5>
                     </Card.Content>
                     <Card.Content extra>
                         <div id="kitchenOrderButtons">
@@ -151,18 +159,21 @@ export default class KitchenPageWrapper extends React.Component {
 
             <React.Fragment>
                 <div className="waiterConfirmedSide" >
-                <h1>Waiter Confirmed</h1>
-            <Card.Group>
-                
-                {mappedWaiter}
-            </Card.Group></div>
-            <div className="toBeCompletedSide" >
-            <h1>To be Completed</h1>    
-            <Card.Group>
-                
-                {mappedToBeCompleted}
-            </Card.Group>
-            </div>
+                    <center>
+                        <h1 className="waiterConfirmedSideTitle">Waiter Confirmed</h1>
+                    </center>
+                    <Card.Group>
+                        {mappedWaiter}
+                    </Card.Group>
+                </div>
+                <div className="toBeCompletedSide" >
+                    <center>
+                        <h1 className="toBeCompletedSideTitle">In Progress</h1>
+                    </center>
+                    <Card.Group>
+                        {mappedToBeCompleted}
+                    </Card.Group>
+                </div>
             </React.Fragment>
         )
     }
